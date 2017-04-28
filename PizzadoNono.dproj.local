@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/04/27 20:04:08.000.225,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2017/04/27 20:05:18.000.000,C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrmBasePadrao.pas</Transaction>
+    <Transaction>2017/04/27 20:05:18.000.000,C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrmBasePadrao.dfm</Transaction>
+    <Transaction>2017/04/27 20:05:38.000.516,C:\Users\User\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\PizzadoNono.dproj</Transaction>
+    <Transaction>2017/04/27 20:19:30.000.493,=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.pas</Transaction>
+    <Transaction>2017/04/27 20:19:57.000.994,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uPrincipal.dfm</Transaction>
+    <Transaction>2017/04/27 20:19:57.000.994,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uPrincipal.pas</Transaction>
+    <Transaction>2017/04/27 21:57:02.000.050,=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.pas</Transaction>
+    <Transaction>2017/04/27 21:57:33.000.341,=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.pas</Transaction>
+    <Transaction>2017/04/27 22:02:51.000.499,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrameBotao.dfm</Transaction>
+    <Transaction>2017/04/27 22:02:51.000.499,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrameBotao.pas</Transaction>
+  </Transactions>
+</BorlandProject>

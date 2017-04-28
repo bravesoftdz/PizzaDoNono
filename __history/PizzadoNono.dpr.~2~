@@ -1,0 +1,17 @@
+program PizzadoNono;
+
+uses
+  Vcl.Forms,
+  uFrmBasePadrao in 'uFrmBasePadrao.pas' {frmBasePadrao},
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  Unit1 in 'Unit1.pas' {IWFrame1: TFrame},
+  uFrameBotao in 'uFrameBotao.pas' {Frame2: TFrame};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.Run;
+end.

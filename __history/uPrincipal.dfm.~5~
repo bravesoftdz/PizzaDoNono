@@ -1,0 +1,51 @@
+inherited frmPrincipal: TfrmPrincipal
+  Caption = 'frmPrincipal'
+  ClientHeight = 289
+  ClientWidth = 571
+  FormStyle = fsMDIForm
+  Visible = True
+  WindowState = wsMaximized
+  ExplicitWidth = 577
+  ExplicitHeight = 318
+  PixelsPerInch = 96
+  TextHeight = 23
+  object ToolBar1: TToolBar
+    Left = 0
+    Top = 0
+    Width = 571
+    Height = 60
+    ButtonHeight = 60
+    ButtonWidth = 57
+    Caption = 'ToolBar1'
+    Ctl3D = False
+    Customizable = True
+    TabOrder = 0
+    object btnPedidos: TBitBtn
+      Left = 0
+      Top = 0
+      Width = 97
+      Height = 60
+      Caption = 'Pedidos'
+      TabOrder = 0
+    end
+    object btnSabores: TBitBtn
+      Left = 97
+      Top = 0
+      Width = 84
+      Height = 60
+      Caption = 'Sabores'
+      TabOrder = 1
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 60
+    Width = 571
+    Height = 229
+    Align = alClient
+    Color = clWhite
+    ParentBackground = False
+    TabOrder = 1
+    ExplicitTop = 66
+  end
+end
