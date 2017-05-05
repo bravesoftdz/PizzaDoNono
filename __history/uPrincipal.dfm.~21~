@@ -1,19 +1,18 @@
 inherited frmPrincipal: TfrmPrincipal
   Caption = 'frmPrincipal'
-  ClientHeight = 393
-  ClientWidth = 946
+  ClientHeight = 289
+  ClientWidth = 751
   FormStyle = fsMDIForm
   Visible = True
   WindowState = wsMaximized
-  ExplicitWidth = 952
-  ExplicitHeight = 422
+  ExplicitWidth = 757
+  ExplicitHeight = 318
   PixelsPerInch = 96
   TextHeight = 23
   object btnPedido: TPanel
-    AlignWithMargins = True
-    Left = 3
-    Top = 3
-    Width = 120
+    Left = 160
+    Top = 8
+    Width = 129
     Height = 113
     Cursor = crHandPoint
     BevelOuter = bvNone
@@ -24,10 +23,11 @@ inherited frmPrincipal: TfrmPrincipal
     ShowCaption = False
     TabOrder = 0
     object Image1: TImage
-      Left = 30
+      Left = 32
       Top = 8
       Width = 64
       Height = 64
+      Cursor = crCross
       AutoSize = True
       Center = True
       Enabled = False
@@ -635,23 +635,11 @@ inherited frmPrincipal: TfrmPrincipal
     object SpeedButton2: TSpeedButton
       Left = 0
       Top = 0
-      Width = 120
+      Width = 129
       Height = 113
       Align = alClient
       Flat = True
-      Layout = blGlyphTop
-      ExplicitLeft = 3
-      ExplicitTop = 3
-      ExplicitHeight = 107
-    end
-    object Label1: TLabel
-      Left = 0
-      Top = 78
-      Width = 120
-      Height = 23
-      Alignment = taCenter
-      AutoSize = False
-      Caption = 'Pedidos'
+      ExplicitLeft = -24
     end
   end
 end

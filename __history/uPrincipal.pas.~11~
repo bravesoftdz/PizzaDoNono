@@ -5,12 +5,11 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
-  Vcl.ToolWin;
+  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, uFrameBotao;
 
 type
-  TfrmBasePadrao1 = class(TfrmBasePadrao)
-    ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
+  TfrmPrincipal = class(TfrmBasePadrao)
+    FrameBotao1: TFrameBotao;
   private
     { Private declarations }
   public
@@ -18,7 +17,7 @@ type
   end;
 
 var
-  frmBasePadrao1: TfrmBasePadrao1;
+  frmPrincipal: TfrmPrincipal;
 
 implementation
 

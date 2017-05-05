@@ -1,5 +1,0 @@
-inherited frmBasePadrao1: TfrmBasePadrao1
-  Caption = 'frmBasePadrao1'
-  PixelsPerInch = 96
-  TextHeight = 23
-end

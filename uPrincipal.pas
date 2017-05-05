@@ -3,13 +3,18 @@ unit uPrincipal;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
-  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, uFrameBotao;
+  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, uFrameBotao,
+  Vcl.Imaging.pngimage;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
-    FrameBotao1: TFrameBotao;
+    btnPedido: TPanel;
+    Image1: TImage;
+    SpeedButton2: TSpeedButton;
+    Label1: TLabel;
   private
     { Private declarations }
   public
