@@ -15,10 +15,6 @@ type
     Image1: TImage;
     SpeedButton2: TSpeedButton;
     Label1: TLabel;
-    btnSabores: TPanel;
-    SpeedButton1: TSpeedButton;
-    Sabores: TLabel;
-    Image2: TImage;
   private
     { Private declarations }
   public
