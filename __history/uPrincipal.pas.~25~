@@ -12,15 +12,19 @@ uses
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
+    ToolBar1: TToolBar;
     btnPedido: TPanel;
     Image1: TImage;
     Label1: TLabel;
     SpeedButton2: TSpeedButton;
+    btnpProtudos: TPanel;
+    Image3: TImage;
+    Produtos: TLabel;
+    SpeedButton3: TSpeedButton;
     btnSabores: TPanel;
     Sabores: TLabel;
     Image2: TImage;
     SpeedButton1: TSpeedButton;
-    procedure SpeedButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,12 +37,5 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmPrincipal.SpeedButton2Click(Sender: TObject);
-begin
-  inherited;
-  frmBasePadrao1 := TfrmBasePadrao1.Create(Self);
-  frmPrincipal.Show;
-end;
 
 end.

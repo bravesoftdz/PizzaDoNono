@@ -9,17 +9,32 @@ inherited frmPrincipal: TfrmPrincipal
   ExplicitHeight = 422
   PixelsPerInch = 96
   TextHeight = 23
+  object Panel5: TPanel
+    Left = 0
+    Top = 0
+    Width = 697
+    Height = 393
+    Align = alClient
+    AutoSize = True
+    BevelOuter = bvNone
+    Caption = 'Panel5'
+    ShowCaption = False
+    TabOrder = 3
+    ExplicitLeft = -160
+    ExplicitTop = -250
+    ExplicitWidth = 857
+    ExplicitHeight = 643
+  end
   object btnPedido: TPanel
     AlignWithMargins = True
-    Left = 8
-    Top = 8
+    Left = 3
+    Top = 3
     Width = 120
-    Height = 120
+    Height = 113
     Cursor = crHandPoint
     BevelOuter = bvNone
     Color = clWhite
     Ctl3D = True
-    Locked = True
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
@@ -148,11 +163,10 @@ inherited frmPrincipal: TfrmPrincipal
       Left = 0
       Top = 0
       Width = 120
-      Height = 120
+      Height = 113
       Align = alClient
       Flat = True
       Layout = blGlyphTop
-      OnClick = SpeedButton2Click
       ExplicitLeft = 3
       ExplicitTop = 3
       ExplicitHeight = 107
@@ -160,15 +174,14 @@ inherited frmPrincipal: TfrmPrincipal
   end
   object btnSabores: TPanel
     AlignWithMargins = True
-    Left = 134
-    Top = 8
+    Left = 144
+    Top = 3
     Width = 120
-    Height = 120
+    Height = 113
     Cursor = crHandPoint
     BevelOuter = bvNone
     Color = clWhite
     Ctl3D = True
-    Locked = True
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
@@ -392,17 +405,47 @@ inherited frmPrincipal: TfrmPrincipal
         44AE426082}
     end
     object SpeedButton1: TSpeedButton
-      AlignWithMargins = True
-      Left = 3
-      Top = 3
-      Width = 114
-      Height = 114
+      Left = 0
+      Top = 0
+      Width = 120
+      Height = 113
       Align = alClient
       Flat = True
-      ExplicitLeft = 14
-      ExplicitTop = 0
-      ExplicitWidth = 120
-      ExplicitHeight = 120
+      ExplicitLeft = 24
+      ExplicitTop = 40
+    end
+  end
+  object btnpProtudos: TPanel
+    AlignWithMargins = True
+    Left = 278
+    Top = 8
+    Width = 120
+    Height = 113
+    BevelOuter = bvNone
+    Caption = 'btnpProtudos'
+    ShowCaption = False
+    TabOrder = 2
+    object Image3: TImage
+      Left = 4
+      Top = 3
+      Width = 105
+      Height = 105
+      AutoSize = True
+      Center = True
+    end
+    object Produtos: TLabel
+      Left = 26
+      Top = 73
+      Width = 70
+      Height = 23
+      Alignment = taCenter
+      Caption = 'Produtos'
+    end
+    object SpeedButton3: TSpeedButton
+      Left = 17
+      Top = 13
+      Width = 23
+      Height = 22
     end
   end
 end

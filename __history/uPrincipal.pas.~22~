@@ -7,20 +7,22 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
   Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage,
-  uCadastroBase;
+  Vcl.Imaging.pngimage;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
     btnPedido: TPanel;
     Image1: TImage;
-    Label1: TLabel;
     SpeedButton2: TSpeedButton;
+    Label1: TLabel;
     btnSabores: TPanel;
+    SpeedButton1: TSpeedButton;
     Sabores: TLabel;
     Image2: TImage;
-    SpeedButton1: TSpeedButton;
-    procedure SpeedButton2Click(Sender: TObject);
+    btnpProtudos: TPanel;
+    Image3: TImage;
+    Produtos: TLabel;
+    SpeedButton3: TSpeedButton;
   private
     { Private declarations }
   public
@@ -33,12 +35,5 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmPrincipal.SpeedButton2Click(Sender: TObject);
-begin
-  inherited;
-  frmBasePadrao1 := TfrmBasePadrao1.Create(Self);
-  frmPrincipal.Show;
-end;
 
 end.

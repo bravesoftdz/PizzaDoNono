@@ -4,6 +4,7 @@ uses
   Vcl.Forms,
   uFrmBasePadrao in 'uFrmBasePadrao.pas' {frmBasePadrao},
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  uFrameBotao in 'uFrameBotao.pas' {FrameBotao: TFrame},
   uCadastroBase in 'uCadastroBase.pas' {frmBasePadrao1};
 
 {$R *.res}
@@ -12,5 +13,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmBasePadrao1, frmBasePadrao1);
   Application.Run;
 end.
