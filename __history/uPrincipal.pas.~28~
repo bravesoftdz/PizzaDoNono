@@ -6,14 +6,19 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
-  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, uFrameBotao,
-  Vcl.Imaging.pngimage;
+  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage,
+  uCadastroBase;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
     btnPedido: TPanel;
     Image1: TImage;
+    Label1: TLabel;
     SpeedButton2: TSpeedButton;
+    btnSabores: TPanel;
+    Sabores: TLabel;
+    Image2: TImage;
   private
     { Private declarations }
   public
@@ -26,5 +31,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.SpeedButton2Click(Sender: TObject);
+begin
+  inherited;
+  frmBasePadrao1 := TfrmBasePadrao1.Create(Self);
+  frmPrincipal.Show;
+end;
 
 end.
