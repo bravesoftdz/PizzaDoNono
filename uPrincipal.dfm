@@ -5,6 +5,7 @@ inherited frmPrincipal: TfrmPrincipal
   FormStyle = fsMDIForm
   Visible = True
   WindowState = wsMaximized
+  OnCreate = FormCreate
   ExplicitWidth = 703
   ExplicitHeight = 422
   PixelsPerInch = 96

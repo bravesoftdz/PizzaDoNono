@@ -4,11 +4,10 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
-  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Imaging.pngimage,
-  uCadastroBase;
+  uCadastroBase, uFrmBasePadrao, uClassDBConnectionSingleton;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -19,6 +18,7 @@ type
     btnSabores: TPanel;
     Sabores: TLabel;
     Image2: TImage;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,6 +32,16 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  inherited;
+  ReportMemoryLeaksOnShutdown := true;
 
+  if TDBConnectionSingleton.getInstancia = nil then
+  begin
+    Raise Exception.Create('erro ao conectar com o banco de dados');
+    Application.Terminate;
+  end
+end;
 
 end.

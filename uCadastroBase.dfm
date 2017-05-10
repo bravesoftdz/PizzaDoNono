@@ -1,10 +1,9 @@
 inherited frmBasePadrao1: TfrmBasePadrao1
-  Caption = 'frmBasePadrao1'
+  Caption = 'frmCadastroBase'
   ClientHeight = 624
   ClientWidth = 844
   FormStyle = fsMDIChild
   Visible = True
-  ExplicitTop = -72
   ExplicitWidth = 850
   ExplicitHeight = 653
   PixelsPerInch = 96
@@ -488,7 +487,6 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 4
-    ExplicitLeft = 387
     object Image3: TImage
       Left = 30
       Top = 8
@@ -653,7 +651,6 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 5
-    ExplicitLeft = 261
     object Image5: TImage
       Left = 30
       Top = 8
