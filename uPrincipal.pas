@@ -4,21 +4,63 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage,
-  uCadastroBase, uFrmBasePadrao, uClassDBConnectionSingleton;
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
+  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, uFrameBotao,
+  Vcl.Imaging.pngimage, uListagemBase;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
-    btnPedido: TPanel;
-    Image1: TImage;
-    Label1: TLabel;
-    SpeedButton2: TSpeedButton;
-    btnSabores: TPanel;
-    Sabores: TLabel;
-    Image2: TImage;
-    procedure FormCreate(Sender: TObject);
+    boxClientes: TPanel;
+    imageClientes: TImage;
+    btnCliente: TSpeedButton;
+    labelClientes: TLabel;
+    boxSabores: TPanel;
+    btnSabores: TSpeedButton;
+    labelSabores: TLabel;
+    imageSabores: TImage;
+
+
+    boxProdutos: TPanel;
+    labelProdutos: TLabel;
+    imageProdutos: TImage;
+    btnProdutos: TSpeedButton;
+    boxPedidos: TPanel;
+    imagePedidos: TImage;
+    labelPedidos: TLabel;
+    btnPedidos: TSpeedButton;
+    boxEstados: TPanel;
+    labelEstados: TLabel;
+    imageEstados: TImage;
+
+    btnEstados: TSpeedButton;
+    boxMunicípio: TPanel;
+
+
+
+
+
+
+    imageMunicpio: TImage;
+    labelMunicipio: TLabel;
+    btnMunicipio: TSpeedButton;
+    boxBairros: TPanel;
+    imageBairros: TImage;
+    labelBairros: TLabel;
+    btnBairros: TSpeedButton;
+    boxUsuários: TPanel;
+    imageUsuarios: TImage;
+    labelUsuarios: TLabel;
+    btnUsuarios: TSpeedButton;
+    boxRelatorios: TPanel;
+    imageRelatorios: TImage;
+    labelRelatorios: TLabel;
+    bntRelatorios: TSpeedButton;
+    boxSair: TPanel;
+    imageSair: TImage;
+    labelSair: TLabel;
+    btnSair: TSpeedButton;
+    procedure btnPedidosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,16 +74,11 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmPrincipal.FormCreate(Sender: TObject);
+procedure TfrmPrincipal.btnPedidosClick(Sender: TObject);
 begin
   inherited;
-  ReportMemoryLeaksOnShutdown := true;
-
-  if TDBConnectionSingleton.getInstancia = nil then
-  begin
-    Raise Exception.Create('erro ao conectar com o banco de dados');
-    Application.Terminate;
-  end
+  frmListagemBase := TfrmListagemBase.Create(Self);
+  frmListagemBase.Show;
 end;
 
 end.
