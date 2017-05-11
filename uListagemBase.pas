@@ -25,7 +25,6 @@ type
     panelListagem: TPanel;
     Edit1: TEdit;
     DBGrid1: TDBGrid;
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,11 +37,5 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmListagemBase.FormCreate(Sender: TObject);
-begin
-  inherited;
- Edit1.SetFocus;
-end;
 
 end.

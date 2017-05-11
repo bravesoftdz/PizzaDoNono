@@ -1,11 +1,10 @@
 inherited frmListagemBase: TfrmListagemBase
+  ActiveControl = Edit1
   Caption = 'frmListagemBase'
   ClientHeight = 566
   ClientWidth = 862
   FormStyle = fsMDIChild
   Visible = True
-  OnCreate = FormCreate
-  ExplicitTop = -31
   ExplicitWidth = 868
   ExplicitHeight = 595
   PixelsPerInch = 96
@@ -23,7 +22,7 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
-    TabOrder = 0
+    TabOrder = 1
     object imageEditar: TImage
       Left = 30
       Top = 8
@@ -169,7 +168,7 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
-    TabOrder = 1
+    TabOrder = 2
     object imageExcluir: TImage
       Left = 30
       Top = 8
@@ -315,7 +314,7 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
-    TabOrder = 2
+    TabOrder = 3
     object imageFechar: TImage
       Left = 30
       Top = 8
@@ -558,7 +557,7 @@ inherited frmListagemBase: TfrmListagemBase
     Color = clWhite
     ParentBackground = False
     ShowCaption = False
-    TabOrder = 3
+    TabOrder = 4
     object DBGrid1: TDBGrid
       Left = 1
       Top = 1
@@ -581,7 +580,7 @@ inherited frmListagemBase: TfrmListagemBase
     CharCase = ecUpperCase
     Ctl3D = True
     ParentCtl3D = False
-    TabOrder = 4
+    TabOrder = 0
     TextHint = 'Localizar'
   end
 end
