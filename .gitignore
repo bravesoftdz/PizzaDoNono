@@ -1,4 +1,5 @@
-/__history/*
+/__history/
+/__history/*.dpr.~*~
 /win32/
 PizzadoNono.dproj.local
 PizzadoNono.dproj

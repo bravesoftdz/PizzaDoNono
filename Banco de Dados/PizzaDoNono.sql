@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema pizzaNono
+-- Schema pizzanono
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema pizzaNono
+-- Schema pizzanono
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `pizzaNono` DEFAULT CHARACTER SET utf8 ;
-USE `pizzaNono` ;
+CREATE SCHEMA IF NOT EXISTS `pizzanono` DEFAULT CHARACTER SET utf8 ;
+USE `pizzanono` ;
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`estado`
+-- Table `pizzanono`.`estado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`estado` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`estado` (
   `idestado` INT NOT NULL,
   `nome` VARCHAR(45) NULL,
   `UF` VARCHAR(2) NULL,
@@ -26,9 +26,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`municipio`
+-- Table `pizzanono`.`municipio`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`municipio` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`municipio` (
   `idmunicipio` INT NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `estado_idestado` INT NOT NULL,
@@ -36,16 +36,16 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`municipio` (
   INDEX `fk_municipio_estado1_idx` (`estado_idestado` ASC),
   CONSTRAINT `fk_municipio_estado1`
     FOREIGN KEY (`estado_idestado`)
-    REFERENCES `pizzaNono`.`estado` (`idestado`)
+    REFERENCES `pizzanono`.`estado` (`idestado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`bairro`
+-- Table `pizzanono`.`bairro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`bairro` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`bairro` (
   `idbairro` INT NOT NULL,
   `nome` VARCHAR(45) NULL,
   `municipio_idmunicipio` INT NOT NULL,
@@ -53,16 +53,16 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`bairro` (
   INDEX `fk_bairro_municipio1_idx` (`municipio_idmunicipio` ASC),
   CONSTRAINT `fk_bairro_municipio1`
     FOREIGN KEY (`municipio_idmunicipio`)
-    REFERENCES `pizzaNono`.`municipio` (`idmunicipio`)
+    REFERENCES `pizzanono`.`municipio` (`idmunicipio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`cliente`
+-- Table `pizzanono`.`cliente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`cliente` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`cliente` (
   `idcliente` INT NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `cpf_cnpj` VARCHAR(45) NULL COMMENT 'nap deve ser obrigatorio',
@@ -76,16 +76,16 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`cliente` (
   INDEX `fk_cliente_bairro1_idx` (`bairro_idbairro` ASC),
   CONSTRAINT `fk_cliente_bairro1`
     FOREIGN KEY (`bairro_idbairro`)
-    REFERENCES `pizzaNono`.`bairro` (`idbairro`)
+    REFERENCES `pizzanono`.`bairro` (`idbairro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`tamanho`
+-- Table `pizzanono`.`tamanho`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`tamanho` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`tamanho` (
   `idtamanho` INT NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
   `maxSabores` VARCHAR(45) NOT NULL,
@@ -94,20 +94,19 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`sabor`
+-- Table `pizzanono`.`sabor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`sabor` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`sabor` (
   `idsabor` INT NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
-  `ingredientes` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idsabor`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`preco`
+-- Table `pizzanono`.`preco`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`preco` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`preco` (
   `idpreco` INT NOT NULL,
   `valor` VARCHAR(45) NOT NULL,
   `sabor_idsabor` INT NOT NULL,
@@ -117,21 +116,21 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`preco` (
   INDEX `fk_preco_tamanho1_idx` (`tamanho_idtamanho` ASC),
   CONSTRAINT `fk_preco_sabor`
     FOREIGN KEY (`sabor_idsabor`)
-    REFERENCES `pizzaNono`.`sabor` (`idsabor`)
+    REFERENCES `pizzanono`.`sabor` (`idsabor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_preco_tamanho1`
     FOREIGN KEY (`tamanho_idtamanho`)
-    REFERENCES `pizzaNono`.`tamanho` (`idtamanho`)
+    REFERENCES `pizzanono`.`tamanho` (`idtamanho`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`produto`
+-- Table `pizzanono`.`produto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`produto` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`produto` (
   `idproduto` INT NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
   `temSabor` TINYINT(1) NOT NULL,
@@ -141,9 +140,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`usuario`
+-- Table `pizzanono`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`usuario` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`usuario` (
   `idusuario` INT NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
@@ -152,9 +151,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`pedido`
+-- Table `pizzanono`.`pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`pedido` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`pedido` (
   `idpedido` INT NOT NULL,
   `usuario_idusuario` INT NOT NULL,
   `cliente_idcliente` INT NOT NULL,
@@ -174,26 +173,26 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`pedido` (
   INDEX `fk_pedido_bairro1_idx` (`bairro_idbairro` ASC),
   CONSTRAINT `fk_pedido_cliente1`
     FOREIGN KEY (`cliente_idcliente`)
-    REFERENCES `pizzaNono`.`cliente` (`idcliente`)
+    REFERENCES `pizzanono`.`cliente` (`idcliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_usuario1`
     FOREIGN KEY (`usuario_idusuario`)
-    REFERENCES `pizzaNono`.`usuario` (`idusuario`)
+    REFERENCES `pizzanono`.`usuario` (`idusuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_bairro1`
     FOREIGN KEY (`bairro_idbairro`)
-    REFERENCES `pizzaNono`.`bairro` (`idbairro`)
+    REFERENCES `pizzanono`.`bairro` (`idbairro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`itemPedido`
+-- Table `pizzanono`.`itemPedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`itemPedido` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`itemPedido` (
   `pedido_idpedido` INT NOT NULL,
   `produto_idproduto` INT NOT NULL,
   `tamanho_idtamanho` INT NOT NULL,
@@ -207,26 +206,26 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`itemPedido` (
   UNIQUE INDEX `idx_PedidoSequencia` (`pedido_idpedido` ASC, `SequenciaItem` ASC),
   CONSTRAINT `fk_pedido_has_produto_pedido1`
     FOREIGN KEY (`pedido_idpedido`)
-    REFERENCES `pizzaNono`.`pedido` (`idpedido`)
+    REFERENCES `pizzanono`.`pedido` (`idpedido`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_has_produto_produto1`
     FOREIGN KEY (`produto_idproduto`)
-    REFERENCES `pizzaNono`.`produto` (`idproduto`)
+    REFERENCES `pizzanono`.`produto` (`idproduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedidoProduto_tamanho1`
     FOREIGN KEY (`tamanho_idtamanho`)
-    REFERENCES `pizzaNono`.`tamanho` (`idtamanho`)
+    REFERENCES `pizzanono`.`tamanho` (`idtamanho`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`SaboresItem`
+-- Table `pizzanono`.`SaboresItem`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`SaboresItem` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`SaboresItem` (
   `itemPedido_ID` INT NOT NULL,
   `sabor_idsabor` INT NOT NULL,
   `ID` INT NOT NULL,
@@ -236,21 +235,21 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`SaboresItem` (
   UNIQUE INDEX `IDX_UNICO` (`sabor_idsabor` ASC, `itemPedido_ID` ASC),
   CONSTRAINT `fk_SaboresItem_itemPedido1`
     FOREIGN KEY (`itemPedido_ID`)
-    REFERENCES `pizzaNono`.`itemPedido` (`ID`)
+    REFERENCES `pizzanono`.`itemPedido` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SaboresItem_sabor1`
     FOREIGN KEY (`sabor_idsabor`)
-    REFERENCES `pizzaNono`.`sabor` (`idsabor`)
+    REFERENCES `pizzanono`.`sabor` (`idsabor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pizzaNono`.`SaboresPermitidos`
+-- Table `pizzanono`.`SaboresPermitidos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `pizzaNono`.`SaboresPermitidos` (
+CREATE TABLE IF NOT EXISTS `pizzanono`.`SaboresPermitidos` (
   `produto_idproduto` INT NOT NULL,
   `sabor_idsabor` INT NOT NULL,
   `ID` INT NOT NULL,
@@ -260,12 +259,46 @@ CREATE TABLE IF NOT EXISTS `pizzaNono`.`SaboresPermitidos` (
   UNIQUE INDEX `idx_unico` (`produto_idproduto` ASC, `sabor_idsabor` ASC),
   CONSTRAINT `fk_SaboresPermitidos_produto1`
     FOREIGN KEY (`produto_idproduto`)
-    REFERENCES `pizzaNono`.`produto` (`idproduto`)
+    REFERENCES `pizzanono`.`produto` (`idproduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SaboresPermitidos_sabor1`
     FOREIGN KEY (`sabor_idsabor`)
-    REFERENCES `pizzaNono`.`sabor` (`idsabor`)
+    REFERENCES `pizzanono`.`sabor` (`idsabor`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzanono`.`ingrediente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzanono`.`ingrediente` (
+  `idingrediente` INT ZEROFILL NOT NULL,
+  `descricao` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idingrediente`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pizzanono`.`sabor_ingrediente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pizzanono`.`sabor_ingrediente` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `sabor_idsabor` INT NOT NULL,
+  `ingrediente_idingrediente` INT ZEROFILL NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_sabor_ingrediente_sabor1_idx` (`sabor_idsabor` ASC),
+  INDEX `fk_sabor_ingrediente_ingrediente1_idx` (`ingrediente_idingrediente` ASC),
+  UNIQUE INDEX `idx_sabor_ingrediente` (`sabor_idsabor` ASC, `ingrediente_idingrediente` ASC),
+  CONSTRAINT `fk_sabor_ingrediente_sabor1`
+    FOREIGN KEY (`sabor_idsabor`)
+    REFERENCES `pizzanono`.`sabor` (`idsabor`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_sabor_ingrediente_ingrediente1`
+    FOREIGN KEY (`ingrediente_idingrediente`)
+    REFERENCES `pizzanono`.`ingrediente` (`idingrediente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
