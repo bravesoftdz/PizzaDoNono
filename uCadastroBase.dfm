@@ -1,4 +1,4 @@
-inherited frmBasePadrao1: TfrmBasePadrao1
+inherited frmCadastroBase: TfrmCadastroBase
   Caption = 'frmCadastroBase'
   ClientHeight = 624
   ClientWidth = 844

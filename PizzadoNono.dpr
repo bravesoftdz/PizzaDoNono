@@ -5,7 +5,7 @@ uses
   uFrmBasePadrao in 'uFrmBasePadrao.pas' {frmBasePadrao},
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
   uListagemBase in 'uListagemBase.pas' {frmListagemBase},
-  uCadastroBase in 'uCadastroBase.pas' {frmBasePadrao1},
+  uCadastroBase in 'uCadastroBase.pas' {frmCadastroBase},
   uClassConnection in 'uClassConnection.pas',
   uClassDBConnectionSingleton in 'uClassDBConnectionSingleton.pas';
 
@@ -16,6 +16,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TfrmListagemBase, frmListagemBase);
-  Application.CreateForm(TfrmBasePadrao1, frmBasePadrao1);
+  Application.CreateForm(TfrmCadastroBase, frmCadastroBase);
   Application.Run;
 end.

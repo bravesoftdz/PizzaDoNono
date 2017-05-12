@@ -9,7 +9,7 @@ uses
   Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.ExtCtrls;
 
 type
-  TfrmBasePadrao1 = class(TfrmBasePadrao)
+  TfrmCadastroBase = class(TfrmBasePadrao)
     boxPedido: TPanel;
     Image1: TImage;
     Label1: TLabel;
@@ -38,7 +38,7 @@ type
   end;
 
 var
-  frmBasePadrao1: TfrmBasePadrao1;
+  frmCadastroBase: TfrmCadastroBase;
 
 implementation
 
