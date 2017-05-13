@@ -12,17 +12,17 @@ uses
 type
   TfrmPrincipal = class(TfrmBasePadrao)
     Panel1: TPanel;
+    bntBairros: TSpeedButton;
+    btnClientes: TSpeedButton;
+    btnEstados: TSpeedButton;
+    btnIngredientes: TSpeedButton;
+    btnMunicipios: TSpeedButton;
     btnPedidos: TSpeedButton;
     btnProdutos: TSpeedButton;
-    btnSabores: TSpeedButton;
-    btnIngredientes: TSpeedButton;
-    btnClientes: TSpeedButton;
-    bntBairros: TSpeedButton;
-    btnMunicipios: TSpeedButton;
-    btnEstados: TSpeedButton;
-    btnUsuarios: TSpeedButton;
     btnRelatórios: TSpeedButton;
+    btnSabores: TSpeedButton;
     btnSair: TSpeedButton;
+    btnUsuarios: TSpeedButton;
     procedure btnUsuariosClick(Sender: TObject);
   private
     { Private declarations }
