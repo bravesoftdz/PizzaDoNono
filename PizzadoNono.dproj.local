@@ -2,24 +2,24 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2017/04/27 20:04:08.000.225,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2017/04/27 20:05:18.000.000,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrmBasePadrao.pas=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2017/04/27 20:05:18.000.000,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrmBasePadrao.dfm=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
-    <Transaction>2017/04/27 20:05:38.000.516,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\PizzadoNono.dproj=C:\Users\User\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2017/04/27 20:05:18.000.000,C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrmBasePadrao.dfm</Transaction>
+    <Transaction>2017/04/27 20:05:18.000.000,C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrmBasePadrao.pas</Transaction>
+    <Transaction>2017/04/27 20:05:38.000.516,C:\Users\User\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\PizzadoNono.dproj</Transaction>
     <Transaction>2017/04/27 20:19:30.000.493,=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.pas</Transaction>
-    <Transaction>2017/04/27 20:19:57.000.994,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uPrincipal.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.dfm</Transaction>
-    <Transaction>2017/04/27 20:19:57.000.994,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uPrincipal.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.pas</Transaction>
+    <Transaction>2017/04/27 20:19:57.000.994,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uPrincipal.dfm</Transaction>
+    <Transaction>2017/04/27 20:19:57.000.994,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uPrincipal.pas</Transaction>
     <Transaction>2017/04/27 21:57:02.000.050,=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit1.pas</Transaction>
     <Transaction>2017/04/27 21:57:33.000.341,=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.pas</Transaction>
-    <Transaction>2017/04/27 22:02:51.000.499,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrameBotao.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.pas</Transaction>
-    <Transaction>2017/04/27 22:02:51.000.499,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrameBotao.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.dfm</Transaction>
+    <Transaction>2017/04/27 22:02:51.000.499,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.dfm=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrameBotao.dfm</Transaction>
+    <Transaction>2017/04/27 22:02:51.000.499,C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\Unit2.pas=C:\Users\User\Desktop\Delphi\Projeto Delphi - Pizza\PizzaDoNono\uFrameBotao.pas</Transaction>
     <Transaction>2017/05/06 15:40:36.000.449,=C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\Unit1.pas</Transaction>
-    <Transaction>2017/05/06 15:41:45.000.090,C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\Unit1.dfm=C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\uCadastroBase.dfm</Transaction>
-    <Transaction>2017/05/06 15:41:45.000.090,C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\Unit1.pas=C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\uCadastroBase.pas</Transaction>
+    <Transaction>2017/05/06 15:41:45.000.090,C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\uCadastroBase.dfm=C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\Unit1.dfm</Transaction>
+    <Transaction>2017/05/06 15:41:45.000.090,C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\uCadastroBase.pas=C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\Unit1.pas</Transaction>
     <Transaction>2017/05/06 16:11:22.000.567,C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\uFrameBotao.pas=</Transaction>
     <Transaction>2017/05/06 21:02:44.000.066,=C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\uClassConnection.pas</Transaction>
     <Transaction>2017/05/06 21:02:46.000.250,=C:\Users\RICARDO\Documents\SENAC\2017\PizzaDoNono\uClassDBConnectionSingleton.pas</Transaction>
-    <Transaction>2017/05/10 21:34:41.488,=C:\Users\User\Desktop\Delphi\PizzaNono\uCadastroBase.pas</Transaction>
-    <Transaction>2017/05/10 21:34:41.513,=C:\Users\User\Desktop\Delphi\PizzaNono\uClassConnection.pas</Transaction>
-    <Transaction>2017/05/10 21:34:41.523,=C:\Users\User\Desktop\Delphi\PizzaNono\uClassDBConnectionSingleton.pas</Transaction>
+    <Transaction>2017/05/10 21:34:41.000.523,=C:\Users\User\Desktop\Delphi\PizzaNono\uClassDBConnectionSingleton.pas</Transaction>
+    <Transaction>2017/05/10 21:34:41.000.488,=C:\Users\User\Desktop\Delphi\PizzaNono\uCadastroBase.pas</Transaction>
+    <Transaction>2017/05/10 21:34:41.000.513,=C:\Users\User\Desktop\Delphi\PizzaNono\uClassConnection.pas</Transaction>
   </Transactions>
 </BorlandProject>

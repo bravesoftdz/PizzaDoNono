@@ -11,54 +11,17 @@ uses
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
-    boxClientes: TPanel;
-    imageClientes: TImage;
-    btnCliente: TSpeedButton;
-    labelClientes: TLabel;
-    boxSabores: TPanel;
-    btnSabores: TSpeedButton;
-    labelSabores: TLabel;
-    imageSabores: TImage;
-
-
-    boxProdutos: TPanel;
-    labelProdutos: TLabel;
-    imageProdutos: TImage;
-    btnProdutos: TSpeedButton;
-    boxPedidos: TPanel;
-    imagePedidos: TImage;
-    labelPedidos: TLabel;
+    Panel1: TPanel;
     btnPedidos: TSpeedButton;
-    boxEstados: TPanel;
-    labelEstados: TLabel;
-    imageEstados: TImage;
-
+    btnProdutos: TSpeedButton;
+    btnSabores: TSpeedButton;
+    btnIngredientes: TSpeedButton;
+    btnClientes: TSpeedButton;
+    bntBairros: TSpeedButton;
+    btnMunicipios: TSpeedButton;
     btnEstados: TSpeedButton;
-    boxMunicípio: TPanel;
-
-
-
-
-
-
-    imageMunicpio: TImage;
-    labelMunicipio: TLabel;
-    btnMunicipio: TSpeedButton;
-    boxBairros: TPanel;
-    imageBairros: TImage;
-    labelBairros: TLabel;
-    btnBairros: TSpeedButton;
-    boxUsuários: TPanel;
-    imageUsuarios: TImage;
-    labelUsuarios: TLabel;
     btnUsuarios: TSpeedButton;
-    boxRelatorios: TPanel;
-    imageRelatorios: TImage;
-    labelRelatorios: TLabel;
-    bntRelatorios: TSpeedButton;
-    boxSair: TPanel;
-    imageSair: TImage;
-    labelSair: TLabel;
+    btnRelatórios: TSpeedButton;
     btnSair: TSpeedButton;
     procedure btnPedidosClick(Sender: TObject);
   private
