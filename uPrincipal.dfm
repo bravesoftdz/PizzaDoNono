@@ -8,7 +8,6 @@
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
-  ExplicitLeft = -424
   ExplicitWidth = 1346
   ExplicitHeight = 415
   PixelsPerInch = 96
@@ -29,8 +28,6 @@
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitLeft = -157
-    ExplicitTop = 8
     object btnPedidos: TSpeedButton
       Left = 0
       Top = 0
@@ -979,6 +976,7 @@
         864B5A684755634755634755634755634B5A68677886B1BEC7FFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
+      OnClick = btnUsuariosClick
     end
     object btnRelatórios: TSpeedButton
       Left = 848

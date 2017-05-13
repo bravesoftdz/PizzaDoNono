@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
   Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage, uListagemBase;
+  Vcl.Imaging.pngimage, uViewUsuario;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -23,7 +23,7 @@ type
     btnUsuarios: TSpeedButton;
     btnRelatórios: TSpeedButton;
     btnSair: TSpeedButton;
-    procedure btnPedidosClick(Sender: TObject);
+    procedure btnUsuariosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,11 +37,12 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmPrincipal.btnPedidosClick(Sender: TObject);
+procedure TfrmPrincipal.btnUsuariosClick(Sender: TObject);
 begin
   inherited;
-  frmListagemBase := TfrmListagemBase.Create(Self);
-  frmListagemBase.Show;
+  if not(assigned(frmUsuario)) then
+    frmUsuario := TfrmUsuario.Create(Self);
+  frmUsuario.Show;
 end;
 
 end.
