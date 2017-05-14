@@ -1,29 +1,37 @@
 ﻿inherited frmPrincipal: TfrmPrincipal
   Top = 500
   Caption = 'frmPrincipal'
-  ClientHeight = 386
+  ClientHeight = 390
   ClientWidth = 1340
   FormStyle = fsMDIForm
-  Position = poDesigned
+  Position = poDefault
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
-  ExplicitLeft = -263
   ExplicitWidth = 1346
-  ExplicitHeight = 415
+  ExplicitHeight = 419
   PixelsPerInch = 96
   TextHeight = 23
   object Panel1: TPanel
-    Left = 8
-    Top = 8
-    Width = 1324
-    Height = 81
-    Caption = 'Panel1'
+    Left = 0
+    Top = 0
+    Width = 1340
+    Height = 390
+    Align = alClient
+    BevelOuter = bvNone
+    Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
+    ExplicitLeft = 8
+    ExplicitTop = 8
+    ExplicitWidth = 1324
+    ExplicitHeight = 87
+    DesignSize = (
+      1340
+      390)
     object bntBairros: TSpeedButton
-      Left = 530
-      Top = 0
+      Left = 531
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -131,8 +139,8 @@
       Layout = blGlyphTop
     end
     object btnClientes: TSpeedButton
-      Left = 424
-      Top = 0
+      Left = 425
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -240,8 +248,8 @@
       Layout = blGlyphTop
     end
     object btnEstados: TSpeedButton
-      Left = 742
-      Top = 0
+      Left = 743
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -349,8 +357,8 @@
       Layout = blGlyphTop
     end
     object btnIngredientes: TSpeedButton
-      Left = 318
-      Top = 0
+      Left = 319
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -458,8 +466,8 @@
       Layout = blGlyphTop
     end
     object btnMunicipios: TSpeedButton
-      Left = 636
-      Top = 0
+      Left = 637
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -567,8 +575,8 @@
       Layout = blGlyphTop
     end
     object btnPedidos: TSpeedButton
-      Left = 0
-      Top = 0
+      Left = 1
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -644,8 +652,8 @@
       Layout = blGlyphTop
     end
     object btnProdutos: TSpeedButton
-      Left = 106
-      Top = 0
+      Left = 107
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -753,8 +761,8 @@
       Layout = blGlyphTop
     end
     object btnRelatórios: TSpeedButton
-      Left = 848
-      Top = 0
+      Left = 849
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -862,8 +870,8 @@
       Layout = blGlyphTop
     end
     object btnSabores: TSpeedButton
-      Left = 212
-      Top = 0
+      Left = 213
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -971,11 +979,12 @@
       Layout = blGlyphTop
     end
     object btnSair: TSpeedButton
-      Left = 1224
-      Top = 0
-      Width = 100
+      Left = 1217
+      Top = 1
+      Width = 113
       Height = 80
       Cursor = crHandPoint
+      Anchors = [akLeft, akTop, akRight]
       Caption = 'Sair'
       Flat = True
       Glyph.Data = {
@@ -1078,10 +1087,11 @@
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFEAEEFF4369FFD2DBFFFFFFFF}
       Layout = blGlyphTop
+      ExplicitWidth = 97
     end
     object btnUsuarios: TSpeedButton
-      Left = 954
-      Top = 0
+      Left = 955
+      Top = 1
       Width = 100
       Height = 80
       Cursor = crHandPoint

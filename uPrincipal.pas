@@ -4,10 +4,10 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.ComCtrls,
-  Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage, uViewUsuario;
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage,
+  uFrmBasePadrao, uViewUsuario, dataModuleFuncoesGlobais;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -40,9 +40,7 @@ implementation
 procedure TfrmPrincipal.btnUsuariosClick(Sender: TObject);
 begin
   inherited;
-  if not(assigned(frmUsuario)) then
-    frmUsuario := TfrmUsuario.Create(Self);
-  frmUsuario.Show;
+  dmFuncoesGlobais.CriarForm(TfrmUsuario, frmUsuario);
 end;
 
 end.

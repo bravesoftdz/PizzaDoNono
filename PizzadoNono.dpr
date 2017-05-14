@@ -11,13 +11,15 @@ uses
   uControllerUsuario in 'Usuarios\uControllerUsuario.pas',
   uDtoUsuario in 'Usuarios\uDtoUsuario.pas',
   uModelUsuario in 'Usuarios\uModelUsuario.pas',
-  uViewUsuario in 'Usuarios\uViewUsuario.pas' {frmUsuario};
+  uViewUsuario in 'Usuarios\uViewUsuario.pas' {frmUsuario},
+  dataModuleFuncoesGlobais in 'dataModuleFuncoesGlobais.pas' {dmFuncoesGlobais: TDataModule};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TdmFuncoesGlobais, dmFuncoesGlobais);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.Run;
 end.

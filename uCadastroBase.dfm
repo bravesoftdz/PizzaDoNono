@@ -2,10 +2,12 @@ inherited frmCadastroBase: TfrmCadastroBase
   Caption = 'frmCadastroBase'
   ClientHeight = 624
   ClientWidth = 844
-  FormStyle = fsMDIChild
   Visible = True
   ExplicitWidth = 850
   ExplicitHeight = 653
+  DesignSize = (
+    844
+    624)
   PixelsPerInch = 96
   TextHeight = 23
   object boxPedido: TPanel
