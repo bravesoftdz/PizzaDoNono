@@ -12,7 +12,7 @@ type
   public
     { Public declarations }
     procedure CriarForm(ClassName: TFormClass; FormName: TForm);
-    procedure DestruirForm(ClassName: TFormClass; FormName: TForm);
+    procedure DestruirForm(FormName: TForm);
   end;
 
 var
