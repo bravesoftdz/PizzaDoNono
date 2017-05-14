@@ -11,13 +11,13 @@ uses
 
 type
   TfrmUsuario = class(TfrmCadastroBase)
-    edtNome: TLabeledEdit;
-    edtIdCodigo: TLabeledEdit;
-    edtSenha: TLabeledEdit;
-    edtConfirmaSenha: TLabeledEdit;
     labelFeedbackNome: TLabel;
     labelFeedbackSenha: TLabel;
     labelFeedbackConfirmaSenha: TLabel;
+    edtIdCodigo: TLabeledEdit;
+    edtNome: TLabeledEdit;
+    edtSenha: TLabeledEdit;
+    edtConfirmaSenha: TLabeledEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnSalvarClick(Sender: TObject);
@@ -34,6 +34,8 @@ type
     oDtoUsuario: TDtoUsuario;
 
     procedure ChangeEditStatus(Status: Boolean);
+    procedure ChangeBtnStatus(Status: Boolean; BtnName: TSpeedButton);
+    procedure PreencherListaHashEdits;
     procedure ClearEdits;
   public
     { Public declarations }
@@ -51,7 +53,11 @@ implementation
 procedure TfrmUsuario.btnCancelarClick(Sender: TObject);
 begin
   inherited;
-  ChangeEditStatus(false);
+  oControllerUsuario.ChangeEditStatus(false);
+  ChangeBtnStatus(True, btnNovo);
+  ChangeBtnStatus(True, btnLocalizar);
+  ChangeBtnStatus(false, btnSalvar);
+  ChangeBtnStatus(false, btnCancelar);
   ClearEdits;
 end;
 
@@ -64,21 +70,57 @@ end;
 procedure TfrmUsuario.btnNovoClick(Sender: TObject);
 begin
   inherited;
-  ChangeEditStatus(true);
+
+  ChangeBtnStatus(false, btnLocalizar);
+  ChangeBtnStatus(True, btnCancelar);
+  ChangeBtnStatus(True, btnSalvar);
+  ChangeBtnStatus(false, btnNovo);
   oControllerUsuario.DefinirNovoID(edtIdCodigo);
+
+  PreencherListaHashEdits;
+  oControllerUsuario.ChangeEditStatus(True);
+
 end;
 
 procedure TfrmUsuario.btnSalvarClick(Sender: TObject);
 begin
   inherited;
-  oDtoUsuario.IdUsuario := StrToInt(edtIdCodigo.Text);
-  oDtoUsuario.Nome := edtNome.Text;
-  oDtoUsuario.Senha := edtSenha.Text;
-  oDtoUsuario.ConfirmaSenha := edtSenha.Text;
-  if oControllerUsuario.Salvar(oDtoUsuario) then
+  if btnSalvar.Cursor = crHandPoint then
   begin
-    ClearEdits;
-    ChangeEditStatus(false);
+    PreencherListaHashEdits;
+
+
+    oDtoUsuario.IdUsuario := StrToInt(edtIdCodigo.Text);
+    oDtoUsuario.Nome := edtNome.Text;
+    oDtoUsuario.Senha := edtSenha.Text;
+    oDtoUsuario.ConfirmaSenha := edtConfirmaSenha.Text;
+    if oControllerUsuario.Salvar(oDtoUsuario) then
+    begin
+      ClearEdits;
+      oControllerUsuario.ChangeEditStatus(false);
+      ChangeBtnStatus(True, btnNovo);
+      ChangeBtnStatus(True, btnLocalizar);
+      ChangeBtnStatus(false, btnSalvar);
+      ChangeBtnStatus(false, btnCancelar);
+    end
+    else
+    begin
+      edtConfirmaSenha.Text := EmptyStr;
+      edtIdCodigo.SetFocus;
+    end;
+  end;
+
+end;
+
+procedure TfrmUsuario.ChangeBtnStatus(Status: Boolean; BtnName: TSpeedButton);
+begin
+  if Status = false then
+  begin
+    BtnName.Cursor := crNo;
+  end
+  else
+  begin
+    BtnName.Cursor := crHandPoint;
   end;
 end;
 
@@ -86,10 +128,10 @@ procedure TfrmUsuario.ChangeEditStatus(Status: Boolean);
 begin
   if Status then
   begin
-    edtIdCodigo.Enabled := true;
-    edtNome.Enabled := true;
-    edtSenha.Enabled := true;
-    edtConfirmaSenha.Enabled := true;
+    edtIdCodigo.Enabled := True;
+    edtNome.Enabled := True;
+    edtSenha.Enabled := True;
+    edtConfirmaSenha.Enabled := True;
   end
   else
   begin
@@ -152,7 +194,19 @@ begin
   if not(Assigned(oControllerUsuario)) then
     oControllerUsuario := TControllerUsuario.Create;
 
-  ChangeEditStatus(false);
+  PreencherListaHashEdits;
+  oControllerUsuario.ChangeEditStatus(false);
+  ChangeBtnStatus(false, btnSalvar);
+  ChangeBtnStatus(false, btnCancelar);
+end;
+
+procedure TfrmUsuario.PreencherListaHashEdits;
+begin
+  oControllerUsuario.oListaHashEdits.Clear;
+  oControllerUsuario.oListaHashEdits.Add('ID', edtIdCodigo);
+  oControllerUsuario.oListaHashEdits.Add('Nome', edtNome);
+  oControllerUsuario.oListaHashEdits.Add('Senha', edtSenha);
+  oControllerUsuario.oListaHashEdits.Add('ConfirmaSenha', edtConfirmaSenha);
 end;
 
 end.
