@@ -1,0 +1,30 @@
+unit uViewUsuarios;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Imaging.pngimage,
+  uDtoUsuarios, uControllerUsuarios;
+
+type
+  TfrmUsuarios = class(TfrmCadastroBase)
+    edtNome: TLabeledEdit;
+    edtIdCodigo: TLabeledEdit;
+    LabeledEdit1: TLabeledEdit;
+    edtConfirmaSenha: TLabeledEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmUsuarios: TfrmUsuarios;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,18 @@
+unit uControllerUsuarios;
+
+interface
+
+uses
+  System.SysUtils, System.Generics.Collections, Vcl.StdCtrls;
+
+type
+  TControlerUsuarios = class
+  private
+
+  public
+
+  end;
+
+implementation
+
+end.

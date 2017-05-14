@@ -1,0 +1,51 @@
+unit uDtoUsuarios;
+
+interface
+
+uses
+  System.SysUtils;
+
+type
+  TDtoUsuarios = class
+  private
+   { FId: Integer;
+    FCodigoIBGE: Integer;
+    FNome: String;
+    FCEP: Currency;
+    FDDD: Integer;
+
+    procedure SetIDMunicipio(AValor: Integer);
+    function GetIDMunicipio: Integer;
+
+    procedure SetCodigoIBGE(AValor: Integer);
+    function GetCodigoIBGE: Integer;
+
+    procedure SetNome(AValor: String);
+    function GetNome: String;
+
+    procedure SetCEP(AValor: Currency);
+    function GetCEP: Currency;
+
+    procedure SetDDD(AValor: Integer);
+    function GetDDD: Integer;}
+
+  public
+    {property IDMunicipio: Integer read GetIDMunicipio write SetIDMunicipio;
+    property CodigoIBGE: Integer read GetCodigoIBGE write SetCodigoIBGE;
+    property Nome: String read GetNome write SetNome;
+    property CEP: Currency read GetCEP write SetCEP;
+    property DDD: Integer read GetDDD write SetDDD;
+    property Estado: TEstadoDto read FEstado write FEstado; }
+    property IdUsuario: integer;
+    property Nome: string;
+    property Senha: string;
+
+
+  end;
+
+implementation
+
+{ TMunicipio }
+
+
+end.

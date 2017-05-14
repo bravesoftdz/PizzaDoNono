@@ -1,0 +1,12 @@
+unit uControllerUsuarios;
+
+interface
+
+type
+  TControlerUsuarios = class
+
+  end;
+
+implementation
+
+end.

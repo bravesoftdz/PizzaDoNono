@@ -1,0 +1,14 @@
+unit uModelUsuario;
+
+interface
+
+//uses
+
+type
+  TModelUsuario = class
+
+  end;
+
+implementation
+
+end.

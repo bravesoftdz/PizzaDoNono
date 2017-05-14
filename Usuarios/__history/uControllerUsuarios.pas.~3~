@@ -1,0 +1,14 @@
+unit uControllerUsuarios;
+
+interface
+
+type
+  TControlerUsuarios = class
+  private
+
+  public
+  end;
+
+implementation
+
+end.

@@ -1,0 +1,47 @@
+unit uDtoUsuario;
+
+interface
+
+uses
+  System.SysUtils;
+
+type
+  TDtoUsuarios = class
+  private
+    FIdUsuario: integer;
+    FSenha: string;
+    FNome: string;
+
+    procedure SetIdUsuario(const Value: integer);
+    procedure SetNome(const Value: string);
+    procedure SetSenha(const Value: string);
+
+  public
+    property IdUsuario: integer read FIdUsuario write SetIdUsuario;
+    property Nome: string read FNome write SetNome;
+    property Senha: string read FSenha write SetSenha;
+
+  end;
+
+implementation
+
+{ TMunicipio }
+
+{ TDtoUsuarios }
+
+procedure TDtoUsuarios.SetIdUsuario(const Value: integer);
+begin
+  FIdUsuario := Value;
+end;
+
+procedure TDtoUsuarios.SetNome(const Value: string);
+begin
+  FNome := Value;
+end;
+
+procedure TDtoUsuarios.SetSenha(const Value: string);
+begin
+  FSenha := Value;
+end;
+
+end.
