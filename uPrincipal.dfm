@@ -8,10 +8,11 @@
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
+  OnCreate = FormCreate
   ExplicitWidth = 1346
   ExplicitHeight = 419
   PixelsPerInch = 96
-  TextHeight = 23
+  TextHeight = 15
   object Panel1: TPanel
     Left = 0
     Top = 0
@@ -22,10 +23,6 @@
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 8
-    ExplicitWidth = 1324
-    ExplicitHeight = 87
     DesignSize = (
       1340
       390)

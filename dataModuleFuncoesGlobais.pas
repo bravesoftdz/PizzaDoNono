@@ -3,7 +3,7 @@ unit dataModuleFuncoesGlobais;
 interface
 
 uses
-  System.SysUtils, System.Classes, Vcl.Forms;
+  System.SysUtils, System.Classes, Vcl.Forms, Vcl.ExtCtrls, Vcl.Graphics;
 
 type
   TdmFuncoesGlobais = class(TDataModule)
@@ -13,6 +13,7 @@ type
     { Public declarations }
     procedure CriarForm(ClassName: TFormClass; FormName: TForm);
     procedure DestruirForm(FormName: TForm);
+
   end;
 
 var

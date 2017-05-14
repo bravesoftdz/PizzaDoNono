@@ -7,12 +7,12 @@ object frmBasePadrao: TfrmBasePadrao
   Color = clWhite
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -19
-  Font.Name = 'Calibri Light'
+  Font.Height = -13
+  Font.Name = 'Calibri'
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
   PixelsPerInch = 96
-  TextHeight = 23
+  TextHeight = 15
 end

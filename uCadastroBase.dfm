@@ -9,7 +9,7 @@ inherited frmCadastroBase: TfrmCadastroBase
     844
     624)
   PixelsPerInch = 96
-  TextHeight = 23
+  TextHeight = 15
   object boxPedido: TPanel
     AlignWithMargins = True
     Left = 9
@@ -284,8 +284,8 @@ inherited frmCadastroBase: TfrmCadastroBase
     object Label2: TLabel
       Left = 24
       Top = 78
-      Width = 66
-      Height = 23
+      Width = 50
+      Height = 15
       Alignment = taCenter
       Caption = 'Localizar'
     end
@@ -445,8 +445,8 @@ inherited frmCadastroBase: TfrmCadastroBase
     object Label4: TLabel
       Left = 32
       Top = 78
-      Width = 52
-      Height = 23
+      Width = 37
+      Height = 15
       Align = alCustom
       Alignment = taCenter
       Caption = 'Fechar'
@@ -464,8 +464,8 @@ inherited frmCadastroBase: TfrmCadastroBase
     end
   end
   object panelFormulario: TPanel
-    Left = 8
-    Top = 124
+    Left = 7
+    Top = 132
     Width = 829
     Height = 492
     Align = alCustom
@@ -473,6 +473,28 @@ inherited frmCadastroBase: TfrmCadastroBase
     Caption = 'panelFormulario'
     ShowCaption = False
     TabOrder = 3
+    object labelTitulo: TLabel
+      Left = 15
+      Top = 24
+      Width = 90
+      Height = 45
+      Caption = 'T'#237'tulo'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -37
+      Font.Name = 'Calibri Light'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object panelSeparador: TPanel
+      Left = 15
+      Top = 75
+      Width = 410
+      Height = 1
+      Caption = 'panelSeparador'
+      ShowCaption = False
+      TabOrder = 0
+    end
   end
   object boxCancelar: TPanel
     AlignWithMargins = True
@@ -619,8 +641,8 @@ inherited frmCadastroBase: TfrmCadastroBase
     object Label3: TLabel
       Left = 32
       Top = 78
-      Width = 66
-      Height = 23
+      Width = 49
+      Height = 15
       Align = alCustom
       Alignment = taCenter
       Caption = 'Cancelar'
@@ -631,6 +653,7 @@ inherited frmCadastroBase: TfrmCadastroBase
       Top = 3
       Width = 114
       Height = 99
+      Cursor = crHandPoint
       Align = alClient
       Flat = True
       Layout = blGlyphTop
@@ -783,8 +806,8 @@ inherited frmCadastroBase: TfrmCadastroBase
     object Label5: TLabel
       Left = 40
       Top = 78
-      Width = 46
-      Height = 23
+      Width = 35
+      Height = 15
       Align = alCustom
       Alignment = taCenter
       Caption = 'Salvar'
@@ -795,6 +818,7 @@ inherited frmCadastroBase: TfrmCadastroBase
       Top = 3
       Width = 114
       Height = 99
+      Cursor = crHandPoint
       Align = alClient
       Flat = True
       Layout = blGlyphTop
