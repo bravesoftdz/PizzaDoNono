@@ -1,0 +1,19 @@
+inherited frmListagemUsuario: TfrmListagemUsuario
+  Caption = 'frmListagemUsuario'
+  ClientHeight = 554
+  OnClose = FormClose
+  ExplicitTop = -2
+  ExplicitHeight = 583
+  PixelsPerInch = 96
+  TextHeight = 15
+  object DataSource1: TDataSource
+    Left = 328
+    Top = 24
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 416
+    Top = 24
+  end
+end
