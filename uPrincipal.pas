@@ -7,8 +7,8 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Imaging.pngimage,
-  uFrmBasePadrao, uViewUsuario, dataModuleFuncoesGlobais,
-  uClassDBConnectionSingleton;
+  uViewCadastroUsuario, dataModuleFuncoesGlobais, uClassDBConnectionSingleton,
+  uFrmBasePadrao;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)

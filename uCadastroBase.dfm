@@ -460,6 +460,7 @@ inherited frmCadastroBase: TfrmCadastroBase
       Align = alClient
       Flat = True
       Layout = blGlyphTop
+      OnClick = btnFecharClick
       ExplicitTop = 11
     end
   end

@@ -34,6 +34,7 @@ type
     btnSalvar: TSpeedButton;
     labelTitulo: TLabel;
     panelSeparador: TPanel;
+    procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,5 +47,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadastroBase.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  Close;
+end;
 
 end.

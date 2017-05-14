@@ -11,8 +11,9 @@ uses
   uControllerUsuario in 'Usuarios\uControllerUsuario.pas',
   uDtoUsuario in 'Usuarios\uDtoUsuario.pas',
   uModelUsuario in 'Usuarios\uModelUsuario.pas',
-  uViewUsuario in 'Usuarios\uViewUsuario.pas' {frmUsuario},
-  dataModuleFuncoesGlobais in 'dataModuleFuncoesGlobais.pas' {dmFuncoesGlobais: TDataModule};
+  uViewCadastroUsuario in 'Usuarios\uViewCadastroUsuario.pas' {frmUsuario},
+  dataModuleFuncoesGlobais in 'dataModuleFuncoesGlobais.pas' {dmFuncoesGlobais: TDataModule},
+  uViewListagemUsuario in 'Usuarios\uViewListagemUsuario.pas' {frmListagemUsuario};
 
 {$R *.res}
 
