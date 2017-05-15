@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, Vcl.Imaging.pngimage,
-  uDtoUsuario, uControllerUsuario, dataModuleFuncoesGlobais;
+  uDtoUsuario, uControllerUsuario, dataModuleFuncoesGlobais,
+  uViewListagemUsuario;
 
 type
   TfrmUsuario = class(TfrmCadastroBase)
@@ -21,13 +22,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnSalvarClick(Sender: TObject);
-    procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure edtNomeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtSenhaKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtConfirmaSenhaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnLocalizarClick(Sender: TObject);
   private
     { Private declarations }
     oControllerUsuario: TControllerUsuario;
@@ -61,10 +62,10 @@ begin
   ClearEdits;
 end;
 
-procedure TfrmUsuario.btnFecharClick(Sender: TObject);
+procedure TfrmUsuario.btnLocalizarClick(Sender: TObject);
 begin
   inherited;
-  Close;
+  dmFuncoesGlobais.CriarForm(TfrmListagemUsuario, frmListagemUsuario);
 end;
 
 procedure TfrmUsuario.btnNovoClick(Sender: TObject);
@@ -121,25 +122,6 @@ begin
   begin
     BtnName.Cursor := crHandPoint;
   end;
-end;
-
-procedure TfrmUsuario.ChangeEditStatus(Status: Boolean);
-begin
-  if Status then
-  begin
-    edtIdCodigo.Enabled := True;
-    edtNome.Enabled := True;
-    edtSenha.Enabled := True;
-    edtConfirmaSenha.Enabled := True;
-  end
-  else
-  begin
-    edtIdCodigo.Enabled := false;
-    edtNome.Enabled := false;
-    edtSenha.Enabled := false;
-    edtConfirmaSenha.Enabled := false;
-  end;
-
 end;
 
 procedure TfrmUsuario.ClearEdits;

@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, Vcl.Imaging.pngimage,
-  uDtoUsuario, uControllerUsuario, dataModuleFuncoesGlobais;
+  uDtoUsuario, uControllerUsuario, dataModuleFuncoesGlobais,
+  uViewListagemUsuario, uListaHashUsuario;
 
 type
   TfrmUsuario = class(TfrmCadastroBase)
@@ -21,7 +22,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnSalvarClick(Sender: TObject);
-    procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure edtNomeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -34,13 +34,12 @@ type
     oControllerUsuario: TControllerUsuario;
     oDtoUsuario: TDtoUsuario;
 
-    procedure ChangeEditStatus(Status: Boolean);
     procedure ChangeBtnStatus(Status: Boolean; BtnName: TSpeedButton);
     procedure PreencherListaHashEdits;
     procedure ClearEdits;
   public
     { Public declarations }
-
+    oListaUsuario: TListaUsuario;
   end;
 
 var
@@ -60,12 +59,6 @@ begin
   ChangeBtnStatus(false, btnSalvar);
   ChangeBtnStatus(false, btnCancelar);
   ClearEdits;
-end;
-
-procedure TfrmUsuario.btnFecharClick(Sender: TObject);
-begin
-  inherited;
-  Close;
 end;
 
 procedure TfrmUsuario.btnLocalizarClick(Sender: TObject);
@@ -130,34 +123,15 @@ begin
   end;
 end;
 
-procedure TfrmUsuario.ChangeEditStatus(Status: Boolean);
-begin
-  if Status then
-  begin
-    edtIdCodigo.Enabled := True;
-    edtNome.Enabled := True;
-    edtSenha.Enabled := True;
-    edtConfirmaSenha.Enabled := True;
-  end
-  else
-  begin
-    edtIdCodigo.Enabled := false;
-    edtNome.Enabled := false;
-    edtSenha.Enabled := false;
-    edtConfirmaSenha.Enabled := false;
-  end;
-
-end;
-
 procedure TfrmUsuario.ClearEdits;
 begin
-  //limpa os campos
+  // limpa os campos
   edtIdCodigo.Text := EmptyStr;
   edtNome.Text := EmptyStr;
   edtSenha.Text := EmptyStr;
   edtConfirmaSenha.Text := EmptyStr;
 
-  //esconde os labels de feedback de validação
+  // esconde os labels de feedback de validação
   labelFeedbackNome.Visible := false;
   labelFeedbackSenha.Visible := false;
   labelFeedbackConfirmaSenha.Visible := false;
@@ -194,6 +168,9 @@ begin
   if Assigned(oDtoUsuario) then
     FreeAndNil(oDtoUsuario);
 
+  if Assigned(oDataSource) then
+    FreeAndNil(oDataSource);
+
   dmFuncoesGlobais.DestruirForm(frmUsuario);
 end;
 
@@ -205,6 +182,9 @@ begin
 
   if not(Assigned(oControllerUsuario)) then
     oControllerUsuario := TControllerUsuario.Create;
+
+  if not(Assigned(oListaUsuario)) then
+    oListaUsuario := TListaUsuario.Create([doOwnsValues]);
 
   PreencherListaHashEdits;
   oControllerUsuario.ChangeEditStatus(false);

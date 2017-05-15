@@ -13,7 +13,8 @@ uses
   uModelUsuario in 'Usuarios\uModelUsuario.pas',
   uViewCadastroUsuario in 'Usuarios\uViewCadastroUsuario.pas' {frmUsuario},
   dataModuleFuncoesGlobais in 'dataModuleFuncoesGlobais.pas' {dmFuncoesGlobais: TDataModule},
-  uViewListagemUsuario in 'Usuarios\uViewListagemUsuario.pas' {frmListagemUsuario};
+  uViewListagemUsuario in 'Usuarios\uViewListagemUsuario.pas' {frmListagemUsuario},
+  uListaHashUsuario in 'Usuarios\uListaHashUsuario.pas';
 
 {$R *.res}
 

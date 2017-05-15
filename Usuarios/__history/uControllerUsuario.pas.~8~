@@ -4,8 +4,8 @@ interface
 
 uses
   System.SysUtils, System.Generics.Collections, Vcl.StdCtrls, Dialogs,
-  Vcl.ExtCtrls, Vcl.Forms, Data.DB, Vcl.DBGrids,
-  uDtoUsuario, uModelUsuario, uViewCadastroUsuario;
+  Vcl.ExtCtrls, Vcl.Forms,
+  uDtoUsuario, uModelUsuario;
 
 type
   TControllerUsuario = class
@@ -22,7 +22,6 @@ type
     procedure ValidarConfirmaSenha(var editSenha: TLabeledEdit;
       var editConfirmaSenha: TLabeledEdit; var labelFeedback: TLabel);
     procedure ChangeEditStatus(status: Boolean);
-    function Listar(var oGrid: TDBGrid): Boolean;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -65,6 +64,7 @@ begin
 
   oDataSource.DataSet := oModelUsuario;
 
+  dbGridListagem.DataSource := oDataSource;
 end;
 
 procedure TControllerUsuario.DefinirNovoID(var edtIdCodigo: TLabeledEdit);
@@ -90,20 +90,6 @@ begin
     FreeAndNil(oDataSource);
 
   inherited;
-end;
-
-function TControllerUsuario.Listar(var oGrid: TDBGrid): Boolean;
-var
-  sItem: string;
-begin
-  oGrid.Columns.Clear;
-  //oModelUsuario.Listar(frmUsuario.oListaUsuario);
-
-  for sItem in frmUsuario.oListaUsuario.Values do
-  begin
-
-    //oGrid.//Add(sItem.Nome, sItem);
-  end;
 end;
 
 function TControllerUsuario.Salvar(var oDtoUsuario: TDtoUsuario): Boolean;

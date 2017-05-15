@@ -1,0 +1,15 @@
+unit uListaHashUsuario;
+
+interface
+
+uses
+  System.Generics.Collections,
+  uEstadoDTO;
+
+type
+
+  TListaEstados = TObjectDictionary<string, TEstadoDTO>;
+
+implementation
+
+end.

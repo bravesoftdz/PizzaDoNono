@@ -8,8 +8,7 @@ uses
   Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons,
   Vcl.Imaging.pngimage, System.Generics.Collections, Vcl.ExtCtrls,
   Vcl.WinXCtrls,
-  dataModuleFuncoesGlobais, uListagemBase, uControllerUsuario,
-  uListaHashUsuario;
+  dataModuleFuncoesGlobais, uListagemBase, uModelUsuario, uListaHashUsuario;
 
 type
   TfrmListagemUsuario = class(TfrmListagemBase)
@@ -17,8 +16,8 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    oControllerUsuario: TControllerUsuario;
-
+    oModelUsuario: TModelUsuario;
+    oDataSource: TDataSource;
   public
     { Public declarations }
   end;
@@ -34,9 +33,11 @@ procedure TfrmListagemUsuario.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  if assigned(oControllerUsuario) then
-    FreeAndNil(oControllerUsuario);
+  if assigned(oModelUsuario) then
+    FreeAndNil(oModelUsuario);
 
+  if assigned(oDataSource) then
+    FreeAndNil(oDataSource);
 
   dmFuncoesGlobais.DestruirForm(frmListagemUsuario);
 end;
@@ -44,11 +45,17 @@ end;
 procedure TfrmListagemUsuario.FormCreate(Sender: TObject);
 begin
   inherited;
-  if not(assigned(oControllerUsuario)) then
-    oControllerUsuario := TControllerUsuario.Create();
+  if not(assigned(oModelUsuario)) then
+    oModelUsuario := TModelUsuario.Create(nil);
 
+  if not(assigned(oDataSource)) then
+    oDataSource := TDataSource.Create(nil);
 
-  oControllerUsuario.Listar(dbGridListagem);
+  oDataSource.DataSet := oModelUsuario;
+
+  dbGridListagem.DataSource := oDataSource;
+
+   oModelUsuario.Listar();
 end;
 
 end.

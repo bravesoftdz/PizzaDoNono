@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Generics.Collections, Vcl.StdCtrls, Dialogs,
   Vcl.ExtCtrls, Vcl.Forms, Data.DB, Vcl.DBGrids,
-  uDtoUsuario, uModelUsuario, uViewCadastroUsuario;
+  uDtoUsuario, uModelUsuario;
 
 type
   TControllerUsuario = class
@@ -97,13 +97,12 @@ var
   sItem: string;
 begin
   oGrid.Columns.Clear;
-  //oModelUsuario.Listar(frmUsuario.oListaUsuario);
+  { oModelUsuario.listar(oLista);
 
-  for sItem in frmUsuario.oListaUsuario.Values do
-  begin
-
-    //oGrid.//Add(sItem.Nome, sItem);
-  end;
+    for sItem in oListaEstado.Values do
+    begin
+    oComboBox.Items.AddObject(sItem.Nome, sItem);
+    end; }
 end;
 
 function TControllerUsuario.Salvar(var oDtoUsuario: TDtoUsuario): Boolean;

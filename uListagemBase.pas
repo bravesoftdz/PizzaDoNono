@@ -23,7 +23,7 @@ type
     labelFechar: TLabel;
     btnFechar: TSpeedButton;
     panelListagem: TPanel;
-    DBGrid1: TDBGrid;
+    dbGridListagem: TDBGrid;
     SearchBox1: TSearchBox;
     Label1: TLabel;
     procedure btnFecharClick(Sender: TObject);

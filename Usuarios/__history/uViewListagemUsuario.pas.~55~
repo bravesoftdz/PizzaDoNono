@@ -45,7 +45,7 @@ procedure TfrmListagemUsuario.FormCreate(Sender: TObject);
 begin
   inherited;
   if not(assigned(oControllerUsuario)) then
-    oControllerUsuario := TControllerUsuario.Create();
+    oControllerUsuario := TControllerUsuario.Create(nil);
 
 
   oControllerUsuario.Listar(dbGridListagem);

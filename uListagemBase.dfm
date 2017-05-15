@@ -566,7 +566,7 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ShowCaption = False
     TabOrder = 3
-    object DBGrid1: TDBGrid
+    object dbGridListagem: TDBGrid
       Left = 1
       Top = 1
       Width = 840
