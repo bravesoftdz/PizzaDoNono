@@ -3,6 +3,7 @@
   Caption = 'frmPrincipal'
   ClientHeight = 390
   ClientWidth = 1340
+  Font.Height = -16
   FormStyle = fsMDIForm
   Position = poDefault
   ScreenSnap = True
@@ -12,7 +13,7 @@
   ExplicitWidth = 1346
   ExplicitHeight = 419
   PixelsPerInch = 96
-  TextHeight = 15
+  TextHeight = 19
   object Panel1: TPanel
     Left = 0
     Top = 0

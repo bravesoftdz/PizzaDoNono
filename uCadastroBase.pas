@@ -11,29 +11,15 @@ uses
 
 type
   TfrmCadastroBase = class(TfrmBasePadrao)
-    boxPedido: TPanel;
-    Image1: TImage;
-    Label1: TLabel;
     btnNovo: TSpeedButton;
-    boxLocalizar: TPanel;
-    Image2: TImage;
-    Label2: TLabel;
     btnLocalizar: TSpeedButton;
-    boxFechar: TPanel;
-    Image4: TImage;
-    Label4: TLabel;
     btnFechar: TSpeedButton;
     panelFormulario: TPanel;
-    boxCancelar: TPanel;
-    Image3: TImage;
-    Label3: TLabel;
     btnCancelar: TSpeedButton;
-    boxSalvar: TPanel;
-    Image5: TImage;
-    Label5: TLabel;
     btnSalvar: TSpeedButton;
     labelTitulo: TLabel;
     panelSeparador: TPanel;
+    Panel1: TPanel;
   private
     { Private declarations }
   public

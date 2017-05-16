@@ -28,7 +28,6 @@ type
     procedure edtSenhaKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtConfirmaSenhaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-
   private
     { Private declarations }
     oControllerUsuario: TControllerUsuario;
@@ -67,7 +66,6 @@ begin
   inherited;
   Close;
 end;
-
 
 procedure TfrmUsuario.btnNovoClick(Sender: TObject);
 begin
