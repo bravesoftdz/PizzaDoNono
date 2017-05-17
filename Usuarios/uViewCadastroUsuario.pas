@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, Vcl.Imaging.pngimage,
   uDtoUsuario, uControllerUsuario, dataModuleFuncoesGlobais,
-  uViewListagemUsuario, uListaHashUsuario;
+  uViewListagemUsuario, uListaHashUsuario, uSingletonListaUsuarios;
 
 type
   TfrmUsuario = class(TfrmCadastroBase)
@@ -29,6 +29,7 @@ type
     procedure edtConfirmaSenhaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnLocalizarClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     oControllerUsuario: TControllerUsuario;
@@ -168,10 +169,12 @@ begin
   if Assigned(oDtoUsuario) then
     FreeAndNil(oDtoUsuario);
 
-  if Assigned(oListaUsuario) then
-    FreeAndNil(oListaUsuario);
-
-  dmFuncoesGlobais.DestruirForm(frmUsuario);
+  // dmFuncoesGlobais.DestruirForm(frmUsuario);
+  if Assigned(frmUsuario) then
+  begin
+    frmUsuario := nil;
+    frmUsuario.Free;
+  end;
 end;
 
 procedure TfrmUsuario.FormCreate(Sender: TObject);
@@ -183,13 +186,18 @@ begin
   if not(Assigned(oControllerUsuario)) then
     oControllerUsuario := TControllerUsuario.Create;
 
-  if not(Assigned(oListaUsuario)) then
-    oListaUsuario := TListaUsuario.Create([doOwnsValues]);
+  TSingletonListaUsuario.getListaUsuario;
 
   PreencherListaHashEdits;
   oControllerUsuario.ChangeEditStatus(false);
   ChangeBtnStatus(false, btnSalvar);
   ChangeBtnStatus(false, btnCancelar);
+end;
+
+procedure TfrmUsuario.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  TSingletonListaUsuario.DestruirLista;
 end;
 
 procedure TfrmUsuario.PreencherListaHashEdits;

@@ -8,7 +8,9 @@
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
+  OnClose = FormClose
   OnCreate = FormCreate
+  ExplicitLeft = -226
   ExplicitWidth = 1346
   ExplicitHeight = 419
   PixelsPerInch = 96
@@ -976,9 +978,9 @@
       Layout = blGlyphTop
     end
     object btnSair: TSpeedButton
-      Left = 1217
+      Left = 1240
       Top = 1
-      Width = 113
+      Width = 90
       Height = 80
       Cursor = crHandPoint
       Anchors = [akLeft, akTop, akRight]
@@ -1084,7 +1086,7 @@
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFEAEEFF4369FFD2DBFFFFFFFF}
       Layout = blGlyphTop
-      ExplicitWidth = 97
+      OnClick = btnSairClick
     end
     object btnUsuarios: TSpeedButton
       Left = 955

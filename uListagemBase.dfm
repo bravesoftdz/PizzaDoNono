@@ -3,7 +3,6 @@ inherited frmListagemBase: TfrmListagemBase
   ClientHeight = 556
   ClientWidth = 862
   Visible = True
-  ExplicitTop = -4
   ExplicitWidth = 868
   ExplicitHeight = 585
   PixelsPerInch = 96

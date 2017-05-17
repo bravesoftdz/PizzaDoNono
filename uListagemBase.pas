@@ -23,9 +23,9 @@ type
     labelFechar: TLabel;
     btnFechar: TSpeedButton;
     panelListagem: TPanel;
-    dbGridListagem: TDBGrid;
     SearchBox1: TSearchBox;
     Label1: TLabel;
+    dbGridListagem: TDBGrid;
     procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }

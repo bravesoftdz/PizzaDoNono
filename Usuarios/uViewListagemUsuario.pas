@@ -7,8 +7,8 @@ uses
   System.Classes, Vcl.Graphics, Datasnap.DBClient, Vcl.Controls, Vcl.Forms,
   Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons,
   Vcl.Imaging.pngimage, System.Generics.Collections, Vcl.ExtCtrls,
-  Vcl.WinXCtrls,
-  dataModuleFuncoesGlobais, uListagemBase, uControllerUsuario,
+  Vcl.WinXCtrls, uListagemBase,
+  dataModuleFuncoesGlobais, uControllerUsuario,
   uListaHashUsuario;
 
 type
@@ -37,7 +37,6 @@ begin
   if assigned(oControllerUsuario) then
     FreeAndNil(oControllerUsuario);
 
-
   dmFuncoesGlobais.DestruirForm(frmListagemUsuario);
 end;
 
@@ -47,6 +46,9 @@ begin
   if not(assigned(oControllerUsuario)) then
     oControllerUsuario := TControllerUsuario.Create();
 
+   //oControllerUsuario.NovaColuna(dbGridListagem, 'IDUsuario', 'IDUsuario', 0);
+   //oControllerUsuario.NovaColuna(dbGridListagem, 'Nome', 'Nome', 1, 200);
+   //oControllerUsuario.NovaColuna(dbGridListagem, 'Senha', 'Senha', 2, 100);
 
   oControllerUsuario.Listar(dbGridListagem);
 end;

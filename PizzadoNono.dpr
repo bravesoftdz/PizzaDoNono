@@ -14,7 +14,8 @@ uses
   uViewCadastroUsuario in 'Usuarios\uViewCadastroUsuario.pas' {frmUsuario},
   dataModuleFuncoesGlobais in 'dataModuleFuncoesGlobais.pas' {dmFuncoesGlobais: TDataModule},
   uViewListagemUsuario in 'Usuarios\uViewListagemUsuario.pas' {frmListagemUsuario},
-  uListaHashUsuario in 'Usuarios\uListaHashUsuario.pas';
+  uListaHashUsuario in 'Usuarios\uListaHashUsuario.pas',
+  uSingletonListaUsuarios in 'Usuarios\uSingletonListaUsuarios.pas';
 
 {$R *.res}
 

@@ -5,13 +5,14 @@ interface
 uses
   System.SysUtils, System.Generics.Collections, Vcl.StdCtrls, Dialogs,
   Vcl.ExtCtrls, Vcl.Forms, Data.DB, Vcl.DBGrids,
-  uDtoUsuario, uModelUsuario, uViewCadastroUsuario;
+  uDtoUsuario, uModelUsuario, uSingletonListaUsuarios, uListaHashUsuario;
 
 type
   TControllerUsuario = class
   private
     oModelUsuario: TModelUsuario;
     oDataSource: TDataSource;
+    oListaUsuario: TListaUsuario;
   public
     oListaHashEdits: TDictionary<string, TLabeledEdit>;
 
@@ -22,6 +23,8 @@ type
     procedure ValidarConfirmaSenha(var editSenha: TLabeledEdit;
       var editConfirmaSenha: TLabeledEdit; var labelFeedback: TLabel);
     procedure ChangeEditStatus(status: Boolean);
+    procedure NovaColuna(var oGrid: TDBGrid; FieldName, Caption: string;
+      ColumnIndex: integer; Width: integer = 50);
     function Listar(var oGrid: TDBGrid): Boolean;
     constructor Create;
     destructor Destroy; override;
@@ -65,6 +68,7 @@ begin
 
   oDataSource.DataSet := oModelUsuario;
 
+  oListaUsuario := TSingletonListaUsuario.getListaUsuario;
 end;
 
 procedure TControllerUsuario.DefinirNovoID(var edtIdCodigo: TLabeledEdit);
@@ -94,16 +98,34 @@ end;
 
 function TControllerUsuario.Listar(var oGrid: TDBGrid): Boolean;
 var
-  sItem: string;
+  oItem: TDtoUsuario;
 begin
-  oGrid.Columns.Clear;
-  //oModelUsuario.Listar(frmUsuario.oListaUsuario);
+  Result := False;
 
-  for sItem in frmUsuario.oListaUsuario.Values do
+  if oModelUsuario.Listar(oListaUsuario) then
   begin
+    // oGrid.Columns.Items
+    { for oItem in oListaUsuario.Values do
+      begin
 
-    //oGrid.//Add(sItem.Nome, sItem);
+      // oGrid.Columns.Items[oItem].NewInstance;
+      oGrid.DataSource := o;
+      end; }
+    oGrid.DataSource := oDataSource;
+    oModelUsuario.Active := true;
   end;
+
+end;
+
+procedure TControllerUsuario.NovaColuna(var oGrid: TDBGrid;
+  FieldName, Caption: string; ColumnIndex: integer; Width: integer = 50);
+begin
+
+  oGrid.Columns.Add;
+  oGrid.Columns[ColumnIndex].FieldName := FieldName;
+  oGrid.Columns[ColumnIndex].Title.Caption := Caption;
+  oGrid.Columns[ColumnIndex].Width := Width;
+
 end;
 
 function TControllerUsuario.Salvar(var oDtoUsuario: TDtoUsuario): Boolean;
