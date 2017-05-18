@@ -1,14 +1,19 @@
 inherited frmListagemBase: TfrmListagemBase
-  ActiveControl = Edit1
   Caption = 'frmListagemBase'
-  ClientHeight = 566
+  ClientHeight = 556
   ClientWidth = 862
-  FormStyle = fsMDIChild
   Visible = True
   ExplicitWidth = 868
-  ExplicitHeight = 595
+  ExplicitHeight = 585
   PixelsPerInch = 96
-  TextHeight = 23
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 8
+    Top = 137
+    Width = 44
+    Height = 15
+    Caption = 'Buscar: '
+  end
   object boxEditar: TPanel
     AlignWithMargins = True
     Left = 8
@@ -22,7 +27,7 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
-    TabOrder = 1
+    TabOrder = 0
     object imageEditar: TImage
       Left = 30
       Top = 8
@@ -168,7 +173,7 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
-    TabOrder = 2
+    TabOrder = 1
     object imageExcluir: TImage
       Left = 30
       Top = 8
@@ -314,7 +319,7 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ParentCtl3D = False
     ShowCaption = False
-    TabOrder = 3
+    TabOrder = 2
     object imageFechar: TImage
       Left = 30
       Top = 8
@@ -544,43 +549,43 @@ inherited frmListagemBase: TfrmListagemBase
       Align = alClient
       Flat = True
       Layout = blGlyphTop
+      OnClick = btnFecharClick
       ExplicitLeft = 6
     end
   end
   object panelListagem: TPanel
     Left = 8
-    Top = 176
+    Top = 163
     Width = 846
     Height = 382
+    AutoSize = True
     BorderStyle = bsSingle
     Caption = 'panelListagem'
     Color = clWhite
     ParentBackground = False
     ShowCaption = False
-    TabOrder = 4
-    object DBGrid1: TDBGrid
+    TabOrder = 3
+    object dbGridListagem: TDBGrid
       Left = 1
       Top = 1
       Width = 840
       Height = 376
       Align = alClient
+      BorderStyle = bsNone
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText
-      TitleFont.Height = -19
-      TitleFont.Name = 'Calibri Light'
+      TitleFont.Height = -13
+      TitleFont.Name = 'Calibri'
       TitleFont.Style = []
     end
   end
-  object Edit1: TEdit
-    Left = 11
-    Top = 130
-    Width = 445
-    Height = 31
-    CharCase = ecUpperCase
-    Ctl3D = True
-    ParentCtl3D = False
-    TabOrder = 0
-    TextHint = 'Localizar'
+  object SearchBox1: TSearchBox
+    Left = 58
+    Top = 134
+    Width = 796
+    Height = 23
+    TabOrder = 4
+    TextHint = 'Insira o termo de pesquisa'
   end
 end

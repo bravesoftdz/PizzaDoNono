@@ -1,4 +1,4 @@
-unit uViewUsuario;
+unit uViewCadastroUsuario;
 
 interface
 
@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, Vcl.Imaging.pngimage,
-  uDtoUsuario, uControllerUsuario, dataModuleFuncoesGlobais;
+  uDtoUsuario, uControllerUsuario, dataModuleFuncoesGlobais,
+  uViewListagemUsuario;
 
 type
   TfrmUsuario = class(TfrmCadastroBase)
@@ -21,14 +22,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnSalvarClick(Sender: TObject);
-    procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure edtNomeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtSenhaKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtConfirmaSenhaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-
+    procedure btnLocalizarClick(Sender: TObject);
   private
     { Private declarations }
     oControllerUsuario: TControllerUsuario;
@@ -62,12 +62,11 @@ begin
   ClearEdits;
 end;
 
-procedure TfrmUsuario.btnFecharClick(Sender: TObject);
+procedure TfrmUsuario.btnLocalizarClick(Sender: TObject);
 begin
   inherited;
-  Close;
+  dmFuncoesGlobais.CriarForm(TfrmListagemUsuario, frmListagemUsuario);
 end;
-
 
 procedure TfrmUsuario.btnNovoClick(Sender: TObject);
 begin
@@ -90,7 +89,6 @@ begin
   if btnSalvar.Cursor = crHandPoint then
   begin
     PreencherListaHashEdits;
-
 
     oDtoUsuario.IdUsuario := StrToInt(edtIdCodigo.Text);
     oDtoUsuario.Nome := edtNome.Text;
@@ -147,10 +145,16 @@ end;
 
 procedure TfrmUsuario.ClearEdits;
 begin
+  //limpa os campos
   edtIdCodigo.Text := EmptyStr;
   edtNome.Text := EmptyStr;
   edtSenha.Text := EmptyStr;
   edtConfirmaSenha.Text := EmptyStr;
+
+  //esconde os labels de feedback de validação
+  labelFeedbackNome.Visible := false;
+  labelFeedbackSenha.Visible := false;
+  labelFeedbackConfirmaSenha.Visible := false;
 end;
 
 procedure TfrmUsuario.edtConfirmaSenhaKeyUp(Sender: TObject; var Key: Word;

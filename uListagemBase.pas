@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.StdCtrls,
   Vcl.Buttons, Vcl.Imaging.pngimage, Vcl.ExtCtrls, Data.DB, Vcl.Grids,
-  Vcl.DBGrids;
+  Vcl.DBGrids, Vcl.WinXCtrls, dataModuleFuncoesGlobais;
 
 type
   TfrmListagemBase = class(TfrmBasePadrao)
@@ -23,8 +23,10 @@ type
     labelFechar: TLabel;
     btnFechar: TSpeedButton;
     panelListagem: TPanel;
-    Edit1: TEdit;
-    DBGrid1: TDBGrid;
+    SearchBox1: TSearchBox;
+    Label1: TLabel;
+    dbGridListagem: TDBGrid;
+    procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,5 +39,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmListagemBase.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  Close;
+end;
 
 end.

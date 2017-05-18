@@ -28,8 +28,9 @@ implementation
 
 procedure TdmFuncoesGlobais.CriarForm(ClassName: TFormClass; FormName: TForm);
 begin
-  if not(assigned(FormName)) then
-    Application.CreateForm(ClassName, FormName);
+  if not(assigned((FormName))) then
+    //Application.CreateForm(ClassName, FormName);
+    FormName:= ClassName.Create(nil);
   FormName.Show;
 end;
 
