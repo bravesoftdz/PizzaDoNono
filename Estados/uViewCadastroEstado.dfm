@@ -1,10 +1,13 @@
 inherited frmCadastroEstado: TfrmCadastroEstado
   Caption = 'frmCadastroEstado'
   ClientHeight = 631
+  ExplicitTop = -102
   ExplicitHeight = 660
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Top = 131
+    ExplicitTop = 131
     inherited labelTitulo: TLabel
       Width = 119
       Caption = 'Estados'
@@ -35,7 +38,7 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       ReadOnly = True
       TabOrder = 1
     end
-    object edtDescricao: TLabeledEdit
+    object edtNome: TLabeledEdit
       Left = 15
       Top = 240
       Width = 410
@@ -57,13 +60,13 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       MaxLength = 45
       ParentFont = False
       TabOrder = 2
-      TextHint = 'Informe o nome do usu'#225'rio. Campo obrigat'#243'rio.'
     end
-    object LabeledEdit1: TLabeledEdit
+    object edtUF: TLabeledEdit
       Left = 16
       Top = 176
       Width = 137
       Height = 24
+      CharCase = ecUpperCase
       EditLabel.Width = 19
       EditLabel.Height = 16
       EditLabel.Caption = 'UF:'
@@ -78,10 +81,9 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       Font.Height = -13
       Font.Name = 'Tahoma'
       Font.Style = []
-      MaxLength = 45
+      MaxLength = 2
       ParentFont = False
       TabOrder = 3
-      TextHint = 'Informe o nome do usu'#225'rio. Campo obrigat'#243'rio.'
     end
   end
   inherited boxCancelar: TPanel

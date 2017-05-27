@@ -26,7 +26,14 @@ uses
   uEnumeradorCamposIngrediente in 'Ingredientes\uEnumeradorCamposIngrediente.pas',
   uRegraIngrediente in 'Ingredientes\uRegraIngrediente.pas',
   uInterfaceModelIngrediente in 'Ingredientes\uInterfaceModelIngrediente.pas',
-  uViewCadastroEstado in 'Estados\uViewCadastroEstado.pas' {frmCadastroEstado};
+  uViewCadastroEstado in 'Estados\uViewCadastroEstado.pas' {frmCadastroEstado},
+  uControllerEstado in 'Estados\uControllerEstado.pas',
+  uDtoEstado in 'Estados\uDtoEstado.pas',
+  uEnumeradorCamposEstado in 'Estados\uEnumeradorCamposEstado.pas',
+  uInterfaceModelEstado in 'Estados\uInterfaceModelEstado.pas',
+  uModelEstado in 'Estados\uModelEstado.pas',
+  uRegraEstado in 'Estados\uRegraEstado.pas',
+  uViewListagemEstado in 'Estados\uViewListagemEstado.pas' {frmListagemEstado};
 
 {$R *.res}
 
@@ -34,6 +41,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmCadastroEstado, frmCadastroEstado);
   Application.Run;
 end.

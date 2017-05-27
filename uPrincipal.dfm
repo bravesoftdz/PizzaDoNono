@@ -352,6 +352,7 @@
         FF7AD7FF69D2FF57CCFF57CCFF69D2FF7AD7FF96DFFFCDF0FFFAFEFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
+      OnClick = btnEstadosClick
     end
     object btnIngredientes: TSpeedButton
       Left = 319

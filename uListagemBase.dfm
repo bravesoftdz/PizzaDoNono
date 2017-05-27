@@ -582,7 +582,7 @@ inherited frmListagemBase: TfrmListagemBase
       Font.Height = -13
       Font.Name = 'Calibri'
       Font.Style = []
-      Options = [dgTitles, dgTabs, dgRowSelect, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentCtl3D = False
       ParentFont = False
       TabOrder = 0

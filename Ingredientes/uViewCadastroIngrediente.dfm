@@ -32,7 +32,6 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       MaxLength = 45
       ParentFont = False
       TabOrder = 1
-      TextHint = 'Informe o nome do usu'#225'rio. Campo obrigat'#243'rio.'
     end
     object edtIdCodigo: TLabeledEdit
       Left = 15

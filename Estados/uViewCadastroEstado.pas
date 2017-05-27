@@ -10,8 +10,8 @@ uses
 type
   TfrmCadastroEstado = class(TfrmCadastroBase)
     edtIdCodigo: TLabeledEdit;
-    edtDescricao: TLabeledEdit;
-    LabeledEdit1: TLabeledEdit;
+    edtNome: TLabeledEdit;
+    edtUF: TLabeledEdit;
   private
     { Private declarations }
   public
