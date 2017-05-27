@@ -11,17 +11,9 @@ uses
 
 type
   TfrmListagemBase = class(TfrmBasePadrao)
-    boxEditar: TPanel;
-    imageEditar: TImage;
-    labelEditar: TLabel;
+    BoxBotoes: TPanel;
     btnEditar: TSpeedButton;
-    boxExcluir: TPanel;
-    imageExcluir: TImage;
-    labelExcluir: TLabel;
     btnExcluir: TSpeedButton;
-    boxFechar: TPanel;
-    imageFechar: TImage;
-    labelFechar: TLabel;
     btnFechar: TSpeedButton;
     panelListagem: TPanel;
     SearchBox1: TSearchBox;

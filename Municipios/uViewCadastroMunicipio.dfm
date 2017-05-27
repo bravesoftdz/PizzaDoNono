@@ -1,23 +1,48 @@
-inherited frmCadastroIngrediente: TfrmCadastroIngrediente
-  Caption = 'frmCadastroIngrediente'
+inherited frmCadastroMunicipio: TfrmCadastroMunicipio
+  Caption = 'frmCadastroMunicipio'
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Left = 8
-    ExplicitLeft = 8
+    Top = 105
+    ParentFont = False
+    ExplicitTop = 105
     inherited labelTitulo: TLabel
-      Width = 195
-      Caption = 'Ingredientes'
-      ExplicitWidth = 195
+      Width = 171
+      Caption = 'Munic'#237'pios'
+      ExplicitWidth = 171
     end
-    object edtDescricao: TLabeledEdit
+    object labelEstado: TLabel [1]
       Left = 15
-      Top = 173
+      Top = 222
+      Width = 40
+      Height = 15
+      Caption = 'Estado:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object cmbEstado: TComboBox
+      Left = 16
+      Top = 240
+      Width = 410
+      Height = 23
+      AutoDropDown = True
+      Ctl3D = True
+      ParentCtl3D = False
+      Sorted = True
+      TabOrder = 1
+    end
+    object edtNome: TLabeledEdit
+      Left = 16
+      Top = 176
       Width = 410
       Height = 24
-      EditLabel.Width = 55
+      EditLabel.Width = 38
       EditLabel.Height = 15
-      EditLabel.Caption = 'Descri'#231#227'o:'
+      EditLabel.Caption = 'Nome:'
       EditLabel.Font.Charset = DEFAULT_CHARSET
       EditLabel.Font.Color = clWindowText
       EditLabel.Font.Height = -13
@@ -31,10 +56,10 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       Font.Style = []
       MaxLength = 45
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 2
     end
     object edtIdCodigo: TLabeledEdit
-      Left = 15
+      Left = 16
       Top = 112
       Width = 137
       Height = 24
@@ -56,7 +81,7 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       NumbersOnly = True
       ParentFont = False
       ReadOnly = True
-      TabOrder = 2
+      TabOrder = 3
     end
   end
 end

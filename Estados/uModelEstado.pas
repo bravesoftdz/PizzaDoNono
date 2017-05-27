@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, uDtoEstado, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.Async, uInterfaceModelEstado;
+  FireDAC.Stan.Async, uInterfaceModelEstado, uListaEstado;
 
 type
   TModelEstado = class(TInterfacedObject, IModelEstado)
@@ -14,6 +14,7 @@ type
     function Inserir(var oDtoEstado: TDtoEstado): Boolean;
     function BuscarMaiorID(out ADtoEstado: TDtoEstado): Boolean;
     function Listar: Boolean;
+    function ListarEstados(out ALista: TListaEstado): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -52,8 +53,8 @@ begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.ExecSQL('INSERT INTO estado(idestado, nome, uf) VALUES(' +
-    QuotedStr(IntToStr(oDtoEstado.IdEstado)) + ', ' +
-    QuotedStr(oDtoEstado.Nome) + ', ' + QuotedStr(oDtoEstado.UF) + ');');
+    QuotedStr(IntToStr(oDtoEstado.IdEstado)) + ', ' + QuotedStr(oDtoEstado.Nome)
+    + ', ' + QuotedStr(oDtoEstado.UF) + ');');
   Result := True;
 end;
 
@@ -61,10 +62,38 @@ function TModelEstado.Listar: Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open
-    ('SELECT idestado ID, UF, Nome FROM estado ORDER BY idestado ASC');
+  oQuery.Open('SELECT idestado ID, UF, Nome FROM estado ORDER BY idestado ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
+end;
+
+function TModelEstado.ListarEstados(out ALista: TListaEstado): Boolean;
+var
+  oEstadoDTO: TDtoEstado;
+begin
+  Result := False;
+  try
+    oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+    oQuery.Open('select IdEstado, Nome from Estado');
+    if (not(oQuery.IsEmpty)) then
+    begin
+      oQuery.First;
+      while (not(oQuery.Eof)) do
+      begin
+        oEstadoDTO := TDtoEstado.Create;
+        oEstadoDTO.IdEstado := oQuery.FieldByName('IdEstado').AsInteger;
+        oEstadoDTO.Nome := oQuery.FieldByName('Nome').AsString;
+
+        ALista.Add(oEstadoDTO.Nome, oEstadoDTO);
+
+        oQuery.Next;
+      end;
+      Result := True;
+    end;
+  finally
+    if assigned(oQuery) then
+      FreeAndNil(oQuery);
+  end;
 end;
 
 end.

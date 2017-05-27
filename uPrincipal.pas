@@ -9,7 +9,7 @@ uses
   Vcl.Imaging.pngimage,
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
   uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente,
-  uControllerEstado;
+  uControllerEstado, uControllerMunicipio;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -30,6 +30,7 @@ type
     procedure btnSairClick(Sender: TObject);
     procedure btnIngredientesClick(Sender: TObject);
     procedure btnEstadosClick(Sender: TObject);
+    procedure btnMunicipiosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,6 +58,14 @@ begin
   if not(assigned(oControllerIngrediente)) then
     oControllerIngrediente := TControllerIngrediente.Create;
   oControllerIngrediente.CriarFormCadastro(Self);
+end;
+
+procedure TfrmPrincipal.btnMunicipiosClick(Sender: TObject);
+begin
+  inherited;
+  if not(assigned(oControllerMunicipio)) then
+    oControllerMunicipio := TControllerMunicipio.Create;
+  oControllerMunicipio.CriarFormCadastro(Self);
 end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);

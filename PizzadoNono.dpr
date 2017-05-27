@@ -33,7 +33,16 @@ uses
   uInterfaceModelEstado in 'Estados\uInterfaceModelEstado.pas',
   uModelEstado in 'Estados\uModelEstado.pas',
   uRegraEstado in 'Estados\uRegraEstado.pas',
-  uViewListagemEstado in 'Estados\uViewListagemEstado.pas' {frmListagemEstado};
+  uViewListagemEstado in 'Estados\uViewListagemEstado.pas' {frmListagemEstado},
+  uViewCadastroMunicipio in 'Municipios\uViewCadastroMunicipio.pas' {frmCadastroMunicipio},
+  uViewListagemMunicipio in 'Municipios\uViewListagemMunicipio.pas' {frmListagemMunicipio},
+  uControllerMunicipio in 'Municipios\uControllerMunicipio.pas',
+  uDtoMunicipio in 'Municipios\uDtoMunicipio.pas',
+  uEnumeradorCamposMunicipio in 'Municipios\uEnumeradorCamposMunicipio.pas',
+  uInterfaceModelMunicipio in 'Municipios\uInterfaceModelMunicipio.pas',
+  uModelMunicipio in 'Municipios\uModelMunicipio.pas',
+  uRegraMunicipio in 'Municipios\uRegraMunicipio.pas',
+  uListaEstado in 'Estados\uListaEstado.pas';
 
 {$R *.res}
 

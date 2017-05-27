@@ -15,7 +15,7 @@ type
     oFormularioListagem: TfrmListagemBase;
     oDataSource: TDataSource;
     procedure PreencherDTO;
-    procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+    procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); virtual;
     procedure LimparFormulario;
   public
     constructor Create; virtual;
