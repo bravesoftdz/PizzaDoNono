@@ -1,7 +1,9 @@
 inherited frmListagemBase: TfrmListagemBase
+  BorderIcons = []
   Caption = 'frmListagemBase'
   ClientHeight = 556
   ClientWidth = 862
+  Position = poDesktopCenter
   Visible = True
   ExplicitWidth = 868
   ExplicitHeight = 585
@@ -157,6 +159,7 @@ inherited frmListagemBase: TfrmListagemBase
       Align = alClient
       Flat = True
       Layout = blGlyphTop
+      OnClick = btnEditarClick
       ExplicitLeft = 6
     end
   end
@@ -572,12 +575,22 @@ inherited frmListagemBase: TfrmListagemBase
       Height = 376
       Align = alClient
       BorderStyle = bsNone
+      Ctl3D = True
+      DrawingStyle = gdsGradient
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Calibri'
+      Font.Style = []
+      Options = [dgTitles, dgTabs, dgRowSelect, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentCtl3D = False
+      ParentFont = False
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -13
       TitleFont.Name = 'Calibri'
-      TitleFont.Style = []
+      TitleFont.Style = [fsBold]
     end
   end
   object SearchBox1: TSearchBox

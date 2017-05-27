@@ -5,65 +5,68 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, uDtoUsuario, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.Async, uListaHashUsuario;
+  FireDAC.Stan.Async, uInterfaceModelUsuario;
 
 type
-  TModelUsuario = class(TFDQuery)
+  TModelUsuario = class(TInterfacedObject, IModelUsuario)
   public
+    oQuery: TFDQuery;
     function Inserir(var oDtoUsuario: TDtoUsuario): Boolean;
-    function GetMaxID: integer;
-    function Listar(oListaUsuarios: TListaUsuario): Boolean;
+    function BuscarMaiorID(out ADtoUsuario: TDtoUsuario): Boolean;
+    function Listar: Boolean;
+
+    constructor Create;
+    destructor Destroy; override;
   end;
 
 implementation
 
 { TEstadoModel }
 
-function TModelUsuario.GetMaxID: integer;
+function TModelUsuario.BuscarMaiorID(out ADtoUsuario: TDtoUsuario): Boolean;
 begin
-  Connection := TDBConnectionSingleton.GetInstancia;
-  Open('SELECT MAX(idUsuario) as MaxID FROM usuario');
-  Result := FieldByName('MaxID').AsInteger;
+  Result := False;
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+  oQuery.Open('SELECT MAX(idUsuario) as MaxID FROM usuario');
+  if not(oQuery.IsEmpty) then
+  begin
+    ADtoUsuario.IdUsuario := oQuery.FieldByName('MaxID').AsInteger;
+    Result := True
+  end;
+end;
+
+constructor TModelUsuario.Create;
+begin
+  oQuery := TFDQuery.Create(nil);
+end;
+
+destructor TModelUsuario.Destroy;
+begin
+  if assigned(oQuery) then
+    FreeAndNil(oQuery);
+  inherited;
 end;
 
 function TModelUsuario.Inserir(var oDtoUsuario: TDtoUsuario): Boolean;
 begin
   Result := False;
-  Connection := TDBConnectionSingleton.GetInstancia;
-  ExecSQL('INSERT INTO usuario(idusuario, nome, senha) VALUES(' +
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+  oQuery.ExecSQL('INSERT INTO usuario(idusuario, nome, senha) VALUES(' +
     QuotedStr(IntToStr(oDtoUsuario.IdUsuario)) + ', ' +
     QuotedStr(oDtoUsuario.Nome) + ', ' + QuotedStr(oDtoUsuario.Senha) + ');');
   Result := True;
 end;
 
-function TModelUsuario.Listar(oListaUsuarios: TListaUsuario): Boolean;
+function TModelUsuario.Listar: Boolean;
 var
   oDtoUsuario: TDtoUsuario;
 begin
   Result := False;
-  Connection := TDBConnectionSingleton.GetInstancia;
-  Open('SELECT idusuario, nome FROM usuario ORDER BY idusuario ASC');
-  if not(IsEmpty) then
-  begin
-    First;
-    while (not(Eof)) do
-    begin
-      // Instancia do objeto
-      oDtoUsuario := TDtoUsuario.Create;
-
-      // Atribui os valores
-      oDtoUsuario.IdUsuario := FieldByName('idusuario').AsInteger;
-      oDtoUsuario.Nome := FieldByName('nome').AsString;
-
-      // Adiciona o objeto na lista hash
-      oListaUsuarios.Add(oDtoUsuario.Nome, oDtoUsuario);
-
-      // Vai para o próximo registro
-      Next;
-    end;
-    oDtoUsuario := nil;
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+  oQuery.Open
+    ('SELECT idusuario ID, Nome FROM usuario ORDER BY idusuario ASC');
+  if not(oQuery.IsEmpty) then
     Result := True;
-  end;
 end;
 
 end.

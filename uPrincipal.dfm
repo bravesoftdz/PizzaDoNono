@@ -8,9 +8,7 @@
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
-  OnClose = FormClose
   OnCreate = FormCreate
-  ExplicitLeft = -226
   ExplicitWidth = 1346
   ExplicitHeight = 419
   PixelsPerInch = 96
@@ -361,7 +359,7 @@
       Width = 100
       Height = 80
       Cursor = crHandPoint
-      Caption = 'Ingredintes'
+      Caption = 'Ingredientes'
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100
@@ -758,6 +756,8 @@
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
+      ParentShowHint = False
+      ShowHint = True
     end
     object btnRelatórios: TSpeedButton
       Left = 849
@@ -983,7 +983,7 @@
       Width = 90
       Height = 80
       Cursor = crHandPoint
-      Anchors = [akLeft, akTop, akRight]
+      Anchors = [akTop, akRight]
       Caption = 'Sair'
       Flat = True
       Glyph.Data = {

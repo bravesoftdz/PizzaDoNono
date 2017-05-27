@@ -13,6 +13,7 @@ object frmBasePadrao: TfrmBasePadrao
   KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 15
 end

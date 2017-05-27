@@ -12,17 +12,18 @@ uses
   uDtoUsuario in 'Usuarios\uDtoUsuario.pas',
   uModelUsuario in 'Usuarios\uModelUsuario.pas',
   uViewCadastroUsuario in 'Usuarios\uViewCadastroUsuario.pas' {frmUsuario},
-  dataModuleFuncoesGlobais in 'dataModuleFuncoesGlobais.pas' {dmFuncoesGlobais: TDataModule},
   uViewListagemUsuario in 'Usuarios\uViewListagemUsuario.pas' {frmListagemUsuario},
-  uListaHashUsuario in 'Usuarios\uListaHashUsuario.pas',
-  uSingletonListaUsuarios in 'Usuarios\uSingletonListaUsuarios.pas';
+  uInterfaceCRUD in 'uInterfaceCRUD.pas',
+  uRegraUsuario in 'Usuarios\uRegraUsuario.pas',
+  uControllerCRUD in 'uControllerCRUD.pas',
+  uEnumeradorCamposUsuario in 'Usuarios\uEnumeradorCamposUsuario.pas',
+  uInterfaceModelUsuario in 'Usuarios\uInterfaceModelUsuario.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TdmFuncoesGlobais, dmFuncoesGlobais);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.Run;
 end.

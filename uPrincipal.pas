@@ -7,8 +7,8 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Imaging.pngimage,
-  uViewCadastroUsuario, dataModuleFuncoesGlobais, uClassDBConnectionSingleton,
-  uFrmBasePadrao;
+  uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
+  uViewCadastroUsuario, System.ImageList, Vcl.ImgList;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -26,7 +26,6 @@ type
     btnUsuarios: TSpeedButton;
     procedure btnUsuariosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
@@ -50,19 +49,9 @@ end;
 procedure TfrmPrincipal.btnUsuariosClick(Sender: TObject);
 begin
   inherited;
-  // dmFuncoesGlobais.CriarForm(TfrmUsuario, frmUsuario);
-  if not(assigned(frmUsuario)) then
-    frmUsuario := TFrmUsuario.Create(self);
-  frmUsuario.Show;
-end;
-
-procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  inherited;
-  if assigned(frmUsuario) then
-  begin
-    frmUsuario.Close;
-  end;
+  if not(assigned(oControllerUsuario)) then
+    oControllerUsuario := TControllerUsuario.Create;
+  oControllerUsuario.CriarFormCadastro(Self);
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);

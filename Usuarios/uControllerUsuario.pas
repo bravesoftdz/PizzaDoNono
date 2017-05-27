@@ -3,92 +3,84 @@ unit uControllerUsuario;
 interface
 
 uses
-  System.SysUtils, System.Generics.Collections, Vcl.StdCtrls, Dialogs,
-  Vcl.ExtCtrls, Vcl.Forms, Data.DB, Vcl.DBGrids,
-  uDtoUsuario, uModelUsuario, uSingletonListaUsuarios, uListaHashUsuario;
+  System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB,
+  uInterfaceCRUD, uViewCadastroUsuario, uInterfaceRegra, uRegraUsuario,
+  uModelUsuario, uDtoUsuario, uControllerCRUD, uEnumeradorCamposUsuario,
+  uViewListagemUsuario;
 
 type
-  TControllerUsuario = class
+  TControllerUsuario = class(TControllerCRUD)
   private
+    oRegraUsuario: TRegraUsuario;
     oModelUsuario: TModelUsuario;
+    oDtoUsuario: TDtoUsuario;
     oDataSource: TDataSource;
-    oListaUsuario: TListaUsuario;
+    procedure BuscarMaiorID;
+    procedure PreencherDTO;
+    procedure LimparDto(var ADtoUsuario: TDtoUsuario);
+    procedure PreencherGrid(var DbGrid: TDBGrid);
   public
-    oListaHashEdits: TDictionary<string, TLabeledEdit>;
-
-    function Salvar(var oDtoUsuario: TDtoUsuario): Boolean;
-    procedure DefinirNovoID(var edtIdCodigo: TLabeledEdit);
-    procedure ValidarNome(var edit: TLabeledEdit; var labelFeedback: TLabel);
-    procedure ValidarSenha(var edit: TLabeledEdit; var labelFeedback: TLabel);
-    procedure ValidarConfirmaSenha(var editSenha: TLabeledEdit;
-      var editConfirmaSenha: TLabeledEdit; var labelFeedback: TLabel);
-    procedure ChangeEditStatus(status: Boolean);
-    procedure NovaColuna(var oGrid: TDBGrid; FieldName, Caption: string;
-      ColumnIndex: integer; Width: integer = 50);
-    function Listar(var oGrid: TDBGrid): Boolean;
     constructor Create;
     destructor Destroy; override;
+
+    procedure Salvar(ASender: TObject); override;
+    procedure Cancelar(ASender: TObject); override;
+    procedure Localizar(aOwner: TComponent); override;
+    procedure Novo(ASender: TObject); override;
+    procedure Editar(ASender: TObject); override;
+    procedure CriarFormCadastro(aOwner: TComponent); override;
+    procedure FecharFormCadastro(ASender: TObject); override;
+    procedure FecharFormListagem(ASender: TObject); override;
   end;
+
+var
+  oControllerUsuario: TControllerUsuario;
 
 implementation
 
 { TControllerUsuario }
 
-procedure TControllerUsuario.ChangeEditStatus(status: Boolean);
-var
-  sIndice: String;
+procedure TControllerUsuario.Cancelar(ASender: TObject);
 begin
-  if status = true then
-  begin
-    for sIndice in oListaHashEdits.Keys do
-    begin
-      oListaHashEdits.Items[sIndice].Enabled := true;
-    end;
-    oListaHashEdits.Items['ID'].SetFocus;
-  end
-  else
-  begin
-    for sIndice in oListaHashEdits.Keys do
-    begin
-      oListaHashEdits.Items[sIndice].Enabled := False;
-    end;
-  end;
-
+  inherited;
 end;
 
 constructor TControllerUsuario.Create;
 begin
-  if not(Assigned(oModelUsuario)) then
-    oModelUsuario := TModelUsuario.Create(nil);
+  if not(Assigned(oDtoUsuario)) then
+    oDtoUsuario := TDtoUsuario.Create;
 
-  oListaHashEdits := TDictionary<string, TLabeledEdit>.Create;
+  if not(Assigned(oRegraUsuario)) then
+    oRegraUsuario := TRegraUsuario.Create;
+
+  if not(Assigned(oModelUsuario)) then
+    oModelUsuario := TModelUsuario.Create;
 
   if not(Assigned(oDataSource)) then
     oDataSource := TDataSource.Create(nil);
 
-  oDataSource.DataSet := oModelUsuario;
-
-  oListaUsuario := TSingletonListaUsuario.getListaUsuario;
 end;
 
-procedure TControllerUsuario.DefinirNovoID(var edtIdCodigo: TLabeledEdit);
-var
-  MaxID: integer;
+procedure TControllerUsuario.CriarFormCadastro(aOwner: TComponent);
 begin
-  MaxID := oModelUsuario.GetMaxID;
-  edtIdCodigo.Text := IntToStr(MaxID + 1);
+  if not(Assigned(oFormularioCadastro)) then
+    oFormularioCadastro := TfrmUsuario.Create(aOwner);
+
+  oFormularioCadastro.iInterfaceCrud := oControllerUsuario;
+  inherited;
 end;
 
 destructor TControllerUsuario.Destroy;
 begin
+  if Assigned(oDtoUsuario) then
+    FreeAndNil(oDtoUsuario);
+
+  if Assigned(oRegraUsuario) then
+    FreeAndNil(oRegraUsuario);
+
   if Assigned(oModelUsuario) then
     FreeAndNil(oModelUsuario);
-
-  if Assigned(oListaHashEdits) then
-  begin
-    oListaHashEdits.Clear;
-    FreeAndNil(oListaHashEdits);
-  end;
 
   if Assigned(oDataSource) then
     FreeAndNil(oDataSource);
@@ -96,119 +88,101 @@ begin
   inherited;
 end;
 
-function TControllerUsuario.Listar(var oGrid: TDBGrid): Boolean;
-var
-  oItem: TDtoUsuario;
+procedure TControllerUsuario.Editar(ASender: TObject);
 begin
-  Result := False;
+  inherited;
+  //
+end;
 
-  if oModelUsuario.Listar(oListaUsuario) then
-  begin
-    // oGrid.Columns.Items
-    { for oItem in oListaUsuario.Values do
+procedure TControllerUsuario.FecharFormCadastro(ASender: TObject);
+begin
+  inherited;
+end;
+
+procedure TControllerUsuario.FecharFormListagem(ASender: TObject);
+begin
+  inherited;
+end;
+
+procedure TControllerUsuario.BuscarMaiorID;
+begin
+  if oModelUsuario.BuscarMaiorID(oDtoUsuario) then
+    TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text :=
+      IntToStr(oDtoUsuario.IdUsuario + 1);
+end;
+
+procedure TControllerUsuario.LimparDto(var ADtoUsuario: TDtoUsuario);
+begin
+  ADtoUsuario.IdUsuario := 0;
+  ADtoUsuario.Nome := EmptyStr;
+  ADtoUsuario.Senha := EmptyStr;
+  ADtoUsuario.ConfirmaSenha := EmptyStr;
+end;
+
+procedure TControllerUsuario.Localizar(aOwner: TComponent);
+begin
+  if not(Assigned(TfrmListagemUsuario(oFormularioListagem))) then
+    TfrmListagemUsuario(oFormularioListagem) :=
+      TfrmListagemUsuario.Create(aOwner);
+
+  TfrmListagemUsuario(oFormularioListagem).iInterfaceCrud := oControllerUsuario;
+
+  PreencherGrid(TfrmListagemUsuario(oFormularioListagem).dbGridListagem);
+  inherited;
+end;
+
+procedure TControllerUsuario.Novo(ASender: TObject);
+begin
+  inherited;
+  BuscarMaiorID;
+  TfrmUsuario(oFormularioCadastro).edtNome.SetFocus;
+end;
+
+procedure TControllerUsuario.Salvar(ASender: TObject);
+begin
+  PreencherDTO;
+
+  case oRegraUsuario.ValidarDados(oDtoUsuario) of
+    resultNome:
+      TfrmUsuario(oFormularioCadastro).edtNome.SetFocus;
+    resultSenha:
+      TfrmUsuario(oFormularioCadastro).edtSenha.SetFocus;
+    resultConfirmaSenha:
       begin
-
-      // oGrid.Columns.Items[oItem].NewInstance;
-      oGrid.DataSource := o;
-      end; }
-    oGrid.DataSource := oDataSource;
-    oModelUsuario.Active := true;
+        TfrmUsuario(oFormularioCadastro).edtConfirmaSenha.Text := EmptyStr;
+        TfrmUsuario(oFormularioCadastro).edtConfirmaSenha.SetFocus;
+      end;
+    resultOk:
+      begin
+        if oModelUsuario.Inserir(oDtoUsuario) then
+        begin
+          AjustarModoInsercao(False);
+          LimparFormulario;
+          LimparDto(oDtoUsuario);
+        end;
+      end;
   end;
-
 end;
 
-procedure TControllerUsuario.NovaColuna(var oGrid: TDBGrid;
-  FieldName, Caption: string; ColumnIndex: integer; Width: integer = 50);
+procedure TControllerUsuario.PreencherDTO;
 begin
-
-  oGrid.Columns.Add;
-  oGrid.Columns[ColumnIndex].FieldName := FieldName;
-  oGrid.Columns[ColumnIndex].Title.Caption := Caption;
-  oGrid.Columns[ColumnIndex].Width := Width;
-
+  oDtoUsuario.IdUsuario := StrToInt(TfrmUsuario(oFormularioCadastro)
+    .edtIdCodigo.Text);
+  oDtoUsuario.Nome := Trim(TfrmUsuario(oFormularioCadastro).edtNome.Text);
+  oDtoUsuario.Senha := Trim(TfrmUsuario(oFormularioCadastro).edtSenha.Text);
+  oDtoUsuario.ConfirmaSenha :=
+    Trim(TfrmUsuario(oFormularioCadastro).edtConfirmaSenha.Text);
 end;
 
-function TControllerUsuario.Salvar(var oDtoUsuario: TDtoUsuario): Boolean;
+procedure TControllerUsuario.PreencherGrid(var DbGrid: TDBGrid);
 begin
-  Result := False;
-  if (oDtoUsuario.Nome <> '') and (oDtoUsuario.Senha <> '') and
-    (oDtoUsuario.ConfirmaSenha <> '') and (Length(oDtoUsuario.Senha) >= 6) and
-    (oDtoUsuario.ConfirmaSenha = oDtoUsuario.Senha) then
-  begin
-    if oModelUsuario.Inserir(oDtoUsuario) then
-      Result := true;
-  end
-  else
-    ShowMessage('Preencha todos os campos corretamente!');
-  { if oDtoUsuario.Nome = '' then
-    begin
-    raise Exception.Create('Preencha o campo "Nome".');
-    end
-    else if oDtoUsuario.Senha = '' then
-    begin
-    raise Exception.Create('Preencha o campo "Senha".');
-    end
-    else if oDtoUsuario.ConfirmaSenha = '' then
-    begin
-    raise Exception.Create('Preencha o campo "Confirme a Senha".');
-    end }
 
-end;
-
-procedure TControllerUsuario.ValidarConfirmaSenha(var editSenha: TLabeledEdit;
-  var editConfirmaSenha: TLabeledEdit; var labelFeedback: TLabel);
-begin
-  if editConfirmaSenha.Text = '' then
+  if oModelUsuario.Listar then
   begin
-    labelFeedback.Caption := 'Este campo é obrigatório.';
-    labelFeedback.Visible := true;
-  end
-  else if editSenha.Text <> editConfirmaSenha.Text then
-  begin
-    labelFeedback.Caption := 'As senhas não são iguais.';
-    labelFeedback.Visible := true;
-  end
-  else
-  begin
-    labelFeedback.Visible := False;
+    oDataSource.DataSet := oModelUsuario.oQuery;
+    TfrmListagemUsuario(oFormularioListagem).dbGridListagem.DataSource :=
+      oDataSource;
   end;
-
-end;
-
-procedure TControllerUsuario.ValidarNome(var edit: TLabeledEdit;
-  var labelFeedback: TLabel);
-begin
-  if edit.Text = '' then
-  begin
-    labelFeedback.Caption := 'Este campo é obrigatório.';
-    labelFeedback.Visible := true;
-  end
-  else
-  begin
-    labelFeedback.Visible := False;
-
-  end;
-
-end;
-
-procedure TControllerUsuario.ValidarSenha(var edit: TLabeledEdit;
-  var labelFeedback: TLabel);
-begin
-  if edit.Text = '' then
-  begin
-    labelFeedback.Caption := 'Este campo é obrigatório.';
-    labelFeedback.Visible := true;
-  end
-  else if Length(edit.Text) < 6 then
-  begin
-    labelFeedback.Caption := 'Insira uma senha com no mínimo seis caracteres.';
-    labelFeedback.Visible := true;
-  end
-  else
-  begin
-    labelFeedback.Visible := False;
-  end;
-
 end;
 
 end.
