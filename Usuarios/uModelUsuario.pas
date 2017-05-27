@@ -58,8 +58,6 @@ begin
 end;
 
 function TModelUsuario.Listar: Boolean;
-var
-  oDtoUsuario: TDtoUsuario;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;

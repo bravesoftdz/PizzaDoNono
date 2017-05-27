@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.ExtCtrls, Vcl.StdCtrls, System.Classes, Vcl.Forms, Vcl.Dialogs,
-  System.SysUtils,
+  System.SysUtils, Data.DB,
   uInterfaceCRUD, uCadastroBase, uListagemBase;
 
 type
@@ -13,11 +13,13 @@ type
   protected
     oFormularioCadastro: TfrmCadastroBase;
     oFormularioListagem: TfrmListagemBase;
+    oDataSource: TDataSource;
     procedure PreencherDTO;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean);
     procedure LimparFormulario;
   public
-    constructor Create;
+    constructor Create; virtual;
+    destructor Destroy; override;
     procedure CriarFormCadastro(aOwner: TComponent); virtual;
     procedure FecharFormListagem(ASender: TObject); virtual;
     procedure FecharFormCadastro(ASender: TObject); virtual;
@@ -62,7 +64,8 @@ end;
 
 constructor TControllerCRUD.Create;
 begin
-  //
+  if not(Assigned(oDataSource)) then
+    oDataSource := TDataSource.Create(nil);
 end;
 
 procedure TControllerCRUD.CriarFormCadastro(aOwner: TComponent);
@@ -76,9 +79,16 @@ begin
   AjustarModoInsercao(False);
 end;
 
+destructor TControllerCRUD.Destroy;
+begin
+  if Assigned(oDataSource) then
+    FreeAndNil(oDataSource);
+  inherited;
+end;
+
 procedure TControllerCRUD.Editar(ASender: TObject);
 begin
-//
+  //
 end;
 
 procedure TControllerCRUD.FecharFormCadastro(ASender: TObject);

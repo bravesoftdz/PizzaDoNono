@@ -15,7 +15,6 @@ type
     oRegraUsuario: TRegraUsuario;
     oModelUsuario: TModelUsuario;
     oDtoUsuario: TDtoUsuario;
-    oDataSource: TDataSource;
     procedure BuscarMaiorID;
     procedure PreencherDTO;
     procedure LimparDto(var ADtoUsuario: TDtoUsuario);
@@ -57,8 +56,6 @@ begin
   if not(Assigned(oModelUsuario)) then
     oModelUsuario := TModelUsuario.Create;
 
-  if not(Assigned(oDataSource)) then
-    oDataSource := TDataSource.Create(nil);
 
 end;
 
@@ -81,9 +78,6 @@ begin
 
   if Assigned(oModelUsuario) then
     FreeAndNil(oModelUsuario);
-
-  if Assigned(oDataSource) then
-    FreeAndNil(oDataSource);
 
   inherited;
 end;

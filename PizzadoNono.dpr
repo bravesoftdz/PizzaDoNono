@@ -17,7 +17,16 @@ uses
   uRegraUsuario in 'Usuarios\uRegraUsuario.pas',
   uControllerCRUD in 'uControllerCRUD.pas',
   uEnumeradorCamposUsuario in 'Usuarios\uEnumeradorCamposUsuario.pas',
-  uInterfaceModelUsuario in 'Usuarios\uInterfaceModelUsuario.pas';
+  uInterfaceModelUsuario in 'Usuarios\uInterfaceModelUsuario.pas',
+  uViewCadastroIngrediente in 'Ingredientes\uViewCadastroIngrediente.pas' {frmCadastroIngrediente},
+  uControllerIngrediente in 'Ingredientes\uControllerIngrediente.pas',
+  uDtoIngrediente in 'Ingredientes\uDtoIngrediente.pas',
+  uModelIngrediente in 'Ingredientes\uModelIngrediente.pas',
+  uViewListagemIngrediente in 'Ingredientes\uViewListagemIngrediente.pas' {frmListagemIngrediente},
+  uEnumeradorCamposIngrediente in 'Ingredientes\uEnumeradorCamposIngrediente.pas',
+  uRegraIngrediente in 'Ingredientes\uRegraIngrediente.pas',
+  uInterfaceModelIngrediente in 'Ingredientes\uInterfaceModelIngrediente.pas',
+  uViewCadastroEstado in 'Estados\uViewCadastroEstado.pas' {frmCadastroEstado};
 
 {$R *.res}
 
@@ -25,5 +34,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmCadastroEstado, frmCadastroEstado);
   Application.Run;
 end.

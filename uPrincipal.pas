@@ -8,7 +8,7 @@ uses
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Imaging.pngimage,
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
-  uViewCadastroUsuario, System.ImageList, Vcl.ImgList;
+  uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -27,6 +27,7 @@ type
     procedure btnUsuariosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
+    procedure btnIngredientesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,6 +40,14 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.btnIngredientesClick(Sender: TObject);
+begin
+  inherited;
+  if not(assigned(oControllerIngrediente)) then
+    oControllerIngrediente := TControllerIngrediente.Create;
+  oControllerIngrediente.CriarFormCadastro(Self);
+end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
 begin

@@ -4,10 +4,10 @@ interface
 
 uses
   System.SysUtils, Vcl.Dialogs,
-  uInterfaceRegra, uDtoUsuario, uEnumeradorCamposUsuario;
+  uDtoUsuario, uEnumeradorCamposUsuario;
 
 type
-  TRegraUsuario = class(TInterfacedObject, IRegra)
+  TRegraUsuario = class
   private
     //
   public
