@@ -62,7 +62,7 @@ function TModelIngrediente.Listar: Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open('SELECT idIngrediente ID, Descricao FROM ingrediente ORDER BY idIngrediente ASC');
+  oQuery.Open('SELECT idIngrediente ID, Descricao Descrição FROM ingrediente ORDER BY idIngrediente ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;

@@ -31,6 +31,7 @@ type
     procedure btnIngredientesClick(Sender: TObject);
     procedure btnEstadosClick(Sender: TObject);
     procedure btnMunicipiosClick(Sender: TObject);
+    procedure bntBairrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,6 +44,14 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.bntBairrosClick(Sender: TObject);
+begin
+  inherited;
+//  if not(assigned(oControllerBairro)) then
+//    oControllerEstado := TControllerEstado.Create;
+//  oControllerEstado.CriarFormCadastro(Self);
+end;
 
 procedure TfrmPrincipal.btnEstadosClick(Sender: TObject);
 begin

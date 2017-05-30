@@ -13,7 +13,9 @@ type
     oQuery: TFDQuery;
     function Inserir(var oDtoEstado: TDtoEstado): Boolean;
     function BuscarMaiorID(out ADtoEstado: TDtoEstado): Boolean;
+    //listar os estados na Grid
     function Listar: Boolean;
+    //listar os estados no combo box do cadastro de municipios
     function ListarEstados(out ALista: TListaEstado): Boolean;
 
     constructor Create;

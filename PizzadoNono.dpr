@@ -42,7 +42,15 @@ uses
   uInterfaceModelMunicipio in 'Municipios\uInterfaceModelMunicipio.pas',
   uModelMunicipio in 'Municipios\uModelMunicipio.pas',
   uRegraMunicipio in 'Municipios\uRegraMunicipio.pas',
-  uListaEstado in 'Estados\uListaEstado.pas';
+  uListaEstado in 'Estados\uListaEstado.pas',
+  uViewCadastroBairro in 'Bairros\uViewCadastroBairro.pas' {frmCadastroBairro},
+  uControllerBairro in 'Bairros\uControllerBairro.pas',
+  uDtoBairro in 'Bairros\uDtoBairro.pas',
+  uEnumeradorCamposBairro in 'Bairros\uEnumeradorCamposBairro.pas',
+  uInterfaceModelBairro in 'Bairros\uInterfaceModelBairro.pas',
+  uModelBairro in 'Bairros\uModelBairro.pas',
+  uRegraBairro in 'Bairros\uRegraBairro.pas',
+  uViewListagemBairro in 'Bairros\uViewListagemBairro.pas' {frmListagemBairro};
 
 {$R *.res}
 
@@ -50,5 +58,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmListagemBairro, frmListagemBairro);
   Application.Run;
 end.

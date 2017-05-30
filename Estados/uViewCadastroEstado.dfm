@@ -1,7 +1,6 @@
 inherited frmCadastroEstado: TfrmCadastroEstado
   Caption = 'frmCadastroEstado'
   ClientHeight = 631
-  ExplicitTop = -102
   ExplicitHeight = 660
   PixelsPerInch = 96
   TextHeight = 15
@@ -85,11 +84,5 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       ParentFont = False
       TabOrder = 3
     end
-  end
-  inherited boxCancelar: TPanel
-    Top = 15
-  end
-  inherited boxSalvar: TPanel
-    Top = 15
   end
 end

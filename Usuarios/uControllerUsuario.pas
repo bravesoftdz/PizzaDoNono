@@ -19,8 +19,9 @@ type
     procedure PreencherDTO;
     procedure LimparDto(var ADtoUsuario: TDtoUsuario);
     procedure PreencherGrid(var DbGrid: TDBGrid);
+
   public
-    constructor Create;
+    constructor Create; override;
     destructor Destroy; override;
 
     procedure Salvar(ASender: TObject); override;
@@ -56,7 +57,7 @@ begin
   if not(Assigned(oModelUsuario)) then
     oModelUsuario := TModelUsuario.Create;
 
-
+  inherited;
 end;
 
 procedure TControllerUsuario.CriarFormCadastro(aOwner: TComponent);

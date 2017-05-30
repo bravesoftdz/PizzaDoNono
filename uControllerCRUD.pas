@@ -4,8 +4,9 @@ interface
 
 uses
   Vcl.ExtCtrls, Vcl.StdCtrls, System.Classes, Vcl.Forms, Vcl.Dialogs,
-  System.SysUtils, Data.DB,
-  uInterfaceCRUD, uCadastroBase, uListagemBase;
+  System.SysUtils, Data.DB, System.Generics.Collections,
+  uInterfaceCRUD, uCadastroBase, uListagemBase, uModelEstado, uDtoEstado,
+  uListaEstado;
 
 type
   TControllerCRUD = class(TInterfacedObject, ICrud)
@@ -17,6 +18,7 @@ type
     procedure PreencherDTO;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); virtual;
     procedure LimparFormulario;
+    procedure ListarEstados(var ACmbEstados: TComboBox);
   public
     constructor Create; virtual;
     destructor Destroy; override;
@@ -120,6 +122,32 @@ begin
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
       (oFormularioCadastro.Components[iIndiceComponente] as TComboBox)
         .ItemIndex := -1;
+  end;
+end;
+
+procedure TControllerCRUD.ListarEstados(var ACmbEstados: TComboBox);
+var
+  oListaEstado: TListaEstado;
+  oModelEstado: TModelEstado;
+  oDtoEstado: TDtoEstado;
+begin
+  ACmbEstados.Items.Clear;
+  oModelEstado := TModelEstado.Create;
+  try
+    oListaEstado := TListaEstado.Create([doOwnsValues]);
+
+    if oModelEstado.ListarEstados(oListaEstado) then
+    begin
+      for oDtoEstado in oListaEstado.Values do
+        ACmbEstados.Items.AddObject(oDtoEstado.Nome,
+          TObject(oDtoEstado.IdEstado));
+    end;
+  finally
+    if Assigned(oModelEstado) then
+      oModelEstado.Free;
+
+    if Assigned(oListaEstado) then
+      FreeAndNil(oListaEstado);
   end;
 end;
 

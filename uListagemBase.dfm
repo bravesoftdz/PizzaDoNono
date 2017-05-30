@@ -1,17 +1,17 @@
 inherited frmListagemBase: TfrmListagemBase
   BorderIcons = []
   Caption = 'frmListagemBase'
-  ClientHeight = 556
-  ClientWidth = 862
+  ClientHeight = 641
+  ClientWidth = 844
   Position = poDesktopCenter
   Visible = True
-  ExplicitWidth = 868
-  ExplicitHeight = 585
+  ExplicitWidth = 850
+  ExplicitHeight = 670
   PixelsPerInch = 96
   TextHeight = 15
   object Label1: TLabel
     Left = 8
-    Top = 137
+    Top = 98
     Width = 44
     Height = 15
     Caption = 'Buscar: '
@@ -20,7 +20,7 @@ inherited frmListagemBase: TfrmListagemBase
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 856
+    Width = 838
     Height = 86
     Cursor = crHandPoint
     Align = alTop
@@ -32,7 +32,7 @@ inherited frmListagemBase: TfrmListagemBase
     ShowCaption = False
     TabOrder = 0
     DesignSize = (
-      856
+      838
       86)
     object btnEditar: TSpeedButton
       AlignWithMargins = True
@@ -602,7 +602,7 @@ inherited frmListagemBase: TfrmListagemBase
     end
     object btnFechar: TSpeedButton
       AlignWithMargins = True
-      Left = 751
+      Left = 733
       Top = 3
       Width = 100
       Height = 80
@@ -710,14 +710,14 @@ inherited frmListagemBase: TfrmListagemBase
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFEAEEFF4369FFD2DBFFFFFFFF}
       Layout = blGlyphTop
       OnClick = btnFecharClick
+      ExplicitLeft = 751
     end
   end
   object panelListagem: TPanel
     Left = 8
-    Top = 163
-    Width = 846
-    Height = 382
-    AutoSize = True
+    Top = 124
+    Width = 828
+    Height = 509
     BorderStyle = bsSingle
     Caption = 'panelListagem'
     Color = clWhite
@@ -727,8 +727,8 @@ inherited frmListagemBase: TfrmListagemBase
     object dbGridListagem: TDBGrid
       Left = 1
       Top = 1
-      Width = 840
-      Height = 376
+      Width = 822
+      Height = 503
       Align = alClient
       BorderStyle = bsNone
       Ctl3D = True
@@ -738,7 +738,7 @@ inherited frmListagemBase: TfrmListagemBase
       Font.Height = -13
       Font.Name = 'Calibri'
       Font.Style = []
-      Options = [dgTitles, dgTabs, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentCtl3D = False
       ParentFont = False
       TabOrder = 0
@@ -751,8 +751,8 @@ inherited frmListagemBase: TfrmListagemBase
   end
   object SearchBox1: TSearchBox
     Left = 58
-    Top = 134
-    Width = 796
+    Top = 95
+    Width = 287
     Height = 23
     TabOrder = 2
     TextHint = 'Insira o termo de pesquisa'

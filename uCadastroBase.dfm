@@ -1,19 +1,19 @@
 inherited frmCadastroBase: TfrmCadastroBase
   BorderIcons = []
   Caption = 'frmCadastroBase'
-  ClientHeight = 624
+  ClientHeight = 641
   ClientWidth = 844
   Position = poDesktopCenter
   Visible = True
   ExplicitWidth = 850
-  ExplicitHeight = 653
+  ExplicitHeight = 670
   PixelsPerInch = 96
   TextHeight = 15
   object panelFormulario: TPanel
-    Left = 7
+    Left = 8
     Top = 104
-    Width = 829
-    Height = 511
+    Width = 828
+    Height = 529
     Align = alCustom
     BorderStyle = bsSingle
     Caption = 'panelFormulario'
@@ -62,7 +62,7 @@ inherited frmCadastroBase: TfrmCadastroBase
       86)
     object btnCancelar: TSpeedButton
       AlignWithMargins = True
-      Left = 322
+      Left = 323
       Top = 3
       Width = 100
       Height = 80
@@ -346,7 +346,7 @@ inherited frmCadastroBase: TfrmCadastroBase
     end
     object btnLocalizar: TSpeedButton
       AlignWithMargins = True
-      Left = 110
+      Left = 111
       Top = 3
       Width = 100
       Height = 80
@@ -740,7 +740,7 @@ inherited frmCadastroBase: TfrmCadastroBase
     end
     object btnNovo: TSpeedButton
       AlignWithMargins = True
-      Left = 4
+      Left = 5
       Top = 3
       Width = 100
       Height = 80
@@ -1023,7 +1023,7 @@ inherited frmCadastroBase: TfrmCadastroBase
     end
     object btnSalvar: TSpeedButton
       AlignWithMargins = True
-      Left = 216
+      Left = 217
       Top = 3
       Width = 100
       Height = 80
