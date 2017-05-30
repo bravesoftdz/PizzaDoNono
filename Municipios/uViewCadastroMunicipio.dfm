@@ -25,8 +25,8 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
       ParentFont = False
     end
     object cmbEstado: TComboBox
-      Left = 16
-      Top = 240
+      Left = 15
+      Top = 243
       Width = 410
       Height = 23
       AutoDropDown = True
@@ -40,9 +40,9 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
       Top = 176
       Width = 410
       Height = 24
-      EditLabel.Width = 38
+      EditLabel.Width = 57
       EditLabel.Height = 15
-      EditLabel.Caption = 'Nome:'
+      EditLabel.Caption = 'Munic'#237'pio:'
       EditLabel.Font.Charset = DEFAULT_CHARSET
       EditLabel.Font.Color = clWindowText
       EditLabel.Font.Height = -13

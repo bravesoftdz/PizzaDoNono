@@ -4,11 +4,10 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
-  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB,
   uInterfaceCRUD, uInterfaceRegra, uControllerCRUD, uDtoMunicipio,
   uModelMunicipio, uRegraMunicipio, uViewCadastroMunicipio,
-  uViewListagemMunicipio, uEnumeradorCamposMunicipio, uModelEstado, uDtoEstado,
-  uListaEstado;
+  uViewListagemMunicipio, uEnumeradorCamposMunicipio;
 
 type
   TControllerMunicipio = class(TControllerCRUD)
@@ -20,7 +19,8 @@ type
     procedure PreencherDTO;
     procedure LimparDto(var ADtoMunicipio: TDtoMunicipio);
     procedure PreencherGrid(var DbGrid: TDBGrid);
-    procedure ListarEstados(var ACmbEstados: TComboBox);
+    function VerificarMunicipioCadastrado(var ADtoMunicipio
+      : TDtoMunicipio): Boolean;
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -106,7 +106,8 @@ end;
 procedure TControllerMunicipio.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
 begin
   inherited;
-  TfrmCadastroMunicipio(oFormularioCadastro).labelEstado.Enabled := AStatusBtnSalvar;
+  TfrmCadastroMunicipio(oFormularioCadastro).labelEstado.Enabled :=
+    AStatusBtnSalvar;
 end;
 
 procedure TControllerMunicipio.BuscarMaiorID;
@@ -123,36 +124,6 @@ begin
   ADtoMunicipio.Estado := 0;
 end;
 
-procedure TControllerMunicipio.ListarEstados(var ACmbEstados: TComboBox);
-var
-  oListaEstado: TListaEstado;
-  oModelEstado: TModelEstado;
-  oDtoEstado: TDtoEstado;
-begin
-  ACmbEstados.Items.Clear;
-  oModelEstado := TModelEstado.Create;
-  try
-    oListaEstado := TListaEstado.Create([doOwnsValues]);
-
-    if oModelEstado.ListarEstados(oListaEstado) then
-    begin
-      for oDtoEstado in oListaEstado.Values do
-        ACmbEstados.Items.AddObject(oDtoEstado.Nome,
-          TObject(oDtoEstado.IdEstado));
-    end;
-  finally
-    // if Assigned(oEstadoDTO) then
-    // oEstadoDTO.Free;
-
-    if Assigned(oModelEstado) then
-      oModelEstado.Free;
-
-    // if assigned(oListaEstados) then
-    // oListaEstados.Free;
-    if Assigned(oListaEstado) then
-      FreeAndNil(oListaEstado);
-  end;
-end;
 
 procedure TControllerMunicipio.Localizar(aOwner: TComponent);
 begin
@@ -180,17 +151,42 @@ begin
 
   case oRegraMunicipio.ValidarDados(oDtoMunicipio) of
     resultNome:
-      TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
+      begin
+        showMessage('Preencha o campo Nome.');
+        TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
+      end;
+    resultUF:
+      begin
+        showMessage('Selecione o Estado.');
+        TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.SetFocus;
+      end;
     resultOk:
       begin
-        if oModelMunicipio.Inserir(oDtoMunicipio) then
+        if not(VerificarMunicipioCadastrado(oDtoMunicipio)) then
         begin
-          AjustarModoInsercao(False);
-          LimparFormulario;
-          LimparDto(oDtoMunicipio);
+          if oModelMunicipio.Inserir(oDtoMunicipio) then
+          begin
+            AjustarModoInsercao(False);
+            LimparFormulario;
+            LimparDto(oDtoMunicipio);
+          end;
         end;
       end;
   end;
+end;
+
+function TControllerMunicipio.VerificarMunicipioCadastrado(var ADtoMunicipio
+  : TDtoMunicipio): Boolean;
+begin
+  Result := False;
+  if oModelMunicipio.VerificarMunicipioCadastrado(ADtoMunicipio) then
+  begin
+    showMessage('Já existe um município com o nome "' + ADtoMunicipio.Nome +
+      '" associado ao estado selecionado.');
+    TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
+    Result := true;
+  end
+
 end;
 
 procedure TControllerMunicipio.PreencherDTO;
@@ -201,9 +197,12 @@ begin
   oDtoMunicipio.Nome := Trim(TfrmCadastroMunicipio(oFormularioCadastro)
     .edtNome.Text);
 
-  oDtoMunicipio.Estado := Integer(TfrmCadastroMunicipio(oFormularioCadastro)
-    .cmbEstado.Items.Objects[TfrmCadastroMunicipio(oFormularioCadastro)
-    .cmbEstado.ItemIndex]);
+  if TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.ItemIndex > -1 then
+  begin
+    oDtoMunicipio.Estado := Integer(TfrmCadastroMunicipio(oFormularioCadastro)
+      .cmbEstado.Items.Objects[TfrmCadastroMunicipio(oFormularioCadastro)
+      .cmbEstado.ItemIndex]);
+  end;
 
 end;
 

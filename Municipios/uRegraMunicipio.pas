@@ -21,10 +21,18 @@ implementation
 function TRegraMunicipio.ValidarDados(var ADtoMunicipio: TDtoMunicipio)
   : TCamposMunicipio;
 begin
+  // testa se o campo nome foi informado
   if ADtoMunicipio.Nome = EmptyStr then
   begin
-    showMessage('Preencha o campo Nome.');
+    // se for vazio
     Result := resultNome;
+    exit;
+  end;
+  // testa se o estado foi selecionado
+  if ADtoMunicipio.Estado = 0 then
+  begin
+    // se for vazio
+    Result := resultUF;
     exit;
   end;
   // caso não der erro nenhum retorna OK
