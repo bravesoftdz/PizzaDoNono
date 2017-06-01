@@ -24,11 +24,11 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure Salvar(ASender: TObject); override;
-    procedure Cancelar(ASender: TObject); override;
-    procedure Localizar(aOwner: TComponent); override;
-    procedure Novo(ASender: TObject); override;
-    procedure Editar(ASender: TObject); override;
+    procedure Salvar; override;
+    procedure Cancelar; override;
+    procedure Localizar; override;
+    procedure Novo; override;
+    procedure Editar; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -41,7 +41,7 @@ implementation
 
 { TControllerUsuario }
 
-procedure TControllerUsuario.Cancelar(ASender: TObject);
+procedure TControllerUsuario.Cancelar;
 begin
   inherited;
 end;
@@ -83,7 +83,7 @@ begin
   inherited;
 end;
 
-procedure TControllerUsuario.Editar(ASender: TObject);
+procedure TControllerUsuario.Editar;
 begin
   inherited;
   //
@@ -114,7 +114,7 @@ begin
   ADtoUsuario.ConfirmaSenha := EmptyStr;
 end;
 
-procedure TControllerUsuario.Localizar(aOwner: TComponent);
+procedure TControllerUsuario.Localizar;
 begin
   if not(Assigned(TfrmListagemUsuario(oFormularioListagem))) then
     TfrmListagemUsuario(oFormularioListagem) :=
@@ -126,14 +126,14 @@ begin
   inherited;
 end;
 
-procedure TControllerUsuario.Novo(ASender: TObject);
+procedure TControllerUsuario.Novo;
 begin
   inherited;
   BuscarMaiorID;
   TfrmUsuario(oFormularioCadastro).edtNome.SetFocus;
 end;
 
-procedure TControllerUsuario.Salvar(ASender: TObject);
+procedure TControllerUsuario.Salvar;
 begin
   PreencherDTO;
 

@@ -23,11 +23,11 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    procedure Salvar(ASender: TObject); override;
-    procedure Cancelar(ASender: TObject); override;
-    procedure Localizar(aOwner: TComponent); override;
-    procedure Novo(ASender: TObject); override;
-    procedure Editar(ASender: TObject); override;
+    procedure Salvar; override;
+    procedure Cancelar; override;
+    procedure Localizar; override;
+    procedure Novo; override;
+    procedure Editar; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -40,7 +40,7 @@ implementation
 
 { TControllerEstado }
 
-procedure TControllerEstado.Cancelar(ASender: TObject);
+procedure TControllerEstado.Cancelar;
 begin
   inherited;
 end;
@@ -81,7 +81,7 @@ begin
   inherited;
 end;
 
-procedure TControllerEstado.Editar(ASender: TObject);
+procedure TControllerEstado.Editar;
 begin
   inherited;
   //
@@ -111,7 +111,7 @@ begin
   ADtoEstado.UF := EmptyStr;
 end;
 
-procedure TControllerEstado.Localizar(aOwner: TComponent);
+procedure TControllerEstado.Localizar;
 begin
   if not(Assigned(TfrmListagemEstado(oFormularioListagem))) then
     TfrmListagemEstado(oFormularioListagem) :=
@@ -123,14 +123,14 @@ begin
   inherited;
 end;
 
-procedure TControllerEstado.Novo(ASender: TObject);
+procedure TControllerEstado.Novo;
 begin
   inherited;
   BuscarMaiorID;
   TfrmCadastroEstado(oFormularioCadastro).edtUF.SetFocus;
 end;
 
-procedure TControllerEstado.Salvar(ASender: TObject);
+procedure TControllerEstado.Salvar;
 begin
   PreencherDTO;
 

@@ -599,6 +599,7 @@ inherited frmListagemBase: TfrmListagemBase
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
       Layout = blGlyphTop
       NumGlyphs = 2
+      OnClick = btnExcluirClick
     end
     object btnFechar: TSpeedButton
       AlignWithMargins = True

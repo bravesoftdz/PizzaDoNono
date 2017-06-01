@@ -3,7 +3,8 @@ unit uViewCadastroBairro;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.Buttons,
   Vcl.StdCtrls, Vcl.ExtCtrls;
 
@@ -12,9 +13,9 @@ type
     cmbMunicipio: TComboBox;
     edtNome: TLabeledEdit;
     edtIdCodigo: TLabeledEdit;
-    labelEstado: TLabel;
+    labelMunicipio: TLabel;
     cmbEstado: TComboBox;
-    Label1: TLabel;
+    labelEstado: TLabel;
   private
     { Private declarations }
   public

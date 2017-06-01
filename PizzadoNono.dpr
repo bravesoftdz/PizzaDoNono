@@ -50,7 +50,8 @@ uses
   uInterfaceModelBairro in 'Bairros\uInterfaceModelBairro.pas',
   uModelBairro in 'Bairros\uModelBairro.pas',
   uRegraBairro in 'Bairros\uRegraBairro.pas',
-  uViewListagemBairro in 'Bairros\uViewListagemBairro.pas' {frmListagemBairro};
+  uViewListagemBairro in 'Bairros\uViewListagemBairro.pas' {frmListagemBairro},
+  uListaMunicipio in 'Municipios\uListaMunicipio.pas';
 
 {$R *.res}
 
@@ -58,6 +59,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmListagemBairro, frmListagemBairro);
   Application.Run;
 end.

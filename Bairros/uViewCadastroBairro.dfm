@@ -8,7 +8,7 @@ inherited frmCadastroBairro: TfrmCadastroBairro
       Caption = 'Bairros'
       ExplicitWidth = 110
     end
-    object labelEstado: TLabel [1]
+    object labelMunicipio: TLabel [1]
       Left = 14
       Top = 286
       Width = 57
@@ -21,7 +21,7 @@ inherited frmCadastroBairro: TfrmCadastroBairro
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object Label1: TLabel [2]
+    object labelEstado: TLabel [2]
       Left = 15
       Top = 222
       Width = 40

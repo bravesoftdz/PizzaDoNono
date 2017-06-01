@@ -25,11 +25,11 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure Salvar(ASender: TObject); override;
-    procedure Cancelar(ASender: TObject); override;
-    procedure Localizar(aOwner: TComponent); override;
-    procedure Novo(ASender: TObject); override;
-    procedure Editar(ASender: TObject); override;
+    procedure Salvar; override;
+    procedure Cancelar; override;
+    procedure Localizar; override;
+    procedure Novo; override;
+    procedure Editar; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -43,7 +43,7 @@ implementation
 
 { TControllerUsuario }
 
-procedure TControllerMunicipio.Cancelar(ASender: TObject);
+procedure TControllerMunicipio.Cancelar;
 begin
   inherited;
 end;
@@ -87,7 +87,7 @@ begin
   inherited;
 end;
 
-procedure TControllerMunicipio.Editar(ASender: TObject);
+procedure TControllerMunicipio.Editar;
 begin
   inherited;
   //
@@ -125,7 +125,7 @@ begin
 end;
 
 
-procedure TControllerMunicipio.Localizar(aOwner: TComponent);
+procedure TControllerMunicipio.Localizar;
 begin
   if not(Assigned(TfrmListagemMunicipio(oFormularioListagem))) then
     TfrmListagemMunicipio(oFormularioListagem) :=
@@ -138,14 +138,14 @@ begin
   inherited;
 end;
 
-procedure TControllerMunicipio.Novo(ASender: TObject);
+procedure TControllerMunicipio.Novo;
 begin
   inherited;
   BuscarMaiorID;
   TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
 end;
 
-procedure TControllerMunicipio.Salvar(ASender: TObject);
+procedure TControllerMunicipio.Salvar;
 begin
   PreencherDTO;
 

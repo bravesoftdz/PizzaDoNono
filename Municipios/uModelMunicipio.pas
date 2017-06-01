@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoMunicipio, uInterfaceModelMunicipio;
+  uDtoMunicipio, uInterfaceModelMunicipio, uListaMunicipio, uDtoBairro;
 
 type
   TModelMunicipio = class(TInterfacedObject, IModelMunicipio)
@@ -16,6 +16,8 @@ type
     function Listar: Boolean;
     function VerificarMunicipioCadastrado(var ADtoMunicipio
       : TDtoMunicipio): Boolean;
+    function ListarMunicipios(var AListaMunicipio: TListaMunicipio;
+      var ADtoBairro: TDtoBairro): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -66,10 +68,38 @@ function TModelMunicipio.Listar: Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open('SELECT m.idMunicipio ID, m.Nome Nome, e.UF Estado FROM Municipio m ' +
+  oQuery.Open
+    ('SELECT m.idMunicipio ID, m.Nome Nome, e.UF Estado FROM Municipio m ' +
     'LEFT JOIN Estado e ON m.estado_idestado = e.idestado ORDER BY idMunicipio ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
+end;
+
+function TModelMunicipio.ListarMunicipios(var AListaMunicipio: TListaMunicipio;
+  var ADtoBairro: TDtoBairro): Boolean;
+var
+  oDtoMunicipio: TDtoMunicipio;
+begin
+  Result := False;
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+  oQuery.Open
+    ('select IdMunicipio, Nome from municipio WHERE estado_idestado = ' +
+    IntToStr(ADtoBairro.Estado) + ';');
+  if (not(oQuery.IsEmpty)) then
+  begin
+    oQuery.First;
+    while (not(oQuery.Eof)) do
+    begin
+      oDtoMunicipio := TDtoMunicipio.Create;
+      oDtoMunicipio.IdMunicipio := oQuery.FieldByName('IdMunicipio').AsInteger;
+      oDtoMunicipio.Nome := oQuery.FieldByName('Nome').AsString;
+
+      AListaMunicipio.Add(oDtoMunicipio.Nome, oDtoMunicipio);
+
+      oQuery.Next;
+    end;
+    Result := True;
+  end;
 end;
 
 function TModelMunicipio.VerificarMunicipioCadastrado(var ADtoMunicipio

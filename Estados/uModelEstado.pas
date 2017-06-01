@@ -13,10 +13,10 @@ type
     oQuery: TFDQuery;
     function Inserir(var oDtoEstado: TDtoEstado): Boolean;
     function BuscarMaiorID(out ADtoEstado: TDtoEstado): Boolean;
-    //listar os estados na Grid
+    // listar os estados na Grid
     function Listar: Boolean;
-    //listar os estados no combo box do cadastro de municipios
-    function ListarEstados(out ALista: TListaEstado): Boolean;
+    // listar os estados no combo box do cadastro de municipios
+    function ListarEstados(var ALista: TListaEstado): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -69,32 +69,27 @@ begin
     Result := True;
 end;
 
-function TModelEstado.ListarEstados(out ALista: TListaEstado): Boolean;
+function TModelEstado.ListarEstados(var ALista: TListaEstado): Boolean;
 var
-  oEstadoDTO: TDtoEstado;
+  oDtoEstado: TDtoEstado;
 begin
   Result := False;
-  try
-    oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-    oQuery.Open('select IdEstado, Nome from Estado');
-    if (not(oQuery.IsEmpty)) then
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+  oQuery.Open('select IdEstado, Nome from Estado');
+  if (not(oQuery.IsEmpty)) then
+  begin
+    oQuery.First;
+    while (not(oQuery.Eof)) do
     begin
-      oQuery.First;
-      while (not(oQuery.Eof)) do
-      begin
-        oEstadoDTO := TDtoEstado.Create;
-        oEstadoDTO.IdEstado := oQuery.FieldByName('IdEstado').AsInteger;
-        oEstadoDTO.Nome := oQuery.FieldByName('Nome').AsString;
+      oDtoEstado := TDtoEstado.Create;
+      oDtoEstado.IdEstado := oQuery.FieldByName('IdEstado').AsInteger;
+      oDtoEstado.Nome := oQuery.FieldByName('Nome').AsString;
 
-        ALista.Add(oEstadoDTO.Nome, oEstadoDTO);
+      ALista.Add(oDtoEstado.Nome, oDtoEstado);
 
-        oQuery.Next;
-      end;
-      Result := True;
+      oQuery.Next;
     end;
-  finally
-    if assigned(oQuery) then
-      FreeAndNil(oQuery);
+    Result := True;
   end;
 end;
 

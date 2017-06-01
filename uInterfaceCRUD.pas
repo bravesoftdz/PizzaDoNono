@@ -8,11 +8,12 @@ uses
 
 type
   ICrud = interface
-    procedure Salvar(ASender: TObject);
-    procedure Cancelar(ASender: TObject);
-    procedure Localizar(aOwner: TComponent);
-    procedure Novo(ASender: TObject);
-    procedure Editar(ASender: TObject);
+    procedure Salvar;
+    procedure Cancelar;
+    procedure Localizar;
+    procedure Novo;
+    procedure Editar;
+    procedure Excluir;
     procedure FecharFormCadastro(ASender: TObject);
     procedure FecharFormListagem(ASender: TObject);
     procedure CriarFormCadastro(aOwner: TComponent);

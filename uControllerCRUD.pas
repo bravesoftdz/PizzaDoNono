@@ -25,11 +25,12 @@ type
     procedure CriarFormCadastro(aOwner: TComponent); virtual;
     procedure FecharFormListagem(ASender: TObject); virtual;
     procedure FecharFormCadastro(ASender: TObject); virtual;
-    procedure Salvar(ASender: TObject); virtual;
-    procedure Cancelar(ASender: TObject); virtual;
-    procedure Localizar(aOwner: TComponent); virtual;
-    procedure Novo(ASender: TObject); virtual;
-    procedure Editar(ASender: TObject); virtual;
+    procedure Salvar(); virtual;
+    procedure Cancelar(); virtual;
+    procedure Localizar(); virtual;
+    procedure Novo(); virtual;
+    procedure Editar; virtual;
+    procedure Excluir; virtual;
   end;
 
 var
@@ -58,7 +59,7 @@ begin
   oFormularioCadastro.btnLocalizar.Enabled := not(AStatusBtnSalvar);
 end;
 
-procedure TControllerCRUD.Cancelar(ASender: TObject);
+procedure TControllerCRUD.Cancelar();
 begin
   LimparFormulario;
   AjustarModoInsercao(False);
@@ -88,9 +89,14 @@ begin
   inherited;
 end;
 
-procedure TControllerCRUD.Editar(ASender: TObject);
+procedure TControllerCRUD.Editar;
 begin
   //
+end;
+
+procedure TControllerCRUD.Excluir;
+begin
+ //
 end;
 
 procedure TControllerCRUD.FecharFormCadastro(ASender: TObject);
@@ -134,6 +140,7 @@ begin
   ACmbEstados.Items.Clear;
   oModelEstado := TModelEstado.Create;
   try
+
     oListaEstado := TListaEstado.Create([doOwnsValues]);
 
     if oModelEstado.ListarEstados(oListaEstado) then
@@ -144,19 +151,19 @@ begin
     end;
   finally
     if Assigned(oModelEstado) then
-      oModelEstado.Free;
+      FreeAndNil(oModelEstado);
 
     if Assigned(oListaEstado) then
       FreeAndNil(oListaEstado);
   end;
 end;
 
-procedure TControllerCRUD.Localizar(aOwner: TComponent);
+procedure TControllerCRUD.Localizar();
 begin
   oFormularioListagem.Show;
 end;
 
-procedure TControllerCRUD.Novo(ASender: TObject);
+procedure TControllerCRUD.Novo();
 begin
   AjustarModoInsercao(True);
 end;
@@ -166,7 +173,7 @@ begin
 
 end;
 
-procedure TControllerCRUD.Salvar(ASender: TObject);
+procedure TControllerCRUD.Salvar();
 begin
 
 end;

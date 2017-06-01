@@ -23,11 +23,11 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure Salvar(ASender: TObject); override;
-    procedure Cancelar(ASender: TObject); override;
-    procedure Localizar(aOwner: TComponent); override;
-    procedure Novo(ASender: TObject); override;
-    procedure Editar(ASender: TObject); override;
+    procedure Salvar; override;
+    procedure Cancelar; override;
+    procedure Localizar; override;
+    procedure Novo; override;
+    procedure Editar; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -40,7 +40,7 @@ implementation
 
 { TControllerUsuario }
 
-procedure TControllerIngrediente.Cancelar(ASender: TObject);
+procedure TControllerIngrediente.Cancelar;
 begin
   inherited;
 end;
@@ -83,7 +83,7 @@ begin
   inherited;
 end;
 
-procedure TControllerIngrediente.Editar(ASender: TObject);
+procedure TControllerIngrediente.Editar;
 begin
   inherited;
   //
@@ -113,7 +113,7 @@ begin
   ADtoIngrediente.Descricao := EmptyStr;
 end;
 
-procedure TControllerIngrediente.Localizar(aOwner: TComponent);
+procedure TControllerIngrediente.Localizar;
 begin
   if not(Assigned(TfrmListagemIngrediente(oFormularioListagem))) then
     TfrmListagemIngrediente(oFormularioListagem) :=
@@ -126,14 +126,14 @@ begin
   inherited;
 end;
 
-procedure TControllerIngrediente.Novo(ASender: TObject);
+procedure TControllerIngrediente.Novo;
 begin
   inherited;
   BuscarMaiorID;
   TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
 end;
 
-procedure TControllerIngrediente.Salvar(ASender: TObject);
+procedure TControllerIngrediente.Salvar;
 begin
   PreencherDTO;
 

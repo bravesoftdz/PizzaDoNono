@@ -11,11 +11,12 @@ type
   TModelBairro = class(TInterfacedObject, IModelBairro)
   public
     oQuery: TFDQuery;
-    function Inserir(var oDtoBairro: TDtoBairro): Boolean;
+    function Inserir(const oDtoBairro: TDtoBairro): Boolean;
     function BuscarMaiorID(out oDtoBairro: TDtoBairro): Boolean;
     function Listar: Boolean;
-    function VerificarBairroCadastrado(var ADtoBairro
-      : TDtoBairro): Boolean;
+    function VerificarBairroCadastrado(var ADtoBairro: TDtoBairro): Boolean;
+    function BuscarEstado(var ADtoBairro: TDtoBairro): Boolean;
+    function Excluir(const ADtoBairro: TDtoBairro): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -25,15 +26,29 @@ implementation
 
 { TEstadoModel }
 
-function TModelBairro.BuscarMaiorID(out oDtoBairro
-  : TDtoBairro): Boolean;
+function TModelBairro.BuscarEstado(var ADtoBairro: TDtoBairro): Boolean;
+begin
+  Result := False;
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+  oQuery.Open('SELECT e.idestado FROM bairro b ' +
+    'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ' +
+    'LEFT JOIN estado e ON m.estado_idestado = e.idestado WHERE b.idbairro = ' +
+    IntToStr(ADtoBairro.idBairro));
+  if not(oQuery.IsEmpty) then
+  begin
+    ADtoBairro.Estado := oQuery.FieldByName('idestado').AsInteger;
+    Result := True
+  end;
+end;
+
+function TModelBairro.BuscarMaiorID(out oDtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.Open('SELECT MAX(idBairro) as MaxID FROM bairro');
   if not(oQuery.IsEmpty) then
   begin
-    oDtoBairro.IdBairro := oQuery.FieldByName('MaxID').AsInteger;
+    oDtoBairro.idBairro := oQuery.FieldByName('MaxID').AsInteger;
     Result := True
   end;
 end;
@@ -50,14 +65,23 @@ begin
   inherited;
 end;
 
-function TModelBairro.Inserir(var oDtoBairro: TDtoBairro): Boolean;
+function TModelBairro.Excluir(const ADtoBairro: TDtoBairro): Boolean;
+begin
+  Result := False;
+  oQuery.ExecSQL('DELETE FROM bairro WHERE idbairro = ' +
+    IntToStr(ADtoBairro.idBairro));
+  if oQuery.RowsAffected > 0 then
+    Result := True;
+end;
+
+function TModelBairro.Inserir(const oDtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.ExecSQL
     ('INSERT INTO Bairro(idBairro, nome, municipio_idmunicipio) VALUES(' +
-    IntToStr(oDtoBairro.IdBairro) + ', ' + QuotedStr(oDtoBairro.Nome) +
-    ', ' + IntToStr(oDtoBairro.Municipio) + ');');
+    IntToStr(oDtoBairro.idBairro) + ', ' + QuotedStr(oDtoBairro.Nome) + ', ' +
+    IntToStr(oDtoBairro.Municipio) + ');');
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -66,7 +90,8 @@ function TModelBairro.Listar: Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open('SELECT b.idBairro ID, b.Nome Nome, m.Nome Município FROM Bairro b ' +
+  oQuery.Open
+    ('SELECT b.idBairro ID, b.Nome Nome, m.Nome Município FROM Bairro b ' +
     'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ORDER BY idBairro ASC');
   if not(oQuery.IsEmpty) then
     Result := True;

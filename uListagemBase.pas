@@ -21,6 +21,7 @@ type
     dbGridListagem: TDBGrid;
     procedure btnFecharClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,7 +39,13 @@ implementation
 procedure TfrmListagemBase.btnEditarClick(Sender: TObject);
 begin
   inherited;
-  iInterfaceCrud.Editar(Sender);
+  iInterfaceCrud.Editar;
+end;
+
+procedure TfrmListagemBase.btnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  iInterfaceCrud.Excluir;
 end;
 
 procedure TfrmListagemBase.btnFecharClick(Sender: TObject);
