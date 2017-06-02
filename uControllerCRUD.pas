@@ -25,10 +25,10 @@ type
     procedure CriarFormCadastro(aOwner: TComponent); virtual;
     procedure FecharFormListagem(ASender: TObject); virtual;
     procedure FecharFormCadastro(ASender: TObject); virtual;
-    procedure Salvar(); virtual;
-    procedure Cancelar(); virtual;
-    procedure Localizar(); virtual;
-    procedure Novo(); virtual;
+    procedure Salvar(ASender: TObject); virtual;
+    procedure Cancelar(ASender: TObject); virtual;
+    procedure Localizar(aOwner: TComponent); virtual;
+    procedure Novo(ASender: TObject); virtual;
     procedure Editar; virtual;
     procedure Excluir; virtual;
   end;
@@ -59,7 +59,7 @@ begin
   oFormularioCadastro.btnLocalizar.Enabled := not(AStatusBtnSalvar);
 end;
 
-procedure TControllerCRUD.Cancelar();
+procedure TControllerCRUD.Cancelar(ASender: TObject);
 begin
   LimparFormulario;
   AjustarModoInsercao(False);
@@ -158,12 +158,12 @@ begin
   end;
 end;
 
-procedure TControllerCRUD.Localizar();
+procedure TControllerCRUD.Localizar(aOwner: TComponent);
 begin
   oFormularioListagem.Show;
 end;
 
-procedure TControllerCRUD.Novo();
+procedure TControllerCRUD.Novo(ASender: TObject);
 begin
   AjustarModoInsercao(True);
 end;
@@ -173,7 +173,7 @@ begin
 
 end;
 
-procedure TControllerCRUD.Salvar();
+procedure TControllerCRUD.Salvar(ASender: TObject);
 begin
 
 end;

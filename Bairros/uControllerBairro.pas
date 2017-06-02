@@ -26,10 +26,10 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure Salvar; override;
-    procedure Cancelar; override;
-    procedure Localizar; override;
-    procedure Novo; override;
+    procedure Salvar(ASender: TObject); override;
+    procedure Cancelar(ASender: TObject); override;
+    procedure Localizar(aOwner: TComponent); override;
+    procedure Novo(ASender: TObject); override;
     procedure Editar; override;
     procedure Excluir; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
@@ -45,7 +45,7 @@ implementation
 
 { TControllerUsuario }
 
-procedure TControllerBairro.Cancelar;
+procedure TControllerBairro.Cancelar(ASender: TObject);
 begin
   inherited;
 end;
@@ -223,7 +223,7 @@ begin
   ADtoBairro.Estado := 0;
 end;
 
-procedure TControllerBairro.Localizar;
+procedure TControllerBairro.Localizar(aOwner: TComponent);
 begin
   if not(Assigned(TfrmListagemBairro(oFormularioListagem))) then
     TfrmListagemBairro(oFormularioListagem) :=
@@ -235,13 +235,13 @@ begin
   inherited;
 end;
 
-procedure TControllerBairro.Novo;
+procedure TControllerBairro.Novo(ASender: TObject);
 begin
   inherited;
   BuscarMaiorID;
 end;
 
-procedure TControllerBairro.Salvar;
+procedure TControllerBairro.Salvar(ASender: TObject);
 begin
   PreencherDTO;
 
