@@ -9,6 +9,7 @@ uses
 
 type
   TfrmBasePadrao = class(TForm)
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -21,5 +22,14 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmBasePadrao.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    perform(wm_nextdlgctl, 0, 0);
+  end;
+end;
 
 end.

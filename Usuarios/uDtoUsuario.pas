@@ -27,8 +27,6 @@ type
 
 implementation
 
-{ TMunicipio }
-
 { TDtoUsuarios }
 
 procedure TDtoUsuario.SetConfirmaSenha(const Value: string);
