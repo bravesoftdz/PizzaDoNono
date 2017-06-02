@@ -8,7 +8,9 @@ uses
   Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.ExtCtrls;
 
 type
-  TfrmCadastroBase1 = class(TfrmCadastroBase)
+  TfrmCadastroIngrediente = class(TfrmCadastroBase)
+    edtDescricao: TLabeledEdit;
+    edtIdCodigo: TLabeledEdit;
   private
     { Private declarations }
   public
@@ -16,7 +18,7 @@ type
   end;
 
 var
-  frmCadastroBase1: TfrmCadastroBase1;
+  frmCadastroIngrediente: TfrmCadastroIngrediente;
 
 implementation
 
