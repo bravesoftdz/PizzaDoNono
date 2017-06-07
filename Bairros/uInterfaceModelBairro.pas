@@ -9,7 +9,6 @@ uses
 type
   IModelBairro = interface
     function Inserir(const oDtoBairro: TDtoBairro): Boolean;
-    function BuscarMaiorID(out oDtoBairro: TDtoBairro): Boolean;
     function Listar: Boolean;
   end;
 

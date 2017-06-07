@@ -16,7 +16,6 @@ type
     oRegraBairro: TRegraBairro;
     oModelBairro: TModelBairro;
     oDtoBairro: TDtoBairro;
-    procedure BuscarMaiorID;
     procedure PreencherDTO;
     procedure LimparDto(var ADtoBairro: TDtoBairro);
     procedure PreencherGrid(var DbGrid: TDBGrid);
@@ -73,8 +72,7 @@ begin
 
   ListarEstados(TfrmCadastroBairro(oFormularioCadastro).cmbEstado);
 
-  TfrmCadastroBairro(oFormularioCadastro).cmbEstado.OnChange :=
-    AtualizarComboBoxMunicipio;
+  TfrmCadastroBairro(oFormularioCadastro).cmbEstado.OnChange := AtualizarComboBoxMunicipio;
 
   inherited;
 end;
@@ -100,17 +98,14 @@ begin
   // resgatando dados da linha selecionada no DBGrid
   // resgatando IdBairro e setando no Edit
   TfrmCadastroBairro(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
 
   // resgatando Nome do bairro e setando no Edit
-  TfrmCadastroBairro(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('Nome').AsString;
+  TfrmCadastroBairro(oFormularioCadastro).edtNome.Text := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
+    FieldByName('Nome').AsString;
 
   // resgatando nome do municipio - precisa ser feito antes de buscar o estado
-  nomeMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
-    FieldByName('município').AsString;
+  nomeMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('município').AsString;
 
   { para listar o municipio no ComboBox, é necessário ter o estado listado
     no ComboBox do estado }
@@ -118,16 +113,14 @@ begin
   PreencherDTO;
   if oRegraBairro.BuscarEstado(oModelBairro, oDtoBairro) then
   begin
-    TfrmCadastroBairro(oFormularioCadastro).cmbEstado.ItemIndex :=
-      TfrmCadastroBairro(oFormularioCadastro).cmbEstado.Items.IndexOfObject
-      (TObject(oDtoBairro.Estado));
+    TfrmCadastroBairro(oFormularioCadastro).cmbEstado.ItemIndex := TfrmCadastroBairro(oFormularioCadastro)
+      .cmbEstado.Items.IndexOfObject(TObject(oDtoBairro.Estado));
   end;
 
   AtualizarComboBoxMunicipio(nil);
   // setando municicipio no ComboBox a partir do nome
-  TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex :=
-    TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.Items.IndexOf
-    (nomeMunicipio);
+  TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex := TfrmCadastroBairro(oFormularioCadastro)
+    .cmbMunicipio.Items.IndexOf(nomeMunicipio);
 
   FecharFormListagem(oFormularioListagem);
 
@@ -138,8 +131,7 @@ procedure TControllerBairro.Excluir;
 begin
   inherited;
   // resgatando idBairro do DBGrid e setando no DTO
-  oDtoBairro.idBairro := oFormularioListagem.dbGridListagem.SelectedField.
-    DataSet.FieldByName('ID').AsInteger;
+  oDtoBairro.idBairro := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsInteger;
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
@@ -173,11 +165,9 @@ begin
   if AStatusBtnSalvar then
     TfrmCadastroBairro(oFormularioCadastro).edtNome.SetFocus;
 
-  TfrmCadastroBairro(oFormularioCadastro).labelEstado.Enabled :=
-    AStatusBtnSalvar;
+  TfrmCadastroBairro(oFormularioCadastro).labelEstado.Enabled := AStatusBtnSalvar;
 
-  TfrmCadastroBairro(oFormularioCadastro).labelMunicipio.Enabled :=
-    AStatusBtnSalvar;
+  TfrmCadastroBairro(oFormularioCadastro).labelMunicipio.Enabled := AStatusBtnSalvar;
 end;
 
 procedure TControllerBairro.AtualizarComboBoxMunicipio(Sender: TObject);
@@ -197,8 +187,8 @@ begin
     if oModelMunicipio.ListarMunicipios(oListaMunicipio, oDtoBairro) then
     begin
       for oDtoMunicipio in oListaMunicipio.Values do
-        TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.Items.AddObject
-          (oDtoMunicipio.Nome, TObject(oDtoMunicipio.IdMunicipio));
+        TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.Items.AddObject(oDtoMunicipio.Nome,
+          TObject(oDtoMunicipio.IdMunicipio));
     end
   finally
     if Assigned(oModelMunicipio) then
@@ -209,25 +199,18 @@ begin
   end;
 end;
 
-procedure TControllerBairro.BuscarMaiorID;
-begin
-  if oRegraBairro.BuscarMaiorID(oModelBairro, oDtoBairro) then
-    TfrmCadastroBairro(oFormularioCadastro).edtIdCodigo.Text :=
-      IntToStr(oDtoBairro.idBairro + 1);
-end;
-
 procedure TControllerBairro.LimparDto(var ADtoBairro: TDtoBairro);
 begin
   ADtoBairro.idBairro := 0;
   ADtoBairro.Nome := EmptyStr;
   ADtoBairro.Estado := 0;
+  ADtoBairro.Municipio := 0;
 end;
 
 procedure TControllerBairro.Localizar(aOwner: TComponent);
 begin
   if not(Assigned(TfrmListagemBairro(oFormularioListagem))) then
-    TfrmListagemBairro(oFormularioListagem) :=
-      TfrmListagemBairro.Create(aOwner);
+    TfrmListagemBairro(oFormularioListagem) := TfrmListagemBairro.Create(aOwner);
 
   TfrmListagemBairro(oFormularioListagem).iInterfaceCrud := oControllerBairro;
 
@@ -238,7 +221,6 @@ end;
 procedure TControllerBairro.Novo(ASender: TObject);
 begin
   inherited;
-  BuscarMaiorID;
 end;
 
 procedure TControllerBairro.Salvar(ASender: TObject);
@@ -263,47 +245,75 @@ begin
       end;
     resultOk:
       begin
-        if oRegraBairro.VerificarBairroCadastrado(oModelBairro, oDtoBairro) then
+        // testa se o edit do ID está vazio
+        if oDtoBairro.idBairro = 0 then
         begin
-          ShowMessage('Já existe um município com o nome "' +
-            UpperCase(oDtoBairro.Nome) + '" associado ao estado selecionado.');
-          TfrmCadastroBairro(oFormularioCadastro).edtNome.SetFocus;
-        end
-        else
-        begin
-          if oRegraBairro.Inserir(oModelBairro, oDtoBairro) then
+          // se o ID for vazio, testa se o nome informado ja esta cadastrado
+          if oRegraBairro.VerificarBairroCadastrado(oModelBairro, oDtoBairro) then
           begin
-            AjustarModoInsercao(False);
-            LimparFormulario;
-            LimparDto(oDtoBairro);
+            ShowMessage('Já existe um bairro com o nome "' + UpperCase(oDtoBairro.Nome) +
+              '" associado ao estado selecionado.');
+            TfrmCadastroBairro(oFormularioCadastro).edtNome.SetFocus;
           end
           else
-            ShowMessage('Ocorreu um erro ao Salvar o novo bairro');
+          // se o nome informado nao estiver cadastrado, realiza a inserção
+          begin
+            // testa se a inserção foi realizada
+            if oRegraBairro.Inserir(oModelBairro, oDtoBairro) then
+            begin
+              // se a inserção for realizada
+              AjustarModoInsercao(False);
+              LimparFormulario;
+              LimparDto(oDtoBairro);
+            end;
+          end;
+        end
+        else
+        // se o edit de ID nao estiver vazio, fazer UPDATE
+        begin
+          if oRegraBairro.VerificarBairroCadastrado(oModelBairro, oDtoBairro) then
+          begin
+            ShowMessage('Já existe um bairro com o nome "' + UpperCase(oDtoBairro.Nome) +
+              '" associado ao estado selecionado.');
+            TfrmCadastroBairro(oFormularioCadastro).edtNome.SetFocus;
+          end
+          else
+          // se o nome informado nao estiver cadastrado, realiza a inserção
+          begin
+            // testa se a inserção foi realizada
+            if oRegraBairro.Editar(oModelBairro, oDtoBairro) then
+            begin
+              // se a alteração for realizada
+              AjustarModoInsercao(False);
+              LimparFormulario;
+              LimparDto(oDtoBairro);
+            end;
+          end;
         end;
-
       end;
   end;
 end;
 
 procedure TControllerBairro.PreencherDTO;
 begin
-  oDtoBairro.idBairro := StrToInt(TfrmCadastroBairro(oFormularioCadastro)
-    .edtIdCodigo.Text);
+
+  if TfrmCadastroBairro(oFormularioCadastro).edtIdCodigo.Text <> '' then
+    oDtoBairro.idBairro := StrToInt(TfrmCadastroBairro(oFormularioCadastro).edtIdCodigo.Text)
+  else
+    oDtoBairro.idBairro := 0;
 
   oDtoBairro.Nome := Trim(TfrmCadastroBairro(oFormularioCadastro).edtNome.Text);
 
   if TfrmCadastroBairro(oFormularioCadastro).cmbEstado.ItemIndex > -1 then
   begin
-    oDtoBairro.Estado := Integer(TfrmCadastroBairro(oFormularioCadastro)
-      .cmbEstado.Items.Objects[TfrmCadastroBairro(oFormularioCadastro)
-      .cmbEstado.ItemIndex]);
+    oDtoBairro.Estado := Integer(TfrmCadastroBairro(oFormularioCadastro).cmbEstado.Items.Objects
+      [TfrmCadastroBairro(oFormularioCadastro).cmbEstado.ItemIndex]);
   end;
 
   if TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex > -1 then
   begin
-    oDtoBairro.Municipio := Integer(TfrmCadastroBairro(oFormularioCadastro)
-      .cmbMunicipio.Items.Objects[TfrmCadastroBairro(oFormularioCadastro)
-      .cmbMunicipio.ItemIndex]);
+    oDtoBairro.Municipio := Integer(TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.Items.Objects
+      [TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex]);
   end;
 
 end;
@@ -314,8 +324,7 @@ begin
   if oModelBairro.Listar then
   begin
     oDataSource.DataSet := oModelBairro.oQuery;
-    TfrmListagemBairro(oFormularioListagem).dbGridListagem.DataSource :=
-      oDataSource;
+    TfrmListagemBairro(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
 end;
 
