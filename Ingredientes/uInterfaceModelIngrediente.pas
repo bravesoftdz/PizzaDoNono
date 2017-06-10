@@ -8,8 +8,7 @@ uses
 
 type
   IModelIngrediente = interface
-    function Inserir(var oDtoIngrediente: TDtoIngrediente): Boolean;
-    function BuscarMaiorID(out oDtoIngrediente: TDtoIngrediente): Boolean;
+    function Inserir(const oDtoIngrediente: TDtoIngrediente): Boolean;
     function Listar: Boolean;
   end;
 

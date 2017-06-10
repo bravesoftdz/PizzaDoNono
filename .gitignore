@@ -44,3 +44,6 @@ win32/
 *.dproj
 Usuarios/__history/
 Usuarios/__history/*.dpr.~*~
+Banco de Dados/pizzaNonoModel.mwb.bak
+PizzadoNono.otares
+PizzadoNono_Icon1.ico

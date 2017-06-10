@@ -1,10 +1,10 @@
 unit uControllerIngrediente;
-
+
 interface
 
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
-  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
   uInterfaceCRUD, uInterfaceRegra, uControllerCRUD, uDtoIngrediente,
   uModelIngrediente, uRegraIngrediente, uViewCadastroIngrediente,
   uViewListagemIngrediente, uEnumeradorCamposIngrediente;
@@ -15,7 +15,7 @@ type
     oRegraIngrediente: TRegraIngrediente;
     oModelIngrediente: TModelIngrediente;
     oDtoIngrediente: TDtoIngrediente;
-    procedure BuscarMaiorID;
+
     procedure PreencherDTO;
     procedure LimparDto(var ADtoIngrediente: TDtoIngrediente);
     procedure PreencherGrid(var DbGrid: TDBGrid);
@@ -28,6 +28,7 @@ type
     procedure Localizar(aOwner: TComponent); override;
     procedure Novo(ASender: TObject); override;
     procedure Editar; override;
+    procedure Excluir; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -86,7 +87,42 @@ end;
 procedure TControllerIngrediente.Editar;
 begin
   inherited;
+  // resgatando dados da linha selecionada no DBGrid
+  // resgatando IdIgrediente e setando no Edit
+  TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text :=
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
+    ('ID').AsString;
+
+  // resgatando Nome do ingrediente e setando no Edit
+  TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.Text :=
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
+    ('Descrição').AsString;
+
+  FecharFormListagem(oFormularioListagem);
+
+  AjustarModoInsercao(true);
   //
+end;
+
+procedure TControllerIngrediente.Excluir;
+begin
+ inherited;
+  // resgatando idingredient do DBGrid e setando no DTO
+  oDtoIngrediente.idIngrediente := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsInteger;
+
+  if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
+  begin
+    if oRegraIngrediente.Excluir(oModelIngrediente, oDtoIngrediente) then
+    begin
+      PreencherGrid(oFormularioListagem.dbGridListagem);
+      ShowMessage('Registro excluído com sucesso.');
+    end
+    else
+    begin
+      PreencherGrid(oFormularioListagem.dbGridListagem);
+      ShowMessage('Não foi possível excluir.');
+    end;
+  end
 end;
 
 procedure TControllerIngrediente.FecharFormCadastro(ASender: TObject);
@@ -97,13 +133,6 @@ end;
 procedure TControllerIngrediente.FecharFormListagem(ASender: TObject);
 begin
   inherited;
-end;
-
-procedure TControllerIngrediente.BuscarMaiorID;
-begin
-  if oModelIngrediente.BuscarMaiorID(oDtoIngrediente) then
-    TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text :=
-      IntToStr(oDtoIngrediente.IdIngrediente + 1);
 end;
 
 procedure TControllerIngrediente.LimparDto(var ADtoIngrediente
@@ -129,7 +158,7 @@ end;
 procedure TControllerIngrediente.Novo;
 begin
   inherited;
-  BuscarMaiorID;
+
   TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
 end;
 
@@ -137,25 +166,68 @@ procedure TControllerIngrediente.Salvar;
 begin
   PreencherDTO;
 
-  case oRegraIngrediente.ValidarDados(oDtoIngrediente) of
+   case oRegraIngrediente.ValidarDados(oDtoIngrediente) of
     resultDescricao:
-      TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
+      begin
+        ShowMessage('Informe o nome do Ingrediente.');
+        TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
+      end;
     resultOk:
       begin
-        if oModelIngrediente.Inserir(oDtoIngrediente) then
+        // testa se o edit do ID está vazio
+        if oDtoIngrediente.idIngrediente = 0 then
         begin
-          AjustarModoInsercao(False);
-          LimparFormulario;
-          LimparDto(oDtoIngrediente);
+          // se o ID for vazio, testa se o nome informado ja esta cadastrado
+          if oRegraIngrediente.VerificarIngredienteCadastrado(oModelIngrediente, oDtoIngrediente)
+          then
+          begin
+            ShowMessage('Já existe um ingrediente com o nome "' +
+              UpperCase(oDtoIngrediente.Descricao) +
+              '" associado ao estado selecionado.');
+            TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
+          end
+          else
+          // se o nome informado nao estiver cadastrado, realiza a inserção
+          begin
+            // testa se a inserção foi realizada
+            if oRegraIngrediente.Inserir(oModelIngrediente, oDtoIngrediente) then
+            begin
+              // se a inserção for realizada
+              AjustarModoInsercao(False);
+              LimparFormulario;
+              LimparDto(oDtoIngrediente);
+            end;
+          end;
+        end
+        else
+        // se o edit de ID nao estiver vazio, fazer UPDATE
+        begin
+                           // se o nome informado nao estiver cadastrado, realiza a inserção
+          begin
+            // testa se a inserção foi realizada
+            if oRegraIngrediente.Editar(oModelIngrediente, oDtoIngrediente) then
+            begin
+              // se a alteração for realizada
+              AjustarModoInsercao(False);
+              LimparFormulario;
+              LimparDto(oDtoIngrediente);
+            end;
+          end;
         end;
       end;
   end;
+
 end;
 
 procedure TControllerIngrediente.PreencherDTO;
 begin
-  oDtoIngrediente.IdIngrediente :=
-    StrToInt(TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text);
+
+  if TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text <> '' then
+    oDtoIngrediente.IdIngrediente :=
+      StrToInt(TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text)
+  else
+    oDtoIngrediente.IdIngrediente := 0;
+
   oDtoIngrediente.Descricao := Trim(TfrmCadastroIngrediente(oFormularioCadastro)
     .edtDescricao.Text);
 
@@ -173,3 +245,4 @@ begin
 end;
 
 end.
+

@@ -3,8 +3,6 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Left = 8
-    ExplicitLeft = 8
     inherited labelTitulo: TLabel
       Width = 195
       Caption = 'Ingredientes'
