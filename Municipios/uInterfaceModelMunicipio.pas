@@ -8,8 +8,7 @@ uses
 
 type
   IModelMunicipio = interface
-    function Inserir(var oDtoMunicipio: TDtoMunicipio): Boolean;
-    function BuscarMaiorID(out oDtoMunicipio: TDtoMunicipio): Boolean;
+    function Inserir(const oDtoMunicipio: TDtoMunicipio): Boolean;
     function Listar: Boolean;
   end;
 
