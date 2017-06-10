@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
-  uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
+  uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async, FireDAC.Phys.MySQLWrapper,
   uDtoMunicipio, uInterfaceModelMunicipio, uListaMunicipio, uDtoBairro;
 
 type
@@ -25,7 +25,7 @@ type
 
 implementation
 
-{ TMuncipioModel }
+{ TModelMuncipio }
 
 constructor TModelMunicipio.Create;
 begin
@@ -54,22 +54,19 @@ function TModelMunicipio.Excluir(const ADtoMunicipio: TDtoMunicipio): Boolean;
 begin
   Result := False;
   try
-    oQuery.ExecSQL('DELETE FROM municipio WHERE idmunicipio = ' + IntToStr(ADtoMunicipio.IdMunicipio));
+    oQuery.ExecSQL('DELETE FROM municipio WHERE idmunicipio = ' +
+      IntToStr(ADtoMunicipio.IdMunicipio));
     if oQuery.RowsAffected > 0 then
       Result := True;
   except
-   {}
-  end;
-{
-  try
-
-  except
-    on E: EDatabaseError do
+    on E: EMySQLNativeException do
     begin
-      if E.Message = 'constranints' then
+      if Pos('Cannot delete or update a parent row: a foreign key constraint fails', E.Message) > 0
+      then
+        ShowMessage('Existem bairros associados a este município');
     end;
   end;
-  }
+
 end;
 
 function TModelMunicipio.Inserir(const oDtoMunicipio: TDtoMunicipio): Boolean;
