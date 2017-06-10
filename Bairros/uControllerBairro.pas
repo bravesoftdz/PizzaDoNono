@@ -5,7 +5,7 @@ interface
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
   Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections,
-  uInterfaceCRUD, uInterfaceRegra, uControllerCRUD, uDtoBairro, Vcl.Controls,
+  uInterfaceCRUD, uInterfaceRegra, uControllerCRUD, uDtoBairro, System.UITypes,
   uModelBairro, uRegraBairro, uViewCadastroBairro,
   uViewListagemBairro, uEnumeradorCamposBairro, uDtoMunicipio, uModelMunicipio,
   uListaMunicipio, uDtoEstado;
@@ -101,11 +101,12 @@ begin
     oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
 
   // resgatando Nome do bairro e setando no Edit
-  TfrmCadastroBairro(oFormularioCadastro).edtNome.Text := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
-    FieldByName('Nome').AsString;
+  TfrmCadastroBairro(oFormularioCadastro).edtNome.Text :=
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
 
   // resgatando nome do municipio - precisa ser feito antes de buscar o estado
-  nomeMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('município').AsString;
+  nomeMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
+    ('município').AsString;
 
   { para listar o municipio no ComboBox, é necessário ter o estado listado
     no ComboBox do estado }
@@ -113,14 +114,15 @@ begin
   PreencherDTO;
   if oRegraBairro.BuscarEstado(oModelBairro, oDtoBairro) then
   begin
-    TfrmCadastroBairro(oFormularioCadastro).cmbEstado.ItemIndex := TfrmCadastroBairro(oFormularioCadastro)
-      .cmbEstado.Items.IndexOfObject(TObject(oDtoBairro.Estado));
+    TfrmCadastroBairro(oFormularioCadastro).cmbEstado.ItemIndex :=
+      TfrmCadastroBairro(oFormularioCadastro).cmbEstado.Items.IndexOfObject
+      (TObject(oDtoBairro.Estado));
   end;
 
   AtualizarComboBoxMunicipio(nil);
   // setando municicipio no ComboBox a partir do nome
-  TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex := TfrmCadastroBairro(oFormularioCadastro)
-    .cmbMunicipio.Items.IndexOf(nomeMunicipio);
+  TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex :=
+    TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.Items.IndexOf(nomeMunicipio);
 
   FecharFormListagem(oFormularioListagem);
 
@@ -131,7 +133,8 @@ procedure TControllerBairro.Excluir;
 begin
   inherited;
   // resgatando idBairro do DBGrid e setando no DTO
-  oDtoBairro.idBairro := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsInteger;
+  oDtoBairro.idBairro := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID')
+    .AsInteger;
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
@@ -274,11 +277,11 @@ begin
           if oRegraBairro.VerificarBairroCadastrado(oModelBairro, oDtoBairro) then
           begin
             ShowMessage('Já existe um bairro com o nome "' + UpperCase(oDtoBairro.Nome) +
-              '" associado ao estado selecionado.');
+              '" associado ao municipio selecionado.');
             TfrmCadastroBairro(oFormularioCadastro).edtNome.SetFocus;
           end
           else
-          // se o nome informado nao estiver cadastrado, realiza a inserção
+          // se o nome informado nao estiver cadastrado, realiza a alteracao
           begin
             // testa se a inserção foi realizada
             if oRegraBairro.Editar(oModelBairro, oDtoBairro) then
@@ -312,8 +315,8 @@ begin
 
   if TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex > -1 then
   begin
-    oDtoBairro.Municipio := Integer(TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.Items.Objects
-      [TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex]);
+    oDtoBairro.Municipio := Integer(TfrmCadastroBairro(oFormularioCadastro)
+      .cmbMunicipio.Items.Objects[TfrmCadastroBairro(oFormularioCadastro).cmbMunicipio.ItemIndex]);
   end;
 
 end;

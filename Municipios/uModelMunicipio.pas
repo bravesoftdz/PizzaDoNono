@@ -11,13 +11,13 @@ type
   TModelMunicipio = class(TInterfacedObject, IModelMunicipio)
   public
     oQuery: TFDQuery;
-    function Inserir(var oDtoMunicipio: TDtoMunicipio): Boolean;
-    function BuscarMaiorID(out oDtoMunicipio: TDtoMunicipio): Boolean;
+    function Inserir(const oDtoMunicipio: TDtoMunicipio): Boolean;
     function Listar: Boolean;
-    function VerificarMunicipioCadastrado(var ADtoMunicipio
-      : TDtoMunicipio): Boolean;
+    function Editar(const ADtoMunicipio: TDtoMunicipio): Boolean;
+    function VerificarMunicipioCadastrado(var ADtoMunicipio: TDtoMunicipio): Boolean;
     function ListarMunicipios(var AListaMunicipio: TListaMunicipio;
       var ADtoBairro: TDtoBairro): Boolean;
+    function Excluir(const ADtoMunicipio: TDtoMunicipio): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -25,24 +25,12 @@ type
 
 implementation
 
-{ TEstadoModel }
-
-function TModelMunicipio.BuscarMaiorID(out oDtoMunicipio
-  : TDtoMunicipio): Boolean;
-begin
-  Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open('SELECT MAX(idMunicipio) as MaxID FROM Municipio');
-  if not(oQuery.IsEmpty) then
-  begin
-    oDtoMunicipio.IdMunicipio := oQuery.FieldByName('MaxID').AsInteger;
-    Result := True
-  end;
-end;
+{ TMuncipioModel }
 
 constructor TModelMunicipio.Create;
 begin
   oQuery := TFDQuery.Create(nil);
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
 end;
 
 destructor TModelMunicipio.Destroy;
@@ -52,14 +40,44 @@ begin
   inherited;
 end;
 
-function TModelMunicipio.Inserir(var oDtoMunicipio: TDtoMunicipio): Boolean;
+function TModelMunicipio.Editar(const ADtoMunicipio: TDtoMunicipio): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.ExecSQL
-    ('INSERT INTO Municipio(idMunicipio, nome, estado_idestado) VALUES(' +
-    IntToStr(oDtoMunicipio.IdMunicipio) + ', ' + QuotedStr(oDtoMunicipio.Nome) +
-    ', ' + IntToStr(oDtoMunicipio.Estado) + ');');
+  oQuery.ExecSQL('UPDATE municipio SET nome = ' + QuotedStr(ADtoMunicipio.Nome) +
+    ', estado_idestado = ' + IntToStr(ADtoMunicipio.Estado) + ' WHERE idmunicipio = ' +
+    IntToStr(ADtoMunicipio.IdMunicipio));
+  if oQuery.RowsAffected > 0 then
+    Result := True;
+end;
+
+function TModelMunicipio.Excluir(const ADtoMunicipio: TDtoMunicipio): Boolean;
+begin
+  Result := False;
+  try
+    oQuery.ExecSQL('DELETE FROM municipio WHERE idmunicipio = ' + IntToStr(ADtoMunicipio.IdMunicipio));
+    if oQuery.RowsAffected > 0 then
+      Result := True;
+  except
+   {}
+  end;
+{
+  try
+
+  except
+    on E: EDatabaseError do
+    begin
+      if E.Message = 'constranints' then
+    end;
+  end;
+  }
+end;
+
+function TModelMunicipio.Inserir(const oDtoMunicipio: TDtoMunicipio): Boolean;
+begin
+  Result := False;
+  oQuery.ExecSQL('INSERT INTO Municipio(idMunicipio, nome, estado_idestado) VALUES(' +
+    IntToStr(oDtoMunicipio.IdMunicipio) + ', ' + QuotedStr(oDtoMunicipio.Nome) + ', ' +
+    IntToStr(oDtoMunicipio.Estado) + ');');
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -67,9 +85,7 @@ end;
 function TModelMunicipio.Listar: Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open
-    ('SELECT m.idMunicipio ID, m.Nome Nome, e.UF Estado FROM Municipio m ' +
+  oQuery.Open('SELECT m.idMunicipio ID, m.Nome Nome, e.nome Estado FROM Municipio m ' +
     'LEFT JOIN Estado e ON m.estado_idestado = e.idestado ORDER BY idMunicipio ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
@@ -81,9 +97,7 @@ var
   oDtoMunicipio: TDtoMunicipio;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open
-    ('select IdMunicipio, Nome from municipio WHERE estado_idestado = ' +
+  oQuery.Open('select IdMunicipio, Nome from municipio WHERE estado_idestado = ' +
     IntToStr(ADtoBairro.Estado) + ';');
   if (not(oQuery.IsEmpty)) then
   begin
@@ -102,19 +116,32 @@ begin
   end;
 end;
 
-function TModelMunicipio.VerificarMunicipioCadastrado(var ADtoMunicipio
-  : TDtoMunicipio): Boolean;
+function TModelMunicipio.VerificarMunicipioCadastrado(var ADtoMunicipio: TDtoMunicipio): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  // seleciona no banco o nome do
-  oQuery.Open('SELECT Nome FROM Municipio WHERE estado_idestado = ' +
-    IntToStr(ADtoMunicipio.Estado) + ' AND Nome = ' +
-    QuotedStr(ADtoMunicipio.Nome));
-  // testa se o retorno do banco de dados é vazio
-  if not(oQuery.IsEmpty) then
-    // se nao for vazio, já existe municipio cadastrado com este nome
-    Result := True;
+  // testa se nao recebe id
+  if ADtoMunicipio.IdMunicipio = 0 then
+  begin
+    // se idmunicipio = 0 verifica somente nome do municipio
+    // seleciona no banco o nome
+    oQuery.Open('SELECT Nome FROM Municipio WHERE estado_idestado = ' +
+      IntToStr(ADtoMunicipio.Estado) + ' AND Nome = ' + QuotedStr(ADtoMunicipio.Nome));
+    // testa se o retorno do banco de dados é vazio
+    if not(oQuery.IsEmpty) then
+      // se nao for vazio, já existe Bairro cadastrado com este nome
+      Result := True;
+  end
+  else if ADtoMunicipio.IdMunicipio <> 0 then
+  begin
+    // se idmunicipio <> 0 verifica nome do municipio que seja diferente do id que esta em edição
+    oQuery.Open('SELECT Nome FROM Municipio WHERE estado_idestado = ' +
+      IntToStr(ADtoMunicipio.Estado) + ' AND Nome = ' + QuotedStr(ADtoMunicipio.Nome) +
+      ' AND idmunicipio <> ' + IntToStr(ADtoMunicipio.IdMunicipio));
+    // testa se o retorno do banco de dados é vazio
+    if not(oQuery.IsEmpty) then
+      // se nao for vazio, já existe Bairro cadastrado com este nome
+      Result := True;
+  end;
 end;
 
 end.

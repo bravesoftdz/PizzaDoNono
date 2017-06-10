@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, Vcl.Dialogs,
-  uEnumeradorCamposMunicipio, uDtoMunicipio;
+  uEnumeradorCamposMunicipio, uDtoMunicipio, uModelMunicipio;
 
 type
   TRegraMunicipio = class
@@ -12,14 +12,45 @@ type
     //
   public
     function ValidarDados(var ADtoMunicipio: TDtoMunicipio): TCamposMunicipio;
+    function VerificarMunicipioCadastrado(const AModelMunicipio: TModelMunicipio;
+      var ADtoMunicipio: TDtoMunicipio): Boolean;
+    function Inserir(const AModelMunicipio: TModelMunicipio;
+      const ADtoMunicipio: TDtoMunicipio): Boolean;
+    function Editar(const AModelMunicipio: TModelMunicipio;
+      const ADtoMunicipio: TDtoMunicipio): Boolean;
+    function Excluir(const AModelMunicipio: TModelMunicipio;
+      const ADtoMunicipio: TDtoMunicipio): Boolean;
   end;
 
 implementation
 
 { TRegraMunicipio }
 
-function TRegraMunicipio.ValidarDados(var ADtoMunicipio: TDtoMunicipio)
-  : TCamposMunicipio;
+function TRegraMunicipio.Editar(const AModelMunicipio: TModelMunicipio;
+  const ADtoMunicipio: TDtoMunicipio): Boolean;
+begin
+  Result := False;
+  if AModelMunicipio.Editar(ADtoMunicipio) then
+    Result := true;
+end;
+
+function TRegraMunicipio.Excluir(const AModelMunicipio: TModelMunicipio;
+  const ADtoMunicipio: TDtoMunicipio): Boolean;
+begin
+  Result := False;
+  if AModelMunicipio.Excluir(ADtoMunicipio) then
+    Result := true;
+end;
+
+function TRegraMunicipio.Inserir(const AModelMunicipio: TModelMunicipio;
+  const ADtoMunicipio: TDtoMunicipio): Boolean;
+begin
+  Result := False;
+  if AModelMunicipio.Inserir(ADtoMunicipio) then
+    Result := true;
+end;
+
+function TRegraMunicipio.ValidarDados(var ADtoMunicipio: TDtoMunicipio): TCamposMunicipio;
 begin
   // testa se o campo nome foi informado
   if ADtoMunicipio.Nome = EmptyStr then
@@ -37,6 +68,16 @@ begin
   end;
   // caso não der erro nenhum retorna OK
   Result := resultOk;
+end;
+
+function TRegraMunicipio.VerificarMunicipioCadastrado(const AModelMunicipio: TModelMunicipio;
+  var ADtoMunicipio: TDtoMunicipio): Boolean;
+begin
+  Result := False;
+  // testa se o nome informado para o bairro já está cadastrado naquele município
+  if AModelMunicipio.VerificarMunicipioCadastrado(ADtoMunicipio) then
+    Result := true;
+
 end;
 
 end.
