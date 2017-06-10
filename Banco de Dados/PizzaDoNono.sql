@@ -18,7 +18,7 @@ USE `pizzanono` ;
 -- Table `pizzanono`.`estado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`estado` (
-  `idestado` INT NOT NULL,
+  `idestado` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `UF` VARCHAR(2) NULL,
   PRIMARY KEY (`idestado`))
@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`municipio`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`municipio` (
-  `idmunicipio` INT NOT NULL,
+  `idmunicipio` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `estado_idestado` INT NOT NULL,
   PRIMARY KEY (`idmunicipio`),
@@ -46,7 +46,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`bairro`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`bairro` (
-  `idbairro` INT NOT NULL,
+  `idbairro` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `municipio_idmunicipio` INT NOT NULL,
   PRIMARY KEY (`idbairro`),
@@ -63,7 +63,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`cliente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`cliente` (
-  `idcliente` INT NOT NULL,
+  `idcliente` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
   `cpf_cnpj` VARCHAR(45) NULL COMMENT 'nap deve ser obrigatorio',
   `telefone` VARCHAR(45) NULL COMMENT 'celular OU telefone OBRIGATPRIOS',
@@ -86,7 +86,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`tamanho`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`tamanho` (
-  `idtamanho` INT NOT NULL,
+  `idtamanho` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NOT NULL,
   `maxSabores` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idtamanho`))
@@ -97,7 +97,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`sabor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`sabor` (
-  `idsabor` INT NOT NULL,
+  `idsabor` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idsabor`))
 ENGINE = InnoDB;
@@ -107,7 +107,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`preco`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`preco` (
-  `idpreco` INT NOT NULL,
+  `idpreco` INT NOT NULL AUTO_INCREMENT,
   `valor` VARCHAR(45) NOT NULL,
   `sabor_idsabor` INT NOT NULL,
   `tamanho_idtamanho` INT NOT NULL,
@@ -131,7 +131,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`produto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`produto` (
-  `idproduto` INT NOT NULL,
+  `idproduto` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NOT NULL,
   `temSabor` TINYINT(1) NOT NULL,
   `preco` FLOAT NULL,
@@ -143,7 +143,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`usuario` (
-  `idusuario` INT NOT NULL,
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idusuario`))
@@ -154,7 +154,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`pedido`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`pedido` (
-  `idpedido` INT NOT NULL,
+  `idpedido` INT NOT NULL AUTO_INCREMENT,
   `usuario_idusuario` INT NOT NULL,
   `cliente_idcliente` INT NOT NULL,
   `data` DATETIME NOT NULL,
@@ -193,7 +193,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`itemPedido`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`itemPedido` (
-  `pedido_idpedido` INT NOT NULL,
+  `pedido_idpedido` INT NOT NULL AUTO_INCREMENT,
   `produto_idproduto` INT NOT NULL,
   `tamanho_idtamanho` INT NOT NULL,
   `valorUnitario` FLOAT NOT NULL,
@@ -226,7 +226,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`SaboresItem`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`SaboresItem` (
-  `itemPedido_ID` INT NOT NULL,
+  `itemPedido_ID` INT NOT NULL AUTO_INCREMENT,
   `sabor_idsabor` INT NOT NULL,
   `ID` INT NOT NULL,
   INDEX `fk_SaboresItem_itemPedido1_idx` (`itemPedido_ID` ASC),
@@ -250,7 +250,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`SaboresPermitidos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`SaboresPermitidos` (
-  `produto_idproduto` INT NOT NULL,
+  `produto_idproduto` INT NOT NULL AUTO_INCREMENT,
   `sabor_idsabor` INT NOT NULL,
   `ID` INT NOT NULL,
   INDEX `fk_SaboresPermitidos_produto1_idx` (`produto_idproduto` ASC),
@@ -274,7 +274,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`ingrediente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`ingrediente` (
-  `idingrediente` INT ZEROFILL NOT NULL,
+  `idingrediente` INT ZEROFILL NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idingrediente`))
 ENGINE = InnoDB;
