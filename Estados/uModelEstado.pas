@@ -70,8 +70,7 @@ function TModelEstado.Inserir(const ADtoEstado: TDtoEstado): Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.ExecSQL('INSERT INTO estado(idestado, nome, uf) VALUES(' +
-    QuotedStr(IntToStr(ADtoEstado.IdEstado)) + ', ' + QuotedStr(ADtoEstado.nome) + ', ' +
+  oQuery.ExecSQL('INSERT INTO estado(nome, uf) VALUES(' + QuotedStr(ADtoEstado.nome) + ', ' +
     QuotedStr(ADtoEstado.UF) + ');');
   if oQuery.RowsAffected > 0 then
     Result := True;
@@ -134,16 +133,16 @@ begin
   else if ADtoEstado.IdEstado <> 0 then
   begin
     // nome estado
-    oQuery.Open('SELECT nome FROM estado ' + QuotedStr(ADtoEstado.nome) + ' AND idestado <> ' +
-      IntToStr(ADtoEstado.IdEstado));
+    oQuery.Open('SELECT nome FROM estado WHERE nome = ' + QuotedStr(ADtoEstado.nome) +
+      ' AND idestado <> ' + IntToStr(ADtoEstado.IdEstado));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Estado cadastrado com este nome
       Result := resultNome;
 
     // UF estado
-    oQuery.Open('SELECT UF FROM estado ' + QuotedStr(ADtoEstado.UF) + ' AND idestado <> ' +
-      IntToStr(ADtoEstado.IdEstado));
+    oQuery.Open('SELECT UF FROM estado WHERE uf = ' + QuotedStr(ADtoEstado.UF) + ' AND idestado <> '
+      + IntToStr(ADtoEstado.IdEstado));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Estado cadastrado com este UF
