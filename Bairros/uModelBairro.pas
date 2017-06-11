@@ -83,7 +83,7 @@ begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.Open('SELECT b.idBairro ID, b.Nome Nome, m.Nome Município FROM Bairro b ' +
-    'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ORDER BY idBairro ASC');
+    'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ORDER BY b.municipio_idmunicipio, b.nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;
