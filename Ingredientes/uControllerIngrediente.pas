@@ -90,13 +90,11 @@ begin
   // resgatando dados da linha selecionada no DBGrid
   // resgatando IdIgrediente e setando no Edit
   TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
 
   // resgatando Nome do ingrediente e setando no Edit
   TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('Descrição').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Descrição').AsString;
 
   FecharFormListagem(oFormularioListagem);
 
@@ -106,9 +104,10 @@ end;
 
 procedure TControllerIngrediente.Excluir;
 begin
- inherited;
+  inherited;
   // resgatando idingredient do DBGrid e setando no DTO
-  oDtoIngrediente.idIngrediente := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsInteger;
+  oDtoIngrediente.idIngrediente := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
+    FieldByName('ID').AsInteger;
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
@@ -135,21 +134,18 @@ begin
   inherited;
 end;
 
-procedure TControllerIngrediente.LimparDto(var ADtoIngrediente
-  : TDtoIngrediente);
+procedure TControllerIngrediente.LimparDto(var ADtoIngrediente: TDtoIngrediente);
 begin
-  ADtoIngrediente.IdIngrediente := 0;
+  ADtoIngrediente.idIngrediente := 0;
   ADtoIngrediente.Descricao := EmptyStr;
 end;
 
 procedure TControllerIngrediente.Localizar;
 begin
   if not(Assigned(TfrmListagemIngrediente(oFormularioListagem))) then
-    TfrmListagemIngrediente(oFormularioListagem) :=
-      TfrmListagemIngrediente.Create(aOwner);
+    TfrmListagemIngrediente(oFormularioListagem) := TfrmListagemIngrediente.Create(aOwner);
 
-  TfrmListagemIngrediente(oFormularioListagem).iInterfaceCrud :=
-    oControllerIngrediente;
+  TfrmListagemIngrediente(oFormularioListagem).iInterfaceCrud := oControllerIngrediente;
 
   PreencherGrid(TfrmListagemIngrediente(oFormularioListagem).dbGridListagem);
   inherited;
@@ -166,7 +162,7 @@ procedure TControllerIngrediente.Salvar;
 begin
   PreencherDTO;
 
-   case oRegraIngrediente.ValidarDados(oDtoIngrediente) of
+  case oRegraIngrediente.ValidarDados(oDtoIngrediente) of
     resultDescricao:
       begin
         ShowMessage('Informe o nome do Ingrediente.');
@@ -182,8 +178,7 @@ begin
           then
           begin
             ShowMessage('Já existe um ingrediente com o nome "' +
-              UpperCase(oDtoIngrediente.Descricao) +
-              '" associado ao estado selecionado.');
+              UpperCase(oDtoIngrediente.Descricao) + '" associado ao estado selecionado.');
             TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
           end
           else
@@ -202,7 +197,7 @@ begin
         else
         // se o edit de ID nao estiver vazio, fazer UPDATE
         begin
-                           // se o nome informado nao estiver cadastrado, realiza a inserção
+          // se o nome informado nao estiver cadastrado, realiza a inserção
           begin
             // testa se a inserção foi realizada
             if oRegraIngrediente.Editar(oModelIngrediente, oDtoIngrediente) then
@@ -223,13 +218,12 @@ procedure TControllerIngrediente.PreencherDTO;
 begin
 
   if TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text <> '' then
-    oDtoIngrediente.IdIngrediente :=
-      StrToInt(TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text)
+    oDtoIngrediente.idIngrediente := StrToInt(TfrmCadastroIngrediente(oFormularioCadastro)
+      .edtIdCodigo.Text)
   else
-    oDtoIngrediente.IdIngrediente := 0;
+    oDtoIngrediente.idIngrediente := 0;
 
-  oDtoIngrediente.Descricao := Trim(TfrmCadastroIngrediente(oFormularioCadastro)
-    .edtDescricao.Text);
+  oDtoIngrediente.Descricao := Trim(TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.Text);
 
 end;
 
@@ -239,8 +233,7 @@ begin
   if oModelIngrediente.Listar then
   begin
     oDataSource.DataSet := oModelIngrediente.oQuery;
-    TfrmListagemIngrediente(oFormularioListagem).dbGridListagem.DataSource :=
-      oDataSource;
+    TfrmListagemIngrediente(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
 end;
 

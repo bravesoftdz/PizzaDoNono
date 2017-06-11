@@ -8,8 +8,7 @@ uses
 
 type
   IModelEstado = interface
-    function Inserir(var oDtoEstado: TDtoEstado): Boolean;
-    function BuscarMaiorID(out ADtoEstado: TDtoEstado): Boolean;
+    function Inserir(const oDtoEstado: TDtoEstado): Boolean;
     function Listar: Boolean;
   end;
 
