@@ -121,7 +121,7 @@ begin
       PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
-  end
+  end;
 end;
 
 procedure TControllerIngrediente.FecharFormCadastro(ASender: TObject);

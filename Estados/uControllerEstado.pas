@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
-  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.UITypes,
   uInterfaceCRUD, uViewCadastroEstado, uInterfaceRegra, uRegraEstado,
   uModelEstado, uDtoEstado, uControllerCRUD, uEnumeradorCamposEstado,
   uViewListagemEstado;
@@ -27,6 +27,7 @@ type
     procedure Localizar(aOwner: TComponent); override;
     procedure Novo(ASender: TObject); override;
     procedure Editar; override;
+    procedure Excluir; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -101,6 +102,28 @@ begin
   AjustarModoInsercao(true);
 end;
 
+procedure TControllerEstado.Excluir;
+begin
+  inherited;
+  // resgatando idingredient do DBGrid e setando no DTO
+  oDtoEstado.idestado := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
+    FieldByName('ID').AsInteger;
+
+  if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
+  begin
+    if oRegraEstado.Excluir(oModelEstado, oDtoEstado) then
+    begin
+      PreencherGrid(oFormularioListagem.dbGridListagem);
+      ShowMessage('Registro excluído com sucesso.');
+    end
+    else
+    begin
+      PreencherGrid(oFormularioListagem.dbGridListagem);
+      ShowMessage('Não foi possível excluir.');
+    end;
+  end;
+end;
+
 procedure TControllerEstado.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
@@ -142,12 +165,12 @@ begin
   case oRegraEstado.ValidarDados(oDtoEstado) of
     resultNome:
       begin
-        showMessage('Preencha o campo Nome.');
+        ShowMessage('Preencha o campo Nome.');
         TfrmCadastroEstado(oFormularioCadastro).edtNome.SetFocus;
       end;
     resultUF:
       begin
-        showMessage('Preencha o campo UF.');
+        ShowMessage('Preencha o campo UF.');
         TfrmCadastroEstado(oFormularioCadastro).edtUF.SetFocus;
       end;
     resultOk:
@@ -157,13 +180,13 @@ begin
         case oRegraEstado.VerificarEstadoCadastrado(oModelEstado, oDtoEstado) of
           resultNome:
             begin
-              showMessage('Já existe um estado cadastrado com o nome "' +
+              ShowMessage('Já existe um estado cadastrado com o nome "' +
                 UpperCase(oDtoEstado.Nome) + '".');
               TfrmCadastroEstado(oFormularioCadastro).edtNome.SetFocus;
             end;
           resultUF:
             begin
-              showMessage('Já existe um estado cadastrado com a UF "' +
+              ShowMessage('Já existe um estado cadastrado com a UF "' +
                 UpperCase(oDtoEstado.UF) + '".');
               TfrmCadastroEstado(oFormularioCadastro).edtUF.SetFocus;
             end;
