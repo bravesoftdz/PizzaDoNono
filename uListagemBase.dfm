@@ -12,9 +12,9 @@ inherited frmListagemBase: TfrmListagemBase
   object Label1: TLabel
     Left = 8
     Top = 98
-    Width = 44
+    Width = 96
     Height = 15
-    Caption = 'Buscar: '
+    Caption = 'Filtrar por nome: '
   end
   object BoxBotoes: TPanel
     AlignWithMargins = True
@@ -750,8 +750,8 @@ inherited frmListagemBase: TfrmListagemBase
       TitleFont.Style = [fsBold]
     end
   end
-  object SearchBox1: TSearchBox
-    Left = 58
+  object SearchBoxListagem: TSearchBox
+    Left = 110
     Top = 95
     Width = 287
     Height = 23

@@ -60,6 +60,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmCadastroBase1, frmCadastroBase1);
   Application.Run;
 end.

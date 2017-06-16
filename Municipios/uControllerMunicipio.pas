@@ -18,7 +18,6 @@ type
     procedure PreencherDTO;
     procedure LimparDto(var ADtoMunicipio: TDtoMunicipio);
     procedure PreencherGrid(var DbGrid: TDBGrid);
-    procedure FiltrarGrid(Sender: TObject); override;
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -27,7 +26,7 @@ type
     procedure Cancelar(ASender: TObject); override;
     procedure Localizar(aOwner: TComponent); override;
     procedure Novo(ASender: TObject); override;
-    procedure Editar; override;
+    procedure Editar(Sender: TObject); override;
     procedure Excluir; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
@@ -86,7 +85,7 @@ begin
   inherited;
 end;
 
-procedure TControllerMunicipio.Editar;
+procedure TControllerMunicipio.Editar(Sender: TObject);
 var
   nomeEstado: string;
 begin
@@ -142,19 +141,6 @@ end;
 procedure TControllerMunicipio.FecharFormListagem(ASender: TObject);
 begin
   inherited;
-end;
-
-procedure TControllerMunicipio.FiltrarGrid(Sender: TObject);
-begin
-
-  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := False;
-  // realiza a filtragem com UPPER CASE pois o Filter é case sensitive
-  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filter := 'UPPER(Nome) Like ' +
-    UpperCase(QuotedStr('%' + oFormularioListagem.SearchBox1.Text + '%'));
-
-  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := true;
-  inherited;
-
 end;
 
 procedure TControllerMunicipio.AjustarModoInsercao(AStatusBtnSalvar: Boolean);

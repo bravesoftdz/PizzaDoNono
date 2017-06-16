@@ -12,7 +12,7 @@ type
     procedure Cancelar(ASender: TObject);
     procedure Localizar(aOwner: TComponent);
     procedure Novo(ASender: TObject);
-    procedure Editar;
+    procedure Editar(Sender: TObject = nil);
     procedure Excluir;
     procedure FecharFormCadastro(ASender: TObject);
     procedure FecharFormListagem(ASender: TObject);

@@ -54,10 +54,10 @@ end;
 function TRegraIngrediente.ValidarDados(var ADtoIngrediente: TDtoIngrediente): TCamposIngrediente;
 begin
   // testa se o campo nome foi informado
-  if ADtoIngrediente.Descricao = EmptyStr then
+  if ADtoIngrediente.Nome = EmptyStr then
   begin
     // se for vazio
-    Result := resultDescricao;
+    Result := resultNome;
     exit;
   end;
   // caso não der erro nenhum retorna OK

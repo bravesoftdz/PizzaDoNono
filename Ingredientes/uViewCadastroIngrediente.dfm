@@ -8,7 +8,7 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       Caption = 'Ingredientes'
       ExplicitWidth = 195
     end
-    object edtDescricao: TLabeledEdit
+    object edtNome: TLabeledEdit
       Left = 15
       Top = 173
       Width = 410

@@ -28,7 +28,7 @@ type
     procedure Cancelar(ASender: TObject); override;
     procedure Localizar(aOwner: TComponent); override;
     procedure Novo(ASender: TObject); override;
-    procedure Editar; override;
+    procedure Editar(Sender: TObject); override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -83,7 +83,7 @@ begin
   inherited;
 end;
 
-procedure TControllerUsuario.Editar;
+procedure TControllerUsuario.Editar(Sender: TObject);
 begin
   inherited;
   //

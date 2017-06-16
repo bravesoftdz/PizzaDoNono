@@ -9,7 +9,7 @@ uses
 
 type
   TfrmCadastroIngrediente = class(TfrmCadastroBase)
-    edtDescricao: TLabeledEdit;
+    edtNome: TLabeledEdit;
     edtIdCodigo: TLabeledEdit;
   private
     { Private declarations }

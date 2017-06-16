@@ -8,23 +8,23 @@ uses
 type
   TDtoIngrediente = class
   private
-    FDescricao: string;
+    FNome: string;
     FIdIngrediente: integer;
-    procedure SetDescricao(const Value: string);
+    procedure SetNome(const Value: string);
     procedure SetIdIngrediente(const Value: integer);
 
   public
     property IdIngrediente: integer read FIdIngrediente write SetIdIngrediente;
-    property Descricao: string read FDescricao write SetDescricao;
+    property Nome: string read FNome write SetNome;
   end;
 
 implementation
 
 { TDtoIngrediente }
 
-procedure TDtoIngrediente.SetDescricao(const Value: string);
+procedure TDtoIngrediente.SetNome(const Value: string);
 begin
-  FDescricao := Value;
+  FNome := Value;
 end;
 
 procedure TDtoIngrediente.SetIdIngrediente(const Value: integer);

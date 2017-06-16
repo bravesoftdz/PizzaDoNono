@@ -16,7 +16,7 @@ type
     btnExcluir: TSpeedButton;
     btnFechar: TSpeedButton;
     panelListagem: TPanel;
-    SearchBox1: TSearchBox;
+    SearchBoxListagem: TSearchBox;
     Label1: TLabel;
     dbGridListagem: TDBGrid;
     procedure btnFecharClick(Sender: TObject);

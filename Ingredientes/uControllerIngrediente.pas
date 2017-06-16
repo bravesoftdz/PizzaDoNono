@@ -27,7 +27,7 @@ type
     procedure Cancelar(ASender: TObject); override;
     procedure Localizar(aOwner: TComponent); override;
     procedure Novo(ASender: TObject); override;
-    procedure Editar; override;
+    procedure Editar(Sender: TObject); override;
     procedure Excluir; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
@@ -84,7 +84,7 @@ begin
   inherited;
 end;
 
-procedure TControllerIngrediente.Editar;
+procedure TControllerIngrediente.Editar(Sender: TObject);
 begin
   inherited;
   // resgatando dados da linha selecionada no DBGrid
@@ -93,8 +93,8 @@ begin
     oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
 
   // resgatando Nome do ingrediente e setando no Edit
-  TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Descrição').AsString;
+  TfrmCadastroIngrediente(oFormularioCadastro).edtNome.Text :=
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
 
   FecharFormListagem(oFormularioListagem);
 
@@ -137,7 +137,7 @@ end;
 procedure TControllerIngrediente.LimparDto(var ADtoIngrediente: TDtoIngrediente);
 begin
   ADtoIngrediente.idIngrediente := 0;
-  ADtoIngrediente.Descricao := EmptyStr;
+  ADtoIngrediente.Nome := EmptyStr;
 end;
 
 procedure TControllerIngrediente.Localizar;
@@ -155,7 +155,7 @@ procedure TControllerIngrediente.Novo;
 begin
   inherited;
 
-  TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
+  TfrmCadastroIngrediente(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerIngrediente.Salvar;
@@ -163,10 +163,10 @@ begin
   PreencherDTO;
 
   case oRegraIngrediente.ValidarDados(oDtoIngrediente) of
-    resultDescricao:
+    resultNome:
       begin
         ShowMessage('Informe o nome do Ingrediente.');
-        TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
+        TfrmCadastroIngrediente(oFormularioCadastro).edtNome.SetFocus;
       end;
     resultOk:
       begin
@@ -177,9 +177,9 @@ begin
           if oRegraIngrediente.VerificarIngredienteCadastrado(oModelIngrediente, oDtoIngrediente)
           then
           begin
-            ShowMessage('Já existe um ingrediente com o nome "' +
-              UpperCase(oDtoIngrediente.Descricao) + '" associado ao estado selecionado.');
-            TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.SetFocus;
+            ShowMessage('Já existe um ingrediente cadastrado com o nome "' +
+              UpperCase(oDtoIngrediente.Nome) + '".');
+            TfrmCadastroIngrediente(oFormularioCadastro).edtNome.SetFocus;
           end
           else
           // se o nome informado nao estiver cadastrado, realiza a inserção
@@ -223,7 +223,7 @@ begin
   else
     oDtoIngrediente.idIngrediente := 0;
 
-  oDtoIngrediente.Descricao := Trim(TfrmCadastroIngrediente(oFormularioCadastro).edtDescricao.Text);
+  oDtoIngrediente.Nome := Trim(TfrmCadastroIngrediente(oFormularioCadastro).edtNome.Text);
 
 end;
 

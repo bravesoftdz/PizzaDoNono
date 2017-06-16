@@ -30,8 +30,9 @@ type
     procedure Cancelar(ASender: TObject); virtual;
     procedure Localizar(aOwner: TComponent); virtual;
     procedure Novo(ASender: TObject); virtual;
-    procedure Editar; virtual;
+    procedure Editar(Sender: TObject = nil); virtual;
     procedure Excluir; virtual;
+
   end;
 
 var
@@ -57,6 +58,7 @@ begin
   oFormularioCadastro.btnCancelar.Enabled := AStatusBtnSalvar;
   oFormularioCadastro.btnNovo.Enabled := not(AStatusBtnSalvar);
   oFormularioCadastro.btnLocalizar.Enabled := not(AStatusBtnSalvar);
+
 end;
 
 procedure TControllerCRUD.Cancelar(ASender: TObject);
@@ -89,7 +91,7 @@ begin
   inherited;
 end;
 
-procedure TControllerCRUD.Editar;
+procedure TControllerCRUD.Editar(Sender: TObject = nil);
 begin
   //
 end;
@@ -116,10 +118,14 @@ begin
   FreeAndNil(oFormularioListagem);
 end;
 
-
 procedure TControllerCRUD.FiltrarGrid(Sender: TObject);
 begin
-  //
+  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := False;
+  // realiza a filtragem com UPPER CASE pois o Filter é case sensitive
+  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filter := 'UPPER(nome) Like ' +
+    UpperCase(QuotedStr('%' + oFormularioListagem.SearchBoxListagem.Text + '%'));
+
+  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := true;
 end;
 
 procedure TControllerCRUD.LimparFormulario;
@@ -164,7 +170,7 @@ end;
 
 procedure TControllerCRUD.Localizar(aOwner: TComponent);
 begin
-  oFormularioListagem.SearchBox1.OnChange := FiltrarGrid;
+  oFormularioListagem.SearchBoxListagem.OnChange := FiltrarGrid;
 
   oFormularioListagem.Show;
 end;
