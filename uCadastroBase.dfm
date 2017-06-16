@@ -1,6 +1,6 @@
 inherited frmCadastroBase: TfrmCadastroBase
   BorderIcons = []
-  Caption = 'frmCadastroBase'
+  Caption = 'Pizza do Nono'
   ClientHeight = 641
   ClientWidth = 844
   Position = poDesktopCenter

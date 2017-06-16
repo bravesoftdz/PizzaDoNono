@@ -1,5 +1,5 @@
 inherited frmCadastroIngrediente: TfrmCadastroIngrediente
-  Caption = 'frmCadastroIngrediente'
+  Caption = 'Pizza do Nono - Ingredientes'
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
