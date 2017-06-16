@@ -171,7 +171,7 @@ end;
 procedure TControllerCRUD.Localizar(aOwner: TComponent);
 begin
   oFormularioListagem.SearchBoxListagem.OnChange := FiltrarGrid;
-
+  oFormularioListagem.dbGridListagem.OnDblClick := Editar;
   oFormularioListagem.Show;
 end;
 
