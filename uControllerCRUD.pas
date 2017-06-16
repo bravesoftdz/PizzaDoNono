@@ -19,6 +19,7 @@ type
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); virtual;
     procedure LimparFormulario;
     procedure ListarEstados(var ACmbEstados: TComboBox);
+    procedure FiltrarGrid(Sender: TObject); virtual;
   public
     constructor Create; virtual;
     destructor Destroy; override;
@@ -47,11 +48,10 @@ begin
   for iIndiceComponente := 0 to pred(oFormularioCadastro.ComponentCount) do
   begin
     if (oFormularioCadastro.Components[iIndiceComponente] is TLabeledEdit) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TCustomEdit).Enabled
-        := AStatusBtnSalvar;
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomEdit).Enabled :=
+        AStatusBtnSalvar;
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TComboBox).Enabled
-        := AStatusBtnSalvar;
+      (oFormularioCadastro.Components[iIndiceComponente] as TComboBox).Enabled := AStatusBtnSalvar;
   end;
   oFormularioCadastro.btnSalvar.Enabled := AStatusBtnSalvar;
   oFormularioCadastro.btnCancelar.Enabled := AStatusBtnSalvar;
@@ -96,7 +96,7 @@ end;
 
 procedure TControllerCRUD.Excluir;
 begin
- //
+  //
 end;
 
 procedure TControllerCRUD.FecharFormCadastro(ASender: TObject);
@@ -116,6 +116,12 @@ begin
   FreeAndNil(oFormularioListagem);
 end;
 
+
+procedure TControllerCRUD.FiltrarGrid(Sender: TObject);
+begin
+  //
+end;
+
 procedure TControllerCRUD.LimparFormulario;
 var
   iIndiceComponente: Integer;
@@ -126,8 +132,7 @@ begin
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomEdit).Clear;
 
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TComboBox)
-        .ItemIndex := -1;
+      (oFormularioCadastro.Components[iIndiceComponente] as TComboBox).ItemIndex := -1;
   end;
 end;
 
@@ -146,8 +151,7 @@ begin
     if oModelEstado.ListarEstados(oListaEstado) then
     begin
       for oDtoEstado in oListaEstado.Values do
-        ACmbEstados.Items.AddObject(oDtoEstado.Nome,
-          TObject(oDtoEstado.IdEstado));
+        ACmbEstados.Items.AddObject(oDtoEstado.Nome, TObject(oDtoEstado.IdEstado));
     end;
   finally
     if Assigned(oModelEstado) then
@@ -160,12 +164,14 @@ end;
 
 procedure TControllerCRUD.Localizar(aOwner: TComponent);
 begin
+  oFormularioListagem.SearchBox1.OnChange := FiltrarGrid;
+
   oFormularioListagem.Show;
 end;
 
 procedure TControllerCRUD.Novo(ASender: TObject);
 begin
-  AjustarModoInsercao(True);
+  AjustarModoInsercao(true);
 end;
 
 procedure TControllerCRUD.PreencherDTO;

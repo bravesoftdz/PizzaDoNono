@@ -51,7 +51,8 @@ uses
   uModelBairro in 'Bairros\uModelBairro.pas',
   uRegraBairro in 'Bairros\uRegraBairro.pas',
   uViewListagemBairro in 'Bairros\uViewListagemBairro.pas' {frmListagemBairro},
-  uListaMunicipio in 'Municipios\uListaMunicipio.pas';
+  uListaMunicipio in 'Municipios\uListaMunicipio.pas',
+  uViewCadastroCliente in 'Clientes\uViewCadastroCliente.pas' {frmCadastroBase1};
 
 {$R *.res}
 
@@ -59,5 +60,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmCadastroBase1, frmCadastroBase1);
   Application.Run;
 end.

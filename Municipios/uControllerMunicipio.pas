@@ -18,6 +18,7 @@ type
     procedure PreencherDTO;
     procedure LimparDto(var ADtoMunicipio: TDtoMunicipio);
     procedure PreencherGrid(var DbGrid: TDBGrid);
+    procedure FiltrarGrid(Sender: TObject); override;
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -100,10 +101,11 @@ begin
     oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
 
   // resgatando nome do estado
-  nomeEstado := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Estado').AsString;
+  nomeEstado := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
+    ('Estado').AsString;
 
-  TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.ItemIndex := TfrmCadastroMunicipio(oFormularioCadastro)
-    .cmbEstado.Items.IndexOf(nomeEstado);
+  TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.ItemIndex :=
+    TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.Items.IndexOf(nomeEstado);
 
   FecharFormListagem(oFormularioListagem);
 
@@ -114,7 +116,8 @@ procedure TControllerMunicipio.Excluir;
 begin
   inherited;
   // resgatando idmunicipio do DBGrid e setando no DTO
-  oDtoMunicipio.IdMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsInteger;
+  oDtoMunicipio.IdMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
+    ('ID').AsInteger;
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
@@ -139,6 +142,19 @@ end;
 procedure TControllerMunicipio.FecharFormListagem(ASender: TObject);
 begin
   inherited;
+end;
+
+procedure TControllerMunicipio.FiltrarGrid(Sender: TObject);
+begin
+
+  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := False;
+  // realiza a filtragem com UPPER CASE pois o Filter é case sensitive
+  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filter := 'UPPER(Nome) Like ' +
+    UpperCase(QuotedStr('%' + oFormularioListagem.SearchBox1.Text + '%'));
+
+  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := true;
+  inherited;
+
 end;
 
 procedure TControllerMunicipio.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
@@ -177,12 +193,12 @@ begin
   case oRegraMunicipio.ValidarDados(oDtoMunicipio) of
     resultNome:
       begin
-        showMessage('Preencha o campo Nome.');
+        ShowMessage('Preencha o campo Nome.');
         TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
       end;
     resultUF:
       begin
-        showMessage('Selecione o Estado.');
+        ShowMessage('Selecione o Estado.');
         TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.SetFocus;
       end;
     resultOk:
@@ -193,7 +209,7 @@ begin
           // se o ID for vazio, testa se o nome informado ja esta cadastrado
           if oRegraMunicipio.VerificarMunicipioCadastrado(oModelMunicipio, oDtoMunicipio) then
           begin
-            showMessage('Já existe um município com o nome "' + UpperCase(oDtoMunicipio.Nome) +
+            ShowMessage('Já existe um município com o nome "' + UpperCase(oDtoMunicipio.Nome) +
               '" associado ao estado selecionado.');
             TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
           end
@@ -215,7 +231,7 @@ begin
         begin
           if oRegraMunicipio.VerificarMunicipioCadastrado(oModelMunicipio, oDtoMunicipio) then
           begin
-            showMessage('Já existe um município com o nome "' + UpperCase(oDtoMunicipio.Nome) +
+            ShowMessage('Já existe um município com o nome "' + UpperCase(oDtoMunicipio.Nome) +
               '" associado ao estado selecionado.');
             TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
           end
@@ -239,14 +255,15 @@ end;
 procedure TControllerMunicipio.PreencherDTO;
 begin
   if TfrmCadastroMunicipio(oFormularioCadastro).edtIdCodigo.Text <> '' then
-    oDtoMunicipio.IdMunicipio := StrToInt(TfrmCadastroMunicipio(oFormularioCadastro).edtIdCodigo.Text);
+    oDtoMunicipio.IdMunicipio := StrToInt(TfrmCadastroMunicipio(oFormularioCadastro)
+      .edtIdCodigo.Text);
 
   oDtoMunicipio.Nome := Trim(TfrmCadastroMunicipio(oFormularioCadastro).edtNome.Text);
 
   if TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.ItemIndex > -1 then
   begin
-    oDtoMunicipio.Estado := Integer(TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.Items.Objects
-      [TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.ItemIndex]);
+    oDtoMunicipio.Estado := Integer(TfrmCadastroMunicipio(oFormularioCadastro)
+      .cmbEstado.Items.Objects[TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.ItemIndex]);
   end;
 
 end;
