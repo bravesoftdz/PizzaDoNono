@@ -8,9 +8,14 @@ uses
 
 type
   IModelUsuario = interface
-    function Inserir(var oDtoUsuario: TDtoUsuario): Boolean;
-    function BuscarMaiorID(out ADtoUsuario: TDtoUsuario): Boolean;
+    function Inserir(const oDtoUsuario: TDtoUsuario): Boolean;
     function Listar: Boolean;
+    function Editar(const oDtoUsuario: TDtoUsuario): Boolean;
+    function VerificarUsuarioCadastrado(var ADtoUsuario: TDtoUsuario): Boolean;
+    function Excluir(const ADtoUsuario: TDtoUsuario): Boolean;
+
+
+
   end;
 
 implementation

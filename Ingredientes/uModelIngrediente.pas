@@ -95,7 +95,7 @@ begin
       ' AND idingrediente <> ' + IntToStr(ADtoIngrediente.IdIngrediente));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
-      // se nao for vazio, já existe Bairro cadastrado com este nome
+      // se nao for vazio, já existe Ingrediente cadastrado com este nome
       Result := True;
   end;
 

@@ -4,10 +4,10 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
-  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB,
-  uInterfaceCRUD, uViewCadastroUsuario, uInterfaceRegra, uRegraUsuario,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.UITypes,
+  uInterfaceCRUD, uViewCadastroUsuario, uInterfaceRegra,
   uModelUsuario, uDtoUsuario, uControllerCRUD, uEnumeradorCamposUsuario,
-  uViewListagemUsuario;
+  uViewListagemUsuario, uRegraUsuario;
 
 type
   TControllerUsuario = class(TControllerCRUD)
@@ -15,7 +15,6 @@ type
     oRegraUsuario: TRegraUsuario;
     oModelUsuario: TModelUsuario;
     oDtoUsuario: TDtoUsuario;
-    procedure BuscarMaiorID;
     procedure PreencherDTO;
     procedure LimparDto(var ADtoUsuario: TDtoUsuario);
     procedure PreencherGrid(var DbGrid: TDBGrid);
@@ -27,6 +26,7 @@ type
     procedure Salvar(ASender: TObject); override;
     procedure Cancelar(ASender: TObject); override;
     procedure Localizar(aOwner: TComponent); override;
+    procedure Excluir; override;
     procedure Novo(ASender: TObject); override;
     procedure Editar(Sender: TObject); override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
@@ -85,8 +85,42 @@ end;
 
 procedure TControllerUsuario.Editar(Sender: TObject);
 begin
-  inherited;
+ inherited;
+  // resgatando dados da linha selecionada no DBGrid
+  // resgatando IdUsuario e setando no Edit
+  TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text :=
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+
+  // resgatando Nome do ingrediente e setando no Edit
+  TfrmUsuario(oFormularioCadastro).edtNome.Text :=
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+
+  FecharFormListagem(oFormularioListagem);
+
+  AjustarModoInsercao(true);
   //
+end;
+
+procedure TControllerUsuario.Excluir;
+begin
+  inherited;
+ // resgatando idingredient do DBGrid e setando no DTO
+  oDtoUsuario.idUsuario := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
+    FieldByName('ID').AsInteger;
+
+  if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
+  begin
+    if oRegraUsuario.Excluir(oModelUsuario, oDtoUsuario) then
+    begin
+      PreencherGrid(oFormularioListagem.dbGridListagem);
+      ShowMessage('Registro excluído com sucesso.');
+    end
+    else
+    begin
+      PreencherGrid(oFormularioListagem.dbGridListagem);
+      ShowMessage('Não foi possível excluir.');
+    end;
+  end;
 end;
 
 procedure TControllerUsuario.FecharFormCadastro(ASender: TObject);
@@ -97,13 +131,6 @@ end;
 procedure TControllerUsuario.FecharFormListagem(ASender: TObject);
 begin
   inherited;
-end;
-
-procedure TControllerUsuario.BuscarMaiorID;
-begin
-  if oModelUsuario.BuscarMaiorID(oDtoUsuario) then
-    TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text :=
-      IntToStr(oDtoUsuario.IdUsuario + 1);
 end;
 
 procedure TControllerUsuario.LimparDto(var ADtoUsuario: TDtoUsuario);
@@ -129,7 +156,7 @@ end;
 procedure TControllerUsuario.Novo;
 begin
   inherited;
-  BuscarMaiorID;
+
   TfrmUsuario(oFormularioCadastro).edtNome.SetFocus;
 end;
 
@@ -161,9 +188,11 @@ end;
 
 procedure TControllerUsuario.PreencherDTO;
 begin
-  oDtoUsuario.IdUsuario := StrToInt(TfrmUsuario(oFormularioCadastro)
+
+if TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text <> '' then
+     oDtoUsuario.IdUsuario := StrToInt(TfrmUsuario(oFormularioCadastro)
     .edtIdCodigo.Text);
-  oDtoUsuario.Nome := Trim(TfrmUsuario(oFormularioCadastro).edtNome.Text);
+        oDtoUsuario.Nome := Trim(TfrmUsuario(oFormularioCadastro).edtNome.Text);
   oDtoUsuario.Senha := Trim(TfrmUsuario(oFormularioCadastro).edtSenha.Text);
   oDtoUsuario.ConfirmaSenha :=
     Trim(TfrmUsuario(oFormularioCadastro).edtConfirmaSenha.Text);

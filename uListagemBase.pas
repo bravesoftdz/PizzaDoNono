@@ -12,13 +12,13 @@ uses
 type
   TfrmListagemBase = class(TfrmBasePadrao)
     BoxBotoes: TPanel;
-    btnEditar: TSpeedButton;
     btnExcluir: TSpeedButton;
     btnFechar: TSpeedButton;
     panelListagem: TPanel;
     SearchBoxListagem: TSearchBox;
     Label1: TLabel;
     dbGridListagem: TDBGrid;
+    btnEditar: TSpeedButton;
     procedure btnFecharClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);

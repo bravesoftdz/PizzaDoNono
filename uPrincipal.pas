@@ -25,6 +25,7 @@ type
     btnSabores: TSpeedButton;
     btnSair: TSpeedButton;
     btnUsuarios: TSpeedButton;
+    btnTamanho: TSpeedButton;
     procedure btnUsuariosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
