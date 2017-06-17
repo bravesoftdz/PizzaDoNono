@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.ExtCtrls, Vcl.StdCtrls, System.Classes, Vcl.Forms, Vcl.Dialogs,
-  System.SysUtils, Data.DB, System.Generics.Collections,
+  System.SysUtils, Data.DB, System.Generics.Collections, Vcl.Mask,
   uInterfaceCRUD, uCadastroBase, uListagemBase, uModelEstado, uDtoEstado,
   uListaEstado;
 
@@ -53,6 +53,15 @@ begin
     if (oFormularioCadastro.Components[iIndiceComponente] is TLabeledEdit) then
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomEdit).Enabled :=
         AStatusBtnSalvar;
+    if (oFormularioCadastro.Components[iIndiceComponente] is TLabel) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomLabel).Enabled :=
+        AStatusBtnSalvar;
+    if (oFormularioCadastro.Components[iIndiceComponente] is TMaskEdit) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomMaskEdit).Enabled :=
+        AStatusBtnSalvar;
+    if (oFormularioCadastro.Components[iIndiceComponente] is TRadioGroup) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomRadioGroup).Enabled :=
+        AStatusBtnSalvar;
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
       (oFormularioCadastro.Components[iIndiceComponente] as TComboBox).Enabled := AStatusBtnSalvar;
   end;
@@ -60,7 +69,8 @@ begin
   oFormularioCadastro.btnCancelar.Enabled := AStatusBtnSalvar;
   oFormularioCadastro.btnNovo.Enabled := not(AStatusBtnSalvar);
   oFormularioCadastro.btnLocalizar.Enabled := not(AStatusBtnSalvar);
-
+  //label de titulo deve estar sempre habilitado
+  oFormularioCadastro.labelTitulo.Enabled := True;
 end;
 
 procedure TControllerCRUD.Cancelar(ASender: TObject);

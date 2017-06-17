@@ -23,7 +23,6 @@
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
-    ExplicitLeft = 8
     DesignSize = (
       1340
       390)
@@ -245,6 +244,7 @@
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
+      OnClick = btnClientesClick
     end
     object btnEstados: TSpeedButton
       Left = 743

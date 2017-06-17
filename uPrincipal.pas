@@ -9,7 +9,7 @@ uses
   Vcl.Imaging.pngimage,
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
   uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente,
-  uControllerEstado, uControllerMunicipio, uControllerBairro;
+  uControllerEstado, uControllerMunicipio, uControllerBairro, uControllerCliente;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -32,6 +32,7 @@ type
     procedure btnEstadosClick(Sender: TObject);
     procedure btnMunicipiosClick(Sender: TObject);
     procedure bntBairrosClick(Sender: TObject);
+    procedure btnClientesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,6 +52,14 @@ begin
   if not(assigned(oControllerBairro)) then
     oControllerBairro := TControllerBairro.Create;
   oControllerBairro.CriarFormCadastro(Self);
+end;
+
+procedure TfrmPrincipal.btnClientesClick(Sender: TObject);
+begin
+  inherited;
+  if not(assigned(oControllerCliente)) then
+    oControllerCliente := TControllerCliente.Create;
+  oControllerCliente.CriarFormCadastro(Self);
 end;
 
 procedure TfrmPrincipal.btnEstadosClick(Sender: TObject);
@@ -100,8 +109,7 @@ begin
   try
     TDBConnectionSingleton.GetInstancia;
   except
-    ShowMessage
-      ('Erro ao conectar com o banco de dados. O sistema não pode ser iniciado.');
+    ShowMessage('Erro ao conectar com o banco de dados. O sistema não pode ser iniciado.');
     // Manda encerrar a aplicação
     Application.Terminate;
     exit;

@@ -2,7 +2,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   Caption = 'Pizza do Nono - Clientes'
   ClientHeight = 634
   ClientWidth = 930
-  ExplicitTop = -82
+  ExplicitTop = -205
   ExplicitWidth = 936
   ExplicitHeight = 663
   PixelsPerInch = 96
@@ -84,7 +84,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object Label1: TLabel
         Left = 14
-        Top = 304
+        Top = 306
         Width = 30
         Height = 15
         Caption = 'CNPJ:'
@@ -97,7 +97,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object Label2: TLabel
         Left = 14
-        Top = 243
+        Top = 252
         Width = 24
         Height = 15
         Caption = 'CPF:'
@@ -134,7 +134,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtTelefone: TMaskEdit
         Left = 14
         Top = 104
-        Width = 398
+        Width = 394
         Height = 23
         EditMask = '!\(99\)0000-0000;1;_'
         MaxLength = 13
@@ -144,62 +144,49 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtCelular: TMaskEdit
         Left = 14
         Top = 160
-        Width = 402
+        Width = 394
         Height = 23
         EditMask = '!\(99\)0000-0000;1;_'
         MaxLength = 13
         TabOrder = 2
         Text = '(  )    -    '
       end
-      object RadioButton1: TRadioButton
-        Left = 14
-        Top = 215
-        Width = 109
-        Height = 17
-        Caption = 'Pessoa F'#237'sica'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Calibri'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 3
-        TabStop = True
-      end
-      object RadioButton2: TRadioButton
-        Left = 137
-        Top = 215
-        Width = 109
-        Height = 17
-        Caption = 'Pessoa Jur'#237'dica'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Calibri'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 4
-        TabStop = True
-      end
       object edtCPF: TMaskEdit
         Left = 14
-        Top = 264
-        Width = 404
+        Top = 273
+        Width = 394
         Height = 23
         EditMask = '999.999.999-99;1;_'
         MaxLength = 14
-        TabOrder = 5
+        TabOrder = 3
         Text = '   .   .   -  '
       end
       object edtCNPJ: TMaskEdit
         Left = 14
         Top = 325
-        Width = 406
+        Width = 394
         Height = 23
         EditMask = '99.999.999/9999-99;1;_'
         MaxLength = 18
-        TabOrder = 6
+        TabOrder = 4
         Text = '  .   .   /    -  '
+      end
+      object radioGroupCpfCnpj: TRadioGroup
+        Left = 14
+        Top = 195
+        Width = 394
+        Height = 48
+        Columns = 3
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Calibri'
+        Font.Style = [fsBold]
+        Items.Strings = (
+          'Pessoa F'#237'sica'
+          'Pessoa Jur'#237'dica')
+        ParentFont = False
+        TabOrder = 5
       end
     end
     object GroupBox1: TGroupBox
@@ -211,7 +198,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       TabOrder = 3
       object labelMunicipio: TLabel
         Left = 13
-        Top = 244
+        Top = 252
         Width = 57
         Height = 15
         Caption = 'Munic'#237'pio:'
@@ -276,7 +263,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtNumero: TLabeledEdit
         Left = 13
         Top = 104
-        Width = 200
+        Width = 404
         Height = 24
         EditLabel.Width = 50
         EditLabel.Height = 15
@@ -336,7 +323,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object cmbMunicipio: TComboBox
         Left = 13
-        Top = 264
+        Top = 273
         Width = 404
         Height = 23
         AutoDropDown = True
@@ -360,9 +347,16 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   end
   inherited boxBotoes: TPanel
     Width = 924
-    ExplicitWidth = 907
+    ExplicitWidth = 924
     inherited btnFechar: TSpeedButton
       Left = 819
+      ExplicitLeft = 819
     end
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 20
+    Top = 5
   end
 end

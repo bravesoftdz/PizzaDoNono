@@ -52,7 +52,14 @@ uses
   uRegraBairro in 'Bairros\uRegraBairro.pas',
   uViewListagemBairro in 'Bairros\uViewListagemBairro.pas' {frmListagemBairro},
   uListaMunicipio in 'Municipios\uListaMunicipio.pas',
-  uViewCadastroCliente in 'Clientes\uViewCadastroCliente.pas' {frmCadastroCliente};
+  uViewCadastroCliente in 'Clientes\uViewCadastroCliente.pas' {frmCadastroCliente},
+  uControllerCliente in 'Clientes\uControllerCliente.pas',
+  uDtoCliente in 'Clientes\uDtoCliente.pas',
+  uEnumeradorCamposCliente in 'Clientes\uEnumeradorCamposCliente.pas',
+  uInterfaceModelCliente in 'Clientes\uInterfaceModelCliente.pas',
+  uModelCliente in 'Clientes\uModelCliente.pas',
+  uRegraCliente in 'Clientes\uRegraCliente.pas',
+  uViewListagemCliente in 'Clientes\uViewListagemCliente.pas' {frmListagemCliente};
 
 {$R *.res}
 
@@ -60,6 +67,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmCadastroCliente, frmCadastroCliente);
   Application.Run;
 end.
