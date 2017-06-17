@@ -11,6 +11,7 @@ uses
 type
   TControllerCRUD = class(TInterfacedObject, ICrud)
   private
+
   protected
     oFormularioCadastro: TfrmCadastroBase;
     oFormularioListagem: TfrmListagemBase;
@@ -20,6 +21,7 @@ type
     procedure LimparFormulario;
     procedure ListarEstados(var ACmbEstados: TComboBox);
     procedure FiltrarGrid(Sender: TObject); virtual;
+    procedure AjustarListagem; virtual;
   public
     constructor Create; virtual;
     destructor Destroy; override;
@@ -65,6 +67,7 @@ procedure TControllerCRUD.Cancelar(ASender: TObject);
 begin
   LimparFormulario;
   AjustarModoInsercao(False);
+
 end;
 
 constructor TControllerCRUD.Create;
@@ -99,6 +102,17 @@ end;
 procedure TControllerCRUD.Excluir;
 begin
   //
+end;
+
+procedure TControllerCRUD.AjustarListagem;
+begin
+  oFormularioListagem.dbGridListagem.Hide;
+  ShowMessage
+    ('Nenhum registro encontrado no banco de dados. Realize um novo cadastro e ele será exibido aqui.');
+  oFormularioListagem.btnEditar.Enabled := False;
+  oFormularioListagem.btnExcluir.Enabled := False;
+  oFormularioListagem.SearchBoxListagem.Enabled := False;
+  oFormularioListagem.Label1.Enabled := False;
 end;
 
 procedure TControllerCRUD.FecharFormCadastro(ASender: TObject);

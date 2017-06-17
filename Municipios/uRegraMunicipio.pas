@@ -20,6 +20,7 @@ type
       const ADtoMunicipio: TDtoMunicipio): Boolean;
     function Excluir(const AModelMunicipio: TModelMunicipio;
       const ADtoMunicipio: TDtoMunicipio): Boolean;
+    function CountRegistros(const AModelMunicipio: TModelMunicipio): Boolean;
   end;
 
 implementation
@@ -78,6 +79,14 @@ begin
   if AModelMunicipio.VerificarMunicipioCadastrado(ADtoMunicipio) then
     Result := true;
 
+end;
+
+function TRegraMunicipio.CountRegistros(const AModelMunicipio: TModelMunicipio): Boolean;
+begin
+  Result := False;
+  if AModelMunicipio.CountRegistros > 0 then
+    // se a quantidade de registros for maior que zero
+    Result := true; // true, pois existem registros
 end;
 
 end.

@@ -32,6 +32,7 @@ type
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
+    procedure AjustarListagem; override;
   end;
 
 var
@@ -69,6 +70,12 @@ begin
 
   ListarEstados(TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado);
   inherited;
+end;
+
+procedure TControllerMunicipio.AjustarListagem;
+begin
+  if not(oRegraMunicipio.CountRegistros(oModelMunicipio)) then
+    inherited;
 end;
 
 destructor TControllerMunicipio.Destroy;
@@ -122,8 +129,9 @@ begin
   begin
     if oRegraMunicipio.Excluir(oModelMunicipio, oDtoMunicipio) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Registro excluído com sucesso.');
+      PreencherGrid(oFormularioListagem.dbGridListagem);
+
     end
     else
     begin
@@ -164,6 +172,7 @@ begin
   TfrmListagemMunicipio(oFormularioListagem).iInterfaceCrud := oControllerMunicipio;
 
   PreencherGrid(TfrmListagemMunicipio(oFormularioListagem).dbGridListagem);
+
   inherited;
 end;
 
@@ -262,6 +271,7 @@ begin
     oDataSource.DataSet := oModelMunicipio.oQuery;
     TfrmListagemMunicipio(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
+  AjustarListagem;
 end;
 
 end.
