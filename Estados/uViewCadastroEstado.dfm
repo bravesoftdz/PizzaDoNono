@@ -17,6 +17,7 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       Top = 112
       Width = 137
       Height = 24
+      TabStop = False
       EditLabel.Width = 19
       EditLabel.Height = 16
       EditLabel.Caption = 'ID:'
@@ -36,29 +37,6 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
-    end
-    object edtNome: TLabeledEdit
-      Left = 15
-      Top = 240
-      Width = 410
-      Height = 24
-      EditLabel.Width = 40
-      EditLabel.Height = 16
-      EditLabel.Caption = 'Nome:'
-      EditLabel.Font.Charset = DEFAULT_CHARSET
-      EditLabel.Font.Color = clWindowText
-      EditLabel.Font.Height = -13
-      EditLabel.Font.Name = 'Tahoma'
-      EditLabel.Font.Style = [fsBold]
-      EditLabel.ParentFont = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      MaxLength = 45
-      ParentFont = False
-      TabOrder = 2
     end
     object edtUF: TLabeledEdit
       Left = 16
@@ -81,6 +59,29 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       Font.Name = 'Tahoma'
       Font.Style = []
       MaxLength = 2
+      ParentFont = False
+      TabOrder = 2
+    end
+    object edtNome: TLabeledEdit
+      Left = 15
+      Top = 240
+      Width = 410
+      Height = 24
+      EditLabel.Width = 40
+      EditLabel.Height = 16
+      EditLabel.Caption = 'Nome:'
+      EditLabel.Font.Charset = DEFAULT_CHARSET
+      EditLabel.Font.Color = clWindowText
+      EditLabel.Font.Height = -13
+      EditLabel.Font.Name = 'Tahoma'
+      EditLabel.Font.Style = [fsBold]
+      EditLabel.ParentFont = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      MaxLength = 45
       ParentFont = False
       TabOrder = 3
     end

@@ -24,6 +24,7 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnLocalizarClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -68,5 +69,18 @@ begin
   inherited;
   iInterfaceCrud.Salvar(Sender);
 end;
+
+procedure TfrmCadastroBase.FormKeyPress(Sender: TObject; var Key: Char);
+var
+  iIndiceComponente: Integer;
+begin
+  inherited;
+  if btnSalvar.Tag = 1 then
+  begin
+    if Key = #10 then
+    begin
+      iInterfaceCrud.Salvar(Sender);
+    end;
+  end;
 
 end.

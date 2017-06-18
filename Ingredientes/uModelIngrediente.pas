@@ -16,6 +16,7 @@ type
     function Editar(const oDtoIngrediente: TDtoIngrediente): Boolean;
     function VerificarIngredienteCadastrado(var ADtoIngrediente: TDtoIngrediente): Boolean;
     function Excluir(const ADtoIngrediente: TDtoIngrediente): Boolean;
+    function CountRegistros: integer;
 
     constructor Create;
     destructor Destroy; override;
@@ -24,6 +25,21 @@ type
 implementation
 
 { TEstadoModel }
+
+function TModelIngrediente.CountRegistros: integer;
+var
+  newQuery: TFDQuery;
+begin
+  newQuery := TFDQuery.Create(nil);
+  try
+    newQuery.Connection := oQuery.Connection;
+    newQuery.Open('SELECT COUNT(idingrediente) quantidade FROM ingrediente');
+    Result := newQuery.FieldByName('quantidade').AsInteger;
+  finally
+    FreeAndNil(newQuery);
+  end;
+end;
+
 
 constructor TModelIngrediente.Create;
 begin

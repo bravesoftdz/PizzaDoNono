@@ -12,39 +12,53 @@ type
     //
   public
     function ValidarDados(var ADtoBairro: TDtoBairro): TCamposBairro;
-    function VerificarBairroCadastrado(const AModelBairro: TModelBairro; var ADtoBairro: TDtoBairro): Boolean;
+    function VerificarBairroCadastrado(const AModelBairro: TModelBairro;
+      var ADtoBairro: TDtoBairro): Boolean;
     function Inserir(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
     function Editar(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
     function BuscarEstado(const AModelBairro: TModelBairro; out ADtoBairro: TDtoBairro): Boolean;
     function Excluir(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
+    function CountRegistros(const AModel: TModelBairro): Boolean;
   end;
 
 implementation
 
 { TRegraBairro }
 
-function TRegraBairro.BuscarEstado(const AModelBairro: TModelBairro; out ADtoBairro: TDtoBairro): Boolean;
+function TRegraBairro.BuscarEstado(const AModelBairro: TModelBairro;
+  out ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   if AModelBairro.BuscarEstado(ADtoBairro) then
     Result := true;
 end;
 
-function TRegraBairro.Editar(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
+function TRegraBairro.CountRegistros(const AModel: TModelBairro): Boolean;
+begin
+  Result := False;
+  if AModel.CountRegistros > 0 then
+    // se a quantidade de registros for maior que zero
+    Result := true; // true, pois existem registros
+end;
+
+function TRegraBairro.Editar(const AModelBairro: TModelBairro;
+  const ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   if AModelBairro.Editar(ADtoBairro) then
     Result := true;
 end;
 
-function TRegraBairro.Excluir(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
+function TRegraBairro.Excluir(const AModelBairro: TModelBairro;
+  const ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   if AModelBairro.Excluir(ADtoBairro) then
     Result := true;
 end;
 
-function TRegraBairro.Inserir(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
+function TRegraBairro.Inserir(const AModelBairro: TModelBairro;
+  const ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   if AModelBairro.Inserir(ADtoBairro) then
@@ -77,7 +91,8 @@ begin
   Result := resultOk;
 end;
 
-function TRegraBairro.VerificarBairroCadastrado(const AModelBairro: TModelBairro; var ADtoBairro: TDtoBairro): Boolean;
+function TRegraBairro.VerificarBairroCadastrado(const AModelBairro: TModelBairro;
+  var ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   // testa se o nome informado para o bairro já está cadastrado naquele município

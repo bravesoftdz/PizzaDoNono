@@ -10,12 +10,12 @@ uses
 
 type
   TfrmCadastroBairro = class(TfrmCadastroBase)
-    cmbMunicipio: TComboBox;
-    edtNome: TLabeledEdit;
-    edtIdCodigo: TLabeledEdit;
     labelMunicipio: TLabel;
-    cmbEstado: TComboBox;
     labelEstado: TLabel;
+    edtIdCodigo: TLabeledEdit;
+    edtNome: TLabeledEdit;
+    cmbEstado: TComboBox;
+    cmbMunicipio: TComboBox;
   private
     { Private declarations }
   public

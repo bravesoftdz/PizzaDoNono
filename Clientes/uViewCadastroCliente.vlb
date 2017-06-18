@@ -7,14 +7,6 @@ Coordinates=10,144,72,51
 [btnLocalizar]
 Coordinates=82,348,75,33
 
-[GroupBox1]
-Coordinates=10,280,70,51
-
-[edtCPF]
-Coordinates=343,10,50,51
-ExplicitSubNodes=
-LayerNames=
-
 [btnNovo]
 Coordinates=10,348,56,33
 
@@ -39,17 +31,11 @@ Coordinates=422,212,98,51
 [labelTitulo]
 Coordinates=102,144,65,51
 
-[Label1]
-Coordinates=572,144,46,51
-
 [edtIdCodigo]
 Coordinates=302,144,74,51
 
 [boxBotoes]
 Coordinates=10,212,67,51
-
-[edtCNPJ]
-Coordinates=607,212,57,51
 
 [labelCelular]
 Coordinates=266,212,72,51
@@ -59,15 +45,6 @@ Coordinates=187,280,49,51
 
 [btnSalvar]
 Coordinates=536,280,61,33
-
-[edtCelular]
-Coordinates=489,144,64,51
-
-[edtTelefone]
-Coordinates=396,144,72,51
-
-[Label2]
-Coordinates=544,212,46,51
 
 [edtNumero]
 Coordinates=99,280,68,51
@@ -81,25 +58,29 @@ Coordinates=635,144,85,51
 [GroupBoxDadosPessoais]
 Coordinates=95,212,140,51
 
-[Label3]
-Coordinates=359,212,46,51
-
-[ComboBox1]
-Coordinates=10,10,84,105
-
-[edtNome]
-Coordinates=608,10,58,51
-
 []
-Coordinates=530,10,60,33
+Coordinates=557,87,82,33
 ExplicitSubNodes=
 Visible=True
-
-[BindingsList1]
-Coordinates=557,87,82,33
+LayerNames=
 
 [Module Settings]
 ModelLayerNames=
 ActiveLayerNames=
 EditingLayerName=
+
+[labelCPF]
+Coordinates=544,212,46,51
+
+[labelCNPJ]
+Coordinates=572,144,46,51
+
+[GroupBoxEndereco]
+Coordinates=10,280,70,51
+
+[labelBairro]
+Coordinates=359,212,46,51
+
+[cmbBairro]
+Coordinates=10,10,84,105
 

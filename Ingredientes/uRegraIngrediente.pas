@@ -20,11 +20,20 @@ type
       const ADtoIngrediente: TDtoIngrediente): Boolean;
     function Excluir(const AModelIngrediente: TModelIngrediente;
       const ADtoIngrediente: TDtoIngrediente): Boolean;
+    function CountRegistros(const AModel: TModelIngrediente): Boolean;
   end;
 
 implementation
 
 { TRegraIngrediente }
+
+function TRegraIngrediente.CountRegistros(const AModel: TModelIngrediente): Boolean;
+begin
+  Result := False;
+  if AModel.CountRegistros > 0 then
+    // se a quantidade de registros for maior que zero
+    Result := true; // true, pois existem registros
+end;
 
 function TRegraIngrediente.Editar(const AModelIngrediente: TModelIngrediente;
   const ADtoIngrediente: TDtoIngrediente): Boolean;

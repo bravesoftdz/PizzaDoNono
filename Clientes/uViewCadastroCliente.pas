@@ -14,25 +14,25 @@ type
     GroupBoxDadosPessoais: TGroupBox;
     labelTelefone: TLabel;
     labelCelular: TLabel;
-    Label1: TLabel;
-    Label2: TLabel;
-    edtNome: TLabeledEdit;
-    edtTelefone: TMaskEdit;
-    edtCelular: TMaskEdit;
-    edtCPF: TMaskEdit;
-    edtCNPJ: TMaskEdit;
-    GroupBox1: TGroupBox;
+    labelCNPJ: TLabel;
+    labelCPF: TLabel;
+    GroupBoxEndereco: TGroupBox;
     labelMunicipio: TLabel;
     labelEstado: TLabel;
-    Label3: TLabel;
+    labelBairro: TLabel;
     edtRua: TLabeledEdit;
     edtNumero: TLabeledEdit;
     edtComplemento: TLabeledEdit;
     cmbEstado: TComboBox;
     cmbMunicipio: TComboBox;
-    ComboBox1: TComboBox;
-    BindingsList1: TBindingsList;
-    radioGroupCpfCnpj: TRadioGroup;
+    cmbBairro: TComboBox;
+    edtNome: TLabeledEdit;
+    edtTelefone: TMaskEdit;
+    edtCelular: TMaskEdit;
+    radioCPF: TRadioButton;
+    radioCNPJ: TRadioButton;
+    edtCPF: TMaskEdit;
+    edtCNPJ: TMaskEdit;
   private
     { Private declarations }
   public

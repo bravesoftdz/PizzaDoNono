@@ -17,11 +17,20 @@ type
     function Inserir(const AModelEstado: TModelEstado; const ADtoEstado: TDtoEstado): Boolean;
     function Editar(const AModelEstado: TModelEstado; const ADtoEstado: TDtoEstado): Boolean;
     function Excluir(const AModelEstado: TModelEstado; const ADtoEstado: TDtoEstado): Boolean;
+    function CountRegistros(const AModel: TModelEstado): Boolean;
   end;
 
 implementation
 
 { TRegraEstado }
+
+function TRegraEstado.CountRegistros(const AModel: TModelEstado): Boolean;
+begin
+  Result := False;
+  if AModel.CountRegistros > 0 then
+    // se a quantidade de registros for maior que zero
+    Result := true; // true, pois existem registros
+end;
 
 function TRegraEstado.Editar(const AModelEstado: TModelEstado;
   const ADtoEstado: TDtoEstado): Boolean;

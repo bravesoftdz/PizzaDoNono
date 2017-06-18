@@ -17,6 +17,7 @@ type
     function VerificarBairroCadastrado(var ADtoBairro: TDtoBairro): Boolean;
     function BuscarEstado(var ADtoBairro: TDtoBairro): Boolean;
     function Excluir(const ADtoBairro: TDtoBairro): Boolean;
+    function CountRegistros: integer;
 
     constructor Create;
     destructor Destroy; override;
@@ -30,12 +31,28 @@ function TModelBairro.BuscarEstado(var ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open('SELECT e.idestado FROM bairro b ' + 'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ' +
-    'LEFT JOIN estado e ON m.estado_idestado = e.idestado WHERE b.idbairro = ' + IntToStr(ADtoBairro.idBairro));
+  oQuery.Open('SELECT e.idestado FROM bairro b ' +
+    'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ' +
+    'LEFT JOIN estado e ON m.estado_idestado = e.idestado WHERE b.idbairro = ' +
+    IntToStr(ADtoBairro.idBairro));
   if not(oQuery.IsEmpty) then
   begin
     ADtoBairro.Estado := oQuery.FieldByName('idestado').AsInteger;
     Result := True
+  end;
+end;
+
+function TModelBairro.CountRegistros: integer;
+var
+  newQuery: TFDQuery;
+begin
+  newQuery := TFDQuery.Create(nil);
+  try
+    newQuery.Connection := oQuery.Connection;
+    newQuery.Open('SELECT COUNT(idbairro) quantidade FROM bairro');
+    Result := newQuery.FieldByName('quantidade').AsInteger;
+  finally
+    FreeAndNil(newQuery);
   end;
 end;
 
@@ -54,8 +71,9 @@ end;
 function TModelBairro.Editar(const oDtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('UPDATE bairro SET nome = ' + QuotedStr(oDtoBairro.Nome) + ', municipio_idmunicipio = ' +
-    IntToStr(oDtoBairro.Municipio) + ' WHERE idbairro = ' + IntToStr(oDtoBairro.idBairro));
+  oQuery.ExecSQL('UPDATE bairro SET nome = ' + QuotedStr(oDtoBairro.Nome) +
+    ', municipio_idmunicipio = ' + IntToStr(oDtoBairro.Municipio) + ' WHERE idbairro = ' +
+    IntToStr(oDtoBairro.idBairro));
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -72,8 +90,8 @@ function TModelBairro.Inserir(const oDtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.ExecSQL('INSERT INTO Bairro(nome, municipio_idmunicipio) VALUES(' + QuotedStr(oDtoBairro.Nome) + ', ' +
-    IntToStr(oDtoBairro.Municipio) + ');');
+  oQuery.ExecSQL('INSERT INTO Bairro(nome, municipio_idmunicipio) VALUES(' +
+    QuotedStr(oDtoBairro.Nome) + ', ' + IntToStr(oDtoBairro.Municipio) + ');');
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -98,8 +116,8 @@ begin
   begin
     // se idBairro = 0 verifica somente nome do bairro
     // seleciona no banco o nome
-    oQuery.Open('SELECT Nome FROM Bairro WHERE municipio_idmunicipio = ' + IntToStr(ADtoBairro.Municipio) +
-      ' AND Nome = ' + QuotedStr(ADtoBairro.Nome));
+    oQuery.Open('SELECT Nome FROM Bairro WHERE municipio_idmunicipio = ' +
+      IntToStr(ADtoBairro.Municipio) + ' AND Nome = ' + QuotedStr(ADtoBairro.Nome));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Bairro cadastrado com este nome
@@ -107,8 +125,9 @@ begin
   end
   else if ADtoBairro.idBairro <> 0 then
   begin
-    oQuery.Open('SELECT Nome FROM Bairro WHERE municipio_idmunicipio = ' + IntToStr(ADtoBairro.Municipio) +
-      ' AND Nome = ' + QuotedStr(ADtoBairro.Nome) + ' AND idbairro <> ' + IntToStr(ADtoBairro.idBairro));
+    oQuery.Open('SELECT Nome FROM Bairro WHERE municipio_idmunicipio = ' +
+      IntToStr(ADtoBairro.Municipio) + ' AND Nome = ' + QuotedStr(ADtoBairro.Nome) +
+      ' AND idbairro <> ' + IntToStr(ADtoBairro.idBairro));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Bairro cadastrado com este nome

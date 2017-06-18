@@ -40,7 +40,7 @@ var
 
 implementation
 
-{ TControllerUsuario }
+{ TControllerMunicipio }
 
 procedure TControllerMunicipio.Cancelar;
 begin

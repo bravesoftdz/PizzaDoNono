@@ -9,10 +9,10 @@ uses
 
 type
   TfrmCadastroMunicipio = class(TfrmCadastroBase)
-    cmbEstado: TComboBox;
-    edtNome: TLabeledEdit;
     edtIdCodigo: TLabeledEdit;
     labelEstado: TLabel;
+    edtNome: TLabeledEdit;
+    cmbEstado: TComboBox;
   private
     { Private declarations }
   public

@@ -32,6 +32,7 @@ type
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
+    procedure AjustarListagem; override;
   end;
 
 var
@@ -40,6 +41,12 @@ var
 implementation
 
 { TControllerUsuario }
+
+procedure TControllerIngrediente.AjustarListagem;
+begin
+  if not(oRegraIngrediente.CountRegistros(oModelIngrediente)) then
+    inherited;
+end;
 
 procedure TControllerIngrediente.Cancelar;
 begin
@@ -235,6 +242,7 @@ begin
     oDataSource.DataSet := oModelIngrediente.oQuery;
     TfrmListagemIngrediente(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
+  AjustarListagem;
 end;
 
 end.

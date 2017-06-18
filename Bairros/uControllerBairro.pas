@@ -35,6 +35,7 @@ type
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
+    procedure AjustarListagem; override;
   end;
 
 var
@@ -160,6 +161,12 @@ end;
 procedure TControllerBairro.FecharFormListagem(ASender: TObject);
 begin
   inherited;
+end;
+
+procedure TControllerBairro.AjustarListagem;
+begin
+  if not(oRegraBairro.CountRegistros(oModelBairro)) then
+    inherited;
 end;
 
 procedure TControllerBairro.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
@@ -329,6 +336,7 @@ begin
     oDataSource.DataSet := oModelBairro.oQuery;
     TfrmListagemBairro(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
+  AjustarListagem;
 end;
 
 end.

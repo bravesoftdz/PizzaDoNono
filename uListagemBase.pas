@@ -39,7 +39,7 @@ implementation
 procedure TfrmListagemBase.btnEditarClick(Sender: TObject);
 begin
   inherited;
-  iInterfaceCrud.Editar;
+  iInterfaceCrud.Editar(nil);
 end;
 
 procedure TfrmListagemBase.btnExcluirClick(Sender: TObject);

@@ -31,6 +31,7 @@ type
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
+    procedure AjustarListagem; override;
   end;
 
 var
@@ -39,6 +40,12 @@ var
 implementation
 
 { TControllerEstado }
+
+procedure TControllerEstado.AjustarListagem;
+begin
+  if not(oRegraEstado.CountRegistros(oModelEstado)) then
+    inherited;
+end;
 
 procedure TControllerEstado.Cancelar;
 begin
@@ -106,8 +113,8 @@ procedure TControllerEstado.Excluir;
 begin
   inherited;
   // resgatando idingredient do DBGrid e setando no DTO
-  oDtoEstado.idestado := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
-    FieldByName('ID').AsInteger;
+  oDtoEstado.idestado := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID')
+    .AsInteger;
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
@@ -136,7 +143,7 @@ end;
 
 procedure TControllerEstado.LimparDto(var ADtoEstado: TDtoEstado);
 begin
-  ADtoEstado.IdEstado := 0;
+  ADtoEstado.idestado := 0;
   ADtoEstado.Nome := EmptyStr;
   ADtoEstado.UF := EmptyStr;
 end;
@@ -194,7 +201,7 @@ begin
             // se o nome ou UF informado nao estiver cadastrado, realiza a inserção
             begin
               // testa se o edit do ID está vazio
-              if oDtoEstado.IdEstado = 0 then
+              if oDtoEstado.idestado = 0 then
               begin
                 // se o id for igual a 0, realiza inserção
                 // testa se a inserção foi realizada
@@ -206,7 +213,7 @@ begin
                   LimparDto(oDtoEstado);
                 end;
               end
-              else if oDtoEstado.IdEstado > 0 then
+              else if oDtoEstado.idestado > 0 then
               begin
                 // se o nome informado nao estiver cadastrado, realiza a inserção
                 // testa se o Update foi realizado
@@ -227,9 +234,9 @@ end;
 procedure TControllerEstado.PreencherDTO;
 begin
   if TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text <> '' then
-    oDtoEstado.IdEstado := StrToInt(TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text)
+    oDtoEstado.idestado := StrToInt(TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text)
   else
-    oDtoEstado.IdEstado := 0;
+    oDtoEstado.idestado := 0;
 
   oDtoEstado.Nome := Trim(TfrmCadastroEstado(oFormularioCadastro).edtNome.Text);
   oDtoEstado.UF := Trim(TfrmCadastroEstado(oFormularioCadastro).edtUF.Text);
@@ -244,6 +251,7 @@ begin
     oDataSource.DataSet := oModelEstado.oQuery;
     TfrmListagemEstado(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
+  AjustarListagem;
 end;
 
 end.

@@ -19,6 +19,7 @@ type
     function Listar: Boolean;
     // listar os estados no combo box do cadastro de municipios
     function ListarEstados(var ALista: TListaEstado): Boolean;
+    function CountRegistros: integer;
 
     constructor Create;
     destructor Destroy; override;
@@ -27,6 +28,20 @@ type
 implementation
 
 { TModelEstado }
+
+function TModelEstado.CountRegistros: integer;
+var
+  newQuery: TFDQuery;
+begin
+  newQuery := TFDQuery.Create(nil);
+  try
+    newQuery.Connection := oQuery.Connection;
+    newQuery.Open('SELECT COUNT(idestado) quantidade FROM estado');
+    Result := newQuery.FieldByName('quantidade').AsInteger;
+  finally
+    FreeAndNil(newQuery);
+  end;
+end;
 
 constructor TModelEstado.Create;
 begin

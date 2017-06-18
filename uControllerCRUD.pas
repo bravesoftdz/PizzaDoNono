@@ -22,6 +22,7 @@ type
     procedure ListarEstados(var ACmbEstados: TComboBox);
     procedure FiltrarGrid(Sender: TObject); virtual;
     procedure AjustarListagem; virtual;
+    procedure OnExitUltimoCampo(Sender: TObject; var Key: char); virtual;
   public
     constructor Create; virtual;
     destructor Destroy; override;
@@ -32,7 +33,7 @@ type
     procedure Cancelar(ASender: TObject); virtual;
     procedure Localizar(aOwner: TComponent); virtual;
     procedure Novo(ASender: TObject); virtual;
-    procedure Editar(Sender: TObject = nil); virtual;
+    procedure Editar(Sender: TObject); virtual;
     procedure Excluir; virtual;
 
   end;
@@ -50,6 +51,11 @@ var
 begin
   for iIndiceComponente := 0 to pred(oFormularioCadastro.ComponentCount) do
   begin
+    if AStatusBtnSalvar then
+      oFormularioCadastro.btnSalvar.Tag := 1
+    else
+      oFormularioCadastro.btnSalvar.Tag := 0;
+
     if (oFormularioCadastro.Components[iIndiceComponente] is TLabeledEdit) then
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomEdit).Enabled :=
         AStatusBtnSalvar;
@@ -59,17 +65,18 @@ begin
     if (oFormularioCadastro.Components[iIndiceComponente] is TMaskEdit) then
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomMaskEdit).Enabled :=
         AStatusBtnSalvar;
-    if (oFormularioCadastro.Components[iIndiceComponente] is TRadioGroup) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TCustomRadioGroup).Enabled :=
+    if (oFormularioCadastro.Components[iIndiceComponente] is TRadioButton) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TRadioButton).Enabled :=
         AStatusBtnSalvar;
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TComboBox).Enabled := AStatusBtnSalvar;
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomComboBox).Enabled :=
+        AStatusBtnSalvar;
   end;
   oFormularioCadastro.btnSalvar.Enabled := AStatusBtnSalvar;
   oFormularioCadastro.btnCancelar.Enabled := AStatusBtnSalvar;
   oFormularioCadastro.btnNovo.Enabled := not(AStatusBtnSalvar);
   oFormularioCadastro.btnLocalizar.Enabled := not(AStatusBtnSalvar);
-  //label de titulo deve estar sempre habilitado
+  // label de titulo deve estar sempre habilitado
   oFormularioCadastro.labelTitulo.Enabled := True;
 end;
 
@@ -104,7 +111,7 @@ begin
   inherited;
 end;
 
-procedure TControllerCRUD.Editar(Sender: TObject = nil);
+procedure TControllerCRUD.Editar(Sender: TObject);
 begin
   //
 end;
@@ -149,7 +156,7 @@ begin
   oFormularioListagem.dbGridListagem.DataSource.DataSet.Filter := 'UPPER(nome) Like ' +
     UpperCase(QuotedStr('%' + oFormularioListagem.SearchBoxListagem.Text + '%'));
 
-  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := true;
+  oFormularioListagem.dbGridListagem.DataSource.DataSet.Filtered := True;
 end;
 
 procedure TControllerCRUD.LimparFormulario;
@@ -201,7 +208,21 @@ end;
 
 procedure TControllerCRUD.Novo(ASender: TObject);
 begin
-  AjustarModoInsercao(true);
+  AjustarModoInsercao(True);
+end;
+
+procedure TControllerCRUD.OnExitUltimoCampo(Sender: TObject; var Key: char);
+var
+  iIndiceComponente: Integer;
+begin
+  if Key = #10 then
+  begin
+    for iIndiceComponente := 0 to pred(oFormularioCadastro.ComponentCount) do
+    begin
+      if (oFormularioCadastro.Components[iIndiceComponente].Tag = 1) then
+        Salvar(nil);
+    end;
+  end;
 end;
 
 procedure TControllerCRUD.PreencherDTO;

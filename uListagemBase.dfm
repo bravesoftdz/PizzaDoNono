@@ -699,7 +699,7 @@ inherited frmListagemBase: TfrmListagemBase
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
       Layout = blGlyphTop
       NumGlyphs = 2
-      OnClick = btnFecharClick
+      OnClick = btnEditarClick
     end
   end
   object panelListagem: TPanel

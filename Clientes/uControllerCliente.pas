@@ -20,22 +20,23 @@ type
     procedure PreencherGrid(var DbGrid: TDBGrid);
 
     procedure AjustarEditCpfCnpj(ASender: TOBject);
-    procedure AtualizarComboBoxMunicipio(Sender: TObject);
+    procedure AtualizarComboBoxMunicipio(Sender: TOBject);
 
   public
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure Salvar(ASender: TObject); override;
-    procedure Cancelar(ASender: TObject); override;
+    procedure Salvar(ASender: TOBject); override;
+    procedure Cancelar(ASender: TOBject); override;
     procedure Localizar(aOwner: TComponent); override;
-    procedure Novo(ASender: TObject); override;
-    procedure Editar(Sender: TObject); override;
+    procedure Novo(ASender: TOBject); override;
+    procedure Editar(Sender: TOBject); override;
     procedure Excluir; override;
     procedure CriarFormCadastro(aOwner: TComponent); override;
-    procedure FecharFormCadastro(ASender: TObject); override;
-    procedure FecharFormListagem(ASender: TObject); override;
+    procedure FecharFormCadastro(ASender: TOBject); override;
+    procedure FecharFormListagem(ASender: TOBject); override;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
+    procedure AjustarListagem; override;
   end;
 
 var
@@ -45,7 +46,7 @@ implementation
 
 { TControllerUsuario }
 
-procedure TControllerCliente.Cancelar(ASender: TObject);
+procedure TControllerCliente.Cancelar(ASender: TOBject);
 begin
   inherited;
 end;
@@ -74,7 +75,12 @@ begin
   ListarEstados(TfrmCadastroCliente(oFormularioCadastro).cmbEstado);
 
   TfrmCadastroCliente(oFormularioCadastro).cmbEstado.OnChange := AtualizarComboBoxMunicipio;
-//  TfrmCadastroCliente(oFormularioCadastro).radioGroupCpfCnpj.Buttons.Checked
+
+  TfrmCadastroCliente(oFormularioCadastro).radioCPF.OnClick := AjustarEditCpfCnpj;
+  TfrmCadastroCliente(oFormularioCadastro).radioCPF.OnExit := AjustarEditCpfCnpj;
+  TfrmCadastroCliente(oFormularioCadastro).radioCNPJ.OnClick := AjustarEditCpfCnpj;
+  TfrmCadastroCliente(oFormularioCadastro).radioCNPJ.OnExit := AjustarEditCpfCnpj;
+  TfrmCadastroCliente(oFormularioCadastro).cmbBairro.OnKeyPress := OnExitUltimoCampo;
   inherited;
 end;
 
@@ -91,7 +97,7 @@ begin
   inherited;
 end;
 
-procedure TControllerCliente.Editar(Sender: TObject);
+procedure TControllerCliente.Editar(Sender: TOBject);
 var
   nomeMunicipio: string;
 begin
@@ -117,7 +123,7 @@ begin
   begin
     TfrmCadastroCliente(oFormularioCadastro).cmbEstado.ItemIndex :=
       TfrmCadastroCliente(oFormularioCadastro).cmbEstado.Items.IndexOfObject
-      (TObject(oDtoCliente.Estado));
+      (TOBject(oDtoCliente.Estado));
   end;
 
   AtualizarComboBoxMunicipio(nil);
@@ -153,12 +159,12 @@ begin
 
 end;
 
-procedure TControllerCliente.FecharFormCadastro(ASender: TObject);
+procedure TControllerCliente.FecharFormCadastro(ASender: TOBject);
 begin
   inherited;
 end;
 
-procedure TControllerCliente.FecharFormListagem(ASender: TObject);
+procedure TControllerCliente.FecharFormListagem(ASender: TOBject);
 begin
   inherited;
 end;
@@ -167,14 +173,26 @@ procedure TControllerCliente.AjustarEditCpfCnpj(ASender: TOBject);
 begin
   if TfrmCadastroCliente(oFormularioCadastro).radioCPF.Checked then
   begin
+    TfrmCadastroCliente(oFormularioCadastro).labelCPF.Enabled := true;
     TfrmCadastroCliente(oFormularioCadastro).edtCPF.Enabled := true;
+
+    TfrmCadastroCliente(oFormularioCadastro).labelCNPJ.Enabled := False;
     TfrmCadastroCliente(oFormularioCadastro).edtCNPJ.Enabled := False;
   end;
   if TfrmCadastroCliente(oFormularioCadastro).radioCNPJ.Checked then
   begin
+    TfrmCadastroCliente(oFormularioCadastro).labelCPF.Enabled := False;
     TfrmCadastroCliente(oFormularioCadastro).edtCPF.Enabled := False;
+
+    TfrmCadastroCliente(oFormularioCadastro).labelCNPJ.Enabled := True;
     TfrmCadastroCliente(oFormularioCadastro).edtCNPJ.Enabled := true;
   end;
+end;
+
+procedure TControllerCliente.AjustarListagem;
+begin
+  if not(oRegraCliente.CountRegistros(oModelCliente)) then
+    inherited;
 end;
 
 procedure TControllerCliente.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
@@ -182,9 +200,10 @@ begin
   inherited;
   if AStatusBtnSalvar then
     TfrmCadastroCliente(oFormularioCadastro).edtNome.SetFocus;
+  AjustarEditCpfCnpj(nil);
 end;
 
-procedure TControllerCliente.AtualizarComboBoxMunicipio(Sender: TObject);
+procedure TControllerCliente.AtualizarComboBoxMunicipio(Sender: TOBject);
 var
   oListaMunicipio: TListaMunicipio;
   oModelMunicipio: TModelMunicipio;
@@ -204,7 +223,7 @@ begin
     begin
       for oDtoMunicipio in oListaMunicipio.Values do
         TfrmCadastroCliente(oFormularioCadastro).cmbMunicipio.Items.AddObject(oDtoMunicipio.Nome,
-          TObject(oDtoMunicipio.IdMunicipio));
+          TOBject(oDtoMunicipio.IdMunicipio));
     end
   finally
     if Assigned(oDtoBairro) then
@@ -238,12 +257,12 @@ begin
   inherited;
 end;
 
-procedure TControllerCliente.Novo(ASender: TObject);
+procedure TControllerCliente.Novo(ASender: TOBject);
 begin
   inherited;
 end;
 
-procedure TControllerCliente.Salvar(ASender: TObject);
+procedure TControllerCliente.Salvar(ASender: TOBject);
 begin
   PreencherDTO;
 
@@ -344,6 +363,7 @@ begin
     oDataSource.DataSet := oModelCliente.oQuery;
     TfrmListagemCliente(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
+  AjustarListagem;
 end;
 
 end.

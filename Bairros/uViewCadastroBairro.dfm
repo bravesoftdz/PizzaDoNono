@@ -1,5 +1,6 @@
 inherited frmCadastroBairro: TfrmCadastroBairro
   Caption = 'frmCadastroBairro'
+  ExplicitTop = -196
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
@@ -34,15 +35,30 @@ inherited frmCadastroBairro: TfrmCadastroBairro
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object cmbMunicipio: TComboBox
+    object edtIdCodigo: TLabeledEdit
       Left = 16
-      Top = 304
-      Width = 410
-      Height = 23
-      AutoDropDown = True
-      Ctl3D = True
-      ParentCtl3D = False
-      Sorted = True
+      Top = 112
+      Width = 137
+      Height = 24
+      TabStop = False
+      EditLabel.Width = 15
+      EditLabel.Height = 15
+      EditLabel.Caption = 'ID:'
+      EditLabel.Font.Charset = DEFAULT_CHARSET
+      EditLabel.Font.Color = clWindowText
+      EditLabel.Font.Height = -13
+      EditLabel.Font.Name = 'Calibri'
+      EditLabel.Font.Style = [fsBold]
+      EditLabel.ParentFont = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      MaxLength = 11
+      NumbersOnly = True
+      ParentFont = False
+      ReadOnly = True
       TabOrder = 1
     end
     object edtNome: TLabeledEdit
@@ -68,34 +84,21 @@ inherited frmCadastroBairro: TfrmCadastroBairro
       ParentFont = False
       TabOrder = 2
     end
-    object edtIdCodigo: TLabeledEdit
-      Left = 16
-      Top = 112
-      Width = 137
-      Height = 24
-      EditLabel.Width = 15
-      EditLabel.Height = 15
-      EditLabel.Caption = 'ID:'
-      EditLabel.Font.Charset = DEFAULT_CHARSET
-      EditLabel.Font.Color = clWindowText
-      EditLabel.Font.Height = -13
-      EditLabel.Font.Name = 'Calibri'
-      EditLabel.Font.Style = [fsBold]
-      EditLabel.ParentFont = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      MaxLength = 11
-      NumbersOnly = True
-      ParentFont = False
-      ReadOnly = True
-      TabOrder = 3
-    end
     object cmbEstado: TComboBox
       Left = 16
       Top = 240
+      Width = 410
+      Height = 23
+      AutoDropDown = True
+      Ctl3D = True
+      ParentCtl3D = False
+      Sorted = True
+      TabOrder = 3
+    end
+    object cmbMunicipio: TComboBox
+      Tag = 1
+      Left = 16
+      Top = 304
       Width = 410
       Height = 23
       AutoDropDown = True

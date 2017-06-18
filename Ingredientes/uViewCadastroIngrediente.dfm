@@ -8,6 +8,9 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       Caption = 'Ingredientes'
       ExplicitWidth = 195
     end
+    inherited panelSeparador: TPanel
+      TabOrder = 2
+    end
     object edtNome: TLabeledEdit
       Left = 15
       Top = 173
@@ -36,6 +39,7 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       Top = 112
       Width = 137
       Height = 24
+      TabStop = False
       EditLabel.Width = 15
       EditLabel.Height = 15
       EditLabel.Caption = 'ID:'
@@ -54,7 +58,7 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       NumbersOnly = True
       ParentFont = False
       ReadOnly = True
-      TabOrder = 2
+      TabOrder = 0
     end
   end
 end
