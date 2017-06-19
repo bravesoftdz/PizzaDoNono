@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoBairro, uInterfaceModelBairro;
+  uDtoBairro, uInterfaceModelBairro, uListaBairro, uDtoCliente;
 
 type
   TModelBairro = class(TInterfacedObject, IModelBairro)
@@ -17,6 +17,8 @@ type
     function VerificarBairroCadastrado(var ADtoBairro: TDtoBairro): Boolean;
     function BuscarEstado(var ADtoBairro: TDtoBairro): Boolean;
     function Excluir(const ADtoBairro: TDtoBairro): Boolean;
+    function ListarBairros(var AListaBairro: TListaBairro;
+  var ADtoCliente: TDtoCliente): Boolean;
     function CountRegistros: integer;
 
     constructor Create;
@@ -25,12 +27,11 @@ type
 
 implementation
 
-{ TEstadoModel }
+{ TModelBairro }
 
 function TModelBairro.BuscarEstado(var ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.Open('SELECT e.idestado FROM bairro b ' +
     'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ' +
     'LEFT JOIN estado e ON m.estado_idestado = e.idestado WHERE b.idbairro = ' +
@@ -59,6 +60,7 @@ end;
 constructor TModelBairro.Create;
 begin
   oQuery := TFDQuery.Create(nil);
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
 end;
 
 destructor TModelBairro.Destroy;
@@ -89,7 +91,6 @@ end;
 function TModelBairro.Inserir(const oDtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.ExecSQL('INSERT INTO Bairro(nome, municipio_idmunicipio) VALUES(' +
     QuotedStr(oDtoBairro.Nome) + ', ' + IntToStr(oDtoBairro.Municipio) + ');');
   if oQuery.RowsAffected > 0 then
@@ -99,17 +100,41 @@ end;
 function TModelBairro.Listar: Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
+
   oQuery.Open('SELECT b.idBairro ID, b.Nome Nome, m.Nome Município FROM Bairro b ' +
     'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ORDER BY b.municipio_idmunicipio, b.nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;
 
+function TModelBairro.ListarBairros(var AListaBairro: TListaBairro;
+  var ADtoCliente: TDtoCliente): Boolean;
+var
+  oDtoBairro: TDtoBairro;
+begin
+  Result := False;
+  oQuery.Open('select IdBairro, Nome from bairro WHERE municipio_idMunicipio = ' +
+    IntToStr(ADtoCliente.Municipio) + ';');
+  if (not(oQuery.IsEmpty)) then
+  begin
+    oQuery.First;
+    while (not(oQuery.Eof)) do
+    begin
+      oDtoBairro := TDtoBairro.Create;
+      oDtoBairro.idBairro := oQuery.FieldByName('IdBairro').AsInteger;
+      oDtoBairro.Nome := oQuery.FieldByName('Nome').AsString;
+
+      AListaBairro.Add(oDtoBairro.Nome, oDtoBairro);
+
+      oQuery.Next;
+    end;
+    Result := True;
+  end;
+end;
+
 function TModelBairro.VerificarBairroCadastrado(var ADtoBairro: TDtoBairro): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
 
   // testa se nao recebe id
   if ADtoBairro.idBairro = 0 then

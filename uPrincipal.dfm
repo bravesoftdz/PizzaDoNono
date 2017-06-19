@@ -9,7 +9,6 @@
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitLeft = -472
   ExplicitWidth = 1346
   ExplicitHeight = 419
   PixelsPerInch = 96

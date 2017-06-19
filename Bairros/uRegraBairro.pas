@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, Vcl.Dialogs,
-  uEnumeradorCamposBairro, uDtoBairro, uModelBairro;
+  uEnumeradorCamposBairro, uDtoBairro, uModelBairro, uListaBairro, uDtoCliente;
 
 type
   TRegraBairro = class
@@ -18,6 +18,8 @@ type
     function Editar(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
     function BuscarEstado(const AModelBairro: TModelBairro; out ADtoBairro: TDtoBairro): Boolean;
     function Excluir(const AModelBairro: TModelBairro; const ADtoBairro: TDtoBairro): Boolean;
+    function ListarBairros(const AModelBairro: TModelBairro;
+  var ADtoCliente: TDtoCliente; var AlistaBairro: TListaBairro): Boolean;
     function CountRegistros(const AModel: TModelBairro): Boolean;
   end;
 
@@ -62,6 +64,14 @@ function TRegraBairro.Inserir(const AModelBairro: TModelBairro;
 begin
   Result := False;
   if AModelBairro.Inserir(ADtoBairro) then
+    Result := true;
+end;
+
+function TRegraBairro.ListarBairros(const AModelBairro: TModelBairro;
+  var ADtoCliente: TDtoCliente; var AlistaBairro: TListaBairro): Boolean;
+begin
+  Result := False;
+  if AModelBairro.ListarBairros(AListaBairro, ADtoCliente) then
     Result := true;
 end;
 

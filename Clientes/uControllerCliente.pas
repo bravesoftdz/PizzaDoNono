@@ -7,7 +7,8 @@ uses
   Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
   uInterfaceCRUD, uInterfaceRegra, uControllerCRUD, uDtoCliente, uModelCliente, uRegraCliente,
   uViewCadastroCliente, uViewListagemCliente, uEnumeradorCamposCliente, uDtoMunicipio,
-  uModelMunicipio, uListaMunicipio, uDtoEstado, uDtoBairro;
+  uModelMunicipio, uListaMunicipio, uDtoEstado, uDtoBairro, uModelBairro, uListaBairro,
+  uRegraBairro;
 
 type
   TControllerCliente = class(TControllerCRUD)
@@ -21,7 +22,7 @@ type
 
     procedure AjustarEditCpfCnpj(ASender: TOBject);
     procedure AtualizarComboBoxMunicipio(Sender: TOBject);
-
+    procedure AtualizarComboBoxBairro(Sender: TOBject);
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -75,6 +76,8 @@ begin
   ListarEstados(TfrmCadastroCliente(oFormularioCadastro).cmbEstado);
 
   TfrmCadastroCliente(oFormularioCadastro).cmbEstado.OnChange := AtualizarComboBoxMunicipio;
+
+  TfrmCadastroCliente(oFormularioCadastro).cmbMunicipio.OnChange := AtualizarComboBoxBairro;
 
   TfrmCadastroCliente(oFormularioCadastro).radioCPF.OnClick := AjustarEditCpfCnpj;
   TfrmCadastroCliente(oFormularioCadastro).radioCPF.OnExit := AjustarEditCpfCnpj;
@@ -184,7 +187,7 @@ begin
     TfrmCadastroCliente(oFormularioCadastro).labelCPF.Enabled := False;
     TfrmCadastroCliente(oFormularioCadastro).edtCPF.Enabled := False;
 
-    TfrmCadastroCliente(oFormularioCadastro).labelCNPJ.Enabled := True;
+    TfrmCadastroCliente(oFormularioCadastro).labelCNPJ.Enabled := true;
     TfrmCadastroCliente(oFormularioCadastro).edtCNPJ.Enabled := true;
   end;
 end;
@@ -203,6 +206,40 @@ begin
   AjustarEditCpfCnpj(nil);
 end;
 
+procedure TControllerCliente.AtualizarComboBoxBairro(Sender: TOBject);
+var
+  oListaBairro: TListaBairro;
+  oModelBairro: TModelBairro;
+  oRegraBairro: TRegraBairro;
+  oDtoBairro: TDtoBairro;
+begin
+  TfrmCadastroCliente(oFormularioCadastro).cmbBairro.ItemIndex := -1;
+  TfrmCadastroCliente(oFormularioCadastro).cmbBairro.Items.Clear;
+  TfrmCadastroCliente(oFormularioCadastro).cmbBairro.Text := '';
+  PreencherDTO;
+  oModelBairro := TModelBairro.Create;
+  try
+    oListaBairro := TListaBairro.Create([doOwnsValues]);
+    oRegraBairro:= TRegraBairro.Create;
+    if oRegraBairro.ListarBairros(oModelBairro, oDtoCliente, oListaBairro) then
+    begin
+      for oDtoBairro in oListaBairro.Values do
+        TfrmCadastroCliente(oFormularioCadastro).cmbBairro.Items.AddObject(oDtoBairro.Nome,
+          TOBject(oDtoBairro.idBairro));
+    end;
+  finally
+
+    if Assigned(oListaBairro) then
+      FreeAndNil(oListaBairro);
+
+    if Assigned(oModelBairro) then
+      FreeAndNil(oModelBairro);
+
+    if Assigned(oRegraBairro) then
+      FreeAndNil(oRegraBairro);
+  end;
+end;
+
 procedure TControllerCliente.AtualizarComboBoxMunicipio(Sender: TOBject);
 var
   oListaMunicipio: TListaMunicipio;
@@ -210,6 +247,12 @@ var
   oDtoMunicipio: TDtoMunicipio;
   oDtoBairro: TDtoBairro;
 begin
+  // zerando combobox de bairros
+  TfrmCadastroCliente(oFormularioCadastro).cmbBairro.ItemIndex := -1;
+  TfrmCadastroCliente(oFormularioCadastro).cmbBairro.Items.Clear;
+  TfrmCadastroCliente(oFormularioCadastro).cmbBairro.Text := '';
+
+  // zerando combobox de municipios
   TfrmCadastroCliente(oFormularioCadastro).cmbMunicipio.ItemIndex := -1;
   TfrmCadastroCliente(oFormularioCadastro).cmbMunicipio.Items.Clear;
   TfrmCadastroCliente(oFormularioCadastro).cmbMunicipio.Text := '';

@@ -59,7 +59,8 @@ uses
   uInterfaceModelCliente in 'Clientes\uInterfaceModelCliente.pas',
   uModelCliente in 'Clientes\uModelCliente.pas',
   uRegraCliente in 'Clientes\uRegraCliente.pas',
-  uViewListagemCliente in 'Clientes\uViewListagemCliente.pas' {frmListagemCliente};
+  uViewListagemCliente in 'Clientes\uViewListagemCliente.pas' {frmListagemCliente},
+  uListaBairro in 'Bairros\uListaBairro.pas';
 
 {$R *.res}
 
