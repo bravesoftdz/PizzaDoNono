@@ -9,6 +9,7 @@
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
+  ExplicitLeft = -283
   ExplicitWidth = 1346
   ExplicitHeight = 419
   PixelsPerInch = 96
@@ -1351,7 +1352,7 @@
         7300BF837300BF837300BF837300BF837300BF837300BF837300BF837300BF83
         7300BF837300BF837300BF837300BF837300DFC1B900FFFFFF00FFFFFF00}
       Layout = blGlyphTop
-      OnClick = btnUsuariosClick
+      OnClick = btnTamanhoClick
     end
   end
 end

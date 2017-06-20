@@ -60,7 +60,15 @@ uses
   uModelCliente in 'Clientes\uModelCliente.pas',
   uRegraCliente in 'Clientes\uRegraCliente.pas',
   uViewListagemCliente in 'Clientes\uViewListagemCliente.pas' {frmListagemCliente},
-  uListaBairro in 'Bairros\uListaBairro.pas';
+  uListaBairro in 'Bairros\uListaBairro.pas',
+  uControllerTamanho in 'Tamanhos\uControllerTamanho.pas',
+  uDtoTamanho in 'Tamanhos\uDtoTamanho.pas',
+  uEnumeradorCamposTamanho in 'Tamanhos\uEnumeradorCamposTamanho.pas',
+  uInterfaceModelTamanho in 'Tamanhos\uInterfaceModelTamanho.pas',
+  uModelTamanho in 'Tamanhos\uModelTamanho.pas',
+  uRegraTamanho in 'Tamanhos\uRegraTamanho.pas',
+  uViewCadastroTamanho in 'Tamanhos\uViewCadastroTamanho.pas' {frmCadastroTamanho},
+  uViewListagemTamanho in 'Tamanhos\uViewListagemTamanho.pas' {frmListagemTamanho};
 
 {$R *.res}
 

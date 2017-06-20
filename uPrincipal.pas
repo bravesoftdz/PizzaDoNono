@@ -9,7 +9,8 @@ uses
   Vcl.Imaging.pngimage,
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
   uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente,
-  uControllerEstado, uControllerMunicipio, uControllerBairro, uControllerCliente;
+  uControllerEstado, uControllerMunicipio, uControllerBairro, uControllerCliente,
+  uControllerTamanho;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -26,7 +27,7 @@ type
     btnSair: TSpeedButton;
     btnUsuarios: TSpeedButton;
     btnTamanho: TSpeedButton;
-    procedure btnUsuariosClick(Sender: TObject);
+    procedure btnTamanhoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure btnIngredientesClick(Sender: TObject);
@@ -34,6 +35,8 @@ type
     procedure btnMunicipiosClick(Sender: TObject);
     procedure bntBairrosClick(Sender: TObject);
     procedure btnClientesClick(Sender: TObject);
+    procedure btnUsuariosClick(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -91,6 +94,14 @@ procedure TfrmPrincipal.btnSairClick(Sender: TObject);
 begin
   inherited;
   Close;
+end;
+
+procedure TfrmPrincipal.btnTamanhoClick(Sender: TObject);
+begin
+  inherited;
+  if not(assigned(oControllerTamanho)) then
+    oControllerTamanho := TControllerTamanho.Create;
+  oControllerTamanho.CriarFormCadastro(Self);
 end;
 
 procedure TfrmPrincipal.btnUsuariosClick(Sender: TObject);
