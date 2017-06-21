@@ -20,9 +20,12 @@ USE `pizzanono` ;
 CREATE TABLE IF NOT EXISTS `pizzanono`.`cliente` (
   `idcliente` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
-  `cpf_cnpj` VARCHAR(45) NULL COMMENT 'nap deve ser obrigatorio',
-  `telefone` VARCHAR(45) NULL COMMENT 'celular OU telefone OBRIGATPRIOS',
-  `celular` VARCHAR(45) NULL COMMENT 'celular OU telefone OBRIGATPRIOS',
+  `cpf` VARCHAR(11) NULL COMMENT 'nao deve ser obrigatorio',
+  `cnpj` VARCHAR(14) NULL COMMENT 'nao deve ser obrigatorio',
+  `dataNascimento` DATE NOT NULL,
+  `telefone` VARCHAR(10) NULL COMMENT 'celular OU telefone OBRIGATPRIOS',
+  `celular` VARCHAR(9) NULL COMMENT 'celular OU telefone OBRIGATPRIOS',
+  `tipoPessoa` TINYINT(1) NOT NULL COMMENT '1=pessoa fisica\n0=pessoa juridica\n',
   PRIMARY KEY (`idcliente`))
 ENGINE = InnoDB;
 
