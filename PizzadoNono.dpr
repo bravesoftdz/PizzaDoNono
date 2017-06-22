@@ -68,7 +68,15 @@ uses
   uModelTamanho in 'Tamanhos\uModelTamanho.pas',
   uRegraTamanho in 'Tamanhos\uRegraTamanho.pas',
   uViewCadastroTamanho in 'Tamanhos\uViewCadastroTamanho.pas' {frmCadastroTamanho},
-  uViewListagemTamanho in 'Tamanhos\uViewListagemTamanho.pas' {frmListagemTamanho};
+  uViewListagemTamanho in 'Tamanhos\uViewListagemTamanho.pas' {frmListagemTamanho},
+  uControllerSabor in 'Sabores\uControllerSabor.pas',
+  uDtoSabor in 'Sabores\uDtoSabor.pas',
+  uEnumeradorCamposSabor in 'Sabores\uEnumeradorCamposSabor.pas',
+  uInterfaceModelSabor in 'Sabores\uInterfaceModelSabor.pas',
+  uModelSabor in 'Sabores\uModelSabor.pas',
+  uRegraSabor in 'Sabores\uRegraSabor.pas',
+  uViewCadastroSabor in 'Sabores\uViewCadastroSabor.pas' {frmCadastroSabor},
+  uViewListagemSabor in 'Sabores\uViewListagemSabor.pas' {frmListagemSabor};
 
 {$R *.res}
 

@@ -10,7 +10,7 @@ uses
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
   uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente,
   uControllerEstado, uControllerMunicipio, uControllerBairro, uControllerCliente,
-  uControllerTamanho;
+  uControllerTamanho, uControllerSabor;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -36,6 +36,7 @@ type
     procedure bntBairrosClick(Sender: TObject);
     procedure btnClientesClick(Sender: TObject);
     procedure btnUsuariosClick(Sender: TObject);
+    procedure btnSaboresClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -88,6 +89,15 @@ begin
   if not(assigned(oControllerMunicipio)) then
     oControllerMunicipio := TControllerMunicipio.Create;
   oControllerMunicipio.CriarFormCadastro(Self);
+end;
+
+procedure TfrmPrincipal.btnSaboresClick(Sender: TObject);
+begin
+  inherited;
+  if not(assigned(oControllerSabor)) then
+    oControllerSabor := TControllerSabor.Create;
+  oControllerSabor.CriarFormCadastro(Self);
+
 end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);

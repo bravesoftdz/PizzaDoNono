@@ -1,7 +1,7 @@
 ﻿inherited frmPrincipal: TfrmPrincipal
   Top = 500
   Caption = 'frmPrincipal'
-  ClientHeight = 390
+  ClientHeight = 389
   ClientWidth = 1340
   FormStyle = fsMDIForm
   Position = poDefault
@@ -9,16 +9,15 @@
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitLeft = -283
   ExplicitWidth = 1346
-  ExplicitHeight = 419
+  ExplicitHeight = 418
   PixelsPerInch = 96
   TextHeight = 15
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 1340
-    Height = 390
+    Height = 389
     Align = alClient
     BevelOuter = bvNone
     Caption = 'panelMenu'
@@ -26,7 +25,7 @@
     TabOrder = 0
     DesignSize = (
       1340
-      390)
+      389)
     object bntBairros: TSpeedButton
       Left = 531
       Top = 1
@@ -982,6 +981,7 @@
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
+      OnClick = btnSaboresClick
     end
     object btnSair: TSpeedButton
       Left = 1240

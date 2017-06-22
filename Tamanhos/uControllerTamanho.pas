@@ -148,8 +148,8 @@ end;
 procedure TControllerTamanho.LimparDto();
 begin
   ODtoTamanho.idTamanho := 0;
-  ODtotamanho.MaxSabores := EmptyStr;
-  ODtotamanho.Nome := EmptyStr;
+  ODtoTamanho.MaxSabores := EmptyStr;
+  ODtoTamanho.Nome := EmptyStr;
 end;
 
 procedure TControllerTamanho.Localizar;
