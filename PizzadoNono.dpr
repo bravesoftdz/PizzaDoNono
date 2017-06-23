@@ -76,7 +76,8 @@ uses
   uModelSabor in 'Sabores\uModelSabor.pas',
   uRegraSabor in 'Sabores\uRegraSabor.pas',
   uViewCadastroSabor in 'Sabores\uViewCadastroSabor.pas' {frmCadastroSabor},
-  uViewListagemSabor in 'Sabores\uViewListagemSabor.pas' {frmListagemSabor};
+  uViewListagemSabor in 'Sabores\uViewListagemSabor.pas' {frmListagemSabor},
+  uListaIngrediente in 'Ingredientes\uListaIngrediente.pas';
 
 {$R *.res}
 

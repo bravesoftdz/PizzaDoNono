@@ -23,6 +23,7 @@
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
+    ExplicitTop = 8
     DesignSize = (
       1340
       389)

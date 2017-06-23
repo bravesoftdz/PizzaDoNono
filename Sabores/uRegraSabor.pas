@@ -60,8 +60,7 @@ begin
     Result := true;
 end;
 
-function TRegraSabor.ValidarDados(var ADtoSabor: TDtoSabor)
-  : TCamposSabor;
+function TRegraSabor.ValidarDados(var ADtoSabor: TDtoSabor): TCamposSabor;
 begin
   // testa se o campo nome foi informado
   if ADtoSabor.Nome = EmptyStr then
@@ -71,19 +70,26 @@ begin
 
     exit;
   end;
-//    if ADtoSabor.MaxSabores = EmptyStr then
-//  begin
-//    // se for vazio
-//
-//    Result := resultMaxSabores;
-//    exit;
-//  end;
+  if ADtoSabor.MaxSabores = 0 then
+  begin
+    // se for vazio
+
+    Result := resultMaxSabores;
+    exit;
+  end;
+  if ADtoSabor.Valor = 0 then
+  begin
+    // se for vazio
+
+    Result := resultValor;
+    exit;
+  end;
   // caso não der erro nenhum retorna OK
   Result := resultOk;
 end;
 
-function TRegraSabor.VerificarSaborCadastrado(const AModelSabor
-  : TModelSabor; var ADtoSabor: TDtoSabor): Boolean;
+function TRegraSabor.VerificarSaborCadastrado(const AModelSabor: TModelSabor;
+  var ADtoSabor: TDtoSabor): Boolean;
 begin
 
   Result := False;

@@ -57,8 +57,9 @@ end;
 function TModelSabor.Editar(const oDtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('UPDATE sabor SET nome = ' + QuotedStr(oDtoSabor.Nome) +
-    ' WHERE idsabor = ' + IntToStr(oDtoSabor.IdSabor));
+  oQuery.ExecSQL('UPDATE sabor SET nome, valor = ' + QuotedStr(oDtoSabor.Nome) +
+    ',' + QuotedStr(oDtoSabor.Valor) +
+    '  WHERE idsabor = ' + IntToStr(oDtoSabor.IdSabor));
  if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -75,8 +76,9 @@ end;
 function TModelSabor.Inserir(const oDtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.ExecSQL('INSERT INTO sabor(nome) VALUES(' + QuotedStr(oDtoSabor.Nome)+ ');');
+
+  oQuery.ExecSQL('INSERT INTO sabor(nome,valor) VALUES(' + QuotedStr(oDtoSabor.Nome)+ ','
+  + QuotedStr(oDtoSabor.Valor)+ ');');
   Result := True;
 end;
 
@@ -84,7 +86,7 @@ function TModelSabor.Listar: Boolean;
 begin
   Result := False;
 
-  oQuery.Open('SELECT idSabor ID, Nome FROM sabor ORDER BY idSabor ASC');
+  oQuery.Open('SELECT idSabor ID, Nome, Valor FROM sabor ORDER BY idSabor ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;

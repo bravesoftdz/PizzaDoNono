@@ -12,7 +12,10 @@ type
     edtIdCodigo: TLabeledEdit;
     edtNome: TLabeledEdit;
     Ingredientes: TLabel;
-    CheckListBox1: TCheckListBox;
+    CheckListBoxIngredientes: TCheckListBox;
+    edtValor: TLabeledEdit;
+    cmbEstado: TComboBox;
+    labelTamanho: TLabel;
   private
     { Private declarations }
   public

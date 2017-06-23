@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoIngrediente, uInterfaceModelIngrediente;
+  uDtoIngrediente, uInterfaceModelIngrediente, uListaIngrediente;
 
 type
   TModelIngrediente = class(TInterfacedObject, IModelIngrediente)
@@ -17,6 +17,8 @@ type
     function VerificarIngredienteCadastrado(var ADtoIngrediente: TDtoIngrediente): Boolean;
     function Excluir(const ADtoIngrediente: TDtoIngrediente): Boolean;
     function CountRegistros: integer;
+     // listar os ingredientes do chek lista dos sabores
+    function ListarIngredientes(var ALista: TListaIngrediente): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -75,8 +77,7 @@ end;
 function TModelIngrediente.Inserir(const oDtoIngrediente: TDtoIngrediente): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.ExecSQL('INSERT INTO ingrediente(nome) VALUES(' + QuotedStr(oDtoIngrediente.Nome) + ');');
+  oQuery.ExecSQL('INSERT INTO ingrediente(nome,) VALUES(' + QuotedStr(oDtoIngrediente.Nome) + ');');
   Result := True;
 end;
 
@@ -87,6 +88,30 @@ begin
   oQuery.Open('SELECT idIngrediente ID, Nome FROM ingrediente ORDER BY idIngrediente ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
+end;
+
+function TModelIngrediente.ListarIngredientes(var ALista: TListaIngrediente): Boolean;
+var
+  oDtoIngrediente: TDtoIngrediente;
+begin
+  Result := False;
+
+  oQuery.Open('select IdIngrediente, Nome from Ingrediente');
+  if (not(oQuery.IsEmpty)) then
+  begin
+    oQuery.First;
+    while (not(oQuery.Eof)) do
+    begin
+      oDtoIngrediente := TDtoIngrediente.Create;
+      oDtoIngrediente.IdIngrediente := oQuery.FieldByName('IdIngrediente').AsInteger;
+      oDtoIngrediente.nome := oQuery.FieldByName('Nome').AsString;
+
+      ALista.Add(oDtoIngrediente.nome, oDtoIngrediente);
+
+      oQuery.Next;
+    end;
+    Result := True;
+  end;
 end;
 
 function TModelIngrediente.VerificarIngredienteCadastrado(var ADtoIngrediente
