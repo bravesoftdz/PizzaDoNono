@@ -60,7 +60,8 @@ uses
   uModelCliente in 'Clientes\uModelCliente.pas',
   uRegraCliente in 'Clientes\uRegraCliente.pas',
   uViewListagemCliente in 'Clientes\uViewListagemCliente.pas' {frmListagemCliente},
-  uListaBairro in 'Bairros\uListaBairro.pas';
+  uListaBairro in 'Bairros\uListaBairro.pas',
+  uEnumeradorTipoPessoa in 'Clientes\uEnumeradorTipoPessoa.pas';
 
 {$R *.res}
 

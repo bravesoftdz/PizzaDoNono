@@ -22,7 +22,6 @@ type
     procedure ListarEstados(var ACmbEstados: TComboBox);
     procedure FiltrarGrid(Sender: TObject); virtual;
     procedure AjustarListagem; virtual;
-    procedure OnExitUltimoCampo(Sender: TObject; var Key: char); virtual;
   public
     constructor Create; virtual;
     destructor Destroy; override;
@@ -166,10 +165,13 @@ begin
   for iIndiceComponente := 0 to pred(oFormularioCadastro.ComponentCount) do
   begin
     if (oFormularioCadastro.Components[iIndiceComponente] is TLabeledEdit) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TCustomEdit).Clear;
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomLabeledEdit).Clear;
+
+    if (oFormularioCadastro.Components[iIndiceComponente] is TMaskEdit) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomMaskEdit).Clear;
 
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TComboBox).ItemIndex := -1;
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomComboBox).ItemIndex := -1;
   end;
 end;
 
@@ -209,20 +211,6 @@ end;
 procedure TControllerCRUD.Novo(ASender: TObject);
 begin
   AjustarModoInsercao(True);
-end;
-
-procedure TControllerCRUD.OnExitUltimoCampo(Sender: TObject; var Key: char);
-var
-  iIndiceComponente: Integer;
-begin
-  if Key = #10 then
-  begin
-    for iIndiceComponente := 0 to pred(oFormularioCadastro.ComponentCount) do
-    begin
-      if (oFormularioCadastro.Components[iIndiceComponente].Tag = 1) then
-        Salvar(nil);
-    end;
-  end;
 end;
 
 procedure TControllerCRUD.PreencherDTO;

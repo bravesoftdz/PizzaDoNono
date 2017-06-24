@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoCliente, uInterfaceModelCliente;
+  uDtoCliente, uInterfaceModelCliente, uEnumeradorTipoPessoa;
 
 type
   TModelCliente = class(TInterfacedObject, IModelCliente)
@@ -14,11 +14,13 @@ type
     function Inserir(const oDtoCliente: TDtoCliente): Boolean;
     function Editar(const oDtoCliente: TDtoCliente): Boolean;
     function Listar: Boolean;
-    function VerificarClienteCadastrado(var ADtoCliente: TDtoCliente): Boolean;
-    function BuscarEstado(var ADtoCliente: TDtoCliente): Boolean;
+    function VerificarCelularClienteCadastrado(var ADtoCliente: TDtoCliente): Boolean;
+    function VerificarTelefoneClienteCadastrado(var ADtoCliente: TDtoCliente): Boolean;
+    function BuscarBairro(var ADtoCliente: TDtoCliente): Boolean;
     function Excluir(const ADtoCliente: TDtoCliente): Boolean;
     function CountRegistros: integer;
-
+    function VerificarTipoPessoa(var ADtoCliente: TDtoCliente): Boolean;
+    function BuscarEnderecoCliente(var ADtoCliente: TDtoCliente): Boolean;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -27,17 +29,34 @@ implementation
 
 { TModelCliente }
 
-function TModelCliente.BuscarEstado(var ADtoCliente: TDtoCliente): Boolean;
+function TModelCliente.BuscarEnderecoCliente(var ADtoCliente: TDtoCliente): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open('SELECT e.idestado FROM Cliente b ' +
+  oQuery.Open('SELECT idendereco, rua, numero, complemento, bairro_idbairro ' +
+    ' FROM endereco WHERE cliente_idcliente = ' + IntToStr(ADtoCliente.idCliente));
+  if not(oQuery.IsEmpty) then
+  begin
+    ADtoCliente.IdEndereço := oQuery.FieldByName('idendereco').AsInteger;
+    ADtoCliente.rua := oQuery.FieldByName('rua').AsString;
+    ADtoCliente.numero := oQuery.FieldByName('numero').AsString;
+    ADtoCliente.complemento := oQuery.FieldByName('complemento').AsString;
+    ADtoCliente.Bairro := oQuery.FieldByName('bairro_idbairro').AsInteger;
+    Result := True;
+  end;
+end;
+
+function TModelCliente.BuscarBairro(var ADtoCliente: TDtoCliente): Boolean;
+begin
+  Result := False;
+  oQuery.Open('SELECT m.idmunicipio municipio, uf.idestado estado FROM endereco e ' +
+    'LEFT JOIN bairro b ON e.bairro_idbairro = b.idbairro ' +
     'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ' +
-    'LEFT JOIN estado e ON m.estado_idestado = e.idestado WHERE b.idCliente = ' +
+    'LEFT JOIN estado uf on m.estado_idestado = uf.idestado WHERE e.cliente_idCliente = ' +
     IntToStr(ADtoCliente.idCliente));
   if not(oQuery.IsEmpty) then
   begin
-    ADtoCliente.Estado := oQuery.FieldByName('idestado').AsInteger;
+    ADtoCliente.Estado := oQuery.FieldByName('estado').AsInteger;
+    ADtoCliente.Municipio := oQuery.FieldByName('municipio').AsInteger;
     Result := True
   end;
 end;
@@ -56,10 +75,10 @@ begin
   end;
 end;
 
-
 constructor TModelCliente.Create;
 begin
   oQuery := TFDQuery.Create(nil);
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
 end;
 
 destructor TModelCliente.Destroy;
@@ -88,11 +107,26 @@ begin
 end;
 
 function TModelCliente.Inserir(const oDtoCliente: TDtoCliente): Boolean;
+var
+  tipoPessoa: string;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.ExecSQL('INSERT INTO Cliente(nome, municipio_idmunicipio) VALUES(' +
-    QuotedStr(oDtoCliente.Nome) + ', ' + IntToStr(oDtoCliente.Municipio) + ');');
+  if oDtoCliente.tipoPessoa = resultPessoaJuridica then
+    tipoPessoa := '0'
+  else if oDtoCliente.tipoPessoa = resultPessoaFisica then
+    tipoPessoa := '1'
+  else if oDtoCliente.tipoPessoa = resultVazio then
+    tipoPessoa := '';
+  oQuery.ExecSQL
+    ('INSERT INTO Cliente(nome, telefone, celular, cpfcnpj, tipoPessoa, dataNascimento) VALUES(' +
+    QuotedStr(oDtoCliente.Nome) + ', ' + QuotedStr(oDtoCliente.telefone) + ', ' +
+    QuotedStr(oDtoCliente.celular) + ', ' + QuotedStr(oDtoCliente.cpfcnpj) + ', ' +
+    QuotedStr(tipoPessoa) + ', ' + QuotedStr(oDtoCliente.DataNascimento) + ');');
+  oQuery.ExecSQL
+    ('INSERT INTO Endereco (rua, numero, complemento, bairro_idbairro, cliente_idcliente) VALUES(' +
+    QuotedStr(oDtoCliente.rua) + ', ' + QuotedStr(oDtoCliente.numero) + ', ' +
+    QuotedStr(oDtoCliente.complemento) + ', ' + IntToStr(oDtoCliente.Bairro) + ', ' +
+    ' (select LAST_INSERT_ID()));');
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -100,41 +134,97 @@ end;
 function TModelCliente.Listar: Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.Open('SELECT b.idCliente ID, b.Nome Nome, m.Nome Município FROM Cliente b ' +
-    'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ORDER BY b.municipio_idmunicipio, b.nome ASC');
+
+  oQuery.Open
+    ('SELECT idCliente ID, Nome, Telefone, Celular, CpfCnpj "CPF/CNPJ", dataNascimento "Data de Nascimento" '
+    + ' FROM Cliente ORDER BY Nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;
 
-function TModelCliente.VerificarClienteCadastrado(var ADtoCliente: TDtoCliente): Boolean;
+function TModelCliente.VerificarCelularClienteCadastrado(var ADtoCliente: TDtoCliente): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
 
   // testa se nao recebe id
   if ADtoCliente.idCliente = 0 then
   begin
-    // se idCliente = 0 verifica somente nome do Cliente
-    // seleciona no banco o nome
-    oQuery.Open('SELECT Nome FROM Cliente WHERE municipio_idmunicipio = ' +
-      IntToStr(ADtoCliente.Municipio) + ' AND Nome = ' + QuotedStr(ADtoCliente.Nome));
-    // testa se o retorno do banco de dados é vazio
-    if not(oQuery.IsEmpty) then
-      // se nao for vazio, já existe Cliente cadastrado com este nome
-      Result := True;
+    // se idCliente = 0 verifica telefone e/ou celular do Cliente SEM clausula de "WHERE idCliente = ..."
+    if ADtoCliente.celular <> EmptyStr then
+    begin
+      // seleciona no banco o Celular
+      oQuery.Open('SELECT Celular FROM Cliente WHERE Celular = ' + QuotedStr(ADtoCliente.celular));
+      // testa se o retorno do banco de dados é vazio
+      if not(oQuery.IsEmpty) then
+        // se nao for vazio, já existe Cliente cadastrado com este Celular
+        Result := True;
+    end;
   end
   else if ADtoCliente.idCliente <> 0 then
   begin
-    oQuery.Open('SELECT Nome FROM Cliente WHERE municipio_idmunicipio = ' +
-      IntToStr(ADtoCliente.Municipio) + ' AND Nome = ' + QuotedStr(ADtoCliente.Nome) +
-      ' AND idCliente <> ' + IntToStr(ADtoCliente.idCliente));
-    // testa se o retorno do banco de dados é vazio
-    if not(oQuery.IsEmpty) then
-      // se nao for vazio, já existe Cliente cadastrado com este nome
-      Result := True;
+    // se idCliente <> 0 verifica telefone e/ou celular do Cliente COM clausula de "WHERE idCliente = ..."
+    if ADtoCliente.celular <> EmptyStr then
+    begin
+      oQuery.Open('SELECT Celular FROM Cliente WHERE WHERE Celular = ' +
+        QuotedStr(ADtoCliente.celular) + ' AND idCliente <> ' + IntToStr(ADtoCliente.idCliente));
+      // testa se o retorno do banco de dados é vazio
+      if not(oQuery.IsEmpty) then
+        // se nao for vazio, já existe Cliente cadastrado com este celular
+        Result := True;
+    end;
   end;
 
+end;
+
+function TModelCliente.VerificarTelefoneClienteCadastrado(var ADtoCliente: TDtoCliente): Boolean;
+begin
+  Result := False;
+  // testa se nao recebe id
+  if ADtoCliente.idCliente = 0 then
+  begin
+    // se idCliente = 0 verifica telefone e/ou celular do Cliente SEM clausula de "WHERE idCliente = ..."
+    if ADtoCliente.telefone <> EmptyStr then
+    begin
+      // seleciona no banco o Telefone
+      oQuery.Open('SELECT Telefone FROM Cliente WHERE Telefone = ' +
+        QuotedStr(ADtoCliente.telefone));
+      // testa se o retorno do banco de dados é vazio
+      if not(oQuery.IsEmpty) then
+        // se nao for vazio, já existe Cliente cadastrado com este Telefone
+        Result := True;
+    end;
+  end
+  else if ADtoCliente.idCliente <> 0 then
+  begin
+    // se idCliente <> 0 verifica telefone e/ou celular do Cliente COM clausula de "WHERE idCliente = ..."
+    if ADtoCliente.telefone <> EmptyStr then
+    begin
+      oQuery.Open('SELECT Telefone FROM Cliente WHERE WHERE Telefone = ' +
+        QuotedStr(ADtoCliente.telefone) + ' AND idCliente <> ' + IntToStr(ADtoCliente.idCliente));
+      // testa se o retorno do banco de dados é vazio
+      if not(oQuery.IsEmpty) then
+        // se nao for vazio, já existe Cliente cadastrado com este Telefone
+        Result := True;
+    end;
+  end;
+end;
+
+function TModelCliente.VerificarTipoPessoa(var ADtoCliente: TDtoCliente): Boolean;
+begin
+  Result := False;
+  oQuery.Open('SELECT tipoPessoa FROM cliente WHERE idcliente = ' +
+    IntToStr(ADtoCliente.idCliente) + ';');
+
+  if not(oQuery.IsEmpty) then
+  begin
+    if oQuery.FieldByName('tipoPessoa').AsBoolean = True then
+      ADtoCliente.tipoPessoa := resultPessoaFisica
+    else if oQuery.FieldByName('tipoPessoa').AsBoolean = False then
+      ADtoCliente.tipoPessoa := resultPessoaJuridica
+    else
+      ADtoCliente.tipoPessoa := resultVazio;
+    Result := True;
+  end;
 end;
 
 end.
