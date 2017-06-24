@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.Buttons, Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
-  uFrmBasePadrao, uInterfaceCRUD;
+  uFrmBasePadrao, uInterfaceCRUD, Vcl.CheckLst;
 
 type
   TfrmCadastroBase = class(TfrmBasePadrao)
@@ -71,8 +71,6 @@ begin
 end;
 
 procedure TfrmCadastroBase.FormKeyPress(Sender: TObject; var Key: Char);
-var
-  iIndiceComponente: Integer;
 begin
   inherited;
   if btnSalvar.Tag = 1 then

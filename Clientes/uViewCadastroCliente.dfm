@@ -2,7 +2,6 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   Caption = 'Pizza do Nono - Clientes'
   ClientHeight = 634
   ClientWidth = 930
-  ExplicitTop = -203
   ExplicitWidth = 936
   ExplicitHeight = 663
   PixelsPerInch = 96
@@ -62,7 +61,6 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Width = 51
         Height = 15
         Caption = 'Telefone:'
-        FocusControl = edtTelefone
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -76,7 +74,6 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Width = 42
         Height = 15
         Caption = 'Celular:'
-        FocusControl = edtCelular
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -84,14 +81,12 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object labelCNPJ: TLabel
-        Left = 14
-        Top = 306
-        Width = 30
+      object labelDataNascimento: TLabel
+        Left = 16
+        Top = 251
+        Width = 114
         Height = 15
-        Caption = 'CNPJ:'
-        Enabled = False
-        FocusControl = edtCNPJ
+        Caption = 'Data de Nascimento:'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -99,13 +94,12 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object labelCPF: TLabel
-        Left = 14
-        Top = 252
-        Width = 24
+      object labelCpfCnpj: TLabel
+        Left = 16
+        Top = 194
+        Width = 56
         Height = 15
-        Caption = 'CPF:'
-        FocusControl = edtCPF
+        Caption = 'CPF/CNPJ:'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -115,8 +109,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object edtNome: TLabeledEdit
         Left = 16
-        Top = 53
-        Width = 382
+        Top = 48
+        Width = 376
         Height = 24
         EditLabel.Width = 38
         EditLabel.Height = 15
@@ -137,79 +131,53 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         TabOrder = 0
       end
       object edtTelefone: TMaskEdit
-        Left = 14
+        Left = 16
         Top = 104
-        Width = 386
+        Width = 362
         Height = 23
-        EditMask = '!\(99\)0000-0000;1;_'
+        EditMask = '(99)9999-9999;1;_'
         MaxLength = 13
         TabOrder = 1
         Text = '(  )    -    '
       end
       object edtCelular: TMaskEdit
-        Left = 14
+        Left = 16
         Top = 160
-        Width = 390
+        Width = 364
         Height = 23
-        EditMask = '!\(99\)0000-0000;1;_'
-        MaxLength = 13
-        TabOrder = 2
-        Text = '(  )    -    '
-      end
-      object radioCPF: TRadioButton
-        Left = 14
-        Top = 216
-        Width = 111
-        Height = 17
-        Caption = 'Pessoa F'#237'sica'
-        Checked = True
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Calibri'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 3
-        TabStop = True
-      end
-      object radioCNPJ: TRadioButton
-        Left = 150
-        Top = 216
-        Width = 111
-        Height = 17
-        Caption = 'Pessoa Jur'#237'dica'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Calibri'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 4
-      end
-      object edtCPF: TMaskEdit
-        Left = 14
-        Top = 273
-        Width = 392
-        Height = 23
-        EditMask = '999.999.999-99;1;_'
+        EditMask = '(99)99999-9999;1;_'
         MaxLength = 14
-        TabOrder = 5
-        Text = '   .   .   -  '
+        TabOrder = 2
+        Text = '(  )     -    '
       end
-      object edtCNPJ: TMaskEdit
-        Left = 14
-        Top = 325
-        Width = 394
+      object edtCpfCnpj: TMaskEdit
+        Left = 16
+        Top = 215
+        Width = 363
         Height = 23
-        Enabled = False
-        EditMask = '99.999.999/9999-99;1;_'
-        MaxLength = 18
-        TabOrder = 6
-        Text = '  .   .   /    -  '
+        Hint = 
+          'Informe somente os n'#250'meros CPF ou CNPJ. N'#227'o digite pontos, tra'#231'o' +
+          's ou barras.'
+        EditMask = '99999999999999;0; '
+        MaxLength = 14
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 3
+        Text = ''
+      end
+      object edtDataNascimento: TMaskEdit
+        Left = 16
+        Top = 272
+        Width = 372
+        Height = 23
+        EditMask = '99/99/9999;1;_'
+        MaxLength = 10
+        TabOrder = 4
+        Text = '  /  /    '
       end
     end
     object GroupBoxEndereco: TGroupBox
-      Left = 463
+      Left = 454
       Top = 143
       Width = 433
       Height = 362
@@ -355,7 +323,6 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         TabOrder = 4
       end
       object cmbBairro: TComboBox
-        Tag = 1
         Left = 13
         Top = 325
         Width = 404

@@ -3,15 +3,13 @@ unit uDtoCliente;
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils, uEnumeradorTipoPessoa;
 
 type
   TDtoCliente = class
   private
     FidCliente: integer;
     FNome: string;
-    FCPF: string;
-    FCNPJ: string;
     FTelefone: string;
     FCelular: string;
 
@@ -22,13 +20,15 @@ type
     FComplemento: string;
     FEstado: integer;
     FRua: string;
+    FCpfCnpj: string;
+    FDataNascimento: string;
+    FTipoPessoa: TTipoPessoa;
 
     procedure SetidCliente(const Value: integer);
     procedure SetNome(const Value: string);
-    procedure SetCPF(const Value: string);
     procedure SetCelular(const Value: string);
-    procedure SetCNPJ(const Value: string);
     procedure SetTelefone(const Value: string);
+    procedure SetCpfCnpj(const Value: string);
 
     procedure SetBairro(const Value: integer);
     procedure SetComplemento(const Value: string);
@@ -37,14 +37,16 @@ type
     procedure SetMunicipio(const Value: integer);
     procedure SetNumero(const Value: string);
     procedure SetRua(const Value: string);
-
+    procedure SetDataNascimento(const Value: string);
+    procedure SetTipoPessoa(const Value: TTipoPessoa);
   public
     property idCliente: integer read FidCliente write SetidCliente;
     property Nome: string read FNome write SetNome;
-    property CPF: string read FCPF write SetCPF;
-    property CNPJ: string read FCNPJ write SetCNPJ;
+    property CpfCnpj: string read FCpfCnpj write SetCpfCnpj;
     property Telefone: string read FTelefone write SetTelefone;
     property Celular: string read FCelular write SetCelular;
+    property DataNascimento: string read FDataNascimento write SetDataNascimento;
+    property TipoPessoa: TTipoPessoa read FTipoPessoa write SetTipoPessoa;
 
     property IdEndereço: integer read FIdEndereço write SetIdEndereço;
     property Municipio: integer read FMunicipio write SetMunicipio;
@@ -64,16 +66,6 @@ begin
   FCelular := Value;
 end;
 
-procedure TDtoCliente.SetCNPJ(const Value: string);
-begin
-  FCNPJ := Value;
-end;
-
-procedure TDtoCliente.SetCPF(const Value: string);
-begin
-  FCPF := Value;
-end;
-
 procedure TDtoCliente.SetidCliente(const Value: integer);
 begin
   FidCliente := Value;
@@ -89,6 +81,11 @@ begin
   FTelefone := Value;
 end;
 
+procedure TDtoCliente.SetTipoPessoa(const Value: TTipoPessoa);
+begin
+  FTipoPessoa := Value;
+end;
+
 procedure TDtoCliente.SetBairro(const Value: integer);
 begin
   FBairro := Value;
@@ -97,6 +94,16 @@ end;
 procedure TDtoCliente.SetComplemento(const Value: string);
 begin
   FComplemento := Value;
+end;
+
+procedure TDtoCliente.SetCpfCnpj(const Value: string);
+begin
+  FCpfCnpj := Value;
+end;
+
+procedure TDtoCliente.SetDataNascimento(const Value: string);
+begin
+  FDataNascimento := Value;
 end;
 
 procedure TDtoCliente.SetEstado(const Value: integer);

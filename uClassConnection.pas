@@ -32,13 +32,13 @@ begin
 
   if (not(Assigned(oLink))) then
     oLink := TFDPhysMySQLDriverLink.Create(nil);
-
+  LoginPrompt := false;
   DriverName := 'Mysql';
   Params.Values['Database'] := 'pizzaNono';
   Params.Values['Password'] := '';
   Params.Values['User_Name'] := 'root';
   Connected := true;
-  LoginPrompt := false;
+
 end;
 
 destructor TConnection.Destroy;

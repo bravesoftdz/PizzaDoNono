@@ -14,8 +14,6 @@ type
     GroupBoxDadosPessoais: TGroupBox;
     labelTelefone: TLabel;
     labelCelular: TLabel;
-    labelCNPJ: TLabel;
-    labelCPF: TLabel;
     GroupBoxEndereco: TGroupBox;
     labelMunicipio: TLabel;
     labelEstado: TLabel;
@@ -26,13 +24,13 @@ type
     cmbEstado: TComboBox;
     cmbMunicipio: TComboBox;
     cmbBairro: TComboBox;
+    labelDataNascimento: TLabel;
+    labelCpfCnpj: TLabel;
     edtNome: TLabeledEdit;
     edtTelefone: TMaskEdit;
     edtCelular: TMaskEdit;
-    radioCPF: TRadioButton;
-    radioCNPJ: TRadioButton;
-    edtCPF: TMaskEdit;
-    edtCNPJ: TMaskEdit;
+    edtCpfCnpj: TMaskEdit;
+    edtDataNascimento: TMaskEdit;
   private
     { Private declarations }
   public
