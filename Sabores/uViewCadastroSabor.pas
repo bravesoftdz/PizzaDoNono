@@ -14,7 +14,7 @@ type
     Ingredientes: TLabel;
     CheckListBoxIngredientes: TCheckListBox;
     edtValor: TLabeledEdit;
-    cmbEstado: TComboBox;
+    cmbTamanho: TComboBox;
     labelTamanho: TLabel;
   private
     { Private declarations }

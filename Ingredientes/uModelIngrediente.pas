@@ -77,7 +77,8 @@ end;
 function TModelIngrediente.Inserir(const oDtoIngrediente: TDtoIngrediente): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('INSERT INTO ingrediente(nome,) VALUES(' + QuotedStr(oDtoIngrediente.Nome) + ');');
+  oQuery.ExecSQL('INSERT INTO ingrediente (nome) VALUES(' + QuotedStr(oDtoIngrediente.Nome) + ');');
+  if oQuery.RowsAffected > 0 then
   Result := True;
 end;
 

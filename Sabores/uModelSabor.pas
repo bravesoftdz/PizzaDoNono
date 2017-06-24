@@ -57,9 +57,9 @@ end;
 function TModelSabor.Editar(const oDtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('UPDATE sabor SET nome, valor = ' + QuotedStr(oDtoSabor.Nome) +
-    ',' + QuotedStr(oDtoSabor.Valor) +
-    '  WHERE idsabor = ' + IntToStr(oDtoSabor.IdSabor));
+  oQuery.ExecSQL('UPDATE sabor SET nome = ' + QuotedStr(oDtoSabor.Nome) +
+    ',  valor = ' +  IntToStr(oDtoSabor.Valor) + '  WHERE idsabor = '
+     + IntToStr(oDtoSabor.IdSabor));
  if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -78,7 +78,7 @@ begin
   Result := False;
 
   oQuery.ExecSQL('INSERT INTO sabor(nome,valor) VALUES(' + QuotedStr(oDtoSabor.Nome)+ ','
-  + QuotedStr(oDtoSabor.Valor)+ ');');
+  + IntToStr(oDtoSabor.Valor)+ ');');
   Result := True;
 end;
 

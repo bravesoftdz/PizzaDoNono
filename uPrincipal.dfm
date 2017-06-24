@@ -9,6 +9,7 @@
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
+  ExplicitLeft = -177
   ExplicitWidth = 1346
   ExplicitHeight = 418
   PixelsPerInch = 96
@@ -23,7 +24,6 @@
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
-    ExplicitTop = 8
     DesignSize = (
       1340
       389)

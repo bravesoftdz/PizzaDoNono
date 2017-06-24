@@ -13,13 +13,15 @@ type
     FIdSabor: integer;
     FIngrediente: string;
     FValor: integer;
-    FMaxSabores: Integer;
+    FMaxSabores: integer;
+    FTamanho: string;
 
     procedure SetIdSabor(const Value: integer);
     procedure SetNome(const Value: string);
     procedure SetIngrediente(const Value: string);
     procedure SetValor(const Value: integer);
     procedure SetMaxSabores(const Value: integer);
+    procedure SetTamanho(const Value: string);
 
   public
     property IdSabor: integer read FIdSabor write SetIdSabor;
@@ -27,6 +29,7 @@ type
     property Ingrediente: string read FIngrediente write SetIngrediente;
     property Valor: integer read FValor write SetValor;
     property MaxSabores: integer read FMaxSabores write SetValor;
+    property Tamanho: string read FTamanho write SetTamanho;
 
   end;
 
@@ -34,27 +37,36 @@ implementation
 
 { TDtoIngrediente }
 
-
 { TDtoTamanho }
 
 procedure TDtoSabor.SetIdSabor(const Value: integer);
 begin
-      FIdSabor := Value;
+  FIdSabor := Value;
 end;
 
 procedure TDtoSabor.SetIngrediente(const Value: string);
 begin
-      FIngrediente := Value;
+  FIngrediente := Value;
+end;
+
+procedure TDtoSabor.SetMaxSabores(const Value: integer);
+begin
+  FMaxSabores := Value;
 end;
 
 procedure TDtoSabor.SetNome(const Value: string);
 begin
-      FNome := Value;
+  FNome := Value;
+end;
+
+procedure TDtoSabor.SetTamanho(const Value: string);
+begin
+  FTamanho := Value;
 end;
 
 procedure TDtoSabor.SetValor(const Value: integer);
 begin
-      FValor := Value;
+  FValor := Value;
 end;
 
 end.

@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoTamanho, uInterfaceModelTamanho;
+  uDtoTamanho, uInterfaceModelTamanho, uListaTamanho;
 
 type
   TModelTamanho = class(TInterfacedObject, IModelTamanho)
@@ -17,6 +17,8 @@ type
     function VerificarTamanhoCadastrado(var ADtoTamanho: TDtoTamanho): Boolean;
     function Excluir(const ADtoTamanho: TDtoTamanho): Boolean;
     function CountRegistros: integer;
+       // listar os tamanhos no combobox dos sabores
+    function ListarTamanhos(var ALista: TListaTamanho): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -89,6 +91,30 @@ begin
   oQuery.Open('SELECT idTamanho ID, Nome, MaxSabores FROM tamanho ORDER BY idTamanho ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
+end;
+
+function TModelTamanho.ListarTamanhos(var ALista: TListaTamanho): Boolean;
+var
+  oDtoTamanho: TDtoTamanho;
+begin
+  Result := False;
+
+  oQuery.Open('select IdTamanho, Nome from Tamanho');
+  if (not(oQuery.IsEmpty)) then
+  begin
+    oQuery.First;
+    while (not(oQuery.Eof)) do
+    begin
+      oDtoTamanho := TDtoTamanho.Create;
+      oDtoTamanho.IdTamanho := oQuery.FieldByName('IdTamanho').AsInteger;
+      oDtoTamanho.nome := oQuery.FieldByName('Nome').AsString;
+
+      ALista.Add(oDtoTamanho.nome, oDtoTamanho);
+
+      oQuery.Next;
+    end;
+    Result := True;
+  end;
 end;
 
 function TModelTamanho.VerificarTamanhoCadastrado(var ADtoTamanho

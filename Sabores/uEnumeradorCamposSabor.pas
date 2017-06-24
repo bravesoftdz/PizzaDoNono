@@ -3,7 +3,8 @@ unit uEnumeradorCamposSabor;
 interface
 
 type
-  TCamposSabor = (resultNome, resultIngrediente, resultMaxSabores, resultValor, resultTamanho, resultOk);
+  TCamposSabor = (resultNome, resultIngrediente, resultMaxSabores,
+  resultValor, resultTamanho, resultOk);
 
 implementation
 

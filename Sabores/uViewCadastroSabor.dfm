@@ -119,7 +119,7 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       ParentFont = False
       TabOrder = 4
     end
-    object cmbEstado: TComboBox
+    object cmbTamanho: TComboBox
       Left = 15
       Top = 237
       Width = 410

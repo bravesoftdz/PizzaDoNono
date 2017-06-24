@@ -9,7 +9,8 @@ uses
   uInterfaceCRUD, uInterfaceRegra, uControllerCRUD, uDtoSabor,
   uModelSabor, uRegraSabor, uViewCadastroSabor, uViewListagemSabor,
   uEnumeradorCamposSabor, uListaIngrediente, uModelIngrediente,
-  uDtoIngrediente;
+  uDtoIngrediente, uListaTamanho, uModelTamanho,
+  uDtoTamanho ;
 
 type
   TControllerSabor = class(TControllerCRUD)
@@ -32,6 +33,7 @@ type
     procedure Editar(Sender: TObject); override;
     procedure Excluir; override;
     procedure ListarIngredientes(var ACheckListBoxIngredientes: TCheckListBox);
+    procedure ListarTamanhos(var AcmbTamanho: TComboBox);
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
@@ -80,6 +82,7 @@ begin
   oFormularioCadastro.iInterfaceCrud := oControllerSabor;
 
   ListarIngredientes(TfrmCadastroSabor(oFormularioCadastro).CheckListBoxIngredientes);
+  ListarTamanhos(TfrmCadastroSabor(oFormularioCadastro).cmbTamanho);
 
   inherited;
 end;
@@ -161,7 +164,8 @@ begin
   oDtoSabor.idSabor := 0;
   oDtoSabor.Nome := EmptyStr;
   oDtoSabor.Ingrediente := EmptyStr;
-  oDtoSabor.Valor := EmptyStr;
+  oDtoSabor.Tamanho := EmptyStr;
+  oDtoSabor.Valor := 0;
 end;
 
 procedure TControllerSabor.ListarIngredientes(var ACheckListBoxIngredientes: TCheckListBox);
@@ -189,6 +193,34 @@ begin
     if Assigned(oListaIngrediente) then
       FreeAndNil(oListaIngrediente);
   end;
+end;
+
+procedure TControllerSabor.ListarTamanhos(var AcmbTamanho: TComboBox);
+var
+  oListaTamanho: TListaTamanho;
+  oModelTamanho: TModelTamanho;
+  oDtoTamanho: TDtoTamanho;
+begin
+  AcmbTamanho.Items.Clear;
+  oModelTamanho := TModelTamanho.Create;
+  try
+
+    oListaTamanho := TListaTamanho.Create([doOwnsValues]);
+
+    if oModelTamanho.ListarTamanhos(oListaTamanho) then
+    begin
+      for oDtoTamanho in oListaTamanho.Values do
+        AcmbTamanho.Items.AddObject(oDtoTamanho.Nome,
+          TObject(oDtoTamanho.IdTamanho));
+    end;
+  finally
+    if Assigned(oModelTamanho) then
+      FreeAndNil(oModelTamanho);
+
+    if Assigned(oListaTamanho) then
+      FreeAndNil(oListaTamanho);
+  end;
+
 end;
 
 procedure TControllerSabor.Localizar;
@@ -277,10 +309,19 @@ begin
 
    if TfrmCadastroSabor(oFormularioCadastro).CheckListBoxIngredientes.ItemIndex > -1 then
   begin
-    oDtoSabor.Ingrediente := Integer(TfrmCadastroSabor(oFormularioCadastro)
+    oDtoSabor.Ingrediente := String(TfrmCadastroSabor(oFormularioCadastro)
       .CheckListBoxIngredientes.Items.Objects[TfrmCadastroSabor(oFormularioCadastro)
       .CheckListBoxIngredientes.ItemIndex]);
   end;
+
+
+    if TfrmCadastroSabor(oFormularioCadastro).cmbTamanho.ItemIndex > -1 then
+  begin
+    oDtoSabor.Tamanho := String(TfrmCadastroSabor(oFormularioCadastro)
+      .cmbTamanho.Items.Objects[TfrmCadastroSabor(oFormularioCadastro)
+      .cmbTamanho.ItemIndex]);
+  end;
+
 
 end;
 
