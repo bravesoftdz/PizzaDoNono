@@ -87,13 +87,15 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       ParentFont = False
       TabOrder = 2
     end
-    object CheckListBoxIngredientes: TCheckListBox
-      Left = 481
-      Top = 112
-      Width = 424
-      Height = 257
-      Columns = 2
-      ItemHeight = 15
+    object cmbTamanho: TComboBox
+      Left = 15
+      Top = 237
+      Width = 410
+      Height = 23
+      AutoDropDown = True
+      Ctl3D = True
+      ParentCtl3D = False
+      Sorted = True
       TabOrder = 3
     end
     object edtValor: TLabeledEdit
@@ -116,18 +118,17 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       Font.Name = 'Tahoma'
       Font.Style = []
       MaxLength = 45
+      NumbersOnly = True
       ParentFont = False
       TabOrder = 4
     end
-    object cmbTamanho: TComboBox
-      Left = 15
-      Top = 237
-      Width = 410
-      Height = 23
-      AutoDropDown = True
-      Ctl3D = True
-      ParentCtl3D = False
-      Sorted = True
+    object CheckListBoxIngredientes: TCheckListBox
+      Left = 481
+      Top = 112
+      Width = 424
+      Height = 257
+      Columns = 2
+      ItemHeight = 15
       TabOrder = 5
     end
   end

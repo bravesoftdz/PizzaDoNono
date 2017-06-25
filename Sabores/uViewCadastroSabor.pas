@@ -10,12 +10,12 @@ uses
 type
   TfrmCadastroSabor = class(TfrmCadastroBase)
     edtIdCodigo: TLabeledEdit;
-    edtNome: TLabeledEdit;
     Ingredientes: TLabel;
-    CheckListBoxIngredientes: TCheckListBox;
-    edtValor: TLabeledEdit;
-    cmbTamanho: TComboBox;
     labelTamanho: TLabel;
+    edtNome: TLabeledEdit;
+    cmbTamanho: TComboBox;
+    edtValor: TLabeledEdit;
+    CheckListBoxIngredientes: TCheckListBox;
   private
     { Private declarations }
   public

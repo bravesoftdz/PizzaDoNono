@@ -40,7 +40,6 @@ begin
   end;
 end;
 
-
 constructor TModelSabor.Create;
 begin
   oQuery := TFDQuery.Create(nil);
@@ -57,18 +56,16 @@ end;
 function TModelSabor.Editar(const oDtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('UPDATE sabor SET nome = ' + QuotedStr(oDtoSabor.Nome) +
-    ',  valor = ' +  IntToStr(oDtoSabor.Valor) + '  WHERE idsabor = '
-     + IntToStr(oDtoSabor.IdSabor));
- if oQuery.RowsAffected > 0 then
+  oQuery.ExecSQL('UPDATE sabor SET nome = ' + QuotedStr(oDtoSabor.Nome) + ',  valor = ' +
+    CurrToStr(oDtoSabor.Valor) + '  WHERE idsabor = ' + IntToStr(oDtoSabor.IdSabor));
+  if oQuery.RowsAffected > 0 then
     Result := True;
 end;
 
 function TModelSabor.Excluir(const ADtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('DELETE FROM sabor WHERE idsabor = ' +
-    IntToStr(ADtoSabor.IdSabor));
+  oQuery.ExecSQL('DELETE FROM sabor WHERE idsabor = ' + IntToStr(ADtoSabor.IdSabor));
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -77,8 +74,8 @@ function TModelSabor.Inserir(const oDtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
 
-  oQuery.ExecSQL('INSERT INTO sabor(nome,valor) VALUES(' + QuotedStr(oDtoSabor.Nome)+ ','
-  + IntToStr(oDtoSabor.Valor)+ ');');
+  oQuery.ExecSQL('INSERT INTO sabor(nome, valor, tamanho_idtamanho) VALUES(' + QuotedStr(oDtoSabor.Nome) + ','
+    + CurrToStr(oDtoSabor.Valor) + ',' + CurrToStr(oDtoSabor.Tamanho) + ');');
   Result := True;
 end;
 
@@ -91,8 +88,7 @@ begin
     Result := True;
 end;
 
-function TModelSabor.VerificarSaborCadastrado(var ADtoSabor
-  : TDtoSabor): Boolean;
+function TModelSabor.VerificarSaborCadastrado(var ADtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
 
@@ -101,7 +97,8 @@ begin
   begin
     // se idSabor = 0 verifica somente nome do Sabor
     // seleciona no banco o nome
-    oQuery.Open('SELECT nome FROM Sabor WHERE nome = ' + QuotedStr(ADtoSabor.Nome));
+    oQuery.Open('SELECT nome FROM Sabor WHERE nome = ' + QuotedStr(ADtoSabor.Nome) +
+      ' AND tamanho_idtamanho = ' + IntToStr(ADtoSabor.Tamanho));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Sabor cadastrado com este nome
@@ -109,8 +106,8 @@ begin
   end
   else if ADtoSabor.IdSabor <> 0 then
   begin
-    oQuery.Open('SELECT nome FROM Sabor ' + QuotedStr(ADtoSabor.Nome) +
-      ' AND idsabor <> ' + IntToStr(ADtoSabor.IdSabor));
+    oQuery.Open('SELECT nome FROM Sabor WHERE nome = ' + QuotedStr(ADtoSabor.Nome) + ' AND tamanho_idtamanho = '
+      + IntToStr(ADtoSabor.Tamanho) + ' AND idsabor <> ' + IntToStr(ADtoSabor.IdSabor));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Sabor cadastrado com este nome

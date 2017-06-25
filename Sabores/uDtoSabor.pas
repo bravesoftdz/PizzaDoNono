@@ -3,7 +3,7 @@ unit uDtoSabor;
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils, uListaIngrediente;
 
 type
   TDtoSabor = class
@@ -11,47 +11,40 @@ type
   private
     FNome: string;
     FIdSabor: integer;
-    FIngrediente: string;
-    FValor: integer;
-    FMaxSabores: integer;
-    FTamanho: string;
+    FValor: currency;
+    FTamanho: integer;
+    FIngrediente: TListaIngrediente;
+
 
     procedure SetIdSabor(const Value: integer);
     procedure SetNome(const Value: string);
-    procedure SetIngrediente(const Value: string);
-    procedure SetValor(const Value: integer);
-    procedure SetMaxSabores(const Value: integer);
-    procedure SetTamanho(const Value: string);
+    procedure SetValor(const Value: currency);
+    procedure SetTamanho(const Value: integer);
+    procedure SetIngrediente(const Value: TListaIngrediente);
+
+
 
   public
     property IdSabor: integer read FIdSabor write SetIdSabor;
     property Nome: string read FNome write SetNome;
-    property Ingrediente: string read FIngrediente write SetIngrediente;
-    property Valor: integer read FValor write SetValor;
-    property MaxSabores: integer read FMaxSabores write SetValor;
-    property Tamanho: string read FTamanho write SetTamanho;
+    property Valor: currency read FValor write SetValor;
+    property Tamanho: integer read FTamanho write SetTamanho;
+    property Ingrediente : TListaIngrediente read FIngrediente write SetIngrediente;
 
   end;
 
 implementation
 
-{ TDtoIngrediente }
-
-{ TDtoTamanho }
+{ TDtoSabor }
 
 procedure TDtoSabor.SetIdSabor(const Value: integer);
 begin
   FIdSabor := Value;
 end;
 
-procedure TDtoSabor.SetIngrediente(const Value: string);
+procedure TDtoSabor.SetIngrediente(const Value: TListaIngrediente);
 begin
   FIngrediente := Value;
-end;
-
-procedure TDtoSabor.SetMaxSabores(const Value: integer);
-begin
-  FMaxSabores := Value;
 end;
 
 procedure TDtoSabor.SetNome(const Value: string);
@@ -59,12 +52,12 @@ begin
   FNome := Value;
 end;
 
-procedure TDtoSabor.SetTamanho(const Value: string);
+procedure TDtoSabor.SetTamanho(const Value: integer);
 begin
   FTamanho := Value;
 end;
 
-procedure TDtoSabor.SetValor(const Value: integer);
+procedure TDtoSabor.SetValor(const Value: currency);
 begin
   FValor := Value;
 end;
