@@ -9,19 +9,19 @@ type
   TDtoTamanho = class
   private
     FNome: string;
-    FMaxSabores: string;
+    FMaxSabores: integer;
     FIdTamanho: integer;
     FTamanho: string;
 
     procedure SetIdTamanho(const Value: integer);
     procedure SetNome(const Value: string);
-    procedure SetMaxSabores(const Value: string);
+    procedure SetMaxSabores(const Value: integer);
     procedure SetTamanho(const Value: string);
 
   public
     property IdTamanho: integer read FIdTamanho write SetIdTamanho;
     property Nome: string read FNome write SetNome;
-    property MaxSabores: string read FMaxSabores write SetMaxSabores;
+    property MaxSabores: integer read FMaxSabores write SetMaxSabores;
     property Tamanho: string read FTamanho write SetTamanho;
 
   end;
@@ -38,7 +38,7 @@ begin
       FIdTamanho := Value;
 end;
 
-procedure TDtoTamanho.SetMaxSabores(const Value: string);
+procedure TDtoTamanho.SetMaxSabores(const Value: integer);
 begin
       FMaxSabores := Value;
 end;

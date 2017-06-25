@@ -60,7 +60,7 @@ function TModelTamanho.Editar(const oDtoTamanho: TDtoTamanho): Boolean;
 begin
   Result := False;
   oQuery.ExecSQL('UPDATE tamanho SET nome = ' + QuotedStr(oDtoTamanho.Nome) +
-  ', MaxSabores = ' + QuotedStr(oDtoTamanho.MaxSabores) +
+  ', MaxSabores = ' + IntToStr(oDtoTamanho.MaxSabores) +
    ' WHERE idtamanho = ' + IntToStr(oDtoTamanho.IdTamanho));
  if oQuery.RowsAffected > 0 then
     Result := True;
@@ -80,7 +80,7 @@ begin
   Result := False;
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.ExecSQL('INSERT INTO tamanho(nome, MaxSabores) VALUES(' + QuotedStr(oDtoTamanho.Nome)+ ', '
-  + QuotedStr(oDtoTamanho.MaxSabores) + ');');
+  + IntToStr(oDtoTamanho.MaxSabores) + ');');
   Result := True;
 end;
 

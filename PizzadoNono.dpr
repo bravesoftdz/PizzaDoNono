@@ -79,7 +79,15 @@ uses
   uViewListagemSabor in 'Sabores\uViewListagemSabor.pas' {frmListagemSabor},
   uListaIngrediente in 'Ingredientes\uListaIngrediente.pas',
   uListaTamanho in 'Tamanhos\uListaTamanho.pas',
-  uEnumeradorTipoPessoa in 'Clientes\uEnumeradorTipoPessoa.pas';
+  uEnumeradorTipoPessoa in 'Clientes\uEnumeradorTipoPessoa.pas',
+  uControllerProduto in 'Produto\uControllerProduto.pas',
+  uDtoProduto in 'Produto\uDtoProduto.pas',
+  uEnumeradorCamposProduto in 'Produto\uEnumeradorCamposProduto.pas',
+  uInterfaceModelProduto in 'Produto\uInterfaceModelProduto.pas',
+  uModelProduto in 'Produto\uModelProduto.pas',
+  uRegraProduto in 'Produto\uRegraProduto.pas',
+  uViewCadastroProduto in 'Produto\uViewCadastroProduto.pas' {frmCadastroProduto},
+  uViewListagemProduto in 'Produto\uViewListagemProduto.pas' {frmListagemProduto};
 
 {$R *.res}
 

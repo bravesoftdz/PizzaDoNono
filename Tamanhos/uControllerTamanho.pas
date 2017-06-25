@@ -148,7 +148,7 @@ end;
 procedure TControllerTamanho.LimparDto();
 begin
   ODtoTamanho.idTamanho := 0;
-  ODtoTamanho.MaxSabores := EmptyStr;
+  ODtoTamanho.MaxSabores := 0;
   ODtoTamanho.Nome := EmptyStr;
 end;
 
@@ -241,7 +241,7 @@ begin
     oDtoTamanho.idTamanho := 0;
 
   oDtoTamanho.Nome := Trim(TfrmCadastroTamanho(oFormularioCadastro).edtNome.Text);
-  oDtoTamanho.MaxSabores := Trim(TfrmCadastroTamanho(oFormularioCadastro).edtMaxSabores.Text);
+  oDtoTamanho.MaxSabores := StrToInt(Trim(TfrmCadastroTamanho(oFormularioCadastro).edtMaxSabores.Text));
 
 end;
 

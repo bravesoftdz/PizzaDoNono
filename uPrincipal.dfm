@@ -1,7 +1,7 @@
 ﻿inherited frmPrincipal: TfrmPrincipal
   Top = 500
   Caption = 'frmPrincipal'
-  ClientHeight = 389
+  ClientHeight = 376
   ClientWidth = 1340
   FormStyle = fsMDIForm
   Position = poDefault
@@ -9,24 +9,24 @@
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitLeft = -177
   ExplicitWidth = 1346
-  ExplicitHeight = 418
+  ExplicitHeight = 405
   PixelsPerInch = 96
   TextHeight = 15
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 1340
-    Height = 389
+    Height = 376
     Align = alClient
     BevelOuter = bvNone
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
+    ExplicitHeight = 389
     DesignSize = (
       1340
-      389)
+      376)
     object bntBairros: TSpeedButton
       Left = 531
       Top = 1
@@ -764,6 +764,7 @@
       Layout = blGlyphTop
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnProdutosClick
     end
     object btnRelatórios: TSpeedButton
       Left = 849

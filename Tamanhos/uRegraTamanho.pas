@@ -71,7 +71,7 @@ begin
 
     exit;
   end;
-    if ADtoTamanho.MaxSabores = EmptyStr then
+    if ADtoTamanho.MaxSabores = 0 then
   begin
     // se for vazio
 
