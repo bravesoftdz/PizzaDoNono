@@ -107,6 +107,7 @@ end;
 function TModelCliente.Excluir(const ADtoCliente: TDtoCliente): Boolean;
 begin
   Result := False;
+  oQuery.ExecSQL('DELETE FROM endereco WHERE cliente_idCliente = ' + IntToStr(ADtoCliente.idCliente));
   oQuery.ExecSQL('DELETE FROM Cliente WHERE idCliente = ' + IntToStr(ADtoCliente.idCliente));
   if oQuery.RowsAffected > 0 then
     Result := True;

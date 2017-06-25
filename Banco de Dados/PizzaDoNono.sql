@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `pizzanono`.`endereco` (
   `idendereco` INT NOT NULL AUTO_INCREMENT,
   `rua` VARCHAR(255) NOT NULL,
   `numero` VARCHAR(45) NOT NULL,
-  `complemento` VARCHAR(100) NOT NULL,
+  `complemento` VARCHAR(100) NULL,
   `bairro_idbairro` INT NOT NULL,
   `cliente_idcliente` INT NOT NULL,
   `enderecoPrincipal` TINYINT(1) NOT NULL DEFAULT 0,

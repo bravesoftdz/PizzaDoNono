@@ -40,7 +40,7 @@ begin
   Result := False;
   if AModel.BuscarEnderecoCliente(ADtoCliente) then
     Result := True;
-  
+
 end;
 
 function TRegraCliente.BuscarBairro(const AModelCliente: TModelCliente;
@@ -48,7 +48,7 @@ function TRegraCliente.BuscarBairro(const AModelCliente: TModelCliente;
 begin
   Result := False;
   if AModelCliente.BuscarBairro(ADtoCliente) then
-    Result := true;
+    Result := True;
 end;
 
 function TRegraCliente.CountRegistros(const AModel: TModelCliente): Boolean;
@@ -56,7 +56,7 @@ begin
   Result := False;
   if AModel.CountRegistros > 0 then
     // se a quantidade de registros for maior que zero
-    Result := true; // true, pois existem registros
+    Result := True; // true, pois existem registros
 end;
 
 function TRegraCliente.Editar(const AModelCliente: TModelCliente;
@@ -64,7 +64,7 @@ function TRegraCliente.Editar(const AModelCliente: TModelCliente;
 begin
   Result := False;
   if AModelCliente.Editar(ADtoCliente) then
-    Result := true;
+    Result := True;
 end;
 
 function TRegraCliente.Excluir(const AModelCliente: TModelCliente;
@@ -72,7 +72,7 @@ function TRegraCliente.Excluir(const AModelCliente: TModelCliente;
 begin
   Result := False;
   if AModelCliente.Excluir(ADtoCliente) then
-    Result := true;
+    Result := True;
 end;
 
 function TRegraCliente.Inserir(const AModelCliente: TModelCliente;
@@ -80,14 +80,14 @@ function TRegraCliente.Inserir(const AModelCliente: TModelCliente;
 begin
   Result := False;
   if AModelCliente.Inserir(ADtoCliente) then
-    Result := true;
+    Result := True;
 end;
 
 function TRegraCliente.Listar(const AModel: TModelCliente): Boolean;
 begin
   Result := False;
   if AModel.Listar then
-    Result := true;
+    Result := True;
 end;
 
 function TRegraCliente.ValidarCNPJ(var ADtoCliente: TDtoCliente): Boolean;
@@ -144,7 +144,7 @@ begin
 
     { Verifica se os digitos calculados conferem com os digitos informados. }
     if ((dig13 = ADtoCliente.CpfCnpj[13]) and (dig14 = ADtoCliente.CpfCnpj[14])) then
-      Result := true
+      Result := True
     else
       Result := False;
   except
@@ -202,7 +202,7 @@ begin
 
     { Verifica se os digitos calculados conferem com os digitos informados. }
     if ((dig10 = ADtoCliente.CpfCnpj[10]) and (dig11 = ADtoCliente.CpfCnpj[11])) then
-      Result := true
+      Result := True
     else
       Result := False;
   except
@@ -265,7 +265,7 @@ begin
       end;
     end;
   end;
-  if ADtoCliente.DataNascimento <> '/  /' then
+  if ADtoCliente.DataNascimento <> EmptyStr then
   begin
     if length(ADtoCliente.DataNascimento) < 8 then
     begin
@@ -317,7 +317,7 @@ begin
   Result := False;
   // testa se o nome informado para o Cliente já está cadastrado naquele município
   if AModelCliente.VerificarCelularClienteCadastrado(ADtoCliente) then
-    Result := true;
+    Result := True;
 end;
 
 function TRegraCliente.VerificarTelefoneClienteCadastrado(const AModelCliente: TModelCliente;
@@ -326,7 +326,7 @@ begin
   Result := False;
   // testa se o nome informado para o Cliente já está cadastrado naquele município
   if AModelCliente.VerificarTelefoneClienteCadastrado(ADtoCliente) then
-    Result := true;
+    Result := True;
 end;
 
 function TRegraCliente.VerificarTipoPessoa(const AModel: TModelCliente;
@@ -334,7 +334,7 @@ function TRegraCliente.VerificarTipoPessoa(const AModel: TModelCliente;
 begin
   Result := False;
   if AModel.VerificarTipoPessoa(ADtoCliente) then
-    Result := true;
+    Result := True;
 
 end;
 

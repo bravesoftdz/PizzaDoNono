@@ -2,7 +2,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   Caption = 'Pizza do Nono - Clientes'
   ClientHeight = 634
   ClientWidth = 930
-  ExplicitTop = -82
+  ExplicitTop = -203
   ExplicitWidth = 936
   ExplicitHeight = 663
   PixelsPerInch = 96
@@ -112,9 +112,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object edtNome: TLabeledEdit
         Left = 16
-        Top = 54
+        Top = 46
         Width = 372
-        Height = 23
+        Height = 24
         EditLabel.Width = 38
         EditLabel.Height = 15
         EditLabel.Caption = 'Nome:'
@@ -156,7 +156,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtCpfCnpj: TMaskEdit
         Left = 16
         Top = 215
-        Width = 362
+        Width = 372
         Height = 23
         Hint = 
           'Informe somente os n'#250'meros CPF ou CNPJ. N'#227'o digite pontos, tra'#231'o' +
@@ -230,7 +230,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object edtRua: TLabeledEdit
         Left = 13
-        Top = 48
+        Top = 46
         Width = 404
         Height = 23
         EditLabel.Width = 24

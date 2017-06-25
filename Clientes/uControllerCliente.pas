@@ -43,7 +43,7 @@ var
 
 implementation
 
-{ TControllerUsuario }
+{ TControllerCliente }
 
 procedure TControllerCliente.Cancelar(ASender: TOBject);
 begin
@@ -478,8 +478,11 @@ begin
     oDtoCliente.CpfCnpj := Trim(TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.Text);
   end;
   // Data de Nascimento
-  oDtoCliente.DataNascimento := Trim(TfrmCadastroCliente(oFormularioCadastro)
-    .edtDataNascimento.Text);
+  if Trim(TfrmCadastroCliente(oFormularioCadastro).edtDataNascimento.Text) = '/  /' then
+    oDtoCliente.DataNascimento := EmptyStr
+  else
+    oDtoCliente.DataNascimento := Trim(TfrmCadastroCliente(oFormularioCadastro)
+      .edtDataNascimento.Text);
   // Rua
   oDtoCliente.Rua := Trim(TfrmCadastroCliente(oFormularioCadastro).edtRua.Text);
   // Número
