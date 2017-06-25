@@ -2,13 +2,16 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   Caption = 'Pizza do Nono - Clientes'
   ClientHeight = 634
   ClientWidth = 930
+  ExplicitTop = -82
   ExplicitWidth = 936
   ExplicitHeight = 663
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Top = 105
     Width = 913
     Height = 521
+    ExplicitTop = 105
     ExplicitWidth = 913
     ExplicitHeight = 521
     inherited labelTitulo: TLabel
@@ -109,9 +112,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object edtNome: TLabeledEdit
         Left = 16
-        Top = 48
-        Width = 376
-        Height = 24
+        Top = 54
+        Width = 372
+        Height = 23
         EditLabel.Width = 38
         EditLabel.Height = 15
         EditLabel.Caption = 'Nome:'
@@ -133,7 +136,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtTelefone: TMaskEdit
         Left = 16
         Top = 104
-        Width = 362
+        Width = 372
         Height = 23
         EditMask = '(99)9999-9999;1;_'
         MaxLength = 13
@@ -143,7 +146,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtCelular: TMaskEdit
         Left = 16
         Top = 160
-        Width = 364
+        Width = 372
         Height = 23
         EditMask = '(99)99999-9999;1;_'
         MaxLength = 14
@@ -153,7 +156,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtCpfCnpj: TMaskEdit
         Left = 16
         Top = 215
-        Width = 363
+        Width = 362
         Height = 23
         Hint = 
           'Informe somente os n'#250'meros CPF ou CNPJ. N'#227'o digite pontos, tra'#231'o' +
@@ -229,7 +232,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Left = 13
         Top = 48
         Width = 404
-        Height = 24
+        Height = 23
         EditLabel.Width = 24
         EditLabel.Height = 15
         EditLabel.Caption = 'Rua:'
@@ -254,7 +257,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Left = 13
         Top = 104
         Width = 404
-        Height = 24
+        Height = 23
         EditLabel.Width = 50
         EditLabel.Height = 15
         EditLabel.Caption = 'N'#250'mero:'
@@ -279,7 +282,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Left = 13
         Top = 160
         Width = 404
-        Height = 24
+        Height = 23
         EditLabel.Width = 83
         EditLabel.Height = 15
         EditLabel.Caption = 'Complemento:'

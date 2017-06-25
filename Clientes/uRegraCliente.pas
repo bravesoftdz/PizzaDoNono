@@ -226,7 +226,7 @@ begin
     Result := resultCelularTelefone;
     exit;
   end;
-  if ADtoCliente.Celular <> '(  )     -' then
+  if ADtoCliente.Celular <> EmptyStr then
   begin
     if (length(ADtoCliente.Celular)) < 14 then
     begin
@@ -235,7 +235,7 @@ begin
       exit;
     end;
   end;
-  if ADtoCliente.Telefone <> '(  )    -' then
+  if ADtoCliente.Telefone <> EmptyStr then
   begin
     if length(ADtoCliente.Telefone) < 13 then
     begin
