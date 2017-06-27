@@ -1,12 +1,15 @@
 inherited frmCadastroEstado: TfrmCadastroEstado
   Caption = 'frmCadastroEstado'
-  ClientHeight = 631
-  ExplicitHeight = 660
+  ClientHeight = 387
+  ExplicitHeight = 416
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Top = 131
-    ExplicitTop = 131
+    Top = 95
+    Height = 282
+    ExplicitTop = 95
+    ExplicitWidth = 631
+    ExplicitHeight = 282
     inherited labelTitulo: TLabel
       Width = 119
       Caption = 'Estados'
@@ -18,15 +21,16 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       Width = 137
       Height = 24
       TabStop = False
-      EditLabel.Width = 19
-      EditLabel.Height = 16
+      EditLabel.Width = 15
+      EditLabel.Height = 15
       EditLabel.Caption = 'ID:'
       EditLabel.Font.Charset = DEFAULT_CHARSET
       EditLabel.Font.Color = clWindowText
       EditLabel.Font.Height = -13
-      EditLabel.Font.Name = 'Tahoma'
+      EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -41,16 +45,16 @@ inherited frmCadastroEstado: TfrmCadastroEstado
     object edtUF: TLabeledEdit
       Left = 16
       Top = 176
-      Width = 137
+      Width = 49
       Height = 24
       CharCase = ecUpperCase
-      EditLabel.Width = 19
-      EditLabel.Height = 16
+      EditLabel.Width = 18
+      EditLabel.Height = 15
       EditLabel.Caption = 'UF:'
       EditLabel.Font.Charset = DEFAULT_CHARSET
       EditLabel.Font.Color = clWindowText
       EditLabel.Font.Height = -13
-      EditLabel.Font.Name = 'Tahoma'
+      EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
       Font.Charset = DEFAULT_CHARSET
@@ -63,17 +67,17 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       TabOrder = 2
     end
     object edtNome: TLabeledEdit
-      Left = 15
-      Top = 240
+      Left = 16
+      Top = 232
       Width = 410
       Height = 24
-      EditLabel.Width = 40
-      EditLabel.Height = 16
+      EditLabel.Width = 38
+      EditLabel.Height = 15
       EditLabel.Caption = 'Nome:'
       EditLabel.Font.Charset = DEFAULT_CHARSET
       EditLabel.Font.Color = clWindowText
       EditLabel.Font.Height = -13
-      EditLabel.Font.Name = 'Tahoma'
+      EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
       Font.Charset = DEFAULT_CHARSET
@@ -84,6 +88,13 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       MaxLength = 45
       ParentFont = False
       TabOrder = 3
+    end
+  end
+  inherited boxBotoes: TPanel
+    ExplicitWidth = 641
+    inherited btnFechar: TSpeedButton
+      Left = 534
+      ExplicitLeft = 534
     end
   end
 end

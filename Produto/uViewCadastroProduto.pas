@@ -12,9 +12,9 @@ type
     edtIdCodigo: TLabeledEdit;
     edtNome: TLabeledEdit;
     edtValor: TLabeledEdit;
-    Label1: TLabel;
     RadioSaborSim: TRadioButton;
     RadioSaborNao: TRadioButton;
+    GroupBoxPossuiSabor: TGroupBox;
 
   private
     { Private declarations }

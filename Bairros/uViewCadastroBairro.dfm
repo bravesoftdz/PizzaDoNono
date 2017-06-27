@@ -1,9 +1,16 @@
 inherited frmCadastroBairro: TfrmCadastroBairro
   Caption = 'frmCadastroBairro'
-  ExplicitTop = -196
+  ClientHeight = 515
+  ClientWidth = 641
+  ExplicitWidth = 647
+  ExplicitHeight = 544
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Width = 625
+    Height = 401
+    ExplicitWidth = 625
+    ExplicitHeight = 401
     inherited labelTitulo: TLabel
       Width = 110
       Caption = 'Bairros'
@@ -50,6 +57,7 @@ inherited frmCadastroBairro: TfrmCadastroBairro
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -106,6 +114,17 @@ inherited frmCadastroBairro: TfrmCadastroBairro
       ParentCtl3D = False
       Sorted = True
       TabOrder = 4
+    end
+  end
+  inherited boxBotoes: TPanel
+    Width = 635
+    ExplicitWidth = 635
+    inherited btnFechar: TSpeedButton
+      Left = 535
+      ExplicitLeft = 535
+    end
+    inherited btnExcluir: TSpeedButton
+      OnClick = nil
     end
   end
 end

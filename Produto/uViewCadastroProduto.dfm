@@ -1,25 +1,17 @@
 inherited frmCadastroProduto: TfrmCadastroProduto
   Caption = 'frmCadastroProduto'
+  ClientHeight = 481
+  ExplicitHeight = 510
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Height = 369
+    ExplicitWidth = 631
+    ExplicitHeight = 369
     inherited labelTitulo: TLabel
       Width = 126
       Caption = 'Produto'
       ExplicitWidth = 126
-    end
-    object Label1: TLabel [1]
-      Left = 15
-      Top = 216
-      Width = 71
-      Height = 15
-      Caption = 'Possui sabor:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Calibri'
-      Font.Style = [fsBold]
-      ParentFont = False
     end
     object edtIdCodigo: TLabeledEdit
       Left = 15
@@ -36,6 +28,7 @@ inherited frmCadastroProduto: TfrmCadastroProduto
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -72,8 +65,8 @@ inherited frmCadastroProduto: TfrmCadastroProduto
     end
     object edtValor: TLabeledEdit
       Left = 15
-      Top = 293
-      Width = 410
+      Top = 309
+      Width = 137
       Height = 24
       EditLabel.Width = 32
       EditLabel.Height = 15
@@ -93,21 +86,40 @@ inherited frmCadastroProduto: TfrmCadastroProduto
       ParentFont = False
       TabOrder = 3
     end
-    object RadioSaborSim: TRadioButton
-      Left = 24
-      Top = 248
-      Width = 113
-      Height = 17
-      Caption = 'Sim'
+    object GroupBoxPossuiSabor: TGroupBox
+      Left = 15
+      Top = 219
+      Width = 137
+      Height = 54
+      Caption = 'Possui Sabor:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 4
+      object RadioSaborNao: TRadioButton
+        Left = 55
+        Top = 34
+        Width = 113
+        Height = 17
+        Caption = 'Nao'
+        TabOrder = 0
+      end
+      object RadioSaborSim: TRadioButton
+        Left = 3
+        Top = 34
+        Width = 46
+        Height = 17
+        Caption = 'Sim'
+        TabOrder = 1
+      end
     end
-    object RadioSaborNao: TRadioButton
-      Left = 80
-      Top = 248
-      Width = 113
-      Height = 17
-      Caption = 'Nao'
-      TabOrder = 5
-    end
+  end
+  inherited boxBotoes: TPanel
+    Height = 95
+    ExplicitWidth = 641
+    ExplicitHeight = 95
   end
 end

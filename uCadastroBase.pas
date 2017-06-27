@@ -11,7 +11,6 @@ uses
 type
   TfrmCadastroBase = class(TfrmBasePadrao)
     btnNovo: TSpeedButton;
-    btnLocalizar: TSpeedButton;
     btnFechar: TSpeedButton;
     panelFormulario: TPanel;
     boxBotoes: TPanel;
@@ -19,6 +18,8 @@ type
     btnSalvar: TSpeedButton;
     labelTitulo: TLabel;
     panelSeparador: TPanel;
+    btnExcluir: TSpeedButton;
+    btnLocalizar: TSpeedButton;
     procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);

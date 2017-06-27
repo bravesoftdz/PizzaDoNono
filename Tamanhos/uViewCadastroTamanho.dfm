@@ -1,8 +1,13 @@
 inherited frmCadastroTamanho: TfrmCadastroTamanho
   Caption = 'frmCadastroTamanho'
+  ClientHeight = 400
+  ExplicitHeight = 429
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Height = 288
+    ExplicitWidth = 631
+    ExplicitHeight = 288
     inherited labelTitulo: TLabel
       Width = 142
       Caption = 'Tamanho'
@@ -23,6 +28,7 @@ inherited frmCadastroTamanho: TfrmCadastroTamanho
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -60,7 +66,7 @@ inherited frmCadastroTamanho: TfrmCadastroTamanho
     object edtMaxSabores: TLabeledEdit
       Left = 15
       Top = 237
-      Width = 410
+      Width = 137
       Height = 24
       EditLabel.Width = 172
       EditLabel.Height = 15
@@ -81,5 +87,8 @@ inherited frmCadastroTamanho: TfrmCadastroTamanho
       ParentFont = False
       TabOrder = 3
     end
+  end
+  inherited boxBotoes: TPanel
+    ExplicitWidth = 641
   end
 end

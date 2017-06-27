@@ -358,16 +358,17 @@ begin
         ShowMessage('Preencha pelo menos um dos campos de Telefone ou Celular.');
         TfrmCadastroCliente(oFormularioCadastro).edtTelefone.SetFocus;
       end;
-    resultCelular:
-      begin
-        ShowMessage('O número de celular informado é invalido.');
-        TfrmCadastroCliente(oFormularioCadastro).edtCelular.SetFocus;
-      end;
     resultTelefone:
       begin
         ShowMessage('O número de telefone informado é invalido.');
         TfrmCadastroCliente(oFormularioCadastro).edtTelefone.SetFocus;
       end;
+    resultCelular:
+      begin
+        ShowMessage('O número de celular informado é invalido.');
+        TfrmCadastroCliente(oFormularioCadastro).edtCelular.SetFocus;
+      end;
+
     resultCpfCnpj:
       begin
         ShowMessage('CPF ou CNPJ inválido. Verifique e tente novamente.');

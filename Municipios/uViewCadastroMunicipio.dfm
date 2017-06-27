@@ -1,9 +1,13 @@
 inherited frmCadastroMunicipio: TfrmCadastroMunicipio
   Caption = 'frmCadastroMunicipio'
+  ClientHeight = 412
+  ExplicitHeight = 441
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Height = 300
     ParentFont = False
+    ExplicitWidth = 631
     inherited labelTitulo: TLabel
       Width = 171
       Caption = 'Munic'#237'pios'
@@ -37,6 +41,7 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -82,5 +87,8 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
       Sorted = True
       TabOrder = 3
     end
+  end
+  inherited boxBotoes: TPanel
+    ExplicitWidth = 641
   end
 end

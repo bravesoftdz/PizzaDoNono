@@ -2,6 +2,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   Caption = 'Pizza do Nono - Clientes'
   ClientHeight = 634
   ClientWidth = 930
+  ExplicitTop = -3
   ExplicitWidth = 936
   ExplicitHeight = 663
   PixelsPerInch = 96
@@ -37,6 +38,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13

@@ -1,8 +1,13 @@
 inherited frmCadastroIngrediente: TfrmCadastroIngrediente
   Caption = 'Pizza do Nono - Ingredientes'
+  ClientHeight = 340
+  ExplicitHeight = 369
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Height = 225
+    ExplicitWidth = 631
+    ExplicitHeight = 225
     inherited labelTitulo: TLabel
       Width = 195
       Caption = 'Ingredientes'
@@ -49,6 +54,7 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13

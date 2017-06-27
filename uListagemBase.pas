@@ -12,16 +12,12 @@ uses
 type
   TfrmListagemBase = class(TfrmBasePadrao)
     BoxBotoes: TPanel;
-    btnExcluir: TSpeedButton;
     btnFechar: TSpeedButton;
     panelListagem: TPanel;
     SearchBoxListagem: TSearchBox;
-    Label1: TLabel;
+    LabelFiltro: TLabel;
     dbGridListagem: TDBGrid;
-    btnEditar: TSpeedButton;
     procedure btnFecharClick(Sender: TObject);
-    procedure btnEditarClick(Sender: TObject);
-    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,18 +31,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmListagemBase.btnEditarClick(Sender: TObject);
-begin
-  inherited;
-  iInterfaceCrud.Editar(nil);
-end;
-
-procedure TfrmListagemBase.btnExcluirClick(Sender: TObject);
-begin
-  inherited;
-  iInterfaceCrud.Excluir;
-end;
 
 procedure TfrmListagemBase.btnFecharClick(Sender: TObject);
 begin
