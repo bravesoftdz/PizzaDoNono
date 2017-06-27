@@ -76,7 +76,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `pizzanono`.`estado` (
   `idestado` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
-  `UF` VARCHAR(2) NULL,
+  `UF` VARCHAR(10) NULL,
   PRIMARY KEY (`idestado`))
 ENGINE = InnoDB;
 
@@ -267,7 +267,7 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`ingrediente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`ingrediente` (
-  `idingrediente` INT ZEROFILL NOT NULL AUTO_INCREMENT,
+  `idingrediente` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idingrediente`))
 ENGINE = InnoDB;
@@ -277,19 +277,17 @@ ENGINE = InnoDB;
 -- Table `pizzanono`.`sabor_ingrediente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`sabor_ingrediente` (
-  `id` INT NOT NULL AUTO_INCREMENT,
   `sabor_idsabor` INT NOT NULL,
-  `ingrediente_idingrediente` INT ZEROFILL NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_sabor_ingrediente_sabor1_idx` (`sabor_idsabor` ASC),
-  INDEX `fk_sabor_ingrediente_ingrediente1_idx` (`ingrediente_idingrediente` ASC),
-  UNIQUE INDEX `idx_sabor_ingrediente` (`sabor_idsabor` ASC, `ingrediente_idingrediente` ASC),
-  CONSTRAINT `fk_sabor_ingrediente_sabor1`
+  `ingrediente_idingrediente` INT NOT NULL,
+  PRIMARY KEY (`sabor_idsabor`, `ingrediente_idingrediente`),
+  INDEX `fk_sabor_has_ingrediente_ingrediente1_idx` (`ingrediente_idingrediente` ASC),
+  INDEX `fk_sabor_has_ingrediente_sabor1_idx` (`sabor_idsabor` ASC),
+  CONSTRAINT `fk_sabor_has_ingrediente_sabor1`
     FOREIGN KEY (`sabor_idsabor`)
     REFERENCES `pizzanono`.`sabor` (`idsabor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_sabor_ingrediente_ingrediente1`
+  CONSTRAINT `fk_sabor_has_ingrediente_ingrediente1`
     FOREIGN KEY (`ingrediente_idingrediente`)
     REFERENCES `pizzanono`.`ingrediente` (`idingrediente`)
     ON DELETE NO ACTION

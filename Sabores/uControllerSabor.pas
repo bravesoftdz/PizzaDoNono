@@ -19,7 +19,7 @@ type
     oDtoSabor: TDtoSabor;
 
     procedure PreencherDTO;
-    procedure LimparDto();
+    procedure LimparDto;
     procedure PreencherGrid(var DbGrid: TDBGrid);
   public
     constructor Create; override;
@@ -80,9 +80,9 @@ begin
 
   oFormularioCadastro.iInterfaceCrud := oControllerSabor;
 
-  ListarIngredientes(TfrmCadastroSabor(oFormularioCadastro).CheckListBoxIngredientes);
   ListarTamanhos(TfrmCadastroSabor(oFormularioCadastro).cmbTamanho);
 
+  ListarIngredientes(TfrmCadastroSabor(oFormularioCadastro).CheckListBoxIngredientes);
   inherited;
 end;
 
@@ -178,8 +178,7 @@ begin
     if oModelIngrediente.ListarIngredientes(oListaIngrediente) then
     begin
       for oDtoIngrediente in oListaIngrediente.Values do
-        ACheckListBoxIngredientes.Items.AddObject(oDtoIngrediente.Nome,
-          TObject(oDtoIngrediente.IdIngrediente));
+        ACheckListBoxIngredientes.Items.AddObject(oDtoIngrediente.Nome, TObject(oDtoIngrediente.idIngrediente));
     end;
   finally
     if Assigned(oModelIngrediente) then
@@ -265,8 +264,8 @@ begin
         // se o ID for vazio, testa se o nome informado ja esta cadastrado
         if oRegraSabor.VerificarSaborCadastrado(oModelSabor, oDtoSabor) then
         begin
-          ShowMessage('Já existe um sabor cadastrado com o nome "' +
-            UpperCase(oDtoSabor.Nome) + '" para o tamanho selecionado.');
+          ShowMessage('Já existe um sabor cadastrado com o nome "' + UpperCase(oDtoSabor.Nome) +
+            '" para o tamanho selecionado.');
           TfrmCadastroSabor(oFormularioCadastro).edtNome.SetFocus;
         end
         else // se o nome informado nao estiver cadastrado, realiza a inserção
@@ -334,14 +333,13 @@ begin
           oDtoIngrediente.Nome := TfrmCadastroSabor(oFormularioCadastro)
             .CheckListBoxIngredientes.Items.Strings[i];
           oDtoIngrediente.IdIngrediente :=
-            integer(TfrmCadastroSabor(oFormularioCadastro).CheckListBoxIngredientes.Items.IndexOf
-            (oDtoIngrediente.Nome));
+            integer(TfrmCadastroSabor(oFormularioCadastro).CheckListBoxIngredientes.Items.Objects[i]);
           oListaIngrediente.Add(oDtoIngrediente.Nome, oDtoIngrediente);
         end;
       end;
     finally
       oDtoSabor.Ingrediente := oListaIngrediente;
-      FreeAndNil(oListaIngrediente);
+
     end;
   end
   else
