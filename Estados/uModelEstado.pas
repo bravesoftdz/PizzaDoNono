@@ -46,6 +46,7 @@ end;
 constructor TModelEstado.Create;
 begin
   oQuery := TFDQuery.Create(nil);
+  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
 end;
 
 destructor TModelEstado.Destroy;
@@ -84,7 +85,6 @@ end;
 function TModelEstado.Inserir(const ADtoEstado: TDtoEstado): Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.ExecSQL('INSERT INTO estado(nome, uf) VALUES(' + QuotedStr(ADtoEstado.nome) + ', ' +
     QuotedStr(ADtoEstado.UF) + ');');
   if oQuery.RowsAffected > 0 then
@@ -94,7 +94,6 @@ end;
 function TModelEstado.Listar: Boolean;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.Open('SELECT idestado ID, Nome, UF FROM estado ORDER BY idestado ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
@@ -105,7 +104,6 @@ var
   oDtoEstado: TDtoEstado;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
   oQuery.Open('select IdEstado, Nome from Estado');
   if (not(oQuery.IsEmpty)) then
   begin

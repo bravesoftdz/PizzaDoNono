@@ -33,7 +33,8 @@ function TModelCliente.BuscarEnderecoCliente(var ADtoCliente: TDtoCliente): Bool
 begin
   Result := False;
   oQuery.Open('SELECT idendereco, rua, numero, complemento, bairro_idbairro ' +
-    ' FROM endereco WHERE cliente_idcliente = ' + IntToStr(ADtoCliente.idCliente));
+    ' FROM endereco WHERE cliente_idcliente = ' + IntToStr(ADtoCliente.idCliente) +
+    ' AND enderecoprincipal = 1');
   if not(oQuery.IsEmpty) then
   begin
     ADtoCliente.IdEndereço := oQuery.FieldByName('idendereco').AsInteger;
@@ -91,9 +92,14 @@ end;
 function TModelCliente.Editar(const oDtoCliente: TDtoCliente): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('UPDATE Cliente SET nome = ' + QuotedStr(oDtoCliente.Nome) +
-    ', municipio_idmunicipio = ' + IntToStr(oDtoCliente.Municipio) + ' WHERE idCliente = ' +
-    IntToStr(oDtoCliente.idCliente));
+  oQuery.ExecSQL('UPDATE Cliente SET nome = ' + QuotedStr(oDtoCliente.Nome) + ', ' + 'telefone = ' +
+    QuotedStr(oDtoCliente.Telefone) + ', ' + 'celular = ' + QuotedStr(oDtoCliente.celular) + ', ' +
+    'dataNascimento = ' + QuotedStr(oDtoCliente.DataNascimento) + ', ' + 'cpfcnpj = ' +
+    QuotedStr(oDtoCliente.CpfCnpj) + ' WHERE idCliente = ' + IntToStr(oDtoCliente.idCliente));
+  oQuery.ExecSQL('UPDATE endereco SET rua = ' + QuotedStr(oDtoCliente.rua) + ', ' + 'numero = ' +
+    QuotedStr(oDtoCliente.numero) + ', ' + 'complemento = ' + QuotedStr(oDtoCliente.complemento) +
+    ', ' + 'bairro_idbairro = ' + IntToStr(oDtoCliente.Bairro) + ' WHERE cliente_idCliente = ' +
+    IntToStr(oDtoCliente.idCliente) + ' AND enderecoPrincipal = 1');
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -101,6 +107,7 @@ end;
 function TModelCliente.Excluir(const ADtoCliente: TDtoCliente): Boolean;
 begin
   Result := False;
+  oQuery.ExecSQL('DELETE FROM endereco WHERE cliente_idCliente = ' + IntToStr(ADtoCliente.idCliente));
   oQuery.ExecSQL('DELETE FROM Cliente WHERE idCliente = ' + IntToStr(ADtoCliente.idCliente));
   if oQuery.RowsAffected > 0 then
     Result := True;
@@ -116,17 +123,17 @@ begin
   else if oDtoCliente.tipoPessoa = resultPessoaFisica then
     tipoPessoa := '1'
   else if oDtoCliente.tipoPessoa = resultVazio then
-    tipoPessoa := '';
+    tipoPessoa := EmptyStr;
   oQuery.ExecSQL
     ('INSERT INTO Cliente(nome, telefone, celular, cpfcnpj, tipoPessoa, dataNascimento) VALUES(' +
-    QuotedStr(oDtoCliente.Nome) + ', ' + QuotedStr(oDtoCliente.telefone) + ', ' +
-    QuotedStr(oDtoCliente.celular) + ', ' + QuotedStr(oDtoCliente.cpfcnpj) + ', ' +
+    QuotedStr(oDtoCliente.Nome) + ', ' + QuotedStr(oDtoCliente.Telefone) + ', ' +
+    QuotedStr(oDtoCliente.celular) + ', ' + QuotedStr(oDtoCliente.CpfCnpj) + ', ' +
     QuotedStr(tipoPessoa) + ', ' + QuotedStr(oDtoCliente.DataNascimento) + ');');
   oQuery.ExecSQL
-    ('INSERT INTO Endereco (rua, numero, complemento, bairro_idbairro, cliente_idcliente) VALUES(' +
-    QuotedStr(oDtoCliente.rua) + ', ' + QuotedStr(oDtoCliente.numero) + ', ' +
+    ('INSERT INTO Endereco (rua, numero, complemento, bairro_idbairro, cliente_idcliente, enderecoPrincipal) VALUES('
+    + QuotedStr(oDtoCliente.rua) + ', ' + QuotedStr(oDtoCliente.numero) + ', ' +
     QuotedStr(oDtoCliente.complemento) + ', ' + IntToStr(oDtoCliente.Bairro) + ', ' +
-    ' (select LAST_INSERT_ID()));');
+    ' (select LAST_INSERT_ID()), 1);');
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -165,8 +172,8 @@ begin
     // se idCliente <> 0 verifica telefone e/ou celular do Cliente COM clausula de "WHERE idCliente = ..."
     if ADtoCliente.celular <> EmptyStr then
     begin
-      oQuery.Open('SELECT Celular FROM Cliente WHERE WHERE Celular = ' +
-        QuotedStr(ADtoCliente.celular) + ' AND idCliente <> ' + IntToStr(ADtoCliente.idCliente));
+      oQuery.Open('SELECT Celular FROM Cliente WHERE Celular = ' + QuotedStr(ADtoCliente.celular) +
+        ' AND idCliente <> ' + IntToStr(ADtoCliente.idCliente));
       // testa se o retorno do banco de dados é vazio
       if not(oQuery.IsEmpty) then
         // se nao for vazio, já existe Cliente cadastrado com este celular
@@ -183,11 +190,11 @@ begin
   if ADtoCliente.idCliente = 0 then
   begin
     // se idCliente = 0 verifica telefone e/ou celular do Cliente SEM clausula de "WHERE idCliente = ..."
-    if ADtoCliente.telefone <> EmptyStr then
+    if ADtoCliente.Telefone <> EmptyStr then
     begin
       // seleciona no banco o Telefone
       oQuery.Open('SELECT Telefone FROM Cliente WHERE Telefone = ' +
-        QuotedStr(ADtoCliente.telefone));
+        QuotedStr(ADtoCliente.Telefone));
       // testa se o retorno do banco de dados é vazio
       if not(oQuery.IsEmpty) then
         // se nao for vazio, já existe Cliente cadastrado com este Telefone
@@ -197,10 +204,10 @@ begin
   else if ADtoCliente.idCliente <> 0 then
   begin
     // se idCliente <> 0 verifica telefone e/ou celular do Cliente COM clausula de "WHERE idCliente = ..."
-    if ADtoCliente.telefone <> EmptyStr then
+    if ADtoCliente.Telefone <> EmptyStr then
     begin
-      oQuery.Open('SELECT Telefone FROM Cliente WHERE WHERE Telefone = ' +
-        QuotedStr(ADtoCliente.telefone) + ' AND idCliente <> ' + IntToStr(ADtoCliente.idCliente));
+      oQuery.Open('SELECT Telefone FROM Cliente WHERE Telefone = ' + QuotedStr(ADtoCliente.Telefone)
+        + ' AND idCliente <> ' + IntToStr(ADtoCliente.idCliente));
       // testa se o retorno do banco de dados é vazio
       if not(oQuery.IsEmpty) then
         // se nao for vazio, já existe Cliente cadastrado com este Telefone

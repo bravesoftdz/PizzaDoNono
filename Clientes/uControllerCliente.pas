@@ -43,7 +43,7 @@ var
 
 implementation
 
-{ TControllerUsuario }
+{ TControllerCliente }
 
 procedure TControllerCliente.Cancelar(ASender: TOBject);
 begin
@@ -121,7 +121,7 @@ begin
 
   oDtoCliente.CpfCnpj := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
     ('CPF/CNPJ').AsString;
-  if oDtoCliente.CpfCnpj <> '' then
+  if oDtoCliente.CpfCnpj <> EmptyStr then
   begin
     if oRegraCliente.VerificarTipoPessoa(oModelCliente, oDtoCliente) then
     begin
@@ -129,12 +129,12 @@ begin
       if oDtoCliente.TipoPessoa = resultPessoaFisica then
       begin
         TfrmCadastroCliente(oFormularioCadastro).labelCpfCnpj.Caption := 'CPF:';
-        TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.EditMask := '999.999.999-99;1;_';
+        TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.EditMask := '999.999.999-99;0;_';
       end
       else if oDtoCliente.TipoPessoa = resultPessoaJuridica then
       begin
         TfrmCadastroCliente(oFormularioCadastro).labelCpfCnpj.Caption := 'CNPJ:';
-        TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.EditMask := '99.999.999/9999-99;1;_';
+        TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.EditMask := '99.999.999/9999-99;0;_';
       end;
     end;
   end;
@@ -169,7 +169,6 @@ begin
       TfrmCadastroCliente(oFormularioCadastro).cmbBairro.Items.IndexOfObject
       (TOBject(oDtoCliente.Bairro));
   end;
-
 
   AjustarModoInsercao(true);
 end;
@@ -304,7 +303,6 @@ begin
     if Assigned(oListaMunicipio) then
       FreeAndNil(oListaMunicipio);
 
-
   end;
 end;
 
@@ -407,21 +405,21 @@ begin
       end;
     resultOk:
       begin
-        // testa se o edit do ID está vazio
-        if oDtoCliente.idCliente = 0 then
+        // se o ID for vazio, testa se o nome informado ja esta cadastrado
+        if oRegraCliente.VerificarTelefoneClienteCadastrado(oModelCliente, oDtoCliente) then
         begin
-          // se o ID for vazio, testa se o nome informado ja esta cadastrado
-          if oRegraCliente.VerificarTelefoneClienteCadastrado(oModelCliente, oDtoCliente) then
-          begin
-            ShowMessage('Já existe um Cliente cadastrado com o Telefone informado.');
-            TfrmCadastroCliente(oFormularioCadastro).edtTelefone.SetFocus;
-          end
-          else if oRegraCliente.VerificarCelularClienteCadastrado(oModelCliente, oDtoCliente) then
-          begin
-            ShowMessage('Já existe um Cliente cadastrado com o Celular informado.');
-            TfrmCadastroCliente(oFormularioCadastro).edtCelular.SetFocus;
-          end
-          else
+          ShowMessage('Já existe um Cliente cadastrado com o Telefone informado.');
+          TfrmCadastroCliente(oFormularioCadastro).edtTelefone.SetFocus;
+        end
+        else if oRegraCliente.VerificarCelularClienteCadastrado(oModelCliente, oDtoCliente) then
+        begin
+          ShowMessage('Já existe um Cliente cadastrado com o Celular informado.');
+          TfrmCadastroCliente(oFormularioCadastro).edtCelular.SetFocus;
+        end
+        else
+        begin
+          // testa se o edit do ID está vazio
+          if oDtoCliente.idCliente = 0 then
           // se o celular ou telefone informado nao estiver cadastrado, realiza a inserção
           begin
             // testa se a inserção foi realizada
@@ -432,23 +430,10 @@ begin
               LimparFormulario;
               LimparDto;
             end;
-          end;
-        end
-        else
-        // se o edit de ID nao estiver vazio, fazer UPDATE
-        begin
-          if oRegraCliente.VerificarTelefoneClienteCadastrado(oModelCliente, oDtoCliente) then
-          begin
-            ShowMessage('Já existe um Cliente cadastrado com o Telefone informado.');
-            TfrmCadastroCliente(oFormularioCadastro).edtTelefone.SetFocus;
-          end
-          else if oRegraCliente.VerificarCelularClienteCadastrado(oModelCliente, oDtoCliente) then
-          begin
-            ShowMessage('Já existe um Cliente cadastrado com o Celular informado.');
-            TfrmCadastroCliente(oFormularioCadastro).edtCelular.SetFocus;
           end
           else
-          // se o nome informado nao estiver cadastrado, realiza a alteracao
+          // se o edit de ID nao estiver vazio, fazer UPDATE
+          // se o TELEFONE ou CELULAR informado nao estiver cadastrado, realiza a alteracao
           begin
             // testa se a alteração foi realizada
             if oRegraCliente.Editar(oModelCliente, oDtoCliente) then
@@ -460,28 +445,45 @@ begin
             end;
           end;
         end;
-      end;
-  end;
+      end; // end resultOK
+  end; // end case
 end;
 
 procedure TControllerCliente.PreencherDTO;
 begin
   // ID
-  if TfrmCadastroCliente(oFormularioCadastro).edtIdCodigo.Text <> '' then
+  if TfrmCadastroCliente(oFormularioCadastro).edtIdCodigo.Text <> EmptyStr then
     oDtoCliente.idCliente := StrToInt(TfrmCadastroCliente(oFormularioCadastro).edtIdCodigo.Text)
   else
     oDtoCliente.idCliente := 0;
   // Nome
   oDtoCliente.Nome := Trim(TfrmCadastroCliente(oFormularioCadastro).edtNome.Text);
   // Telefone
-  oDtoCliente.Telefone := Trim(TfrmCadastroCliente(oFormularioCadastro).edtTelefone.Text);
+  if Trim(TfrmCadastroCliente(oFormularioCadastro).edtTelefone.Text) <> '(  )    -' then
+    oDtoCliente.Telefone := Trim(TfrmCadastroCliente(oFormularioCadastro).edtTelefone.Text)
+  else
+    oDtoCliente.Telefone := EmptyStr;
   // Celular
-  oDtoCliente.Celular := Trim(TfrmCadastroCliente(oFormularioCadastro).edtCelular.Text);
+  if Trim(TfrmCadastroCliente(oFormularioCadastro).edtCelular.Text) <> '(  )     -' then
+    oDtoCliente.Celular := Trim(TfrmCadastroCliente(oFormularioCadastro).edtCelular.Text)
+  else
+    oDtoCliente.Celular := EmptyStr;
   // CPF/CNPJ
-  oDtoCliente.CpfCnpj := Trim(TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.Text);
+  if (Trim(TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.Text) = '.   .   /    -') OR
+    (Trim(TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.Text) = '.   .   -') then
+  begin
+    oDtoCliente.CpfCnpj := EmptyStr;
+  end
+  else
+  begin
+    oDtoCliente.CpfCnpj := Trim(TfrmCadastroCliente(oFormularioCadastro).edtCpfCnpj.Text);
+  end;
   // Data de Nascimento
-  oDtoCliente.DataNascimento := Trim(TfrmCadastroCliente(oFormularioCadastro)
-    .edtDataNascimento.Text);
+  if Trim(TfrmCadastroCliente(oFormularioCadastro).edtDataNascimento.Text) = '/  /' then
+    oDtoCliente.DataNascimento := EmptyStr
+  else
+    oDtoCliente.DataNascimento := Trim(TfrmCadastroCliente(oFormularioCadastro)
+      .edtDataNascimento.Text);
   // Rua
   oDtoCliente.Rua := Trim(TfrmCadastroCliente(oFormularioCadastro).edtRua.Text);
   // Número

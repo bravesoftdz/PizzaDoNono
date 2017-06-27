@@ -233,7 +233,7 @@ end;
 
 procedure TControllerEstado.PreencherDTO;
 begin
-  if TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text <> '' then
+  if TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text <> EmptyStr then
     oDtoEstado.idestado := StrToInt(TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text)
   else
     oDtoEstado.idestado := 0;

@@ -1,20 +1,20 @@
 inherited frmCadastroSabor: TfrmCadastroSabor
   Caption = 'frmCadastroSabor'
-  ClientWidth = 987
-  ExplicitWidth = 993
+  ClientWidth = 1064
+  ExplicitWidth = 1070
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Width = 971
-    ExplicitWidth = 971
+    Width = 1048
+    ExplicitWidth = 1048
     inherited labelTitulo: TLabel
       Width = 123
       Caption = 'Sabores'
       ExplicitWidth = 123
     end
     object Ingredientes: TLabel [1]
-      Left = 481
-      Top = 91
+      Left = 471
+      Top = 99
       Width = 73
       Height = 15
       Caption = 'Ingredientes:'
@@ -87,13 +87,15 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       ParentFont = False
       TabOrder = 2
     end
-    object CheckListBoxIngredientes: TCheckListBox
-      Left = 481
-      Top = 112
-      Width = 424
-      Height = 257
-      Columns = 2
-      ItemHeight = 15
+    object cmbTamanho: TComboBox
+      Left = 15
+      Top = 237
+      Width = 410
+      Height = 23
+      AutoDropDown = True
+      Ctl3D = True
+      ParentCtl3D = False
+      Sorted = True
       TabOrder = 3
     end
     object edtValor: TLabeledEdit
@@ -116,26 +118,35 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       Font.Name = 'Tahoma'
       Font.Style = []
       MaxLength = 45
+      NumbersOnly = True
       ParentFont = False
       TabOrder = 4
     end
-    object cmbTamanho: TComboBox
-      Left = 15
-      Top = 237
+    object CheckListBoxIngredientes: TCheckListBox
+      Left = 471
+      Top = 120
       Width = 410
-      Height = 23
-      AutoDropDown = True
-      Ctl3D = True
-      ParentCtl3D = False
-      Sorted = True
+      Height = 203
+      Columns = 2
+      ItemHeight = 15
       TabOrder = 5
+    end
+    object MaskEdit1: TMaskEdit
+      Left = 56
+      Top = 344
+      Width = 118
+      Height = 23
+      EditMask = '#0.00;1;_'
+      MaxLength = 5
+      TabOrder = 6
+      Text = '  .  '
     end
   end
   inherited boxBotoes: TPanel
-    Width = 981
+    Width = 1058
     ExplicitWidth = 981
     inherited btnFechar: TSpeedButton
-      Left = 876
+      Left = 953
       ExplicitLeft = 876
     end
   end

@@ -14,12 +14,9 @@ type
     function ValidarDados(var ADtoSabor: TDtoSabor): TCamposSabor;
     function VerificarSaborCadastrado(const AModelSabor: TModelSabor;
       var ADtoSabor: TDtoSabor): Boolean;
-    function Inserir(const AModelSabor: TModelSabor;
-      const ADtoSabor: TDtoSabor): Boolean;
-    function Editar(const AModelSabor: TModelSabor;
-      const ADtoSabor: TDtoSabor): Boolean;
-    function Excluir(const AModelSabor: TModelSabor;
-      const ADtoSabor: TDtoSabor): Boolean;
+    function Inserir(const AModelSabor: TModelSabor; const ADtoSabor: TDtoSabor): Boolean;
+    function Editar(const AModelSabor: TModelSabor; const ADtoSabor: TDtoSabor): Boolean;
+    function Excluir(const AModelSabor: TModelSabor; const ADtoSabor: TDtoSabor): Boolean;
     function CountRegistros(const AModel: TModelSabor): Boolean;
   end;
 
@@ -35,8 +32,7 @@ begin
     Result := true; // true, pois existem registros
 end;
 
-function TRegraSabor.Editar(const AModelSabor: TModelSabor;
-  const ADtoSabor: TDtoSabor): Boolean;
+function TRegraSabor.Editar(const AModelSabor: TModelSabor; const ADtoSabor: TDtoSabor): Boolean;
 
 begin
   Result := False;
@@ -44,16 +40,14 @@ begin
     Result := true;
 end;
 
-function TRegraSabor.Excluir(const AModelSabor: TModelSabor;
-  const ADtoSabor: TDtoSabor): Boolean;
+function TRegraSabor.Excluir(const AModelSabor: TModelSabor; const ADtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
   if AModelSabor.Excluir(ADtoSabor) then
     Result := true;
 end;
 
-function TRegraSabor.Inserir(const AModelSabor: TModelSabor;
-  const ADtoSabor: TDtoSabor): Boolean;
+function TRegraSabor.Inserir(const AModelSabor: TModelSabor; const ADtoSabor: TDtoSabor): Boolean;
 begin
   Result := False;
   if AModelSabor.Inserir(ADtoSabor) then
@@ -67,21 +61,26 @@ begin
   begin
     // se for vazio
     Result := resultNome;
-
-    exit;
-  end;
-  if ADtoSabor.MaxSabores = 0 then
-  begin
-    // se for vazio
-
-    Result := resultMaxSabores;
     exit;
   end;
   if ADtoSabor.Valor = 0 then
   begin
     // se for vazio
-
     Result := resultValor;
+    exit;
+  end;
+  if ADtoSabor.Ingrediente = nil then
+  begin
+    // se for vazio
+
+    Result := resultIngrediente;
+    exit;
+  end;
+  if ADtoSabor.Tamanho = 0 then
+  begin
+    // se for vazio
+
+    Result := resultTamanho;
     exit;
   end;
   // caso não der erro nenhum retorna OK
