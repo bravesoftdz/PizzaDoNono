@@ -7,7 +7,8 @@ uses
   Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
   uInterfaceCRUD, uInterfaceRegra, uControllerCRUD, uDtoProduto,
   uModelProduto, uRegraProduto, uViewCadastroProduto,
-  uViewListagemProduto, uEnumeradorCamposProduto, uModelSabor, uDtoSabor, uListaSabor;
+  uViewListagemProduto, uEnumeradorCamposProduto, uModelSabor, uDtoSabor, uListaSabor,
+  uEnumeradorTemSabor, uListaSaboresDisponiveis;
 
 type
   TControllerProduto = class(TControllerCRUD)
@@ -37,7 +38,7 @@ type
     procedure AjustarListagem; override;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
   protected
-    procedure OnActivateForm(Sender: TObject); override;
+    procedure LimparFormulario; override;
   end;
 
 var
@@ -109,13 +110,18 @@ begin
 end;
 
 procedure TControllerProduto.Editar(Sender: TObject);
+var
+  oModelSabor: TModelSabor;
+  oListaSaboresDisponiveis: TListaSaboresDisponiveis;
+  i, idSabor: integer;
 begin
   inherited;
   // resgatando dados da linha selecionada no DBGrid
   // resgatando IdProduto e setando no Edit
   TfrmCadastroProduto(oFormularioCadastro).edtIdCodigo.Text :=
     oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idproduto').AsString;
-
+  oDtoProduto.IdProduto := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
+    ('idproduto').AsInteger;
   // resgatando Nome do Produto e setando no Edit
   TfrmCadastroProduto(oFormularioCadastro).edtNome.Text :=
     oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
@@ -133,7 +139,23 @@ begin
     .AsBoolean = true then
   begin
     TfrmCadastroProduto(oFormularioCadastro).cmbTemSabor.ItemIndex := 1;
+    oModelSabor := TModelSabor.Create;
+    try
+      oListaSaboresDisponiveis := TListaSaboresDisponiveis.Create;
+      if oModelSabor.BuscarSaboresDisponiveis(oListaSaboresDisponiveis, oDtoProduto) then
+      begin
+        for idSabor in oListaSaboresDisponiveis.Keys do
+          TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Checked
+            [TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Items.IndexOfObject
+            (TObject(idSabor))] := true;
 
+        // if integer(TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Items.Objects[i]) = idSabor then
+        // TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Checked[i] := True;
+      end;
+    finally
+      FreeAndNil(oModelSabor);
+      FreeAndNil(oListaSaboresDisponiveis);
+    end;
   end;
   FecharFormListagem(oFormularioListagem);
 
@@ -144,7 +166,7 @@ procedure TControllerProduto.Excluir;
 begin
 
   // resgatando idproduto e setando no DTO
-  oDtoProduto.idProduto := StrToInt(TfrmCadastroProduto(oFormularioCadastro).edtIdCodigo.Text);
+  oDtoProduto.IdProduto := StrToInt(TfrmCadastroProduto(oFormularioCadastro).edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
@@ -173,10 +195,21 @@ end;
 
 procedure TControllerProduto.LimparDto();
 begin
-  oDtoProduto.idProduto := 0;
+  oDtoProduto.IdProduto := 0;
   oDtoProduto.Valor := 0;
   oDtoProduto.Nome := EmptyStr;
-  oDtoProduto.TemSabor := Boolean(nil);
+  oDtoProduto.TemSabor := resultVazio;
+  oDtoProduto.Sabor := nil;
+end;
+
+procedure TControllerProduto.LimparFormulario;
+var
+  i: integer;
+begin
+  inherited;
+  OnChangeTemSabor(nil);
+  for i := 0 to TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Items.Count - 1 do
+    TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Checked[i] := false;
 end;
 
 procedure TControllerProduto.ListarSabores;
@@ -185,16 +218,14 @@ var
   oModelSabor: TModelSabor;
   oDtoSabor: TDtoSabor;
 begin
-  TfrmCadastroProduto(oFormularioCadastro).checkListBoxSabores.Items.Clear;
+
   oModelSabor := TModelSabor.Create;
   try
-
     oListaSabor := TListaSabor.Create([doOwnsValues]);
-
     if oModelSabor.BuscarSabores(oListaSabor) then
     begin
       for oDtoSabor in oListaSabor.Values do
-        TfrmCadastroProduto(oFormularioCadastro).checkListBoxSabores.Items.AddObject(oDtoSabor.Nome,
+        TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Items.AddObject(oDtoSabor.Nome,
           TObject(oDtoSabor.idSabor));
     end;
   finally
@@ -222,33 +253,26 @@ begin
   inherited;
 end;
 
-procedure TControllerProduto.OnActivateForm(Sender: TObject);
-begin
-  inherited;
-  OnChangeTemSabor(nil);
-  ListarSabores;
-end;
-
 procedure TControllerProduto.OnChangeTemSabor(Sender: TObject);
 begin
   if TfrmCadastroProduto(oFormularioCadastro).cmbTemSabor.ItemIndex = -1 then
   begin
     TfrmCadastroProduto(oFormularioCadastro).edtValor.Enabled := False;
-    TfrmCadastroProduto(oFormularioCadastro).checkListBoxSabores.Enabled := False;
+    TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Enabled := False;
     TfrmCadastroProduto(oFormularioCadastro).labelSabores.Enabled := False;
   end
   else if TfrmCadastroProduto(oFormularioCadastro).cmbTemSabor.ItemIndex = 1 then
   // itemIndex = 1 --> Sim
   begin
     TfrmCadastroProduto(oFormularioCadastro).edtValor.Enabled := False;
-    TfrmCadastroProduto(oFormularioCadastro).checkListBoxSabores.Enabled := true;
+    TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Enabled := true;
     TfrmCadastroProduto(oFormularioCadastro).labelSabores.Enabled := true;
   end
   else if TfrmCadastroProduto(oFormularioCadastro).cmbTemSabor.ItemIndex = 0 then
   // itemIndex = 0 --> Não
   begin
     TfrmCadastroProduto(oFormularioCadastro).edtValor.Enabled := true;
-    TfrmCadastroProduto(oFormularioCadastro).checkListBoxSabores.Enabled := False;
+    TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Enabled := False;
     TfrmCadastroProduto(oFormularioCadastro).labelSabores.Enabled := False;
   end;
 end;
@@ -263,16 +287,25 @@ begin
         ShowMessage('Preencha a descrição.');
         TfrmCadastroProduto(oFormularioCadastro).edtNome.SetFocus;
       end;
+    resultTemSabor:
+      begin
+        ShowMessage('Indique se o produto possui sabores.');
+        TfrmCadastroProduto(oFormularioCadastro).cmbTemSabor.SetFocus;
+      end;
     resultValor:
       begin
         ShowMessage('Preencha o valor.');
         TfrmCadastroProduto(oFormularioCadastro).edtValor.SetFocus;
       end;
-
+    resultSabor:
+      begin
+        ShowMessage('Selecione os sabores.');
+        TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.SetFocus;
+      end;
     resultOk:
       begin
         // testa se o edit do ID está vazio
-        if oDtoProduto.idProduto = 0 then
+        if oDtoProduto.IdProduto = 0 then
         begin
           // se o ID for vazio, testa se o nome informado ja esta cadastrado
           if oRegraProduto.VerificarProdutoCadastrado(oModelProduto, oDtoProduto) then
@@ -317,24 +350,53 @@ begin
 end;
 
 procedure TControllerProduto.PreencherDTO;
+var
+  oListaSabor: TListaSabor;
+  oDtoSabor: TDtoSabor;
+  i: integer;
 begin
   if TfrmCadastroProduto(oFormularioCadastro).edtIdCodigo.Text <> '' then
-    oDtoProduto.idProduto := StrToInt(TfrmCadastroProduto(oFormularioCadastro).edtIdCodigo.Text)
+    oDtoProduto.IdProduto := StrToInt(TfrmCadastroProduto(oFormularioCadastro).edtIdCodigo.Text)
   else
-    oDtoProduto.idProduto := 0;
+    oDtoProduto.IdProduto := 0;
 
   oDtoProduto.Nome := Trim(TfrmCadastroProduto(oFormularioCadastro).edtNome.Text);
+
   if Trim(TfrmCadastroProduto(oFormularioCadastro).edtValor.Text) <> '' then
     oDtoProduto.Valor := StrToCurr(Trim(TfrmCadastroProduto(oFormularioCadastro).edtValor.Text))
   else
     oDtoProduto.Valor := 0;
 
   if TfrmCadastroProduto(oFormularioCadastro).cmbTemSabor.ItemIndex = 0 then
-    oDtoProduto.TemSabor := False
+    oDtoProduto.TemSabor := resultNao
   else if TfrmCadastroProduto(oFormularioCadastro).cmbTemSabor.ItemIndex = 1 then
-    oDtoProduto.TemSabor := true
+    oDtoProduto.TemSabor := resultSim
   else
-    oDtoProduto.TemSabor := Boolean(nil);
+    oDtoProduto.TemSabor := resultVazio;
+
+  if TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.ItemIndex > -1 then
+  begin
+    // oDtoProduto.Sabor := nil;
+    oListaSabor := TListaSabor.Create([doOwnsValues]);
+    try
+      for i := 0 to TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Items.Count - 1 do
+      begin
+        if TfrmCadastroProduto(oFormularioCadastro).CheckListBoxSabores.Checked[i] then
+        begin
+          oDtoSabor := TDtoSabor.Create;
+          oDtoSabor.Nome := TfrmCadastroProduto(oFormularioCadastro)
+            .CheckListBoxSabores.Items.Strings[i];
+          oDtoSabor.idSabor := integer(TfrmCadastroProduto(oFormularioCadastro)
+            .CheckListBoxSabores.Items.Objects[i]);
+          oListaSabor.Add(oDtoSabor.Nome, oDtoSabor);
+        end;
+      end;
+    finally
+      oDtoProduto.Sabor := oListaSabor;
+    end;
+  end
+  else
+    oDtoProduto.Sabor := nil;
 end;
 
 procedure TControllerProduto.PreencherGrid(var DbGrid: TDBGrid);

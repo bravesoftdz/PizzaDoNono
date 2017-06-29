@@ -90,7 +90,9 @@ uses
   uViewListagemProduto in 'Produto\uViewListagemProduto.pas' {frmListagemProduto},
   Vcl.Themes,
   Vcl.Styles,
-  uListaSabor in 'Sabores\uListaSabor.pas';
+  uListaSabor in 'Sabores\uListaSabor.pas',
+  uEnumeradorTemSabor in 'Produto\uEnumeradorTemSabor.pas',
+  uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas';
 
 {$R *.res}
 

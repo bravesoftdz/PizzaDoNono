@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoSabor, uInterfaceModelSabor, uDtoIngrediente, uListaIngrediente, uListaSabor;
+  uDtoSabor, uInterfaceModelSabor, uDtoIngrediente, uListaIngrediente, uListaSabor, uDtoProduto,
+  uListaSaboresDisponiveis;
 
 type
   TModelSabor = class(TInterfacedObject, IModelSabor)
@@ -18,14 +19,34 @@ type
     function Excluir(const ADtoSabor: TDtoSabor): Boolean;
     function CountRegistros: integer;
     function BuscarSabores(var AListaSabor: TListaSabor): Boolean;
-
+    function BuscarSaboresDisponiveis(var ALista: TListaSaboresDisponiveis;
+      const ADtoProduto: TDtoProduto): Boolean;
     constructor Create;
     destructor Destroy; override;
   end;
 
 implementation
 
-{ TEstadoModel }
+{ TModelSabor }
+
+function TModelSabor.BuscarSaboresDisponiveis(var ALista: TListaSaboresDisponiveis;
+  const ADtoProduto: TDtoProduto): Boolean;
+begin
+  Result := False;
+
+  oQuery.Open('select sabor_idsabor FROM saboresDisponiveis WHERE produto_idproduto = ' +
+    IntToStr(ADtoProduto.IdProduto));
+  if (not(oQuery.IsEmpty)) then
+  begin
+    oQuery.First;
+    while (not(oQuery.Eof)) do
+    begin
+      ALista.Add(oQuery.FieldByName('sabor_idsabor').AsInteger, '');
+      oQuery.Next;
+    end;
+    Result := True;
+  end;
+end;
 
 function TModelSabor.CountRegistros: integer;
 var
@@ -73,9 +94,7 @@ end;
 
 function TModelSabor.Inserir(const oDtoSabor: TDtoSabor): Boolean;
 var
-  oListaIngrediente: TListaIngrediente;
   oDtoIngrediente: TDtoIngrediente;
-  IdSabor: integer;
 begin
   Result := False;
 
@@ -84,27 +103,25 @@ begin
     CurrToStr(oDtoSabor.Tamanho) + ');');
   if oQuery.RowsAffected > 0 then
   begin
-    oListaIngrediente := TListaIngrediente.Create;
-    try
-      oListaIngrediente := oDtoSabor.Ingrediente;
-      oQuery.Open('SELECT LAST_INSERT_ID() idsabor');
-      IdSabor := oQuery.FieldByName('idsabor').AsInteger;
-      if oQuery.RowsAffected > 0 then
-      begin
-        for oDtoIngrediente in oListaIngrediente.Values do
+    oQuery.Open('SELECT LAST_INSERT_ID() idsabor');
+    if not(oQuery.IsEmpty) then
+    begin
+      oDtoSabor.IdSabor := oQuery.FieldByName('idsabor').AsInteger;
+      try
+        for oDtoIngrediente in oDtoSabor.Ingrediente.Values do
         begin
-          // oQuery.ExecSQL
-          ShowMessage
+          oQuery.ExecSQL
             ('INSERT INTO sabor_ingrediente(sabor_idSabor, ingrediente_idingrediente) VALUES(' +
-            IntToStr(IdSabor) + ', ' + IntToStr(oDtoIngrediente.IdIngrediente) + ');');
+            IntToStr(oDtoSabor.IdSabor) + ', ' + IntToStr(oDtoIngrediente.IdIngrediente) + ');');
           if oQuery.RowsAffected > 0 then
             Result := True;
         end;
+      finally
+        oDtoSabor.Ingrediente.Free;
       end;
-    finally
-      FreeAndNil(oListaIngrediente);
     end;
   end;
+
 end;
 
 function TModelSabor.Listar: Boolean;

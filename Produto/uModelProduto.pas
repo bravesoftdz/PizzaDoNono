@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoProduto, uInterfaceModelProduto;
+  uDtoProduto, uInterfaceModelProduto, uListaSabor, uDtoSabor, uEnumeradorTemSabor;
 
 type
   TModelProduto = class(TInterfacedObject, IModelProduto)
@@ -24,7 +24,7 @@ type
 
 implementation
 
-{ TEstadoModel }
+{ TModelProduto }
 
 function TModelProduto.CountRegistros: integer;
 var
@@ -39,7 +39,6 @@ begin
     FreeAndNil(newQuery);
   end;
 end;
-
 
 constructor TModelProduto.Create;
 begin
@@ -57,44 +56,74 @@ end;
 function TModelProduto.Editar(const oDtoProduto: TDtoProduto): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('UPDATE produto SET nome = ' + QuotedStr(oDtoProduto.Nome) +
-  ', Valor = ' + CurrToStr(oDtoProduto.Valor) +
-   ' WHERE idproduto = ' + IntToStr(oDtoProduto.IdProduto));
- if oQuery.RowsAffected > 0 then
+  oQuery.ExecSQL('UPDATE produto SET nome = ' + QuotedStr(oDtoProduto.Nome) + ', Valor = ' +
+    CurrToStr(oDtoProduto.Valor) + ' WHERE idproduto = ' + IntToStr(oDtoProduto.IdProduto));
+  if oQuery.RowsAffected > 0 then
     Result := True;
 end;
 
 function TModelProduto.Excluir(const ADtoProduto: TDtoProduto): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('DELETE FROM produto WHERE idproduto = ' +
+  oQuery.ExecSQL('DELETE FROM saboresDisponiveis WHERE produto_idproduto = ' +
     IntToStr(ADtoProduto.IdProduto));
   if oQuery.RowsAffected > 0 then
-    Result := True;
+  begin
+    oQuery.ExecSQL('DELETE FROM produto WHERE idproduto = ' + IntToStr(ADtoProduto.IdProduto));
+    if oQuery.RowsAffected > 0 then
+      Result := True;
+  end;
 end;
 
 function TModelProduto.Inserir(const oDtoProduto: TDtoProduto): Boolean;
+var
+  oDtoSabor: TDtoSabor;
 begin
   Result := False;
-  oQuery.Connection := TDBConnectionSingleton.GetInstancia;
-  oQuery.ExecSQL('INSERT INTO produto(nome, valor) VALUES('
-  + QuotedStr(oDtoProduto.Nome)+ ', '
-  + CurrToStr(oDtoProduto.Valor) + ');');
+  if oDtoProduto.TemSabor = resultNao then
+  begin
+    oQuery.ExecSQL('INSERT INTO produto(nome, valor, temSabor) VALUES(' +
+      QuotedStr(oDtoProduto.Nome) + ', ' + CurrToStr(oDtoProduto.Valor) + ', 0);');
     if oQuery.RowsAffected > 0 then
-  Result := True;
+      Result := True;
+  end
+  else if oDtoProduto.TemSabor = resultSim then
+  begin
+    oQuery.ExecSQL('INSERT INTO produto(nome, temSabor) VALUES(' + QuotedStr(oDtoProduto.Nome)
+      + ', 1);');
+    if oQuery.RowsAffected > 0 then
+    begin
+      oQuery.Open('SELECT LAST_INSERT_ID() idproduto');
+      if not(oQuery.IsEmpty) then
+      begin
+        oDtoProduto.IdProduto := oQuery.FieldByName('idproduto').AsInteger;
+        try
+          for oDtoSabor in oDtoProduto.Sabor.Values do
+          begin
+            oQuery.ExecSQL
+              ('INSERT INTO saboresDisponiveis(produto_idproduto, sabor_idSabor) VALUES(' +
+              IntToStr(oDtoProduto.IdProduto) + ', ' + IntToStr(oDtoSabor.idSabor) + ');');
+            if oQuery.RowsAffected > 0 then
+              Result := True;
+          end;
+        finally
+          oDtoProduto.Sabor.Free;
+        end;
+      end;
+    end;
+  end;
+
 end;
 
 function TModelProduto.Listar: Boolean;
 begin
   Result := False;
-
-  oQuery.Open('SELECT idproduto, nome, valor, temSabor FROM produto ORDER BY idProduto ASC');
+  oQuery.Open('SELECT idproduto, nome, valor, temSabor FROM produto ORDER BY nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;
 
-function TModelProduto.VerificarProdutoCadastrado(var ADtoProduto
-  : TDtoProduto): Boolean;
+function TModelProduto.VerificarProdutoCadastrado(var ADtoProduto: TDtoProduto): Boolean;
 begin
   Result := False;
 
@@ -111,8 +140,8 @@ begin
   end
   else if ADtoProduto.IdProduto <> 0 then
   begin
-    oQuery.Open('SELECT nome FROM Produto ' + QuotedStr(ADtoProduto.Nome) +
-      ' AND idproduto <> ' + IntToStr(ADtoProduto.IdProduto));
+    oQuery.Open('SELECT nome FROM Produto ' + QuotedStr(ADtoProduto.Nome) + ' AND idproduto <> ' +
+      IntToStr(ADtoProduto.IdProduto));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Produto cadastrado com este nome

@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `pizzanono`.`produto` (
   `idproduto` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `temSabor` TINYINT(1) NOT NULL,
-  `preco` FLOAT NULL,
+  `valor` FLOAT NULL,
   PRIMARY KEY (`idproduto`))
 ENGINE = InnoDB;
 
@@ -75,8 +75,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pizzanono`.`estado` (
   `idestado` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `UF` VARCHAR(10) NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `UF` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`idestado`))
 ENGINE = InnoDB;
 

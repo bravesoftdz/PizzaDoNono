@@ -1,4 +1,5 @@
 inherited frmCadastroProduto: TfrmCadastroProduto
+  Left = 413
   Caption = 'Pizza do Nono - Produtos'
   ClientHeight = 546
   ClientWidth = 647
@@ -12,7 +13,7 @@ inherited frmCadastroProduto: TfrmCadastroProduto
     Width = 637
     Height = 434
     Caption = 'S'
-    ExplicitTop = 111
+    ExplicitTop = 107
     ExplicitWidth = 637
     ExplicitHeight = 434
     inherited labelTitulo: TLabel

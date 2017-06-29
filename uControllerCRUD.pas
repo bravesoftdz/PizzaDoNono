@@ -18,7 +18,7 @@ type
     oDataSource: TDataSource;
     procedure PreencherDTO;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); virtual;
-    procedure LimparFormulario;
+    procedure LimparFormulario; virtual;
     procedure ListarEstados(var ACmbEstados: TComboBox);
     procedure FiltrarGrid(Sender: TObject); virtual;
     procedure AjustarListagem; virtual;

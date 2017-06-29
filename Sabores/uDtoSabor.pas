@@ -30,7 +30,6 @@ type
     property Valor: currency read FValor write SetValor;
     property Tamanho: integer read FTamanho write SetTamanho;
     property Ingrediente : TListaIngrediente read FIngrediente write SetIngrediente;
-
   end;
 
 implementation

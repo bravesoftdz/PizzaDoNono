@@ -3,7 +3,7 @@ unit uDtoProduto;
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils, uListaSabor, uEnumeradorTemSabor;
 
 type
   TDtoProduto = class
@@ -11,19 +11,21 @@ type
     FNome: string;
     FValor: Currency;
     FIdProduto: integer;
-    FTemSabor: Boolean;
+    FSabor: TListaSabor;
+    FTemSabor: TEnumeradorTemSabor;
 
     procedure SetIdProduto(const Value: integer);
     procedure SetNome(const Value: string);
     procedure SetValor(const Value: Currency);
-    procedure SetTemSabor(const Value: Boolean);
+    procedure SetSabor(const Value: TListaSabor);
+    procedure SetTemSabor(const Value: TEnumeradorTemSabor);
 
   public
     property IdProduto: integer read FIdProduto write SetIdProduto;
     property Nome: string read FNome write SetNome;
     property Valor: Currency read FValor write SetValor;
-    property TemSabor: Boolean read FTemSabor write SetTemSabor;
-
+    property Sabor: TListaSabor read FSabor write SetSabor;
+    property TemSabor: TEnumeradorTemSabor read FTemSabor write SetTemSabor;
   end;
 
 implementation
@@ -41,7 +43,12 @@ begin
       FNome := Value;
 end;
 
-procedure TDtoProduto.SetTemSabor(const Value: Boolean);
+procedure TDtoProduto.SetSabor(const Value: TListaSabor);
+begin
+  FSabor := Value;
+end;
+
+procedure TDtoProduto.SetTemSabor(const Value: TEnumeradorTemSabor);
 begin
   FTemSabor := Value;
 end;

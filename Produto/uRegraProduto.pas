@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, Vcl.Dialogs, Vcl.CheckLst,
-  uEnumeradorCamposProduto, uDtoProduto, uModelProduto, uModelSabor;
+  uEnumeradorCamposProduto, uDtoProduto, uModelProduto, uModelSabor, uEnumeradorTemSabor;
 
 type
   TRegraProduto = class
@@ -65,16 +65,22 @@ begin
     Result := resultNome;
     exit;
   end;
-  if ADtoProduto.TemSabor = Boolean(nil) then
+  if ADtoProduto.TemSabor = resultVazio then
   begin
     Result := resultTemSabor;
     exit;
   end;
-  if (ADtoProduto.TemSabor = false) and (ADtoProduto.Valor = 0) then
+  if (ADtoProduto.TemSabor = resultNao) and (ADtoProduto.Valor = 0) then
   begin
     Result := resultValor;
     exit;
   end;
+  if (ADtoProduto.TemSabor = resultSim) and (ADtoProduto.Sabor = nil) then
+  begin
+    Result := resultSabor;
+    exit;
+  end;
+
 
 
 
