@@ -3,8 +3,8 @@ unit uRegraProduto;
 interface
 
 uses
-  System.SysUtils, Vcl.Dialogs,
-  uEnumeradorCamposProduto, uDtoProduto, uModelProduto;
+  System.SysUtils, Vcl.Dialogs, Vcl.CheckLst,
+  uEnumeradorCamposProduto, uDtoProduto, uModelProduto, uModelSabor;
 
 type
   TRegraProduto = class
@@ -14,12 +14,9 @@ type
     function ValidarDados(var ADtoProduto: TDtoProduto): TCamposProduto;
     function VerificarProdutoCadastrado(const AModelProduto: TModelProduto;
       var ADtoProduto: TDtoProduto): Boolean;
-    function Inserir(const AModelProduto: TModelProduto;
-      const ADtoProduto: TDtoProduto): Boolean;
-    function Editar(const AModelProduto: TModelProduto;
-      const ADtoProduto: TDtoProduto): Boolean;
-    function Excluir(const AModelProduto: TModelProduto;
-      const ADtoProduto: TDtoProduto): Boolean;
+    function Inserir(const AModelProduto: TModelProduto; const ADtoProduto: TDtoProduto): Boolean;
+    function Editar(const AModelProduto: TModelProduto; const ADtoProduto: TDtoProduto): Boolean;
+    function Excluir(const AModelProduto: TModelProduto; const ADtoProduto: TDtoProduto): Boolean;
     function CountRegistros(const AModel: TModelProduto): Boolean;
   end;
 
@@ -59,23 +56,34 @@ begin
     Result := true;
 end;
 
-function TRegraProduto.ValidarDados(var ADtoProduto: TDtoProduto)
-  : TCamposProduto;
+function TRegraProduto.ValidarDados(var ADtoProduto: TDtoProduto): TCamposProduto;
 begin
   // testa se o campo nome foi informado
   if ADtoProduto.Nome = EmptyStr then
   begin
     // se for vazio
     Result := resultNome;
-
     exit;
   end;
-      // caso não der erro nenhum retorna OK
+  if ADtoProduto.TemSabor = Boolean(nil) then
+  begin
+    Result := resultTemSabor;
+    exit;
+  end;
+  if (ADtoProduto.TemSabor = false) and (ADtoProduto.Valor = 0) then
+  begin
+    Result := resultValor;
+    exit;
+  end;
+
+
+
+  // caso não der erro nenhum retorna OK
   Result := resultOk;
 end;
 
-function TRegraProduto.VerificarProdutoCadastrado(const AModelProduto
-  : TModelProduto; var ADtoProduto: TDtoProduto): Boolean;
+function TRegraProduto.VerificarProdutoCadastrado(const AModelProduto: TModelProduto;
+  var ADtoProduto: TDtoProduto): Boolean;
 begin
 
   Result := False;

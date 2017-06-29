@@ -1,24 +1,27 @@
 inherited frmCadastroBairro: TfrmCadastroBairro
-  Caption = 'frmCadastroBairro'
-  ClientHeight = 515
-  ClientWidth = 641
-  ExplicitWidth = 647
-  ExplicitHeight = 544
+  Width = 653
+  Height = 468
+  Caption = 'Pizza do Nono - Bairros'
+  Constraints.MaxWidth = 656
+  ExplicitWidth = 653
+  ExplicitHeight = 468
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Width = 625
-    Height = 401
-    ExplicitWidth = 625
-    ExplicitHeight = 401
+    Width = 637
+    Height = 341
+    ExplicitTop = 97
+    ExplicitHeight = 341
     inherited labelTitulo: TLabel
+      Top = 16
       Width = 110
       Caption = 'Bairros'
+      ExplicitTop = 16
       ExplicitWidth = 110
     end
     object labelMunicipio: TLabel [1]
       Left = 14
-      Top = 286
+      Top = 278
       Width = 57
       Height = 15
       Caption = 'Munic'#237'pio:'
@@ -31,7 +34,7 @@ inherited frmCadastroBairro: TfrmCadastroBairro
     end
     object labelEstado: TLabel [2]
       Left = 15
-      Top = 222
+      Top = 214
       Width = 40
       Height = 15
       Caption = 'Estado:'
@@ -42,9 +45,14 @@ inherited frmCadastroBairro: TfrmCadastroBairro
       Font.Style = [fsBold]
       ParentFont = False
     end
+    inherited panelSeparador: TPanel
+      Top = 67
+      ExplicitTop = 67
+    end
     object edtIdCodigo: TLabeledEdit
+      Tag = 1
       Left = 16
-      Top = 112
+      Top = 104
       Width = 137
       Height = 24
       TabStop = False
@@ -71,7 +79,7 @@ inherited frmCadastroBairro: TfrmCadastroBairro
     end
     object edtNome: TLabeledEdit
       Left = 16
-      Top = 176
+      Top = 168
       Width = 410
       Height = 24
       EditLabel.Width = 37
@@ -94,7 +102,7 @@ inherited frmCadastroBairro: TfrmCadastroBairro
     end
     object cmbEstado: TComboBox
       Left = 16
-      Top = 240
+      Top = 232
       Width = 410
       Height = 23
       AutoDropDown = True
@@ -106,7 +114,7 @@ inherited frmCadastroBairro: TfrmCadastroBairro
     object cmbMunicipio: TComboBox
       Tag = 1
       Left = 16
-      Top = 304
+      Top = 296
       Width = 410
       Height = 23
       AutoDropDown = True
@@ -117,14 +125,10 @@ inherited frmCadastroBairro: TfrmCadastroBairro
     end
   end
   inherited boxBotoes: TPanel
-    Width = 635
-    ExplicitWidth = 635
+    Width = 641
     inherited btnFechar: TSpeedButton
-      Left = 535
+      Left = 532
       ExplicitLeft = 535
-    end
-    inherited btnExcluir: TSpeedButton
-      OnClick = nil
     end
   end
 end

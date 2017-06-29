@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, FireDAC.Comp.Client, Data.DB, FireDAC.DApt,
   uClassDBConnectionSingleton, FireDAC.VCLUI.Wait, FireDAC.Stan.Async,
-  uDtoSabor, uInterfaceModelSabor, uDtoIngrediente, uListaIngrediente;
+  uDtoSabor, uInterfaceModelSabor, uDtoIngrediente, uListaIngrediente, uListaSabor;
 
 type
   TModelSabor = class(TInterfacedObject, IModelSabor)
@@ -17,6 +17,7 @@ type
     function VerificarSaborCadastrado(var ADtoSabor: TDtoSabor): Boolean;
     function Excluir(const ADtoSabor: TDtoSabor): Boolean;
     function CountRegistros: integer;
+    function BuscarSabores(var AListaSabor: TListaSabor): Boolean;
 
     constructor Create;
     destructor Destroy; override;
@@ -109,10 +110,36 @@ end;
 function TModelSabor.Listar: Boolean;
 begin
   Result := False;
-
-  oQuery.Open('SELECT idSabor ID, Nome, Valor FROM sabor ORDER BY idSabor ASC');
+  oQuery.Open('SELECT s.idsabor, s.nome, s.valor, t.nome tamanho FROM sabor s ' +
+    ' LEFT JOIN tamanho t ON s.tamanho_idtamanho = t.idtamanho ' + ' ORDER BY s.nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
+end;
+
+function TModelSabor.BuscarSabores(var AListaSabor: TListaSabor): Boolean;
+var
+  oDtoSabor: TDtoSabor;
+begin
+  Result := False;
+
+  oQuery.Open('select s.idsabor, s.nome, t.nome tamanho FROM sabor s ' +
+    ' LEFT JOIN tamanho t ON s.tamanho_idtamanho = t.idtamanho ' + ' ORDER BY s.nome ASC');
+  if (not(oQuery.IsEmpty)) then
+  begin
+    oQuery.First;
+    while (not(oQuery.Eof)) do
+    begin
+      oDtoSabor := TDtoSabor.Create;
+      oDtoSabor.IdSabor := oQuery.FieldByName('Idsabor').AsInteger;
+      oDtoSabor.Nome := oQuery.FieldByName('Nome').AsString + ' - ' +
+        oQuery.FieldByName('tamanho').AsString;
+
+      AListaSabor.Add(oDtoSabor.Nome, oDtoSabor);
+
+      oQuery.Next;
+    end;
+    Result := True;
+  end;
 end;
 
 function TModelSabor.VerificarSaborCadastrado(var ADtoSabor: TDtoSabor): Boolean;

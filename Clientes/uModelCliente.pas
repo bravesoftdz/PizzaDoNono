@@ -143,7 +143,7 @@ begin
   Result := False;
 
   oQuery.Open
-    ('SELECT idCliente ID, Nome, Telefone, Celular, CpfCnpj "CPF/CNPJ", dataNascimento "Data de Nascimento" '
+    ('SELECT idcliente, nome, telefone, celular, cpfcnpj, datanascimento'
     + ' FROM Cliente ORDER BY Nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;

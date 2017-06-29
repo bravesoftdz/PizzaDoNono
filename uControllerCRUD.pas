@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.ExtCtrls, Vcl.StdCtrls, System.Classes, Vcl.Forms, Vcl.Dialogs,
-  System.SysUtils, Data.DB, System.Generics.Collections, Vcl.Mask,
+  System.SysUtils, Data.DB, System.Generics.Collections, Vcl.Mask, Vcl.CheckLst,
   uInterfaceCRUD, uCadastroBase, uListagemBase, uModelEstado, uDtoEstado,
   uListaEstado;
 
@@ -22,6 +22,7 @@ type
     procedure ListarEstados(var ACmbEstados: TComboBox);
     procedure FiltrarGrid(Sender: TObject); virtual;
     procedure AjustarListagem; virtual;
+    procedure OnActivateForm(Sender: TObject); virtual;
   public
     constructor Create; virtual;
     destructor Destroy; override;
@@ -34,6 +35,7 @@ type
     procedure Novo(ASender: TObject); virtual;
     procedure Editar(Sender: TObject); virtual;
     procedure Excluir; virtual;
+
 
   end;
 
@@ -54,10 +56,12 @@ begin
       oFormularioCadastro.btnSalvar.Tag := 1
     else
       oFormularioCadastro.btnSalvar.Tag := 0;
-
     if (oFormularioCadastro.Components[iIndiceComponente] is TLabeledEdit) then
-      (oFormularioCadastro.Components[iIndiceComponente] as TCustomEdit).Enabled :=
-        AStatusBtnSalvar;
+    begin
+      if (oFormularioCadastro.Components[iIndiceComponente] as TCustomLabeledEdit).Tag <> 1 then
+        (oFormularioCadastro.Components[iIndiceComponente] as TCustomLabeledEdit).Enabled :=
+          AStatusBtnSalvar;
+    end;
     if (oFormularioCadastro.Components[iIndiceComponente] is TLabel) then
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomLabel).Enabled :=
         AStatusBtnSalvar;
@@ -70,6 +74,9 @@ begin
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomComboBox).Enabled :=
         AStatusBtnSalvar;
+    if (oFormularioCadastro.Components[iIndiceComponente] is TCheckListBox) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomListBox).Enabled :=
+        AStatusBtnSalvar;
   end;
   oFormularioCadastro.btnSalvar.Enabled := AStatusBtnSalvar;
   oFormularioCadastro.btnCancelar.Enabled := AStatusBtnSalvar;
@@ -77,13 +84,12 @@ begin
   oFormularioCadastro.btnLocalizar.Enabled := not(AStatusBtnSalvar);
   // label de titulo deve estar sempre habilitado
   oFormularioCadastro.labelTitulo.Enabled := True;
+
 end;
 
 procedure TControllerCRUD.Cancelar(ASender: TObject);
 begin
-  LimparFormulario;
   AjustarModoInsercao(False);
-
 end;
 
 constructor TControllerCRUD.Create;
@@ -100,6 +106,7 @@ begin
   // funçao AjustarFormulario() renomeada para AjustarModoInsercao()
   { iniciando formulário com modo de inserção desabilitado. Só habilita quando
     clicar em btnNovo, por exemplo. }
+  oFormularioCadastro.btnExcluir.Enabled := False;
   AjustarModoInsercao(False);
 end;
 
@@ -112,12 +119,14 @@ end;
 
 procedure TControllerCRUD.Editar(Sender: TObject);
 begin
-  //
+  oFormularioCadastro.btnExcluir.Enabled := True;
 end;
 
 procedure TControllerCRUD.Excluir;
 begin
-  //
+  oFormularioCadastro.btnExcluir.Enabled := False;
+  LimparFormulario;
+  AjustarModoInsercao(False);
 end;
 
 procedure TControllerCRUD.AjustarListagem;
@@ -125,19 +134,16 @@ begin
   oFormularioListagem.dbGridListagem.Hide;
   ShowMessage
     ('Nenhum registro encontrado no banco de dados. Realize um novo cadastro e ele será exibido aqui.');
-  oFormularioListagem.btnEditar.Enabled := False;
-  oFormularioListagem.btnExcluir.Enabled := False;
+
   oFormularioListagem.SearchBoxListagem.Enabled := False;
-  oFormularioListagem.Label1.Enabled := False;
+  oFormularioListagem.LabelFiltro.Enabled := False;
 end;
 
 procedure TControllerCRUD.FecharFormCadastro(ASender: TObject);
 begin
   if not(Assigned(oFormularioCadastro)) then
     exit;
-
-  LimparFormulario;
-  oFormularioCadastro.Close;
+  FreeAndNil(oFormularioCadastro);
 end;
 
 procedure TControllerCRUD.FecharFormListagem(ASender: TObject);
@@ -172,7 +178,11 @@ begin
 
     if (oFormularioCadastro.Components[iIndiceComponente] is TComboBox) then
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomComboBox).ItemIndex := -1;
+
+    if (oFormularioCadastro.Components[iIndiceComponente] is TCheckListBox) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomListBox).ItemIndex := -1;
   end;
+  oFormularioCadastro.btnExcluir.Enabled := False;
 end;
 
 procedure TControllerCRUD.ListarEstados(var ACmbEstados: TComboBox);
@@ -210,7 +220,13 @@ end;
 
 procedure TControllerCRUD.Novo(ASender: TObject);
 begin
+  LimparFormulario;
   AjustarModoInsercao(True);
+end;
+
+procedure TControllerCRUD.OnActivateForm(Sender: TObject);
+begin
+  //
 end;
 
 procedure TControllerCRUD.PreencherDTO;
@@ -220,7 +236,7 @@ end;
 
 procedure TControllerCRUD.Salvar(ASender: TObject);
 begin
-
+  Novo(nil);
 end;
 
 end.

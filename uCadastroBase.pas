@@ -26,6 +26,7 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnLocalizarClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,6 +46,12 @@ procedure TfrmCadastroBase.btnCancelarClick(Sender: TObject);
 begin
   inherited;
   iInterfaceCrud.Cancelar(Sender);
+end;
+
+procedure TfrmCadastroBase.btnExcluirClick(Sender: TObject);
+begin
+  inherited;
+    iInterfaceCrud.Excluir;
 end;
 
 procedure TfrmCadastroBase.btnFecharClick(Sender: TObject);

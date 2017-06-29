@@ -1,13 +1,16 @@
 inherited frmCadastroMunicipio: TfrmCadastroMunicipio
-  Caption = 'frmCadastroMunicipio'
-  ClientHeight = 412
-  ExplicitHeight = 441
+  Caption = 'Pizza do Nono - Munic'#237'pios'
+  ClientHeight = 391
+  ExplicitHeight = 420
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Height = 300
+    Top = 95
+    Height = 291
     ParentFont = False
-    ExplicitWidth = 631
+    ExplicitLeft = 0
+    ExplicitTop = 94
+    ExplicitHeight = 291
     inherited labelTitulo: TLabel
       Width = 171
       Caption = 'Munic'#237'pios'
@@ -27,6 +30,7 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
       ParentFont = False
     end
     object edtIdCodigo: TLabeledEdit
+      Tag = 1
       Left = 16
       Top = 112
       Width = 137
@@ -82,6 +86,7 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
       Width = 410
       Height = 23
       AutoDropDown = True
+      AutoCloseUp = True
       Ctl3D = True
       ParentCtl3D = False
       Sorted = True
@@ -89,6 +94,9 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
     end
   end
   inherited boxBotoes: TPanel
-    ExplicitWidth = 641
+    inherited btnFechar: TSpeedButton
+      Left = 536
+      ExplicitLeft = 536
+    end
   end
 end

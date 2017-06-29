@@ -1,20 +1,24 @@
 inherited frmListagemBase: TfrmListagemBase
   BorderIcons = []
   Caption = 'frmListagemBase'
-  ClientHeight = 641
-  ClientWidth = 844
+  ClientHeight = 581
+  ClientWidth = 474
+  Constraints.MaxHeight = 610
+  Constraints.MinHeight = 610
+  Constraints.MinWidth = 480
+  FormStyle = fsMDIChild
   Position = poDesktopCenter
   Visible = True
-  ExplicitWidth = 850
-  ExplicitHeight = 670
+  ExplicitWidth = 480
+  ExplicitHeight = 610
   PixelsPerInch = 96
   TextHeight = 15
   object BoxBotoes: TPanel
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 838
-    Height = 86
+    Width = 468
+    Height = 85
     Cursor = crHandPoint
     Align = alTop
     BevelOuter = bvNone
@@ -24,15 +28,17 @@ inherited frmListagemBase: TfrmListagemBase
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitWidth = 474
     DesignSize = (
-      838
-      86)
+      468
+      85)
     object LabelFiltro: TLabel
-      Left = 24
+      Left = 16
       Top = 27
       Width = 97
       Height = 15
       Caption = 'Filtrar por nome: '
+      FocusControl = SearchBoxListagem
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -42,7 +48,7 @@ inherited frmListagemBase: TfrmListagemBase
     end
     object btnFechar: TSpeedButton
       AlignWithMargins = True
-      Left = 733
+      Left = 363
       Top = 3
       Width = 100
       Height = 80
@@ -153,30 +159,39 @@ inherited frmListagemBase: TfrmListagemBase
       ExplicitLeft = 751
     end
     object SearchBoxListagem: TSearchBox
-      Left = 24
-      Top = 56
+      Left = 16
+      Top = 52
       Width = 337
-      Height = 24
+      Height = 23
       TabOrder = 0
       TextHint = 'Insira o termo de pesquisa'
     end
   end
   object panelListagem: TPanel
-    Left = 8
-    Top = 124
-    Width = 828
-    Height = 509
+    AlignWithMargins = True
+    Left = 5
+    Top = 87
+    Width = 464
+    Height = 489
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
+    Align = alBottom
     BorderStyle = bsSingle
     Caption = 'panelListagem'
     Color = clWhite
     ParentBackground = False
     ShowCaption = False
     TabOrder = 1
+    ExplicitTop = 32
+    ExplicitWidth = 470
     object dbGridListagem: TDBGrid
       Left = 1
       Top = 1
-      Width = 822
-      Height = 503
+      Width = 458
+      Height = 483
+      Hint = 'Duplo clique no registro para editar.'
       Align = alClient
       BorderStyle = bsNone
       Ctl3D = True
@@ -189,6 +204,8 @@ inherited frmListagemBase: TfrmListagemBase
       Options = [dgTitles, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentCtl3D = False
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText

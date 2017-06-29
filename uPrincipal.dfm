@@ -1,7 +1,8 @@
 ﻿inherited frmPrincipal: TfrmPrincipal
   Top = 500
-  Caption = 'frmPrincipal'
-  ClientHeight = 376
+  VertScrollBar.Tracking = True
+  Caption = 'Pizza do Nono Delivery'
+  ClientHeight = 673
   ClientWidth = 1340
   FormStyle = fsMDIForm
   Position = poDefault
@@ -10,23 +11,22 @@
   WindowState = wsMaximized
   OnCreate = FormCreate
   ExplicitWidth = 1346
-  ExplicitHeight = 405
+  ExplicitHeight = 702
   PixelsPerInch = 96
   TextHeight = 15
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 1340
-    Height = 376
-    Align = alClient
+    Height = 85
+    Align = alTop
     BevelOuter = bvNone
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
-    ExplicitHeight = 389
     DesignSize = (
       1340
-      376)
+      85)
     object bntBairros: TSpeedButton
       Left = 531
       Top = 1

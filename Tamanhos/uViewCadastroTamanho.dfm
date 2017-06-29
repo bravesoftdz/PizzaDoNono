@@ -1,12 +1,16 @@
 inherited frmCadastroTamanho: TfrmCadastroTamanho
-  Caption = 'frmCadastroTamanho'
-  ClientHeight = 400
-  ExplicitHeight = 429
+  Width = 653
+  Height = 415
+  Caption = 'Pizza do Nono - Tamanhos'
+  ExplicitWidth = 653
+  ExplicitHeight = 415
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Width = 637
     Height = 288
-    ExplicitWidth = 631
+    ExplicitTop = 107
+    ExplicitWidth = 637
     ExplicitHeight = 288
     inherited labelTitulo: TLabel
       Width = 142
@@ -14,6 +18,7 @@ inherited frmCadastroTamanho: TfrmCadastroTamanho
       ExplicitWidth = 142
     end
     object edtIdCodigo: TLabeledEdit
+      Tag = 1
       Left = 15
       Top = 112
       Width = 137
@@ -66,7 +71,7 @@ inherited frmCadastroTamanho: TfrmCadastroTamanho
     object edtMaxSabores: TLabeledEdit
       Left = 15
       Top = 237
-      Width = 137
+      Width = 177
       Height = 24
       EditLabel.Width = 172
       EditLabel.Height = 15
@@ -89,6 +94,11 @@ inherited frmCadastroTamanho: TfrmCadastroTamanho
     end
   end
   inherited boxBotoes: TPanel
+    Width = 641
     ExplicitWidth = 641
+    inherited btnFechar: TSpeedButton
+      Left = 536
+      ExplicitLeft = 536
+    end
   end
 end

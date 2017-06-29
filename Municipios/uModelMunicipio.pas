@@ -97,7 +97,7 @@ end;
 function TModelMunicipio.Listar: Boolean;
 begin
   Result := False;
-  oQuery.Open('SELECT m.idMunicipio ID, m.Nome Nome, e.nome Estado FROM Municipio m ' +
+  oQuery.Open('SELECT m.idmunicipio, m.nome, e.nome estado FROM Municipio m ' +
     'LEFT JOIN Estado e ON m.estado_idestado = e.idestado ORDER BY m.estado_idestado, m.nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;

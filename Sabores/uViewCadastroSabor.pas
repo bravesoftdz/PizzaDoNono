@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.Buttons,
-  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.CheckLst, Vcl.Mask;
+  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.CheckLst, Vcl.Mask, Vcl.ComCtrls, Vcl.WinXCtrls;
 
 type
   TfrmCadastroSabor = class(TfrmCadastroBase)

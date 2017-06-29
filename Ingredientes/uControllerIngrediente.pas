@@ -33,6 +33,7 @@ type
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
     procedure AjustarListagem; override;
+    procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
   end;
 
 var
@@ -46,6 +47,13 @@ procedure TControllerIngrediente.AjustarListagem;
 begin
   if not(oRegraIngrediente.CountRegistros(oModelIngrediente)) then
     inherited;
+end;
+
+procedure TControllerIngrediente.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+begin
+  inherited;
+  if AStatusBtnSalvar then
+    TfrmCadastroIngrediente(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerIngrediente.Cancelar;
@@ -94,38 +102,34 @@ end;
 procedure TControllerIngrediente.Editar(Sender: TObject);
 begin
   inherited;
-  // resgatando dados da linha selecionada no DBGrid
   // resgatando IdIgrediente e setando no Edit
   TfrmCadastroIngrediente(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idingrediente').AsString;
 
   // resgatando Nome do ingrediente e setando no Edit
   TfrmCadastroIngrediente(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
 
   FecharFormListagem(oFormularioListagem);
 
   AjustarModoInsercao(true);
-  //
 end;
 
 procedure TControllerIngrediente.Excluir;
 begin
-  inherited;
-  // resgatando idingredient do DBGrid e setando no DTO
-  oDtoIngrediente.idIngrediente := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
-    FieldByName('ID').AsInteger;
+  // resgatando idingredient e setando no DTO
+  oDtoIngrediente.idIngrediente := StrToInt(TfrmCadastroIngrediente(oFormularioCadastro)
+    .edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraIngrediente.Excluir(oModelIngrediente, oDtoIngrediente) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
     end
     else
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
   end;
@@ -134,11 +138,13 @@ end;
 procedure TControllerIngrediente.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+  oControllerIngrediente := nil;
 end;
 
 procedure TControllerIngrediente.FecharFormListagem(ASender: TObject);
 begin
   inherited;
+  oControllerIngrediente := nil;
 end;
 
 procedure TControllerIngrediente.LimparDto(var ADtoIngrediente: TDtoIngrediente);
@@ -161,8 +167,6 @@ end;
 procedure TControllerIngrediente.Novo;
 begin
   inherited;
-
-  TfrmCadastroIngrediente(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerIngrediente.Salvar;
@@ -198,6 +202,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto(oDtoIngrediente);
+              inherited;
             end;
           end;
         end
@@ -213,6 +218,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto(oDtoIngrediente);
+              inherited;
             end;
           end;
         end;

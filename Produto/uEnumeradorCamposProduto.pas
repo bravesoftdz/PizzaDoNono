@@ -3,7 +3,7 @@ unit uEnumeradorCamposProduto;
 interface
 
 type
-  TCamposProduto = (resultNome, resultValor, resultOk);
+  TCamposProduto = (resultNome, resultValor, resultTemSabor, resultOk);
 
 implementation
 

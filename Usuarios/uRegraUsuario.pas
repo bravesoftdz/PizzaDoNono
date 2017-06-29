@@ -14,17 +14,23 @@ type
     function ValidarDados(var ADtoUsuario: TDtoUsuario): TCamposUsuario;
     function VerificarUsuario(const AModelUsuario: TModelUsuario;
       var ADtoUsuario: TDtoUsuario): Boolean;
-    function Inserir(const AModelUsuario: TModelUsuario;
-      const ADtoUsuario: TDtoUsuario): Boolean;
-    function Editar(const AModelUsuario: TModelUsuario;
-      const ADtoUsuario: TDtoUsuario): Boolean;
-    function Excluir(const AModelUsuario: TModelUsuario;
-      const ADtoUsuario: TDtoUsuario): Boolean;
+    function Inserir(const AModelUsuario: TModelUsuario; const ADtoUsuario: TDtoUsuario): Boolean;
+    function Editar(const AModelUsuario: TModelUsuario; const ADtoUsuario: TDtoUsuario): Boolean;
+    function Excluir(const AModelUsuario: TModelUsuario; const ADtoUsuario: TDtoUsuario): Boolean;
+    function CountRegistros(const AModel: TModelUsuario): Boolean;
   end;
 
 implementation
 
 { TRegraUsuario }
+
+function TRegraUsuario.CountRegistros(const AModel: TModelUsuario): Boolean;
+begin
+  Result := False;
+  if AModel.CountRegistros > 0 then
+    // se a quantidade de registros for maior que zero
+    Result := true; // true, pois existem registros
+end;
 
 function TRegraUsuario.Editar(const AModelUsuario: TModelUsuario;
   const ADtoUsuario: TDtoUsuario): Boolean;
@@ -50,8 +56,7 @@ begin
     Result := true;
 end;
 
-function TRegraUsuario.ValidarDados(var ADtoUsuario: TDtoUsuario)
-  : TCamposUsuario;
+function TRegraUsuario.ValidarDados(var ADtoUsuario: TDtoUsuario): TCamposUsuario;
 begin
   if ADtoUsuario.nome = EmptyStr then
   begin
@@ -79,8 +84,7 @@ begin
   end;
   if ADtoUsuario.Senha <> ADtoUsuario.ConfirmaSenha then
   begin
-    showMessage('As senhas informadas não são iguais. Por favor, ' +
-      'verifique e tente novamente');
+    showMessage('As senhas informadas não são iguais. Por favor, ' + 'verifique e tente novamente');
     Result := resultConfirmaSenha;
     exit;
   end;

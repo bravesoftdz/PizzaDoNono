@@ -17,7 +17,8 @@ type
     oRegraSabor: TRegraSabor;
     oModelSabor: TModelSabor;
     oDtoSabor: TDtoSabor;
-
+    procedure ListarIngredientes(var ACheckListBoxIngredientes: TCheckListBox);
+    procedure ListarTamanhos(var AcmbTamanho: TComboBox);
     procedure PreencherDTO;
     procedure LimparDto;
     procedure PreencherGrid(var DbGrid: TDBGrid);
@@ -31,11 +32,10 @@ type
     procedure Novo(ASender: TObject); override;
     procedure Editar(Sender: TObject); override;
     procedure Excluir; override;
-    procedure ListarIngredientes(var ACheckListBoxIngredientes: TCheckListBox);
-    procedure ListarTamanhos(var AcmbTamanho: TComboBox);
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
+    procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
     procedure AjustarListagem; override;
 
   end;
@@ -51,6 +51,13 @@ procedure TControllerSabor.AjustarListagem;
 begin
   if not(oRegraSabor.CountRegistros(oModelSabor)) then
     inherited;
+end;
+
+procedure TControllerSabor.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+begin
+  inherited;
+  if AStatusBtnSalvar then
+    TfrmCadastroSabor(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerSabor.Cancelar;
@@ -104,17 +111,22 @@ procedure TControllerSabor.Editar(Sender: TObject);
 begin
   inherited;
   // resgatando dados da linha selecionada no DBGrid
-  // resgatando IdTSabor e setando no Edit
+  // resgatando IdSabor e setando no Edit
   TfrmCadastroSabor(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idsabor').AsString;
 
   // resgatando Nome do Sabor e setando no Edit
   TfrmCadastroSabor(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
+
+  // resgatando tamanho do Sabor e setando no combobox
+  TfrmCadastroSabor(oFormularioCadastro).cmbTamanho.ItemIndex :=
+    TfrmCadastroSabor(oFormularioCadastro).cmbTamanho.Items.IndexOf
+    (oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('tamanho').AsString);
 
   // resgatando Valor do Sabor e setando no Edit
   TfrmCadastroSabor(oFormularioCadastro).edtValor.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Valor').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('valor').AsString;
 
   FecharFormListagem(oFormularioListagem);
 
@@ -124,21 +136,19 @@ end;
 
 procedure TControllerSabor.Excluir;
 begin
-  inherited;
-  // resgatando Sabor do DBGrid e setando no DTO
-  oDtoSabor.idSabor := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID')
-    .AsInteger;
+
+  // resgatando Sabor e setando no DTO
+  oDtoSabor.idSabor := StrToInt(TfrmCadastroSabor(oFormularioCadastro).edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraSabor.Excluir(oModelSabor, oDtoSabor) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
     end
     else
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
   end;
@@ -147,6 +157,7 @@ end;
 procedure TControllerSabor.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+  oControllerSabor := nil;
 end;
 
 procedure TControllerSabor.FecharFormListagem(ASender: TObject);
@@ -178,7 +189,8 @@ begin
     if oModelIngrediente.ListarIngredientes(oListaIngrediente) then
     begin
       for oDtoIngrediente in oListaIngrediente.Values do
-        ACheckListBoxIngredientes.Items.AddObject(oDtoIngrediente.Nome, TObject(oDtoIngrediente.idIngrediente));
+        ACheckListBoxIngredientes.Items.AddObject(oDtoIngrediente.Nome,
+          TObject(oDtoIngrediente.idIngrediente));
     end;
   finally
     if Assigned(oModelIngrediente) then
@@ -230,8 +242,6 @@ end;
 procedure TControllerSabor.Novo;
 begin
   inherited;
-
-  TfrmCadastroSabor(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerSabor.Salvar;
@@ -281,6 +291,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto;
+              inherited;
             end;
           end
           else
@@ -293,6 +304,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto;
+              inherited;
             end;
           end;
         end;
@@ -332,8 +344,9 @@ begin
           oDtoIngrediente := TDtoIngrediente.Create;
           oDtoIngrediente.Nome := TfrmCadastroSabor(oFormularioCadastro)
             .CheckListBoxIngredientes.Items.Strings[i];
-          oDtoIngrediente.IdIngrediente :=
-            integer(TfrmCadastroSabor(oFormularioCadastro).CheckListBoxIngredientes.Items.Objects[i]);
+          oDtoIngrediente.idIngrediente :=
+            integer(TfrmCadastroSabor(oFormularioCadastro)
+            .CheckListBoxIngredientes.Items.Objects[i]);
           oListaIngrediente.Add(oDtoIngrediente.Nome, oDtoIngrediente);
         end;
       end;

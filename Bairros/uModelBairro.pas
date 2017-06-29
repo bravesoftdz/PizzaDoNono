@@ -101,7 +101,7 @@ function TModelBairro.Listar: Boolean;
 begin
   Result := False;
 
-  oQuery.Open('SELECT b.idBairro ID, b.Nome Nome, m.Nome Município FROM Bairro b ' +
+  oQuery.Open('SELECT b.idBairro, b.Nome, m.Nome Municipio FROM Bairro b ' +
     'LEFT JOIN municipio m ON b.municipio_idmunicipio = m.idmunicipio ORDER BY b.municipio_idmunicipio, b.nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;

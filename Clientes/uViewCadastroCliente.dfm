@@ -1,31 +1,39 @@
 inherited frmCadastroCliente: TfrmCadastroCliente
+  ActiveControl = edtNome
   Caption = 'Pizza do Nono - Clientes'
-  ClientHeight = 634
-  ClientWidth = 930
-  ExplicitTop = -3
-  ExplicitWidth = 936
-  ExplicitHeight = 663
+  ClientHeight = 580
+  ClientWidth = 647
+  Position = poDesktopCenter
+  ExplicitTop = -28
+  ExplicitWidth = 653
+  ExplicitHeight = 609
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Width = 913
-    Height = 521
-    ExplicitWidth = 913
-    ExplicitHeight = 521
+    Top = 95
+    Width = 637
+    Height = 480
+    ExplicitTop = 156
+    ExplicitHeight = 480
     inherited labelTitulo: TLabel
-      Top = 16
+      Left = 26
+      Top = 4
       Width = 125
       Caption = 'Clientes'
-      ExplicitTop = 16
+      ExplicitLeft = 26
+      ExplicitTop = 4
       ExplicitWidth = 125
     end
     inherited panelSeparador: TPanel
-      Top = 67
-      ExplicitTop = 67
+      Left = 26
+      Top = 55
+      ExplicitLeft = 26
+      ExplicitTop = 55
     end
     object edtIdCodigo: TLabeledEdit
-      Left = 16
-      Top = 97
+      Tag = 1
+      Left = 26
+      Top = 85
       Width = 137
       Height = 24
       TabStop = False
@@ -51,15 +59,15 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       TabOrder = 1
     end
     object GroupBoxDadosPessoais: TGroupBox
-      Left = 15
-      Top = 143
-      Width = 433
-      Height = 362
+      Left = 26
+      Top = 115
+      Width = 578
+      Height = 138
       Caption = 'Dados Pessoais'
       TabOrder = 2
       object labelTelefone: TLabel
-        Left = 14
-        Top = 83
+        Left = 16
+        Top = 80
         Width = 51
         Height = 15
         Caption = 'Telefone:'
@@ -71,8 +79,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelCelular: TLabel
-        Left = 14
-        Top = 139
+        Left = 122
+        Top = 80
         Width = 42
         Height = 15
         Caption = 'Celular:'
@@ -84,8 +92,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelDataNascimento: TLabel
-        Left = 16
-        Top = 251
+        Left = 445
+        Top = 80
         Width = 114
         Height = 15
         Caption = 'Data de Nascimento:'
@@ -97,8 +105,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelCpfCnpj: TLabel
-        Left = 16
-        Top = 194
+        Left = 228
+        Top = 80
         Width = 56
         Height = 15
         Caption = 'CPF/CNPJ:'
@@ -112,7 +120,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtNome: TLabeledEdit
         Left = 16
         Top = 48
-        Width = 376
+        Width = 543
         Height = 24
         EditLabel.Width = 38
         EditLabel.Height = 15
@@ -134,8 +142,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object edtTelefone: TMaskEdit
         Left = 16
-        Top = 104
-        Width = 362
+        Top = 101
+        Width = 114
         Height = 23
         EditMask = '(99)9999-9999;1;_'
         MaxLength = 13
@@ -143,9 +151,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Text = '(  )    -    '
       end
       object edtCelular: TMaskEdit
-        Left = 16
-        Top = 160
-        Width = 364
+        Left = 136
+        Top = 101
+        Width = 114
         Height = 23
         EditMask = '(99)99999-9999;1;_'
         MaxLength = 14
@@ -153,9 +161,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Text = '(  )     -    '
       end
       object edtCpfCnpj: TMaskEdit
-        Left = 16
-        Top = 215
-        Width = 363
+        Left = 256
+        Top = 101
+        Width = 186
         Height = 23
         Hint = 
           'Informe somente os n'#250'meros CPF ou CNPJ. N'#227'o digite pontos, tra'#231'o' +
@@ -168,9 +176,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Text = ''
       end
       object edtDataNascimento: TMaskEdit
-        Left = 16
-        Top = 272
-        Width = 372
+        Left = 448
+        Top = 101
+        Width = 111
         Height = 23
         EditMask = '99/99/9999;1;_'
         MaxLength = 10
@@ -179,15 +187,15 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
     end
     object GroupBoxEndereco: TGroupBox
-      Left = 454
-      Top = 143
-      Width = 433
-      Height = 362
+      Left = 27
+      Top = 259
+      Width = 577
+      Height = 194
       Caption = 'Endere'#231'o Principal'
       TabOrder = 3
       object labelMunicipio: TLabel
-        Left = 13
-        Top = 252
+        Left = 15
+        Top = 132
         Width = 57
         Height = 15
         Caption = 'Munic'#237'pio:'
@@ -200,8 +208,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelEstado: TLabel
-        Left = 13
-        Top = 194
+        Left = 289
+        Top = 76
         Width = 40
         Height = 15
         Caption = 'Estado:'
@@ -214,8 +222,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelBairro: TLabel
-        Left = 13
-        Top = 307
+        Left = 291
+        Top = 132
         Width = 37
         Height = 15
         Caption = 'Bairro:'
@@ -228,9 +236,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object edtRua: TLabeledEdit
-        Left = 13
-        Top = 48
-        Width = 404
+        Left = 15
+        Top = 44
+        Width = 469
         Height = 24
         EditLabel.Width = 24
         EditLabel.Height = 15
@@ -253,9 +261,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         TabOrder = 0
       end
       object edtNumero: TLabeledEdit
-        Left = 13
-        Top = 104
-        Width = 404
+        Left = 490
+        Top = 44
+        Width = 68
         Height = 24
         EditLabel.Width = 50
         EditLabel.Height = 15
@@ -278,9 +286,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         TabOrder = 1
       end
       object edtComplemento: TLabeledEdit
-        Left = 13
-        Top = 160
-        Width = 404
+        Left = 15
+        Top = 96
+        Width = 268
         Height = 24
         EditLabel.Width = 83
         EditLabel.Height = 15
@@ -296,6 +304,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Font.Height = -13
         Font.Name = 'Tahoma'
         Font.Style = []
+        LabelSpacing = 5
         MaxLength = 255
         ParentFont = False
         ParentShowHint = False
@@ -303,33 +312,36 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         TabOrder = 2
       end
       object cmbEstado: TComboBox
-        Left = 13
-        Top = 215
-        Width = 404
+        Left = 290
+        Top = 97
+        Width = 268
         Height = 23
         AutoDropDown = True
+        AutoCloseUp = True
         Ctl3D = True
         ParentCtl3D = False
         Sorted = True
         TabOrder = 3
       end
       object cmbMunicipio: TComboBox
-        Left = 13
-        Top = 273
-        Width = 404
+        Left = 15
+        Top = 153
+        Width = 268
         Height = 23
         AutoDropDown = True
+        AutoCloseUp = True
         Ctl3D = True
         ParentCtl3D = False
         Sorted = True
         TabOrder = 4
       end
       object cmbBairro: TComboBox
-        Left = 13
-        Top = 325
-        Width = 404
+        Left = 290
+        Top = 153
+        Width = 268
         Height = 23
         AutoDropDown = True
+        AutoCloseUp = True
         Ctl3D = True
         ParentCtl3D = False
         Sorted = True
@@ -338,10 +350,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     end
   end
   inherited boxBotoes: TPanel
-    Width = 924
-    ExplicitWidth = 924
+    Width = 641
     inherited btnFechar: TSpeedButton
-      Left = 819
+      Left = 533
       ExplicitLeft = 819
     end
   end

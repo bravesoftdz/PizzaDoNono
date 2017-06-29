@@ -32,6 +32,8 @@ type
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
+    procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
+    procedure AjustarListagem; override;
   end;
 
 var
@@ -40,6 +42,20 @@ var
 implementation
 
 { TControllerUsuario }
+
+procedure TControllerUsuario.AjustarListagem;
+begin
+  inherited;
+  if not(oRegraUsuario.CountRegistros(oModelUsuario)) then
+    inherited;
+end;
+
+procedure TControllerUsuario.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+begin
+  inherited;
+  if AStatusBtnSalvar then
+    TfrmUsuario(oFormularioCadastro).edtNome.SetFocus;
+end;
 
 procedure TControllerUsuario.Cancelar;
 begin
@@ -85,39 +101,34 @@ end;
 
 procedure TControllerUsuario.Editar(Sender: TObject);
 begin
- inherited;
-  // resgatando dados da linha selecionada no DBGrid
+  inherited;
   // resgatando IdUsuario e setando no Edit
   TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idusuario').AsString;
 
   // resgatando Nome do ingrediente e setando no Edit
-  TfrmUsuario(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+  TfrmUsuario(oFormularioCadastro).edtNome.Text := oFormularioListagem.dbGridListagem.SelectedField.
+    DataSet.FieldByName('nome').AsString;
 
   FecharFormListagem(oFormularioListagem);
-
   AjustarModoInsercao(true);
-  //
 end;
 
 procedure TControllerUsuario.Excluir;
 begin
-  inherited;
- // resgatando idingredient do DBGrid e setando no DTO
-  oDtoUsuario.idUsuario := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
-    FieldByName('ID').AsInteger;
+
+  // resgatando idusuario e setando no DTO
+  oDtoUsuario.idUsuario := StrToInt(TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraUsuario.Excluir(oModelUsuario, oDtoUsuario) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
     end
     else
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
   end;
@@ -126,6 +137,7 @@ end;
 procedure TControllerUsuario.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+  oControllerUsuario := nil;
 end;
 
 procedure TControllerUsuario.FecharFormListagem(ASender: TObject);
@@ -135,7 +147,7 @@ end;
 
 procedure TControllerUsuario.LimparDto(var ADtoUsuario: TDtoUsuario);
 begin
-  ADtoUsuario.IdUsuario := 0;
+  ADtoUsuario.idUsuario := 0;
   ADtoUsuario.Nome := EmptyStr;
   ADtoUsuario.Senha := EmptyStr;
   ADtoUsuario.ConfirmaSenha := EmptyStr;
@@ -144,8 +156,7 @@ end;
 procedure TControllerUsuario.Localizar;
 begin
   if not(Assigned(TfrmListagemUsuario(oFormularioListagem))) then
-    TfrmListagemUsuario(oFormularioListagem) :=
-      TfrmListagemUsuario.Create(aOwner);
+    TfrmListagemUsuario(oFormularioListagem) := TfrmListagemUsuario.Create(aOwner);
 
   TfrmListagemUsuario(oFormularioListagem).iInterfaceCrud := oControllerUsuario;
 
@@ -156,8 +167,6 @@ end;
 procedure TControllerUsuario.Novo;
 begin
   inherited;
-
-  TfrmUsuario(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerUsuario.Salvar;
@@ -181,21 +190,21 @@ begin
           AjustarModoInsercao(False);
           LimparFormulario;
           LimparDto(oDtoUsuario);
+          inherited;
         end;
       end;
   end;
+
 end;
 
 procedure TControllerUsuario.PreencherDTO;
 begin
 
-if TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text <> '' then
-     oDtoUsuario.IdUsuario := StrToInt(TfrmUsuario(oFormularioCadastro)
-    .edtIdCodigo.Text);
-        oDtoUsuario.Nome := Trim(TfrmUsuario(oFormularioCadastro).edtNome.Text);
+  if TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text <> '' then
+    oDtoUsuario.idUsuario := StrToInt(TfrmUsuario(oFormularioCadastro).edtIdCodigo.Text);
+  oDtoUsuario.Nome := Trim(TfrmUsuario(oFormularioCadastro).edtNome.Text);
   oDtoUsuario.Senha := Trim(TfrmUsuario(oFormularioCadastro).edtSenha.Text);
-  oDtoUsuario.ConfirmaSenha :=
-    Trim(TfrmUsuario(oFormularioCadastro).edtConfirmaSenha.Text);
+  oDtoUsuario.ConfirmaSenha := Trim(TfrmUsuario(oFormularioCadastro).edtConfirmaSenha.Text);
 end;
 
 procedure TControllerUsuario.PreencherGrid(var DbGrid: TDBGrid);
@@ -204,8 +213,7 @@ begin
   if oModelUsuario.Listar then
   begin
     oDataSource.DataSet := oModelUsuario.oQuery;
-    TfrmListagemUsuario(oFormularioListagem).dbGridListagem.DataSource :=
-      oDataSource;
+    TfrmListagemUsuario(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
 end;
 

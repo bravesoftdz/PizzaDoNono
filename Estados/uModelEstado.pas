@@ -94,7 +94,7 @@ end;
 function TModelEstado.Listar: Boolean;
 begin
   Result := False;
-  oQuery.Open('SELECT idestado ID, Nome, UF FROM estado ORDER BY idestado ASC');
+  oQuery.Open('SELECT idestado, uf, nome FROM estado ORDER BY idestado ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;

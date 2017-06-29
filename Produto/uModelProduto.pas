@@ -88,7 +88,7 @@ function TModelProduto.Listar: Boolean;
 begin
   Result := False;
 
-  oQuery.Open('SELECT idProduto ID, Nome, Valor FROM produto ORDER BY idProduto ASC');
+  oQuery.Open('SELECT idproduto, nome, valor, temSabor FROM produto ORDER BY idProduto ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;

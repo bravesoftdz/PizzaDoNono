@@ -32,6 +32,7 @@ type
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
     procedure AjustarListagem; override;
+    procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
   end;
 
 var
@@ -45,6 +46,13 @@ procedure TControllerEstado.AjustarListagem;
 begin
   if not(oRegraEstado.CountRegistros(oModelEstado)) then
     inherited;
+end;
+
+procedure TControllerEstado.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+begin
+  inherited;
+  if AStatusBtnSalvar = True then
+    TfrmCadastroEstado(oFormularioCadastro).edtUF.SetFocus;
 end;
 
 procedure TControllerEstado.Cancelar;
@@ -94,46 +102,42 @@ begin
   // resgatando dados da linha selecionada no DBGrid
   // resgatando IdEstado e setando no Edit
   TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idestado').AsString;
 
   // resgatando Nome do estado e setando no Edit
   TfrmCadastroEstado(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
 
   // resgatando UF do estado e setando no Edit
   TfrmCadastroEstado(oFormularioCadastro).edtUF.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('UF').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('uf').AsString;
 
   FecharFormListagem(oFormularioListagem);
 
-  AjustarModoInsercao(true);
+  AjustarModoInsercao(True);
 end;
 
 procedure TControllerEstado.Excluir;
 begin
-  inherited;
-  // resgatando idingredient do DBGrid e setando no DTO
-  oDtoEstado.idestado := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID')
-    .AsInteger;
+  // resgatando idingredient e setando no DTO
+  oDtoEstado.idestado := StrToInt(TfrmCadastroEstado(oFormularioCadastro).edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraEstado.Excluir(oModelEstado, oDtoEstado) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
     end
     else
-    begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
-    end;
   end;
 end;
 
 procedure TControllerEstado.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+  oControllerEstado := nil;
 end;
 
 procedure TControllerEstado.FecharFormListagem(ASender: TObject);
@@ -144,8 +148,9 @@ end;
 procedure TControllerEstado.LimparDto(var ADtoEstado: TDtoEstado);
 begin
   ADtoEstado.idestado := 0;
-  ADtoEstado.Nome := EmptyStr;
   ADtoEstado.UF := EmptyStr;
+  ADtoEstado.Nome := EmptyStr;
+
 end;
 
 procedure TControllerEstado.Localizar;
@@ -161,8 +166,8 @@ end;
 
 procedure TControllerEstado.Novo;
 begin
+  LimparDto(oDtoEstado);
   inherited;
-  TfrmCadastroEstado(oFormularioCadastro).edtUF.SetFocus;
 end;
 
 procedure TControllerEstado.Salvar;

@@ -1,12 +1,13 @@
 inherited frmCadastroIngrediente: TfrmCadastroIngrediente
   Caption = 'Pizza do Nono - Ingredientes'
-  ClientHeight = 340
-  ExplicitHeight = 369
+  ClientHeight = 328
+  ExplicitHeight = 357
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Top = 98
     Height = 225
-    ExplicitWidth = 631
+    ExplicitTop = 411
     ExplicitHeight = 225
     inherited labelTitulo: TLabel
       Width = 195
@@ -40,6 +41,7 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       TabOrder = 1
     end
     object edtIdCodigo: TLabeledEdit
+      Tag = 1
       Left = 15
       Top = 112
       Width = 137
@@ -65,6 +67,12 @@ inherited frmCadastroIngrediente: TfrmCadastroIngrediente
       ParentFont = False
       ReadOnly = True
       TabOrder = 0
+    end
+  end
+  inherited boxBotoes: TPanel
+    inherited btnFechar: TSpeedButton
+      Left = 536
+      ExplicitLeft = 536
     end
   end
 end

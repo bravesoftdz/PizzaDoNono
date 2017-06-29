@@ -87,7 +87,10 @@ uses
   uModelProduto in 'Produto\uModelProduto.pas',
   uRegraProduto in 'Produto\uRegraProduto.pas',
   uViewCadastroProduto in 'Produto\uViewCadastroProduto.pas' {frmCadastroProduto},
-  uViewListagemProduto in 'Produto\uViewListagemProduto.pas' {frmListagemProduto};
+  uViewListagemProduto in 'Produto\uViewListagemProduto.pas' {frmListagemProduto},
+  Vcl.Themes,
+  Vcl.Styles,
+  uListaSabor in 'Sabores\uListaSabor.pas';
 
 {$R *.res}
 

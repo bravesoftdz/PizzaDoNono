@@ -16,7 +16,7 @@ type
     function Editar(const oDtoUsuario: TDtoUsuario): Boolean;
     function VerificarUsuarioCadastrado(var ADtoUsuario: TDtoUsuario): Boolean;
     function Excluir(const ADtoUsuario: TDtoUsuario): Boolean;
-
+    function CountRegistros: integer;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -25,10 +25,23 @@ implementation
 
 { TModelUsuario }
 
+function TModelUsuario.CountRegistros: integer;
+var
+  newQuery: TFDQuery;
+begin
+  newQuery := TFDQuery.Create(nil);
+  try
+    newQuery.Connection := oQuery.Connection;
+    newQuery.Open('SELECT COUNT(idtamanho) quantidade FROM tamanho');
+    Result := newQuery.FieldByName('quantidade').AsInteger;
+  finally
+    FreeAndNil(newQuery);
+  end;
+end;
 
 constructor TModelUsuario.Create;
 begin
-   oQuery := TFDQuery.Create(nil);
+  oQuery := TFDQuery.Create(nil);
   oQuery.Connection := TDBConnectionSingleton.GetInstancia;
 end;
 
@@ -41,9 +54,9 @@ end;
 
 function TModelUsuario.Editar(const oDtoUsuario: TDtoUsuario): Boolean;
 begin
- Result := False;
-  oQuery.ExecSQL('UPDATE usuario SET nome = ' + QuotedStr(oDtoUsuario.Nome) +
-    ' WHERE idusuario = ' + IntToStr(oDtoUsuario.IdUsuario));
+  Result := False;
+  oQuery.ExecSQL('UPDATE usuario SET nome = ' + QuotedStr(oDtoUsuario.Nome) + ' WHERE idusuario = '
+    + IntToStr(oDtoUsuario.IdUsuario));
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -51,8 +64,7 @@ end;
 function TModelUsuario.Excluir(const ADtoUsuario: TDtoUsuario): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('DELETE FROM usuario WHERE idusuario = ' +
-    IntToStr(ADtoUsuario.IdUsuario));
+  oQuery.ExecSQL('DELETE FROM usuario WHERE idusuario = ' + IntToStr(ADtoUsuario.IdUsuario));
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -60,24 +72,22 @@ end;
 function TModelUsuario.Inserir(const oDtoUsuario: TDtoUsuario): Boolean;
 begin
   Result := False;
-  oQuery.ExecSQL('INSERT INTO usuario(nome, senha) VALUES(' +
-    QuotedStr(oDtoUsuario.Nome) + ', ' + QuotedStr(oDtoUsuario.Senha) + ');');
+  oQuery.ExecSQL('INSERT INTO usuario(nome, senha) VALUES(' + QuotedStr(oDtoUsuario.Nome) + ', ' +
+    QuotedStr(oDtoUsuario.Senha) + ');');
   Result := True;
 end;
 
 function TModelUsuario.Listar: Boolean;
 begin
   Result := False;
-  oQuery.Open
-    ('SELECT idusuario ID, Nome FROM usuario ORDER BY idusuario ASC');
+  oQuery.Open('SELECT idusuario, nome FROM usuario ORDER BY nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;
 
-function TModelUsuario.VerificarUsuarioCadastrado(
-  var ADtoUsuario: TDtoUsuario): Boolean;
+function TModelUsuario.VerificarUsuarioCadastrado(var ADtoUsuario: TDtoUsuario): Boolean;
 begin
-Result := False;
+  Result := False;
 
   // testa se nao recebe id
   if ADtoUsuario.IdUsuario = 0 then
@@ -92,16 +102,13 @@ Result := False;
   end
   else if ADtoUsuario.IdUsuario <> 0 then
   begin
-    oQuery.Open('SELECT nome FROM Usuario ' + QuotedStr(ADtoUsuario.Nome) +
-      ' AND idusuario <> ' + IntToStr(ADtoUsuario.IdUsuario));
+    oQuery.Open('SELECT nome FROM Usuario ' + QuotedStr(ADtoUsuario.Nome) + ' AND idusuario <> ' +
+      IntToStr(ADtoUsuario.IdUsuario));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Usuario cadastrado com este nome
       Result := True;
   end;
-
-
-
 
 end;
 

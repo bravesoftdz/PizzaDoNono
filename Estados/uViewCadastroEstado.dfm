@@ -1,23 +1,33 @@
 inherited frmCadastroEstado: TfrmCadastroEstado
-  Caption = 'frmCadastroEstado'
-  ClientHeight = 387
-  ExplicitHeight = 416
+  Width = 653
+  Height = 338
+  Caption = 'Pizza do Nono - Estados'
+  ExplicitWidth = 653
+  ExplicitHeight = 338
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Top = 95
-    Height = 282
-    ExplicitTop = 95
-    ExplicitWidth = 631
-    ExplicitHeight = 282
+    Top = 98
+    Width = 637
+    Height = 206
+    ExplicitTop = 98
+    ExplicitHeight = 206
     inherited labelTitulo: TLabel
+      Top = 16
       Width = 119
       Caption = 'Estados'
+      ExplicitTop = 16
       ExplicitWidth = 119
     end
+    inherited panelSeparador: TPanel
+      Top = 67
+      TabOrder = 2
+      ExplicitTop = 67
+    end
     object edtIdCodigo: TLabeledEdit
+      Tag = 1
       Left = 16
-      Top = 112
+      Top = 104
       Width = 137
       Height = 24
       TabStop = False
@@ -40,11 +50,11 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       NumbersOnly = True
       ParentFont = False
       ReadOnly = True
-      TabOrder = 1
+      TabOrder = 3
     end
     object edtUF: TLabeledEdit
       Left = 16
-      Top = 176
+      Top = 160
       Width = 49
       Height = 24
       CharCase = ecUpperCase
@@ -64,12 +74,12 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       Font.Style = []
       MaxLength = 2
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 0
     end
     object edtNome: TLabeledEdit
-      Left = 16
-      Top = 232
-      Width = 410
+      Left = 71
+      Top = 160
+      Width = 354
       Height = 24
       EditLabel.Width = 38
       EditLabel.Height = 15
@@ -87,13 +97,13 @@ inherited frmCadastroEstado: TfrmCadastroEstado
       Font.Style = []
       MaxLength = 45
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 1
     end
   end
   inherited boxBotoes: TPanel
-    ExplicitWidth = 641
+    Width = 641
     inherited btnFechar: TSpeedButton
-      Left = 534
+      Left = 531
       ExplicitLeft = 534
     end
   end

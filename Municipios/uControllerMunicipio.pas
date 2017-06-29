@@ -33,6 +33,8 @@ type
     procedure FecharFormListagem(ASender: TObject); override;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
     procedure AjustarListagem; override;
+  protected
+    procedure OnActivateForm(Sender: TObject); override;
   end;
 
 var
@@ -69,6 +71,7 @@ begin
   oFormularioCadastro.iInterfaceCrud := oControllerMunicipio;
 
   ListarEstados(TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado);
+  oFormularioCadastro.OnActivate := OnActivateForm;
   inherited;
 end;
 
@@ -100,16 +103,16 @@ begin
   // resgatando dados da linha selecionada no DBGrid
   // resgatando idmunicipio e setando no Edit
   TfrmCadastroMunicipio(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idmunicipio').AsString;
 
   // resgatando Nome do municipio e setando no Edit
   TfrmCadastroMunicipio(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
 
   // resgatando nome do estado
   nomeEstado := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('Estado').AsString;
-
+    ('estado').AsString;
+  //setando estado no combobox
   TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.ItemIndex :=
     TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado.Items.IndexOf(nomeEstado);
 
@@ -120,22 +123,20 @@ end;
 
 procedure TControllerMunicipio.Excluir;
 begin
-  inherited;
-  // resgatando idmunicipio do DBGrid e setando no DTO
-  oDtoMunicipio.IdMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('ID').AsInteger;
+
+  // resgatando idmunicipio e setando no DTO
+  oDtoMunicipio.IdMunicipio := StrToInt(TfrmCadastroMunicipio(oFormularioCadastro)
+    .edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraMunicipio.Excluir(oModelMunicipio, oDtoMunicipio) then
     begin
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
-      PreencherGrid(oFormularioListagem.dbGridListagem);
-
     end
     else
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
   end
@@ -144,6 +145,7 @@ end;
 procedure TControllerMunicipio.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+  oControllerMunicipio := nil;
 end;
 
 procedure TControllerMunicipio.FecharFormListagem(ASender: TObject);
@@ -155,6 +157,8 @@ procedure TControllerMunicipio.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
 begin
   inherited;
   TfrmCadastroMunicipio(oFormularioCadastro).labelEstado.Enabled := AStatusBtnSalvar;
+  if AStatusBtnSalvar then
+    TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerMunicipio.LimparDto(var ADtoMunicipio: TDtoMunicipio);
@@ -179,7 +183,14 @@ end;
 procedure TControllerMunicipio.Novo;
 begin
   inherited;
-  TfrmCadastroMunicipio(oFormularioCadastro).edtNome.SetFocus;
+end;
+
+
+
+procedure TControllerMunicipio.OnActivateForm(Sender: TObject);
+begin
+  inherited;
+  ListarEstados(TfrmCadastroMunicipio(oFormularioCadastro).cmbEstado);
 end;
 
 procedure TControllerMunicipio.Salvar;
@@ -218,6 +229,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto(oDtoMunicipio);
+              inherited;
             end;
           end;
         end
@@ -240,11 +252,13 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto(oDtoMunicipio);
+              inherited;
             end;
           end;
         end;
       end;
   end;
+
 end;
 
 procedure TControllerMunicipio.PreencherDTO;

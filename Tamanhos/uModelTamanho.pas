@@ -26,7 +26,7 @@ type
 
 implementation
 
-{ TEstadoModel }
+{ TModelTamanho }
 
 function TModelTamanho.CountRegistros: integer;
 var
@@ -88,7 +88,7 @@ function TModelTamanho.Listar: Boolean;
 begin
   Result := False;
 
-  oQuery.Open('SELECT idTamanho ID, Nome, MaxSabores FROM tamanho ORDER BY idTamanho ASC');
+  oQuery.Open('SELECT idtamanho, nome, maxsabores FROM tamanho ORDER BY nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;

@@ -36,6 +36,8 @@ type
     procedure FecharFormListagem(ASender: TOBject); override;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
     procedure AjustarListagem; override;
+  protected
+    procedure OnActivateForm(Sender: TOBject); override;
   end;
 
 var
@@ -76,6 +78,8 @@ begin
   TfrmCadastroCliente(oFormularioCadastro).cmbEstado.OnChange := AtualizarComboBoxMunicipio;
 
   TfrmCadastroCliente(oFormularioCadastro).cmbMunicipio.OnChange := AtualizarComboBoxBairro;
+
+  TfrmCadastroCliente(oFormularioCadastro).OnActivate := OnActivateForm;
   inherited;
 end;
 
@@ -97,30 +101,29 @@ begin
   inherited;
   // resgatando dados da linha selecionada no DBGrid
   oDtoCliente.idCliente := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('ID').AsInteger;
+    ('idcliente').AsInteger;
   // resgatando IdCliente e setando no Edit
   TfrmCadastroCliente(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idcliente').AsString;
 
   // resgatando Nome do Cliente e setando no Edit
   TfrmCadastroCliente(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
 
   // resgatando celular do Cliente e setando no Edit
   TfrmCadastroCliente(oFormularioCadastro).edtCelular.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Celular').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('celular').AsString;
 
   // resgatando Telefone do Cliente e setando no Edit
   TfrmCadastroCliente(oFormularioCadastro).edtTelefone.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Telefone').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('telefone').AsString;
 
   // resgatando Data de Nascimento do Cliente e setando no Edit
   TfrmCadastroCliente(oFormularioCadastro).edtDataNascimento.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('Data de Nascimento').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('datanascimento').AsString;
 
   oDtoCliente.CpfCnpj := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('CPF/CNPJ').AsString;
+    ('cpfcnpj').AsString;
   if oDtoCliente.CpfCnpj <> EmptyStr then
   begin
     if oRegraCliente.VerificarTipoPessoa(oModelCliente, oDtoCliente) then
@@ -175,21 +178,19 @@ end;
 
 procedure TControllerCliente.Excluir;
 begin
-  inherited;
-  // resgatando idCliente do DBGrid e setando no DTO
-  oDtoCliente.idCliente := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('ID').AsInteger;
+
+  // resgatando idCliente e setando no DTO
+  oDtoCliente.idCliente := StrToInt(TfrmCadastroCliente(oFormularioCadastro).edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraCliente.Excluir(oModelCliente, oDtoCliente) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
     end
     else
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
   end
@@ -199,6 +200,7 @@ end;
 procedure TControllerCliente.FecharFormCadastro(ASender: TOBject);
 begin
   inherited;
+  oControllerCliente := nil;
 end;
 
 procedure TControllerCliente.FecharFormListagem(ASender: TOBject);
@@ -338,7 +340,19 @@ end;
 
 procedure TControllerCliente.Novo(ASender: TOBject);
 begin
+  LimparDto;
+
   inherited;
+end;
+
+procedure TControllerCliente.OnActivateForm(Sender: TOBject);
+begin
+  inherited;
+  ListarEstados(TfrmCadastroCliente(oFormularioCadastro).cmbEstado);
+  AtualizarComboBoxMunicipio(nil);
+  AtualizarComboBoxBairro(nil);
+  if oFormularioCadastro.btnSalvar.Tag = 1 then
+    TfrmCadastroCliente(oFormularioCadastro).cmbEstado.SetFocus
 end;
 
 procedure TControllerCliente.Salvar(ASender: TOBject);
@@ -429,6 +443,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto;
+              inherited;
             end;
           end
           else
@@ -442,11 +457,13 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto;
+              inherited;
             end;
           end;
         end;
       end; // end resultOK
   end; // end case
+
 end;
 
 procedure TControllerCliente.PreencherDTO;

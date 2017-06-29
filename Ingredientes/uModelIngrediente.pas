@@ -86,7 +86,7 @@ function TModelIngrediente.Listar: Boolean;
 begin
   Result := False;
 
-  oQuery.Open('SELECT idIngrediente ID, Nome FROM ingrediente ORDER BY idIngrediente ASC');
+  oQuery.Open('SELECT idingrediente, nome FROM ingrediente ORDER BY nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;

@@ -33,6 +33,7 @@ type
     procedure FecharFormCadastro(ASender: TObject); override;
     procedure FecharFormListagem(ASender: TObject); override;
     procedure AjustarListagem; override;
+    procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
   end;
 
 var
@@ -46,6 +47,13 @@ procedure TControllerTamanho.AjustarListagem;
 begin
   if not(oRegraTamanho.CountRegistros(oModelTamanho)) then
     inherited;
+end;
+
+procedure TControllerTamanho.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+begin
+  inherited;
+  if AStatusBtnSalvar then
+    TfrmCadastroTamanho(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerTamanho.Cancelar;
@@ -97,15 +105,15 @@ begin
   // resgatando dados da linha selecionada no DBGrid
   // resgatando IdTamanho e setando no Edit
   TfrmCadastroTamanho(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idtamanho').AsString;
 
   // resgatando Nome do tamanho e setando no Edit
   TfrmCadastroTamanho(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
 
-    // resgatando o maximo de sabores e setando no Edit
+  // resgatando o maximo de sabores e setando no Edit
   TfrmCadastroTamanho(oFormularioCadastro).edtMaxSabores.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('MaxSabores').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('maxsabores').AsString;
 
   FecharFormListagem(oFormularioListagem);
 
@@ -115,21 +123,19 @@ end;
 
 procedure TControllerTamanho.Excluir;
 begin
-  inherited;
-  // resgatando idingredient do DBGrid e setando no DTO
-  oDtoTamanho.idTamanho := oFormularioListagem.dbGridListagem.SelectedField.DataSet.
-    FieldByName('ID').AsInteger;
+
+  // resgatando idtamanho e setando no DTO
+  oDtoTamanho.idTamanho := StrToInt(TfrmCadastroTamanho(oFormularioCadastro).edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraTamanho.Excluir(oModelTamanho, oDtoTamanho) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
     end
     else
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
   end;
@@ -138,6 +144,7 @@ end;
 procedure TControllerTamanho.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+  oControllerTamanho := nil;
 end;
 
 procedure TControllerTamanho.FecharFormListagem(ASender: TObject);
@@ -147,9 +154,9 @@ end;
 
 procedure TControllerTamanho.LimparDto();
 begin
-  ODtoTamanho.idTamanho := 0;
-  ODtoTamanho.MaxSabores := 0;
-  ODtoTamanho.Nome := EmptyStr;
+  oDtoTamanho.idTamanho := 0;
+  oDtoTamanho.MaxSabores := 0;
+  oDtoTamanho.Nome := EmptyStr;
 end;
 
 procedure TControllerTamanho.Localizar;
@@ -166,8 +173,6 @@ end;
 procedure TControllerTamanho.Novo;
 begin
   inherited;
-
-  TfrmCadastroTamanho(oFormularioCadastro).edtNome.SetFocus;
 end;
 
 procedure TControllerTamanho.Salvar;
@@ -191,8 +196,7 @@ begin
         if oDtoTamanho.idTamanho = 0 then
         begin
           // se o ID for vazio, testa se o nome informado ja esta cadastrado
-          if oRegraTamanho.VerificarTamanhoCadastrado(oModelTamanho, oDtoTamanho)
-          then
+          if oRegraTamanho.VerificarTamanhoCadastrado(oModelTamanho, oDtoTamanho) then
           begin
             ShowMessage('Já existe um tamanho cadastrado com o nome "' +
               UpperCase(oDtoTamanho.Nome) + '".');
@@ -208,6 +212,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto;
+              inherited;
             end;
           end;
         end
@@ -223,6 +228,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto;
+              inherited;
             end;
           end;
         end;
@@ -235,13 +241,13 @@ procedure TControllerTamanho.PreencherDTO;
 begin
 
   if TfrmCadastroTamanho(oFormularioCadastro).edtIdCodigo.Text <> '' then
-    oDtoTamanho.idTamanho := StrToInt(TfrmCadastroTamanho(oFormularioCadastro)
-      .edtIdCodigo.Text)
+    oDtoTamanho.idTamanho := StrToInt(TfrmCadastroTamanho(oFormularioCadastro).edtIdCodigo.Text)
   else
     oDtoTamanho.idTamanho := 0;
 
   oDtoTamanho.Nome := Trim(TfrmCadastroTamanho(oFormularioCadastro).edtNome.Text);
-  oDtoTamanho.MaxSabores := StrToInt(Trim(TfrmCadastroTamanho(oFormularioCadastro).edtMaxSabores.Text));
+  oDtoTamanho.MaxSabores :=
+    StrToInt(Trim(TfrmCadastroTamanho(oFormularioCadastro).edtMaxSabores.Text));
 
 end;
 

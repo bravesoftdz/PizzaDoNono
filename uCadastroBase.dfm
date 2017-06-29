@@ -2,21 +2,26 @@ inherited frmCadastroBase: TfrmCadastroBase
   BorderIcons = []
   Caption = 'Pizza do Nono'
   ClientHeight = 641
-  ClientWidth = 647
+  ClientWidth = 650
   Constraints.MinWidth = 653
-  Position = poDesktopCenter
+  DefaultMonitor = dmMainForm
+  FormStyle = fsMDIChild
   Visible = True
-  ExplicitWidth = 653
+  ExplicitWidth = 656
   ExplicitHeight = 670
   PixelsPerInch = 96
   TextHeight = 15
   object panelFormulario: TPanel
-    Left = 8
-    Top = 104
-    Width = 631
-    Height = 529
-    Align = alCustom
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    AlignWithMargins = True
+    Left = 5
+    Top = 93
+    Width = 640
+    Height = 543
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
+    Align = alBottom
     BorderStyle = bsSingle
     Caption = 'panelFormulario'
     ShowCaption = False
@@ -48,7 +53,7 @@ inherited frmCadastroBase: TfrmCadastroBase
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 641
+    Width = 644
     Height = 86
     Cursor = crHandPoint
     Align = alTop
@@ -60,7 +65,7 @@ inherited frmCadastroBase: TfrmCadastroBase
     ShowCaption = False
     TabOrder = 1
     DesignSize = (
-      641
+      644
       86)
     object btnCancelar: TSpeedButton
       AlignWithMargins = True
@@ -348,7 +353,7 @@ inherited frmCadastroBase: TfrmCadastroBase
     end
     object btnFechar: TSpeedButton
       AlignWithMargins = True
-      Left = 536
+      Left = 539
       Top = 3
       Width = 100
       Height = 80
@@ -1584,6 +1589,7 @@ inherited frmCadastroBase: TfrmCadastroBase
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
       Layout = blGlyphTop
       NumGlyphs = 2
+      OnClick = btnExcluirClick
     end
   end
 end

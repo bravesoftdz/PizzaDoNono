@@ -36,6 +36,8 @@ type
     procedure FecharFormListagem(ASender: TObject); override;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
     procedure AjustarListagem; override;
+  protected
+    procedure OnActivateForm(Sender: TObject); override;
   end;
 
 var
@@ -43,7 +45,7 @@ var
 
 implementation
 
-{ TControllerUsuario }
+{ TControllerBairro }
 
 procedure TControllerBairro.Cancelar(ASender: TObject);
 begin
@@ -74,7 +76,7 @@ begin
   ListarEstados(TfrmCadastroBairro(oFormularioCadastro).cmbEstado);
 
   TfrmCadastroBairro(oFormularioCadastro).cmbEstado.OnChange := AtualizarComboBoxMunicipio;
-
+  TfrmCadastroBairro(oFormularioCadastro).OnActivate := OnActivateForm;
   inherited;
 end;
 
@@ -99,15 +101,15 @@ begin
   // resgatando dados da linha selecionada no DBGrid
   // resgatando IdBairro e setando no Edit
   TfrmCadastroBairro(oFormularioCadastro).edtIdCodigo.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('idbairro').AsString;
 
   // resgatando Nome do bairro e setando no Edit
   TfrmCadastroBairro(oFormularioCadastro).edtNome.Text :=
-    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('Nome').AsString;
+    oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
 
   // resgatando nome do municipio - precisa ser feito antes de buscar o estado
   nomeMunicipio := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName
-    ('município').AsString;
+    ('municipio').AsString;
 
   { para listar o municipio no ComboBox, é necessário ter o estado listado
     no ComboBox do estado }
@@ -132,21 +134,19 @@ end;
 
 procedure TControllerBairro.Excluir;
 begin
-  inherited;
-  // resgatando idBairro do DBGrid e setando no DTO
-  oDtoBairro.idBairro := oFormularioListagem.dbGridListagem.SelectedField.DataSet.FieldByName('ID')
-    .AsInteger;
+
+  // resgatando idBairro do edit e setando no DTO
+  oDtoBairro.idBairro := StrToInt(TfrmCadastroBairro(oFormularioCadastro).edtIdCodigo.Text);
 
   if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
   begin
     if oRegraBairro.Excluir(oModelBairro, oDtoBairro) then
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
+      inherited;
       ShowMessage('Registro excluído com sucesso.');
     end
     else
     begin
-      PreencherGrid(oFormularioListagem.dbGridListagem);
       ShowMessage('Não foi possível excluir.');
     end;
   end
@@ -156,6 +156,7 @@ end;
 procedure TControllerBairro.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+  oControllerBairro := nil;
 end;
 
 procedure TControllerBairro.FecharFormListagem(ASender: TObject);
@@ -220,7 +221,7 @@ end;
 procedure TControllerBairro.Localizar(aOwner: TComponent);
 begin
   if not(Assigned(TfrmListagemBairro(oFormularioListagem))) then
-    TfrmListagemBairro(oFormularioListagem) := TfrmListagemBairro.Create(aOwner);
+    oFormularioListagem := TfrmListagemBairro.Create(aOwner);
 
   TfrmListagemBairro(oFormularioListagem).iInterfaceCrud := oControllerBairro;
 
@@ -230,7 +231,17 @@ end;
 
 procedure TControllerBairro.Novo(ASender: TObject);
 begin
+  LimparDto(oDtoBairro);
   inherited;
+end;
+
+procedure TControllerBairro.OnActivateForm(Sender: TObject);
+begin
+  inherited;
+  ListarEstados(TfrmCadastroBairro(oFormularioCadastro).cmbEstado);
+  AtualizarComboBoxMunicipio(nil);
+  if oFormularioCadastro.btnSalvar.Tag = 1 then
+    TfrmCadastroBairro(oFormularioCadastro).cmbEstado.SetFocus
 end;
 
 procedure TControllerBairro.Salvar(ASender: TObject);
@@ -275,6 +286,7 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto(oDtoBairro);
+              inherited;
             end;
           end;
         end
@@ -297,11 +309,13 @@ begin
               AjustarModoInsercao(False);
               LimparFormulario;
               LimparDto(oDtoBairro);
+              inherited;
             end;
           end;
         end;
       end;
   end;
+
 end;
 
 procedure TControllerBairro.PreencherDTO;

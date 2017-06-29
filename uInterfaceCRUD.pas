@@ -20,6 +20,7 @@ type
     procedure PreencherDTO;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean);
     procedure LimparFormulario;
+    procedure OnActivateForm(Sender: TObject);
   end;
 
 implementation

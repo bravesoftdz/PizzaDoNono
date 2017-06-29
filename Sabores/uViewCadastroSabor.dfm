@@ -1,12 +1,11 @@
 inherited frmCadastroSabor: TfrmCadastroSabor
-  Caption = 'frmCadastroSabor'
-  ClientWidth = 1064
-  ExplicitWidth = 1070
+  Caption = 'Pizza do Nono - Sabores'
+  ClientWidth = 907
+  ExplicitWidth = 913
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Width = 1048
-    ExplicitWidth = 1048
+    Width = 897
     inherited labelTitulo: TLabel
       Width = 123
       Caption = 'Sabores'
@@ -39,6 +38,7 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       ParentFont = False
     end
     object edtIdCodigo: TLabeledEdit
+      Tag = 1
       Left = 15
       Top = 112
       Width = 137
@@ -53,6 +53,7 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -143,11 +144,20 @@ inherited frmCadastroSabor: TfrmCadastroSabor
     end
   end
   inherited boxBotoes: TPanel
-    Width = 1058
-    ExplicitWidth = 981
-    inherited btnFechar: TSpeedButton
-      Left = 953
-      ExplicitLeft = 876
+    Width = 901
+    inherited btnNovo: TSpeedButton [1]
+    end
+    inherited btnSalvar: TSpeedButton [2]
+    end
+    inherited btnLocalizar: TSpeedButton [3]
+    end
+    inherited btnExcluir: TSpeedButton [4]
+    end
+    inherited btnFechar: TSpeedButton [5]
+      Left = 799
+      Top = 2
+      ExplicitLeft = 803
+      ExplicitTop = 2
     end
   end
 end
