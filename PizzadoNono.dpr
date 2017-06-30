@@ -1,6 +1,8 @@
 program PizzadoNono;
 
-uses
+{$R *.dres}
+
+{uses  }
   Vcl.Forms,
   uFrmBasePadrao in 'uFrmBasePadrao.pas' {frmBasePadrao},
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
@@ -94,7 +96,7 @@ uses
   uEnumeradorTemSabor in 'Produto\uEnumeradorTemSabor.pas',
   uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas';
 
-{$R *.res}
+$R *.res}
 
 begin
   Application.Initialize;

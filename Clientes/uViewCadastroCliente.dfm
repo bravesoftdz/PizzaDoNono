@@ -1,10 +1,10 @@
 inherited frmCadastroCliente: TfrmCadastroCliente
+  Left = 390
   ActiveControl = edtNome
   Caption = 'Pizza do Nono - Clientes'
   ClientHeight = 580
   ClientWidth = 647
-  Position = poDesktopCenter
-  ExplicitTop = -28
+  Position = poDesigned
   ExplicitWidth = 653
   ExplicitHeight = 609
   PixelsPerInch = 96
@@ -13,7 +13,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     Top = 95
     Width = 637
     Height = 480
-    ExplicitTop = 156
+    ExplicitTop = 95
+    ExplicitWidth = 637
     ExplicitHeight = 480
     inherited labelTitulo: TLabel
       Left = 26
@@ -351,6 +352,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   end
   inherited boxBotoes: TPanel
     Width = 641
+    ExplicitWidth = 641
     inherited btnFechar: TSpeedButton
       Left = 533
       ExplicitLeft = 819

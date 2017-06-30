@@ -1,6 +1,8 @@
 inherited frmCadastroMunicipio: TfrmCadastroMunicipio
+  Left = 390
   Caption = 'Pizza do Nono - Munic'#237'pios'
   ClientHeight = 391
+  Position = poDesigned
   ExplicitHeight = 420
   PixelsPerInch = 96
   TextHeight = 15
@@ -8,8 +10,7 @@ inherited frmCadastroMunicipio: TfrmCadastroMunicipio
     Top = 95
     Height = 291
     ParentFont = False
-    ExplicitLeft = 0
-    ExplicitTop = 94
+    ExplicitTop = 95
     ExplicitHeight = 291
     inherited labelTitulo: TLabel
       Width = 171

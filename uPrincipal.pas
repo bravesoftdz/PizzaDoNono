@@ -27,6 +27,7 @@ type
     btnSair: TSpeedButton;
     btnUsuarios: TSpeedButton;
     btnTamanho: TSpeedButton;
+    Image1: TImage;
     procedure btnTamanhoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);

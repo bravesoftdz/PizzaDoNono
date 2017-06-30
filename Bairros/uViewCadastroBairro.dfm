@@ -1,17 +1,18 @@
 inherited frmCadastroBairro: TfrmCadastroBairro
-  Width = 653
-  Height = 468
+  Left = 390
   Caption = 'Pizza do Nono - Bairros'
+  ClientHeight = 444
   Constraints.MaxWidth = 656
-  ExplicitWidth = 653
-  ExplicitHeight = 468
+  Position = poDesigned
+  ExplicitTop = -17
+  ExplicitHeight = 473
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Width = 637
-    Height = 341
+    Top = 97
+    Height = 342
     ExplicitTop = 97
-    ExplicitHeight = 341
+    ExplicitHeight = 342
     inherited labelTitulo: TLabel
       Top = 16
       Width = 110
@@ -125,7 +126,6 @@ inherited frmCadastroBairro: TfrmCadastroBairro
     end
   end
   inherited boxBotoes: TPanel
-    Width = 641
     inherited btnFechar: TSpeedButton
       Left = 532
       ExplicitLeft = 535

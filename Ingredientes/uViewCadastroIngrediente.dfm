@@ -1,13 +1,15 @@
 inherited frmCadastroIngrediente: TfrmCadastroIngrediente
+  Left = 390
   Caption = 'Pizza do Nono - Ingredientes'
   ClientHeight = 328
+  Position = poDesigned
   ExplicitHeight = 357
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
     Top = 98
     Height = 225
-    ExplicitTop = 411
+    ExplicitTop = 98
     ExplicitHeight = 225
     inherited labelTitulo: TLabel
       Width = 195
