@@ -54,12 +54,41 @@ begin
 end;
 
 function TModelProduto.Editar(const oDtoProduto: TDtoProduto): Boolean;
+var
+  oDtoSabor: TDtoSabor;
 begin
   Result := False;
-  oQuery.ExecSQL('UPDATE produto SET nome = ' + QuotedStr(oDtoProduto.Nome) + ', Valor = ' +
-    CurrToStr(oDtoProduto.Valor) + ' WHERE idproduto = ' + IntToStr(oDtoProduto.IdProduto));
-  if oQuery.RowsAffected > 0 then
-    Result := True;
+  if oDtoProduto.TemSabor = resultNao then
+  begin
+    oQuery.ExecSQL('UPDATE produto SET nome = ' + QuotedStr(oDtoProduto.Nome) + ', Valor = ' +
+      QuotedStr(oDtoProduto.Valor) + ', temSabor = 1 WHERE idproduto = ' +
+      IntToStr(oDtoProduto.IdProduto));
+    if oQuery.RowsAffected > 0 then
+      Result := True;
+  end
+  else if oDtoProduto.TemSabor = resultSim then
+  begin
+    oQuery.ExecSQL('DELETE FROM saboresDisponiveis WHERE produto_idproduto = ' +
+      IntToStr(oDtoProduto.IdProduto));
+    try
+      for oDtoSabor in oDtoProduto.Sabor.Values do
+      begin
+        oQuery.ExecSQL('INSERT INTO saboresDisponiveis(produto_idproduto, sabor_idSabor) VALUES(' +
+          IntToStr(oDtoProduto.IdProduto) + ', ' + IntToStr(oDtoSabor.idSabor) + ');');
+      end;
+    finally
+      oDtoProduto.Sabor.Free;
+    end;
+    if oQuery.RowsAffected > 0 then
+    begin
+      oQuery.ExecSQL('UPDATE produto SET nome = ' + QuotedStr(oDtoProduto.Nome) + ', Valor = ' +
+        QuotedStr(oDtoProduto.Valor) + ', temSabor = 1 WHERE idproduto = ' +
+        IntToStr(oDtoProduto.IdProduto));
+      if oQuery.RowsAffected > 0 then
+        Result := True;
+    end;
+  end;
+
 end;
 
 function TModelProduto.Excluir(const ADtoProduto: TDtoProduto): Boolean;
@@ -83,7 +112,7 @@ begin
   if oDtoProduto.TemSabor = resultNao then
   begin
     oQuery.ExecSQL('INSERT INTO produto(nome, valor, temSabor) VALUES(' +
-      QuotedStr(oDtoProduto.Nome) + ', ' + CurrToStr(oDtoProduto.Valor) + ', 0);');
+      QuotedStr(oDtoProduto.Nome) + ', ' + QuotedStr(oDtoProduto.Valor) + ', 0);');
     if oQuery.RowsAffected > 0 then
       Result := True;
   end
@@ -140,8 +169,8 @@ begin
   end
   else if ADtoProduto.IdProduto <> 0 then
   begin
-    oQuery.Open('SELECT nome FROM Produto ' + QuotedStr(ADtoProduto.Nome) + ' AND idproduto <> ' +
-      IntToStr(ADtoProduto.IdProduto));
+    oQuery.Open('SELECT nome FROM Produto WHERE nome = ' + QuotedStr(ADtoProduto.Nome) +
+      ' AND idproduto <> ' + IntToStr(ADtoProduto.IdProduto));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe Produto cadastrado com este nome

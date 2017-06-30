@@ -23,6 +23,7 @@ type
     procedure FiltrarGrid(Sender: TObject); virtual;
     procedure AjustarListagem; virtual;
     procedure OnActivateForm(Sender: TObject); virtual;
+    procedure CheckBoxMarcarTudo(Sender: TObject); virtual;
   public
     constructor Create; virtual;
     destructor Destroy; override;
@@ -35,8 +36,6 @@ type
     procedure Novo(ASender: TObject); virtual;
     procedure Editar(Sender: TObject); virtual;
     procedure Excluir; virtual;
-
-
   end;
 
 var
@@ -77,6 +76,9 @@ begin
     if (oFormularioCadastro.Components[iIndiceComponente] is TCheckListBox) then
       (oFormularioCadastro.Components[iIndiceComponente] as TCustomListBox).Enabled :=
         AStatusBtnSalvar;
+    if (oFormularioCadastro.Components[iIndiceComponente] is TCheckBox) then
+      (oFormularioCadastro.Components[iIndiceComponente] as TCustomCheckBox).Enabled :=
+        AStatusBtnSalvar;
   end;
   oFormularioCadastro.btnSalvar.Enabled := AStatusBtnSalvar;
   oFormularioCadastro.btnCancelar.Enabled := AStatusBtnSalvar;
@@ -90,6 +92,11 @@ end;
 procedure TControllerCRUD.Cancelar(ASender: TObject);
 begin
   AjustarModoInsercao(False);
+end;
+
+procedure TControllerCRUD.CheckBoxMarcarTudo(Sender: TObject);
+begin
+  //
 end;
 
 constructor TControllerCRUD.Create;

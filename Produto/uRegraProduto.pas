@@ -70,7 +70,7 @@ begin
     Result := resultTemSabor;
     exit;
   end;
-  if (ADtoProduto.TemSabor = resultNao) and (ADtoProduto.Valor = 0) then
+  if (ADtoProduto.TemSabor = resultNao) and (ADtoProduto.Valor = EmptyStr) then
   begin
     Result := resultValor;
     exit;

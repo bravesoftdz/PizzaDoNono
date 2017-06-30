@@ -1,33 +1,35 @@
 inherited frmCadastroProduto: TfrmCadastroProduto
   Left = 413
   Caption = 'Pizza do Nono - Produtos'
-  ClientHeight = 546
+  ClientHeight = 554
   ClientWidth = 647
   Position = poDesigned
+  ExplicitTop = 6
   ExplicitWidth = 653
-  ExplicitHeight = 575
+  ExplicitHeight = 583
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Top = 107
+    Top = 106
     Width = 637
-    Height = 434
+    Height = 443
     Caption = 'S'
-    ExplicitTop = 107
+    ExplicitTop = 106
     ExplicitWidth = 637
-    ExplicitHeight = 434
+    ExplicitHeight = 443
     inherited labelTitulo: TLabel
+      Top = 8
       Width = 126
       Caption = 'Produto'
+      ExplicitTop = 8
       ExplicitWidth = 126
     end
     object labelSabores: TLabel [1]
       Left = 15
-      Top = 210
+      Top = 178
       Width = 111
       Height = 15
       Caption = 'Sabores Dispon'#237'veis:'
-      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -36,8 +38,8 @@ inherited frmCadastroProduto: TfrmCadastroProduto
       ParentFont = False
     end
     object labelTemSabor: TLabel [2]
-      Left = 213
-      Top = 153
+      Left = 361
+      Top = 121
       Width = 72
       Height = 15
       Caption = 'Possui Sabor:'
@@ -49,13 +51,15 @@ inherited frmCadastroProduto: TfrmCadastroProduto
       ParentFont = False
     end
     inherited panelSeparador: TPanel
+      Top = 59
       Width = 362
+      ExplicitTop = 59
       ExplicitWidth = 362
     end
     object edtIdCodigo: TLabeledEdit
       Tag = 1
       Left = 15
-      Top = 120
+      Top = 88
       Width = 137
       Height = 24
       TabStop = False
@@ -82,8 +86,8 @@ inherited frmCadastroProduto: TfrmCadastroProduto
     end
     object edtNome: TLabeledEdit
       Left = 15
-      Top = 173
-      Width = 192
+      Top = 141
+      Width = 340
       Height = 24
       EditLabel.Width = 55
       EditLabel.Height = 15
@@ -105,8 +109,8 @@ inherited frmCadastroProduto: TfrmCadastroProduto
       TabOrder = 2
     end
     object edtValor: TLabeledEdit
-      Left = 332
-      Top = 173
+      Left = 480
+      Top = 141
       Width = 137
       Height = 24
       EditLabel.Width = 32
@@ -118,7 +122,6 @@ inherited frmCadastroProduto: TfrmCadastroProduto
       EditLabel.Font.Name = 'Calibri'
       EditLabel.Font.Style = [fsBold]
       EditLabel.ParentFont = False
-      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -131,19 +134,18 @@ inherited frmCadastroProduto: TfrmCadastroProduto
     end
     object CheckListBoxSabores: TCheckListBox
       Left = 15
-      Top = 231
-      Width = 454
-      Height = 182
+      Top = 222
+      Width = 602
+      Height = 199
       Color = clWhite
       Columns = 2
-      Enabled = False
       ItemHeight = 15
       Sorted = True
       TabOrder = 4
     end
     object cmbTemSabor: TComboBox
-      Left = 213
-      Top = 174
+      Left = 361
+      Top = 142
       Width = 113
       Height = 23
       Hint = 'Indique se o produto tem sabores. Ex.:  Cebola, Alho e Milho'
@@ -155,6 +157,16 @@ inherited frmCadastroProduto: TfrmCadastroProduto
       Items.Strings = (
         'N'#227'o'
         'Sim')
+    end
+    object CheckBoxCheckAll: TCheckBox
+      Left = 15
+      Top = 199
+      Width = 50
+      Height = 17
+      Caption = 'Tudo'
+      Ctl3D = True
+      ParentCtl3D = False
+      TabOrder = 6
     end
   end
   inherited boxBotoes: TPanel

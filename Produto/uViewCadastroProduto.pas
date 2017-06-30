@@ -16,6 +16,7 @@ type
     labelSabores: TLabel;
     labelTemSabor: TLabel;
     cmbTemSabor: TComboBox;
+    CheckBoxCheckAll: TCheckBox;
 
   private
     { Private declarations }

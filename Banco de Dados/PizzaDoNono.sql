@@ -46,7 +46,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `pizzanono`.`sabor` (
   `idsabor` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
-  `valor` FLOAT NOT NULL,
+  `valor` VARCHAR(45) NOT NULL,
   `tamanho_idtamanho` INT NOT NULL,
   PRIMARY KEY (`idsabor`),
   INDEX `fk_sabor_tamanho1_idx` (`tamanho_idtamanho` ASC),
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `pizzanono`.`produto` (
   `idproduto` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `temSabor` TINYINT(1) NOT NULL,
-  `valor` FLOAT NULL,
+  `valor` VARCHAR(45) NULL,
   PRIMARY KEY (`idproduto`))
 ENGINE = InnoDB;
 
