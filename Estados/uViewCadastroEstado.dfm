@@ -1,17 +1,20 @@
 inherited frmCadastroEstado: TfrmCadastroEstado
-  Width = 653
-  Height = 338
+  Left = 390
   Caption = 'Pizza do Nono - Estados'
+  ClientHeight = 345
+  ClientWidth = 647
+  Position = poDesigned
   ExplicitWidth = 653
-  ExplicitHeight = 338
+  ExplicitHeight = 374
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Top = 98
+    Top = 96
     Width = 637
-    Height = 206
-    ExplicitTop = 98
-    ExplicitHeight = 206
+    Height = 244
+    ExplicitTop = 136
+    ExplicitWidth = 637
+    ExplicitHeight = 244
     inherited labelTitulo: TLabel
       Top = 16
       Width = 119
@@ -103,7 +106,7 @@ inherited frmCadastroEstado: TfrmCadastroEstado
   inherited boxBotoes: TPanel
     Width = 641
     inherited btnFechar: TSpeedButton
-      Left = 531
+      Left = 528
       ExplicitLeft = 534
     end
   end
