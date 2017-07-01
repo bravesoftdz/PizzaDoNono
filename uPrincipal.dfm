@@ -2,7 +2,7 @@
   Top = 500
   VertScrollBar.Tracking = True
   Caption = 'Pizza do Nono Delivery'
-  ClientHeight = 481
+  ClientHeight = 529
   ClientWidth = 1340
   FormStyle = fsMDIForm
   Position = poDefault
@@ -11,7 +11,7 @@
   WindowState = wsMaximized
   OnCreate = FormCreate
   ExplicitWidth = 1346
-  ExplicitHeight = 510
+  ExplicitHeight = 558
   PixelsPerInch = 96
   TextHeight = 15
   object Image1: TImage
@@ -1976,5 +1976,15 @@
       Layout = blGlyphTop
       OnClick = btnTamanhoClick
     end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 510
+    Width = 1340
+    Height = 19
+    Panels = <>
+    ExplicitLeft = 64
+    ExplicitTop = 352
+    ExplicitWidth = 0
   end
 end

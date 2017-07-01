@@ -94,7 +94,8 @@ uses
   Vcl.Styles,
   uListaSabor in 'Sabores\uListaSabor.pas',
   uEnumeradorTemSabor in 'Produto\uEnumeradorTemSabor.pas',
-  uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas';
+  uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas',
+  uViewPedido in 'Pedidos\uViewPedido.pas' {frmBasePadrao1};
 
 {$R *.res}
 
@@ -102,5 +103,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmBasePadrao1, frmBasePadrao1);
   Application.Run;
 end.
