@@ -3,14 +3,16 @@
   VertScrollBar.Tracking = True
   Caption = 'Pizza do Nono Delivery'
   ClientHeight = 529
-  ClientWidth = 1340
+  ClientWidth = 1289
   FormStyle = fsMDIForm
   Position = poDefault
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitWidth = 1346
+  ExplicitLeft = -229
+  ExplicitTop = 6
+  ExplicitWidth = 1295
   ExplicitHeight = 558
   PixelsPerInch = 96
   TextHeight = 15
@@ -634,18 +636,19 @@
       401F200800000000E8030401000000007D802000000000A00F100400000000F4
       018200000000803EFC7FE4939174F34C41630000000049454E44AE426082}
   end
-  object Panel1: TPanel
+  object panelBoxBotoes: TPanel
     Left = 0
     Top = 0
-    Width = 1340
+    Width = 1289
     Height = 85
     Align = alTop
     BevelOuter = bvNone
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
+    ExplicitWidth = 1340
     DesignSize = (
-      1340
+      1289
       85)
     object bntBairros: TSpeedButton
       Left = 531
@@ -979,7 +982,7 @@
     end
     object btnIngredientes: TSpeedButton
       Left = 319
-      Top = -15
+      Top = 0
       Width = 100
       Height = 80
       Cursor = crHandPoint
@@ -1606,7 +1609,7 @@
       OnClick = btnSaboresClick
     end
     object btnSair: TSpeedButton
-      Left = 1240
+      Left = 1189
       Top = 1
       Width = 90
       Height = 80
@@ -1715,6 +1718,7 @@
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFEAEEFF4369FFD2DBFFFFFFFF}
       Layout = blGlyphTop
       OnClick = btnSairClick
+      ExplicitLeft = 1240
     end
     object btnUsuarios: TSpeedButton
       Left = 955
@@ -1977,14 +1981,75 @@
       OnClick = btnTamanhoClick
     end
   end
-  object StatusBar1: TStatusBar
+  object panelRodape: TPanel
+    AlignWithMargins = True
     Left = 0
-    Top = 510
-    Width = 1340
-    Height = 19
-    Panels = <>
-    ExplicitLeft = 64
-    ExplicitTop = 352
-    ExplicitWidth = 0
+    Top = 512
+    Width = 1284
+    Height = 17
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 5
+    Margins.Bottom = 0
+    Align = alBottom
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Caption = 'Pizza do Nono'
+    Color = clWhite
+    ParentBackground = False
+    TabOrder = 1
+    ExplicitWidth = 1289
+    object labelNomeUsuario: TLabel
+      Left = 1263
+      Top = 0
+      Width = 21
+      Height = 17
+      Align = alRight
+      Alignment = taRightJustify
+      Caption = '       '
+      Color = clWhite
+      ParentColor = False
+      ExplicitLeft = 1268
+      ExplicitHeight = 15
+    end
+    object labelUsuario: TLabel
+      Left = 1182
+      Top = 0
+      Width = 50
+      Height = 17
+      Align = alRight
+      Alignment = taRightJustify
+      Caption = 'Usu'#225'rio: '
+      Color = clWhite
+      ParentColor = False
+      ExplicitLeft = 1187
+      ExplicitHeight = 15
+    end
+    object labelCodigoUsuario: TLabel
+      Left = 1232
+      Top = 0
+      Width = 21
+      Height = 17
+      Align = alRight
+      Alignment = taRightJustify
+      Caption = '       '
+      Color = clWhite
+      ParentColor = False
+      ExplicitLeft = 1183
+      ExplicitHeight = 15
+    end
+    object Label1: TLabel
+      Left = 1253
+      Top = 0
+      Width = 10
+      Height = 17
+      Align = alRight
+      Alignment = taRightJustify
+      Caption = ' - '
+      Color = clWhite
+      ParentColor = False
+      ExplicitLeft = 1258
+      ExplicitHeight = 15
+    end
   end
 end

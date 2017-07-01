@@ -10,11 +10,11 @@ uses
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
   uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente,
   uControllerEstado, uControllerMunicipio, uControllerBairro, uControllerCliente,
-  uControllerTamanho, uControllerSabor, uControllerProduto;
+  uControllerTamanho, uControllerSabor, uControllerProduto, uSingletonLogin, uDtoLogin;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
-    Panel1: TPanel;
+    panelBoxBotoes: TPanel;
     bntBairros: TSpeedButton;
     btnClientes: TSpeedButton;
     btnEstados: TSpeedButton;
@@ -28,7 +28,11 @@ type
     btnUsuarios: TSpeedButton;
     btnTamanho: TSpeedButton;
     Image1: TImage;
-    StatusBar1: TStatusBar;
+    panelRodape: TPanel;
+    labelNomeUsuario: TLabel;
+    labelUsuario: TLabel;
+    labelCodigoUsuario: TLabel;
+    Label1: TLabel;
     procedure btnTamanhoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -135,19 +139,14 @@ begin
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+  oDtoLogin: TDtoLogin;
 begin
   inherited;
   ReportMemoryLeaksOnShutdown := True;
-
-  // Cria a conexão com o banco de dados
-  try
-    TDBConnectionSingleton.GetInstancia;
-  except
-    ShowMessage('Erro ao conectar com o banco de dados. O sistema não pode ser iniciado.');
-    // Manda encerrar a aplicação
-    Application.Terminate;
-    exit;
-  end;
+  oDtoLogin := TSingletonLogin.getInstancia;
+  labelCodigoUsuario.Caption := IntToStr(oDtoLogin.idUsuario);
+  labelNomeUsuario.Caption := oDtoLogin.Nome;
 end;
 
 end.

@@ -4,6 +4,8 @@ program PizzadoNono;
 
 uses
   Vcl.Forms,
+  System.SysUtils,
+  Controls,
   uFrmBasePadrao in 'uFrmBasePadrao.pas' {frmBasePadrao},
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
   uListagemBase in 'uListagemBase.pas' {frmListagemBase},
@@ -95,14 +97,40 @@ uses
   uListaSabor in 'Sabores\uListaSabor.pas',
   uEnumeradorTemSabor in 'Produto\uEnumeradorTemSabor.pas',
   uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas',
-  uViewPedido in 'Pedidos\uViewPedido.pas' {frmBasePadrao1};
+  uViewPedido in 'Pedidos\uViewPedido.pas' {frmViewPedido},
+  uViewLogin in 'Login\uViewLogin.pas' {frmViewLogin},
+  uControllerLogin in 'Login\uControllerLogin.pas',
+  uDtoLogin in 'Login\uDtoLogin.pas',
+  uModelLogin in 'Login\uModelLogin.pas',
+  uRegraLogin in 'Login\uRegraLogin.pas',
+  uEnumeradorCamposLogin in 'Login\uEnumeradorCamposLogin.pas',
+  uSingletonLogin in 'Login\uSingletonLogin.pas';
 
 {$R *.res}
 
+var
+  oControllerLogin: TControllerLogin;
+
 begin
+
   Application.Initialize;
-  Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmBasePadrao1, frmBasePadrao1);
-  Application.Run;
+  oControllerLogin := TControllerLogin.Create;
+  // Cria o form de login
+  if oControllerLogin.oFormLogin.ShowModal = mrOk then // Caso o retorno da tela seja Ok
+
+  begin
+
+    FreeAndNil(oControllerLogin); // Libera o form de Login da memória
+
+    Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  // Cria o mainform
+
+    Application.Run; // Roda a aplicação
+
+  end
+
+  else // Caso o retorno da tela de Login seja mrCancel então
+
+    Application.Terminate; // Encerra a aplicaçã
+
 end.

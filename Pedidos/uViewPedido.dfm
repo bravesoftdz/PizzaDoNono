@@ -1,16 +1,17 @@
-inherited frmBasePadrao1: TfrmBasePadrao1
+inherited frmViewPedido: TfrmViewPedido
   AlignWithMargins = True
   Left = 278
   BorderIcons = []
   Caption = 'Pizza do Nono - Pedidos'
-  ClientHeight = 571
+  ClientHeight = 561
   ClientWidth = 835
+  Constraints.MaxHeight = 590
+  Constraints.MinHeight = 590
   FormStyle = fsMDIChild
   Position = poDesigned
   Visible = True
-  ExplicitTop = -19
   ExplicitWidth = 841
-  ExplicitHeight = 600
+  ExplicitHeight = 590
   PixelsPerInch = 96
   TextHeight = 15
   object boxBotoes: TPanel
@@ -27,9 +28,6 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 445
-    ExplicitWidth = 774
     DesignSize = (
       829
       86)
@@ -1001,7 +999,7 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     Left = 5
     Top = 98
     Width = 825
-    Height = 468
+    Height = 458
     Margins.Left = 5
     Margins.Top = 5
     Margins.Right = 5
@@ -1012,15 +1010,13 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     Caption = 'panelFormulario'
     ShowCaption = False
     TabOrder = 1
-    ExplicitTop = 97
-    ExplicitWidth = 957
-    ExplicitHeight = 498
+    ExplicitHeight = 468
     object panelCorpoPedido: TPanel
       AlignWithMargins = True
       Left = 6
       Top = 6
       Width = 809
-      Height = 452
+      Height = 442
       Margins.Left = 5
       Margins.Top = 5
       Margins.Right = 5
@@ -1033,12 +1029,10 @@ inherited frmBasePadrao1: TfrmBasePadrao1
       ParentCtl3D = False
       ShowCaption = False
       TabOrder = 0
-      ExplicitLeft = 1
-      ExplicitTop = -2
-      ExplicitHeight = 482
+      ExplicitHeight = 452
       DesignSize = (
         809
-        452)
+        442)
       object labelNumeroPedido: TLabel
         Left = 5
         Top = 16
@@ -1568,9 +1562,9 @@ inherited frmBasePadrao1: TfrmBasePadrao1
       object panelRodape: TPanel
         AlignWithMargins = True
         Left = 5
-        Top = 400
+        Top = 387
         Width = 799
-        Height = 47
+        Height = 50
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -1583,11 +1577,10 @@ inherited frmBasePadrao1: TfrmBasePadrao1
         ParentCtl3D = False
         ShowCaption = False
         TabOrder = 0
-        ExplicitTop = 430
-        ExplicitWidth = 931
+        ExplicitTop = 400
         DesignSize = (
           799
-          47)
+          50)
         object labelValorTotalPedido: TLabel
           Left = 568
           Top = 8
@@ -1607,10 +1600,11 @@ inherited frmBasePadrao1: TfrmBasePadrao1
           ExplicitLeft = 701
         end
         object edtValorTotalPedido: TEdit
-          Left = 675
+          Left = 674
           Top = 4
           Width = 121
           Height = 41
+          Alignment = taRightJustify
           Anchors = [akTop, akRight]
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -1620,15 +1614,14 @@ inherited frmBasePadrao1: TfrmBasePadrao1
           ParentFont = False
           TabOrder = 0
           Text = '00.00'
-          ExplicitLeft = 808
         end
       end
       object dbGridListagem: TDBGrid
         AlignWithMargins = True
         Left = 5
-        Top = 58
+        Top = 55
         Width = 799
-        Height = 332
+        Height = 322
         Hint = 'Duplo clique no registro para editar.'
         Margins.Left = 5
         Margins.Top = 5

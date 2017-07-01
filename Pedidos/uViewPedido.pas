@@ -8,7 +8,7 @@ uses
   Vcl.Grids, Data.DB, Vcl.DBGrids;
 
 type
-  TfrmBasePadrao1 = class(TfrmBasePadrao)
+  TfrmViewPedido = class(TfrmBasePadrao)
     boxBotoes: TPanel;
     btnCancelar: TSpeedButton;
     btnFechar: TSpeedButton;
@@ -32,7 +32,7 @@ type
   end;
 
 var
-  frmBasePadrao1: TfrmBasePadrao1;
+  frmViewPedido: TfrmViewPedido;
 
 implementation
 
