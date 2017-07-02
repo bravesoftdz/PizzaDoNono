@@ -118,7 +118,8 @@ uses
   uInterfaceModelPedidoProduto in 'Pedidos\Produtos\uInterfaceModelPedidoProduto.pas',
   uModelPedidoProduto in 'Pedidos\Produtos\uModelPedidoProduto.pas',
   uRegraPedidoProduto in 'Pedidos\Produtos\uRegraPedidoProduto.pas',
-  uViewProduto in 'Pedidos\Produtos\uViewProduto.pas' {frmViewProduto};
+  uViewProduto in 'Pedidos\Produtos\uViewProduto.pas' {frmViewProduto},
+  uControllerProduto in 'Produto\uControllerProduto.pas';
 
 {$R *.res}
 
