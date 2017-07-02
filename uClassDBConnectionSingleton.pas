@@ -15,7 +15,7 @@ type
 
 implementation
 
-{ TSingleton }
+{ TDBConnectionSingleton }
 
 class function TDBConnectionSingleton.getInstancia: TConnection;
 begin

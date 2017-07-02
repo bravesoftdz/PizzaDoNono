@@ -4,7 +4,6 @@ inherited frmCadastroProduto: TfrmCadastroProduto
   ClientHeight = 554
   ClientWidth = 647
   Position = poDesigned
-  ExplicitTop = 6
   ExplicitWidth = 653
   ExplicitHeight = 583
   PixelsPerInch = 96
@@ -86,7 +85,7 @@ inherited frmCadastroProduto: TfrmCadastroProduto
     end
     object edtNome: TLabeledEdit
       Left = 15
-      Top = 141
+      Top = 142
       Width = 340
       Height = 24
       EditLabel.Width = 55

@@ -55,6 +55,7 @@ begin
       oFormularioCadastro.btnSalvar.Tag := 1
     else
       oFormularioCadastro.btnSalvar.Tag := 0;
+
     if (oFormularioCadastro.Components[iIndiceComponente] is TLabeledEdit) then
     begin
       if (oFormularioCadastro.Components[iIndiceComponente] as TCustomLabeledEdit).Tag <> 1 then

@@ -178,7 +178,7 @@ begin
   case oRegraIngrediente.ValidarDados(oDtoIngrediente) of
     resultNome:
       begin
-        ShowMessage('Preecha a descrição.');
+        ShowMessage('Preencha a descrição.');
         TfrmCadastroIngrediente(oFormularioCadastro).edtNome.SetFocus;
       end;
     resultOk:

@@ -5,6 +5,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   ClientHeight = 580
   ClientWidth = 647
   Position = poDesigned
+  ExplicitTop = -28
   ExplicitWidth = 653
   ExplicitHeight = 609
   PixelsPerInch = 96
@@ -69,9 +70,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object labelTelefone: TLabel
         Left = 16
         Top = 80
-        Width = 51
+        Width = 114
         Height = 15
-        Caption = 'Telefone:'
+        Caption = 'Telefone Residencial:'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -80,11 +81,11 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelCelular: TLabel
-        Left = 122
+        Left = 144
         Top = 80
-        Width = 42
+        Width = 88
         Height = 15
-        Caption = 'Celular:'
+        Caption = 'Telefone Celular'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -93,7 +94,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelDataNascimento: TLabel
-        Left = 445
+        Left = 439
         Top = 80
         Width = 114
         Height = 15
@@ -106,7 +107,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelCpfCnpj: TLabel
-        Left = 228
+        Left = 264
         Top = 80
         Width = 56
         Height = 15
@@ -144,7 +145,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       object edtTelefone: TMaskEdit
         Left = 16
         Top = 101
-        Width = 114
+        Width = 122
         Height = 23
         EditMask = '(99)9999-9999;1;_'
         MaxLength = 13
@@ -152,7 +153,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Text = '(  )    -    '
       end
       object edtCelular: TMaskEdit
-        Left = 136
+        Left = 144
         Top = 101
         Width = 114
         Height = 23
@@ -162,9 +163,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Text = '(  )     -    '
       end
       object edtCpfCnpj: TMaskEdit
-        Left = 256
+        Left = 264
         Top = 101
-        Width = 186
+        Width = 167
         Height = 23
         Hint = 
           'Informe somente os n'#250'meros CPF ou CNPJ. N'#227'o digite pontos, tra'#231'o' +
@@ -177,9 +178,9 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         Text = ''
       end
       object edtDataNascimento: TMaskEdit
-        Left = 448
+        Left = 439
         Top = 101
-        Width = 111
+        Width = 120
         Height = 23
         EditMask = '99/99/9999;1;_'
         MaxLength = 10

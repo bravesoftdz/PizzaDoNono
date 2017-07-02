@@ -8,13 +8,14 @@ uses
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Imaging.pngimage,
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
-  uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente,
+  uViewCadastroUsuario, uControllerIngrediente,
   uControllerEstado, uControllerMunicipio, uControllerBairro, uControllerCliente,
-  uControllerTamanho, uControllerSabor, uControllerProduto;
+  uControllerTamanho, uControllerSabor, uControllerProduto, uSingletonLogin, uDtoLogin,
+  uControllerPedido;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
-    Panel1: TPanel;
+    panelBoxBotoes: TPanel;
     bntBairros: TSpeedButton;
     btnClientes: TSpeedButton;
     btnEstados: TSpeedButton;
@@ -28,6 +29,11 @@ type
     btnUsuarios: TSpeedButton;
     btnTamanho: TSpeedButton;
     Image1: TImage;
+    panelRodape: TPanel;
+    labelNomeUsuario: TLabel;
+    labelUsuario: TLabel;
+    labelCodigoUsuario: TLabel;
+    Label1: TLabel;
     procedure btnTamanhoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -39,6 +45,7 @@ type
     procedure btnUsuariosClick(Sender: TObject);
     procedure btnSaboresClick(Sender: TObject);
     procedure btnProdutosClick(Sender: TObject);
+    procedure btnPedidosClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -93,13 +100,20 @@ begin
   oControllerMunicipio.CriarFormCadastro(Self);
 end;
 
+procedure TfrmPrincipal.btnPedidosClick(Sender: TObject);
+begin
+  inherited;
+  if not(assigned(oControllerPedido)) then
+    oControllerPedido := TControllerPedido.Create;
+  oControllerPedido.CriarFormCadastro(Self);
+end;
+
 procedure TfrmPrincipal.btnProdutosClick(Sender: TObject);
 begin
   inherited;
   if not(assigned(oControllerProduto)) then
     oControllerProduto := TControllerProduto.Create;
   oControllerProduto.CriarFormCadastro(Self);
-
 end;
 
 procedure TfrmPrincipal.btnSaboresClick(Sender: TObject);
@@ -108,12 +122,13 @@ begin
   if not(assigned(oControllerSabor)) then
     oControllerSabor := TControllerSabor.Create;
   oControllerSabor.CriarFormCadastro(Self);
-
 end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
 begin
   inherited;
+//  if assigned(oControllerPedido) then
+//    FreeAndNil(oControllerPedido);
   Close;
 end;
 
@@ -134,19 +149,14 @@ begin
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+  oDtoLogin: TDtoLogin;
 begin
   inherited;
   ReportMemoryLeaksOnShutdown := True;
-
-  // Cria a conexão com o banco de dados
-  try
-    TDBConnectionSingleton.GetInstancia;
-  except
-    ShowMessage('Erro ao conectar com o banco de dados. O sistema não pode ser iniciado.');
-    // Manda encerrar a aplicação
-    Application.Terminate;
-    exit;
-  end;
+  oDtoLogin := TSingletonLogin.getInstancia;
+  labelCodigoUsuario.Caption := IntToStr(oDtoLogin.idUsuario);
+  labelNomeUsuario.Caption := oDtoLogin.Nome;
 end;
 
 end.

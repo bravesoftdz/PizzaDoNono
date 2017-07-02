@@ -4,6 +4,8 @@ program PizzadoNono;
 
 uses
   Vcl.Forms,
+  System.SysUtils,
+  Controls,
   uFrmBasePadrao in 'uFrmBasePadrao.pas' {frmBasePadrao},
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
   uListagemBase in 'uListagemBase.pas' {frmListagemBase},
@@ -94,13 +96,56 @@ uses
   Vcl.Styles,
   uListaSabor in 'Sabores\uListaSabor.pas',
   uEnumeradorTemSabor in 'Produto\uEnumeradorTemSabor.pas',
-  uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas';
+  uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas',
+  uViewLogin in 'Login\uViewLogin.pas' {frmViewLogin},
+  uControllerLogin in 'Login\uControllerLogin.pas',
+  uDtoLogin in 'Login\uDtoLogin.pas',
+  uModelLogin in 'Login\uModelLogin.pas',
+  uRegraLogin in 'Login\uRegraLogin.pas',
+  uEnumeradorCamposLogin in 'Login\uEnumeradorCamposLogin.pas',
+  uSingletonLogin in 'Login\uSingletonLogin.pas',
+  uControllerPedido in 'Pedidos\uControllerPedido.pas',
+  uDtoPedido in 'Pedidos\uDtoPedido.pas',
+  uEnumeradorCamposPedido in 'Pedidos\uEnumeradorCamposPedido.pas',
+  uModelPedido in 'Pedidos\uModelPedido.pas',
+  uRegraPedido in 'Pedidos\uRegraPedido.pas',
+  uViewProduto in 'Pedidos\uViewProduto.pas' {frmViewProduto},
+  uViewPedido in 'Pedidos\uViewPedido.pas' {frmViewPedido},
+  uViewQuantidade in 'Pedidos\uViewQuantidade.pas' {frmQuantidade},
+  uViewFinal in 'Pedidos\uViewFinal.pas' {frmFinal},
+  uInterfaceModelPedido in 'Pedidos\uInterfaceModelPedido.pas',
+  uListagemPedido in 'Pedidos\uListagemPedido.pas' {frmListagemPedido},
+  uControllerPedidoProduto in 'Pedidos\uControllerPedidoProduto.pas',
+  uRegraPedidoProduto in 'Pedidos\uRegraPedidoProduto.pas',
+  uModelPedidoProduto in 'Pedidos\uModelPedidoProduto.pas',
+  uInterfaceModelPedidoProduto in 'Pedidos\uInterfaceModelPedidoProduto.pas',
+  uDtoPedidoProduto in 'Pedidos\uDtoPedidoProduto.pas';
 
 {$R *.res}
 
+var
+  oControllerLogin: TControllerLogin;
+
 begin
+
   Application.Initialize;
-  Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.Run;
+  oControllerLogin := TControllerLogin.Create;
+  // Cria o form de login
+  if oControllerLogin.oFormLogin.ShowModal = mrOk then // Caso o retorno da tela seja Ok
+
+  begin
+
+    FreeAndNil(oControllerLogin); // Libera o form de Login da memória
+
+    Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  // Cria o mainform
+
+    Application.Run; // Roda a aplicação
+
+  end
+
+  else // Caso o retorno da tela de Login seja mrCancel então
+
+    Application.Terminate; // Encerra a aplicaçã0
+
 end.
