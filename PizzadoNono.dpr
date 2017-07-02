@@ -138,11 +138,6 @@ begin
     FreeAndNil(oControllerLogin); // Libera o form de Login da memória
 
     Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmListagemPedido, frmListagemPedido);
-  Application.CreateForm(TfrmViewPedido, frmViewPedido);
-  Application.CreateForm(TfrmFinal, frmFinal);
-  Application.CreateForm(TfrmQuantidade, frmQuantidade);
-  Application.CreateForm(TfrmViewProduto, frmViewProduto);
   // Cria o mainform
 
     Application.Run; // Roda a aplicação
