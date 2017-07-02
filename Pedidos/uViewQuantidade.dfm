@@ -1,9 +1,11 @@
 inherited frmQuantidade: TfrmQuantidade
+  Left = 114
   BorderIcons = []
   Caption = 'Pizza do Nono - Pedidos'
   ClientHeight = 546
   ClientWidth = 1180
   FormStyle = fsMDIChild
+  Position = poDesigned
   Visible = True
   ExplicitWidth = 1186
   ExplicitHeight = 575
@@ -24,7 +26,6 @@ inherited frmQuantidade: TfrmQuantidade
     Caption = 'panelFormulario'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 877
     DesignSize = (
       1166
       440)
@@ -55,7 +56,7 @@ inherited frmQuantidade: TfrmQuantidade
       ParentFont = False
     end
     object labelValorTotalPedido: TLabel
-      Left = 893
+      Left = 889
       Top = 26
       Width = 139
       Height = 31
@@ -177,7 +178,7 @@ inherited frmQuantidade: TfrmQuantidade
       TabOrder = 1
     end
     object edtValorTotalPedido: TEdit
-      Left = 1037
+      Left = 1033
       Top = 22
       Width = 121
       Height = 41
@@ -193,7 +194,6 @@ inherited frmQuantidade: TfrmQuantidade
       ReadOnly = True
       TabOrder = 2
       Text = '00.00'
-      ExplicitLeft = 744
     end
     object cmbTamanho: TComboBox
       Left = 167
@@ -265,7 +265,6 @@ inherited frmQuantidade: TfrmQuantidade
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 1
-    ExplicitWidth = 881
     object btnCancelar: TSpeedButton
       AlignWithMargins = True
       Left = 115

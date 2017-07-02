@@ -1,6 +1,12 @@
 ﻿inherited frmPrincipal: TfrmPrincipal
   Top = 500
+  Margins.Left = 0
+  Margins.Top = 0
+  Margins.Right = 0
+  Margins.Bottom = 0
   VertScrollBar.Tracking = True
+  Align = alClient
+  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Pizza do Nono Delivery'
   ClientHeight = 529
   ClientWidth = 1257
@@ -644,7 +650,6 @@
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 1289
     DesignSize = (
       1257
       85)
@@ -1997,50 +2002,53 @@
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 1284
     object labelNomeUsuario: TLabel
       Left = 1231
       Top = 0
       Width = 21
-      Height = 15
+      Height = 17
       Align = alRight
       Alignment = taRightJustify
       Caption = '       '
       Color = clWhite
       ParentColor = False
+      ExplicitHeight = 15
     end
     object labelUsuario: TLabel
       Left = 1150
       Top = 0
       Width = 50
-      Height = 15
+      Height = 17
       Align = alRight
       Alignment = taRightJustify
       Caption = 'Usu'#225'rio: '
       Color = clWhite
       ParentColor = False
+      ExplicitHeight = 15
     end
     object labelCodigoUsuario: TLabel
       Left = 1200
       Top = 0
       Width = 21
-      Height = 15
+      Height = 17
       Align = alRight
       Alignment = taRightJustify
       Caption = '       '
       Color = clWhite
       ParentColor = False
+      ExplicitHeight = 15
     end
     object Label1: TLabel
       Left = 1221
       Top = 0
       Width = 10
-      Height = 15
+      Height = 17
       Align = alRight
       Alignment = taRightJustify
       Caption = ' - '
       Color = clWhite
       ParentColor = False
+      ExplicitHeight = 15
     end
   end
 end

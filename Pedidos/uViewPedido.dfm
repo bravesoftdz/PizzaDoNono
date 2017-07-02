@@ -1,12 +1,22 @@
 inherited frmViewPedido: TfrmViewPedido
+  Left = 185
   Caption = 'Pizza do Nono - Pedidos'
+  ClientHeight = 555
   ClientWidth = 1039
+  Constraints.MaxHeight = 653
+  Position = poDesigned
+  ExplicitTop = -20
   ExplicitWidth = 1045
+  ExplicitHeight = 584
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Top = 92
     Width = 1029
+    Height = 458
+    ExplicitTop = 7
     ExplicitWidth = 1029
+    ExplicitHeight = 458
     inherited labelTitulo: TLabel
       Visible = False
     end
@@ -18,7 +28,7 @@ inherited frmViewPedido: TfrmViewPedido
       Left = 6
       Top = 6
       Width = 1013
-      Height = 527
+      Height = 442
       Margins.Left = 5
       Margins.Top = 5
       Margins.Right = 5
@@ -31,9 +41,10 @@ inherited frmViewPedido: TfrmViewPedido
       ParentCtl3D = False
       ShowCaption = False
       TabOrder = 1
+      ExplicitHeight = 527
       DesignSize = (
         1013
-        527)
+        442)
       object labelNumeroPedido: TLabel
         Left = 5
         Top = 16
@@ -560,7 +571,7 @@ inherited frmViewPedido: TfrmViewPedido
       object panelRodape: TPanel
         AlignWithMargins = True
         Left = 5
-        Top = 472
+        Top = 387
         Width = 1003
         Height = 50
         Margins.Left = 5
@@ -575,6 +586,7 @@ inherited frmViewPedido: TfrmViewPedido
         ParentCtl3D = False
         ShowCaption = False
         TabOrder = 0
+        ExplicitTop = 468
         DesignSize = (
           1003
           50)
@@ -617,9 +629,9 @@ inherited frmViewPedido: TfrmViewPedido
       object dbGridListagem: TDBGrid
         AlignWithMargins = True
         Left = 5
-        Top = 54
+        Top = 57
         Width = 1003
-        Height = 408
+        Height = 320
         Hint = 'Duplo clique no registro para editar.'
         Margins.Left = 5
         Margins.Top = 5

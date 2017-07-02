@@ -1,8 +1,11 @@
 inherited frmViewProduto: TfrmViewProduto
+  Left = 242
+  BorderIcons = []
   Caption = 'Pizza do Nono - Pedidos'
   ClientHeight = 517
   ClientWidth = 918
   FormStyle = fsMDIChild
+  Position = poDesigned
   Visible = True
   ExplicitWidth = 924
   ExplicitHeight = 546
@@ -54,18 +57,21 @@ inherited frmViewProduto: TfrmViewProduto
       Columns = <
         item
           Expanded = False
+          FieldName = 'idproduto'
           Title.Caption = 'ID'
           Width = 105
           Visible = True
         end
         item
           Expanded = False
+          FieldName = 'nome'
           Title.Caption = 'Descri'#231#227'o'
           Width = 648
           Visible = True
         end
         item
           Expanded = False
+          FieldName = 'valor'
           Title.Caption = 'Valor Unit'#225'rio'
           Width = 124
           Visible = True
@@ -225,6 +231,7 @@ inherited frmViewProduto: TfrmViewProduto
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFEAEEFF4369FFD2DBFFFFFFFF}
       Layout = blGlyphTop
+      OnClick = btnFecharClick
       ExplicitLeft = 751
     end
     object Label1: TLabel

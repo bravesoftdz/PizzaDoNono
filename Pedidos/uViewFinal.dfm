@@ -1,9 +1,12 @@
 inherited frmFinal: TfrmFinal
+  Left = 285
+  BorderIcons = []
   Caption = 'Pizza do Nono - Pedidos'
   ClientHeight = 402
   ClientWidth = 864
   Font.Name = 'Palace Script MT'
   FormStyle = fsMDIChild
+  Position = poDesigned
   Visible = True
   ExplicitWidth = 870
   ExplicitHeight = 431
@@ -23,9 +26,6 @@ inherited frmFinal: TfrmFinal
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitLeft = -2
-    ExplicitTop = 8
-    ExplicitWidth = 909
     object btnCancelar: TSpeedButton
       AlignWithMargins = True
       Left = 109
@@ -1033,7 +1033,6 @@ inherited frmFinal: TfrmFinal
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitHeight = 394
     DesignSize = (
       275
       306)
@@ -1183,7 +1182,6 @@ inherited frmFinal: TfrmFinal
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
-    ExplicitLeft = 290
     object labelEstado: TLabel
       Left = 289
       Top = 191

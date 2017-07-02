@@ -5,7 +5,8 @@ interface
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, Winapi.Windows,
   Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
-  uControllerCRUD, uRegraPedido, uDtoPedido, uViewPedido, uModelPedido, uListagemPedido;
+  uControllerCRUD, uRegraPedido, uDtoPedido, uViewPedido, uModelPedido, uListagemPedido,
+  uControllerPedidoProduto;
 
 type
   TControllerPedido = class(TControllerCRUD)
@@ -17,6 +18,7 @@ type
     procedure PreencherDTO;
     procedure LimparDto(var ADtoPedido: TDtoPedido);
     procedure PreencherGrid(var DbGrid: TDBGrid);
+    procedure IncluirProduto(Sender: TObject);
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -47,7 +49,8 @@ begin
     TfrmViewPedido(oFormularioCadastro).dbGridListagem.Enabled := AStatusBtnSalvar;
   TfrmViewPedido(oFormularioCadastro).btnEditarProduto.Enabled := AStatusBtnSalvar;
   TfrmViewPedido(oFormularioCadastro).btnExcluirProduto.Enabled := AStatusBtnSalvar;
-  TfrmViewPedido(oFormularioCadastro).btnSalvar.Enabled := AStatusBtnSalvar;
+  TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.Enabled := AStatusBtnSalvar;
+  TfrmViewPedido(oFormularioCadastro).edtValorTotalPedido.Enabled := AStatusBtnSalvar;
 end;
 
 procedure TControllerPedido.Cancelar;
@@ -77,6 +80,7 @@ begin
 
   oFormularioCadastro.iInterfaceCrud := oControllerPedido;
 
+  TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.OnClick := IncluirProduto;
   inherited;
 end;
 
@@ -137,6 +141,13 @@ procedure TControllerPedido.FecharFormListagem(ASender: TObject);
 begin
   inherited;
   oControllerPedido := nil;
+end;
+
+procedure TControllerPedido.IncluirProduto(Sender: TObject);
+begin
+  if not(Assigned(oControllerPedidoProduto)) then
+    oControllerPedidoProduto := TControllerPedidoProduto.Create;
+  oControllerPedidoProduto.CriarFormCadastro(nil);
 end;
 
 procedure TControllerPedido.LimparDto(var ADtoPedido: TDtoPedido);
