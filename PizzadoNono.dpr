@@ -84,7 +84,6 @@ uses
   uListaIngrediente in 'Ingredientes\uListaIngrediente.pas',
   uListaTamanho in 'Tamanhos\uListaTamanho.pas',
   uEnumeradorTipoPessoa in 'Clientes\uEnumeradorTipoPessoa.pas',
-  uControllerProduto in 'Produto\uControllerProduto.pas',
   uDtoProduto in 'Produto\uDtoProduto.pas',
   uEnumeradorCamposProduto in 'Produto\uEnumeradorCamposProduto.pas',
   uInterfaceModelProduto in 'Produto\uInterfaceModelProduto.pas',
@@ -104,22 +103,22 @@ uses
   uRegraLogin in 'Login\uRegraLogin.pas',
   uEnumeradorCamposLogin in 'Login\uEnumeradorCamposLogin.pas',
   uSingletonLogin in 'Login\uSingletonLogin.pas',
-  uControllerPedido in 'Pedidos\uControllerPedido.pas',
-  uDtoPedido in 'Pedidos\uDtoPedido.pas',
-  uEnumeradorCamposPedido in 'Pedidos\uEnumeradorCamposPedido.pas',
-  uModelPedido in 'Pedidos\uModelPedido.pas',
-  uRegraPedido in 'Pedidos\uRegraPedido.pas',
-  uViewProduto in 'Pedidos\uViewProduto.pas' {frmViewProduto},
-  uViewPedido in 'Pedidos\uViewPedido.pas' {frmViewPedido},
-  uViewQuantidade in 'Pedidos\uViewQuantidade.pas' {frmQuantidade},
-  uViewFinal in 'Pedidos\uViewFinal.pas' {frmFinal},
-  uInterfaceModelPedido in 'Pedidos\uInterfaceModelPedido.pas',
-  uListagemPedido in 'Pedidos\uListagemPedido.pas' {frmListagemPedido},
-  uControllerPedidoProduto in 'Pedidos\uControllerPedidoProduto.pas',
-  uRegraPedidoProduto in 'Pedidos\uRegraPedidoProduto.pas',
-  uModelPedidoProduto in 'Pedidos\uModelPedidoProduto.pas',
-  uInterfaceModelPedidoProduto in 'Pedidos\uInterfaceModelPedidoProduto.pas',
-  uDtoPedidoProduto in 'Pedidos\uDtoPedidoProduto.pas';
+  uControllerPedido in 'Pedidos\Pedido\uControllerPedido.pas',
+  uDtoPedido in 'Pedidos\Pedido\uDtoPedido.pas',
+  uEnumeradorCamposPedido in 'Pedidos\Pedido\uEnumeradorCamposPedido.pas',
+  uInterfaceModelPedido in 'Pedidos\Pedido\uInterfaceModelPedido.pas',
+  uListagemPedido in 'Pedidos\Pedido\uListagemPedido.pas' {frmListagemPedido},
+  uModelPedido in 'Pedidos\Pedido\uModelPedido.pas',
+  uRegraPedido in 'Pedidos\Pedido\uRegraPedido.pas',
+  uViewPedido in 'Pedidos\Pedido\uViewPedido.pas' {frmViewPedido},
+  uViewFinal in 'Pedidos\Final\uViewFinal.pas' {frmFinal},
+  uViewQuantidade in 'Pedidos\Quantidade\uViewQuantidade.pas' {frmQuantidade},
+  uControllerPedidoProduto in 'Pedidos\Produtos\uControllerPedidoProduto.pas',
+  uDtoPedidoProduto in 'Pedidos\Produtos\uDtoPedidoProduto.pas',
+  uInterfaceModelPedidoProduto in 'Pedidos\Produtos\uInterfaceModelPedidoProduto.pas',
+  uModelPedidoProduto in 'Pedidos\Produtos\uModelPedidoProduto.pas',
+  uRegraPedidoProduto in 'Pedidos\Produtos\uRegraPedidoProduto.pas',
+  uViewProduto in 'Pedidos\Produtos\uViewProduto.pas' {frmViewProduto};
 
 {$R *.res}
 
@@ -138,6 +137,11 @@ begin
     FreeAndNil(oControllerLogin); // Libera o form de Login da memória
 
     Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmListagemPedido, frmListagemPedido);
+  Application.CreateForm(TfrmViewPedido, frmViewPedido);
+  Application.CreateForm(TfrmFinal, frmFinal);
+  Application.CreateForm(TfrmQuantidade, frmQuantidade);
+  Application.CreateForm(TfrmViewProduto, frmViewProduto);
   // Cria o mainform
 
     Application.Run; // Roda a aplicação
