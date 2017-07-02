@@ -1,4 +1,4 @@
-inherited frmBasePadrao1: TfrmBasePadrao1
+inherited frmViewProduto: TfrmViewProduto
   Caption = 'Pizza do Nono - Pedidos'
   ClientHeight = 517
   ClientWidth = 918
@@ -11,9 +11,9 @@ inherited frmBasePadrao1: TfrmBasePadrao1
   object panelListagem: TPanel
     AlignWithMargins = True
     Left = 5
-    Top = 94
+    Top = 129
     Width = 908
-    Height = 418
+    Height = 383
     Margins.Left = 5
     Margins.Top = 5
     Margins.Right = 5
@@ -25,13 +25,12 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 914
     object dbGridListagem: TDBGrid
       Left = 1
       Top = 1
       Width = 902
-      Height = 412
-      Hint = 'Duplo clique no registro para editar.'
+      Height = 377
+      Hint = 'Duplo clique no registro para adicionar ao pedido.'
       Align = alClient
       BorderStyle = bsNone
       Ctl3D = True
@@ -78,7 +77,7 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     Left = 3
     Top = 3
     Width = 912
-    Height = 85
+    Height = 118
     Cursor = crHandPoint
     Align = alTop
     BevelOuter = bvNone
@@ -88,13 +87,25 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 1
-    ExplicitWidth = 918
     DesignSize = (
       912
-      85)
+      118)
+    object labelTitulo: TLabel
+      Left = 5
+      Top = 14
+      Width = 215
+      Height = 33
+      Caption = 'Adicionar Produtos'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -27
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object LabelFiltro: TLabel
       Left = 112
-      Top = 32
+      Top = 64
       Width = 41
       Height = 15
       Caption = 'Nome: '
@@ -218,7 +229,7 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     end
     object Label1: TLabel
       Left = 5
-      Top = 32
+      Top = 64
       Width = 41
       Height = 15
       Caption = 'C'#243'digo:'
@@ -231,18 +242,27 @@ inherited frmBasePadrao1: TfrmBasePadrao1
     end
     object SearchBoxCodigo: TSearchBox
       Left = 5
-      Top = 53
+      Top = 85
       Width = 101
       Height = 23
       TabOrder = 0
     end
     object SearchBoxNome: TSearchBox
       Left = 112
-      Top = 53
+      Top = 85
       Width = 633
       Height = 23
       TabOrder = 1
       TextHint = 'Insira o termo de pesquisa'
+    end
+    object panelSeparador: TPanel
+      Left = 5
+      Top = 53
+      Width = 464
+      Height = 1
+      Caption = 'panelSeparador'
+      ShowCaption = False
+      TabOrder = 2
     end
   end
 end

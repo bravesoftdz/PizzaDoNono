@@ -112,12 +112,10 @@ end;
 
 procedure TControllerPedido.Excluir;
 begin
-  // resgatando idingredient e setando no DTO
-
   If MessageBox(0, 'Deseja realmente excluir?' + #13 + 'Este processo não pode ser revertido.',
     'ATENÇÃO!', MB_YESNO + MB_TASKMODAL + MB_ICONWARNING + MB_DEFBUTTON1) = ID_YES Then
   begin
-    if oModelPedido.Excluir(oModelPedido, oDtoPedido) then
+    if oModelPedido.Excluir(oDtoPedido) then
     begin
       inherited;
       ShowMessage('Registro excluído com sucesso.');
@@ -154,81 +152,61 @@ begin
 
   TfrmListagemPedido(oFormularioListagem).iInterfaceCrud := oControllerPedido;
 
-  PreencherGrid(TfrmListagemPedido(oFormularioListagem).dbGridListagem);
+  // PreencherGrid(TfrmListagemPedido(oFormularioListagem).dbGridListagem);
   inherited;
 end;
 
 procedure TControllerPedido.Novo;
 begin
   inherited;
+  oDtoPedido.idPedido := 0;
 end;
 
 procedure TControllerPedido.Salvar;
 begin
   PreencherDTO;
 
-  case oRegraPedido.ValidarDados(oDtoPedido) of
-    resultNome:
-      begin
-        ShowMessage('Preecha a descrição.');
-        TfrmCadastroPedido(oFormularioCadastro).edtNome.SetFocus;
-      end;
-    resultOk:
-      begin
-        // testa se o edit do ID está vazio
-        if oDtoPedido.idPedido = 0 then
-        begin
-          // se o ID for vazio, testa se o nome informado ja esta cadastrado
-          if oRegraPedido.VerificarPedidoCadastrado(oModelPedido, oDtoPedido) then
-          begin
-            ShowMessage('Já existe um Pedido cadastrado com o nome "' +
-              UpperCase(oDtoPedido.Nome) + '".');
-            TfrmCadastroPedido(oFormularioCadastro).edtNome.SetFocus;
-          end
-          else
-          // se o nome informado nao estiver cadastrado, realiza a inserção
-          begin
-            // testa se a inserção foi realizada
-            if oRegraPedido.Inserir(oModelPedido, oDtoPedido) then
-            begin
-              // se a inserção for realizada
-              AjustarModoInsercao(False);
-              LimparFormulario;
-              LimparDto(oDtoPedido);
-              inherited;
-            end;
-          end;
-        end
-        else
-        // se o edit de ID nao estiver vazio, fazer UPDATE
-        begin
-          // se o nome informado nao estiver cadastrado, realiza a inserção
-          begin
-            // testa se a inserção foi realizada
-            if oRegraPedido.Editar(oModelPedido, oDtoPedido) then
-            begin
-              // se a alteração for realizada
-              AjustarModoInsercao(False);
-              LimparFormulario;
-              LimparDto(oDtoPedido);
-              inherited;
-            end;
-          end;
-        end;
-      end;
+  if oRegraPedido.ValidarDados(oDtoPedido) then
+  begin
+    // ShowMessage('Não é possível salvar um pedido vazio. Selecione ao menos um produto.');
+    MessageBox(0, 'Não é possível salvar um pedido vazio. ' + #13 +
+      'Selecione ao menos um produto.', 'ATENÇÃO!', MB_OK + MB_TASKMODAL + MB_ICONINFORMATION +
+      MB_DEFBUTTON1);
+  end
+  else
+  begin
+    // testa se o edit do ID está vazio
+    if oDtoPedido.idPedido = 0 then
+    begin
+      // testa se a inserção foi realizada
+      // if oRegraPedido.Inserir(oModelPedido, oDtoPedido) then
+      // begin
+      // // se a inserção for realizada
+      // AjustarModoInsercao(False);
+      // LimparFormulario;
+      // LimparDto(oDtoPedido);
+      // inherited;
+      // end;
+    end
+    else
+    // se o edit de ID nao estiver vazio, fazer UPDATE
+    begin
+      // if oRegraPedido.Editar(oModelPedido, oDtoPedido) then
+      // begin
+      // // se a alteração for realizada
+      // AjustarModoInsercao(False);
+      // LimparFormulario;
+      // LimparDto(oDtoPedido);
+      // inherited;
+      // end;
+    end;
   end;
-
 end;
 
 procedure TControllerPedido.PreencherDTO;
 begin
 
-  if TfrmCadastroPedido(oFormularioCadastro).edtIdCodigo.Text <> '' then
-    oDtoPedido.idPedido := StrToInt(TfrmCadastroPedido(oFormularioCadastro).edtIdCodigo.Text)
-  else
-    oDtoPedido.idPedido := 0;
-
-  oDtoPedido.Nome := Trim(TfrmCadastroPedido(oFormularioCadastro).edtNome.Text);
+  oDtoPedido.QuantidadeItens := TfrmViewPedido(oFormularioCadastro).dbGridListagem.FieldCount;
 
 end;
 

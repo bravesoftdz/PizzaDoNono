@@ -12,15 +12,13 @@ type
     //
   public
     function ValidarDados(var ADtoPedido: TDtoPedido): Boolean;
-    function Excluir(const AModelPedido: TModelPedido;
-      const ADtoPedido: TDtoPedido): Boolean;
+    function Excluir(const AModelPedido: TModelPedido; const ADtoPedido: TDtoPedido): Boolean;
 
   end;
 
 implementation
 
 { TRegraPedido }
-
 
 function TRegraPedido.Excluir(const AModelPedido: TModelPedido;
   const ADtoPedido: TDtoPedido): Boolean;
@@ -31,14 +29,14 @@ end;
 function TRegraPedido.ValidarDados(var ADtoPedido: TDtoPedido): Boolean;
 begin
   // testa se o campo nome foi informado
-  if ADtoPedido.Nome = EmptyStr then
+  if ADtoPedido.QuantidadeItens = 0 then
   begin
     // se for vazio
-    Result := False;
+    Result := True;
     exit;
   end;
   // caso não der erro nenhum retorna OK
-  Result := True;
+  Result := False;
 end;
 
 end.

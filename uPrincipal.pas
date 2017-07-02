@@ -105,7 +105,7 @@ begin
   inherited;
   if not(assigned(oControllerPedido)) then
     oControllerPedido := TControllerPedido.Create;
-  oControllerPedido.CriarFormPedido(Self);
+  oControllerPedido.CriarFormCadastro(Self);
 end;
 
 procedure TfrmPrincipal.btnProdutosClick(Sender: TObject);

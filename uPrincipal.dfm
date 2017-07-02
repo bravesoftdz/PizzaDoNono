@@ -2002,53 +2002,45 @@
       Left = 1231
       Top = 0
       Width = 21
-      Height = 17
+      Height = 15
       Align = alRight
       Alignment = taRightJustify
       Caption = '       '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1263
-      ExplicitHeight = 15
     end
     object labelUsuario: TLabel
       Left = 1150
       Top = 0
       Width = 50
-      Height = 17
+      Height = 15
       Align = alRight
       Alignment = taRightJustify
       Caption = 'Usu'#225'rio: '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1182
-      ExplicitHeight = 15
     end
     object labelCodigoUsuario: TLabel
       Left = 1200
       Top = 0
       Width = 21
-      Height = 17
+      Height = 15
       Align = alRight
       Alignment = taRightJustify
       Caption = '       '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1232
-      ExplicitHeight = 15
     end
     object Label1: TLabel
       Left = 1221
       Top = 0
       Width = 10
-      Height = 17
+      Height = 15
       Align = alRight
       Alignment = taRightJustify
       Caption = ' - '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1253
-      ExplicitHeight = 15
     end
   end
 end

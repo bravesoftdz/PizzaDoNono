@@ -109,11 +109,12 @@ uses
   uEnumeradorCamposPedido in 'Pedidos\uEnumeradorCamposPedido.pas',
   uModelPedido in 'Pedidos\uModelPedido.pas',
   uRegraPedido in 'Pedidos\uRegraPedido.pas',
-  uViewProduto in 'Pedidos\uViewProduto.pas' {frmBasePadrao1},
+  uViewProduto in 'Pedidos\uViewProduto.pas' {frmViewProduto},
   uViewPedido in 'Pedidos\uViewPedido.pas' {frmViewPedido},
   uViewQuantidade in 'Pedidos\uViewQuantidade.pas' {frmQuantidade},
   uViewFinal in 'Pedidos\uViewFinal.pas' {frmFinal},
-  uListagemPedido in 'Pedidos\uListagemPedido.pas' {frmListagemBase1};
+  uInterfaceModelPedido in 'Pedidos\uInterfaceModelPedido.pas',
+  uListagemPedido in 'Pedidos\uListagemPedido.pas' {frmListagemPedido};
 
 {$R *.res}
 
@@ -132,11 +133,7 @@ begin
     FreeAndNil(oControllerLogin); // Libera o form de Login da memória
 
     Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmBasePadrao1, frmBasePadrao1);
-  Application.CreateForm(TfrmViewPedido, frmViewPedido);
-  Application.CreateForm(TfrmQuantidade, frmQuantidade);
-  Application.CreateForm(TfrmFinal, frmFinal);
-  Application.CreateForm(TfrmListagemBase1, frmListagemBase1);
+  Application.CreateForm(TfrmViewProduto, frmViewProduto);
   // Cria o mainform
 
     Application.Run; // Roda a aplicação

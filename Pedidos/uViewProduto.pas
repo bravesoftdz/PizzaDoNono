@@ -8,7 +8,7 @@ uses
   Data.DB, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.WinXCtrls;
 
 type
-  TfrmBasePadrao1 = class(TfrmBasePadrao)
+  TfrmViewProduto = class(TfrmBasePadrao)
     panelListagem: TPanel;
     dbGridListagem: TDBGrid;
     BoxBotoes: TPanel;
@@ -17,6 +17,8 @@ type
     Label1: TLabel;
     SearchBoxCodigo: TSearchBox;
     SearchBoxNome: TSearchBox;
+    panelSeparador: TPanel;
+    labelTitulo: TLabel;
   private
     { Private declarations }
   public
@@ -24,7 +26,7 @@ type
   end;
 
 var
-  frmBasePadrao1: TfrmBasePadrao1;
+  frmViewProduto: TfrmViewProduto;
 
 implementation
 
