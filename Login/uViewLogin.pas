@@ -9,7 +9,6 @@ uses
 
 type
   TfrmViewLogin = class(TfrmBasePadrao)
-    Image1: TImage;
     Panel1: TPanel;
     Label1: TLabel;
     btnSair: TBitBtn;
@@ -17,6 +16,7 @@ type
     edtNome: TLabeledEdit;
     edtSenha: TEdit;
     btnEntrar: TBitBtn;
+    Image1: TImage;
   private
     { Private declarations }
   public
