@@ -17,7 +17,6 @@ type
     function VerificarPedidoProdutoCadastrado(var ADtoPedidoProduto: TDtoPedidoProduto): Boolean;
     function Excluir(const ADtoPedidoProduto: TDtoPedidoProduto): Boolean;
     function CountRegistros: integer;
-     // listar os PedidoProdutos do chek lista dos sabores
 
     constructor Create;
     destructor Destroy; override;
@@ -41,7 +40,6 @@ begin
   end;
 end;
 
-
 constructor TModelPedidoProduto.Create;
 begin
   oQuery := TFDQuery.Create(nil);
@@ -58,8 +56,8 @@ end;
 function TModelPedidoProduto.Editar(const oDtoPedidoProduto: TDtoPedidoProduto): Boolean;
 begin
   Result := False;
-//  oQuery.ExecSQL('UPDATE PedidoProduto SET nome = ' + QuotedStr(oDtoPedidoProduto.Nome) +
-//    ' WHERE idPedidoProduto = ' + IntToStr(oDtoPedidoProduto.IdPedidoProduto));
+  // oQuery.ExecSQL('UPDATE PedidoProduto SET nome = ' + QuotedStr(oDtoPedidoProduto.Nome) +
+  // ' WHERE idPedidoProduto = ' + IntToStr(oDtoPedidoProduto.IdPedidoProduto));
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -67,8 +65,8 @@ end;
 function TModelPedidoProduto.Excluir(const ADtoPedidoProduto: TDtoPedidoProduto): Boolean;
 begin
   Result := False;
-//  oQuery.ExecSQL('DELETE FROM PedidoProduto WHERE idPedidoProduto = ' +
-//    IntToStr(ADtoPedidoProduto.IdPedidoProduto));
+  // oQuery.ExecSQL('DELETE FROM PedidoProduto WHERE idPedidoProduto = ' +
+  // IntToStr(ADtoPedidoProduto.IdPedidoProduto));
   if oQuery.RowsAffected > 0 then
     Result := True;
 end;
@@ -76,20 +74,18 @@ end;
 function TModelPedidoProduto.Inserir(const oDtoPedidoProduto: TDtoPedidoProduto): Boolean;
 begin
   Result := False;
-//  oQuery.ExecSQL('INSERT INTO PedidoProduto (nome) VALUES(' + QuotedStr(oDtoPedidoProduto.Nome) + ');');
+  // oQuery.ExecSQL('INSERT INTO PedidoProduto (nome) VALUES(' + QuotedStr(oDtoPedidoProduto.Nome) + ');');
   if oQuery.RowsAffected > 0 then
-  Result := True;
+    Result := True;
 end;
 
 function TModelPedidoProduto.Listar: Boolean;
 begin
   Result := False;
-
-//  oQuery.Open('SELECT idPedidoProduto, nome FROM PedidoProduto ORDER BY nome ASC');
+  oQuery.Open('SELECT idProduto, nome, valor, temsabor FROM Produto ORDER BY nome ASC');
   if not(oQuery.IsEmpty) then
     Result := True;
 end;
-
 
 function TModelPedidoProduto.VerificarPedidoProdutoCadastrado(var ADtoPedidoProduto
   : TDtoPedidoProduto): Boolean;
@@ -101,7 +97,7 @@ begin
   begin
     // se idPedidoProduto = 0 verifica somente nome do PedidoProduto
     // seleciona no banco o nome
-//    oQuery.Open('SELECT nome FROM PedidoProduto WHERE nome = ' + QuotedStr(ADtoPedidoProduto.Nome));
+    // oQuery.Open('SELECT nome FROM PedidoProduto WHERE nome = ' + QuotedStr(ADtoPedidoProduto.Nome));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe PedidoProduto cadastrado com este nome
@@ -109,8 +105,8 @@ begin
   end
   else if ADtoPedidoProduto.IdProduto <> 0 then
   begin
-//    oQuery.Open('SELECT nome FROM PedidoProduto ' + QuotedStr(ADtoPedidoProduto.Nome) +
-//      ' AND idPedidoProduto <> ' + IntToStr(ADtoPedidoProduto.IdPedidoProduto));
+    // oQuery.Open('SELECT nome FROM PedidoProduto ' + QuotedStr(ADtoPedidoProduto.Nome) +
+    // ' AND idPedidoProduto <> ' + IntToStr(ADtoPedidoProduto.IdPedidoProduto));
     // testa se o retorno do banco de dados é vazio
     if not(oQuery.IsEmpty) then
       // se nao for vazio, já existe PedidoProduto cadastrado com este nome

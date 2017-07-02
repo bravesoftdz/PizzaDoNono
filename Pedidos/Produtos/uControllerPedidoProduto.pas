@@ -64,11 +64,11 @@ begin
 
   oFormularioCadastro.iInterfaceCrud := oControllerPedidoProduto;
 
-  // if oModelPedidoProduto.Listar then
-  // begin
-  // oDataSource.DataSet := oModelPedidoProduto.oQuery;
-  // TfrmListagemPedidoProduto(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
-  // end;
+  if oModelPedidoProduto.Listar then
+  begin
+    oDataSource.DataSet := oModelPedidoProduto.oQuery;
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource := oDataSource;
+  end;
 
   inherited;
 end;
