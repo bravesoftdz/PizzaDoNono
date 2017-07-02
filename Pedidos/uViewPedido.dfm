@@ -1,11 +1,12 @@
 inherited frmViewPedido: TfrmViewPedido
-  Caption = 'frmViewPedido'
+  Caption = 'Pizza do Nono - Pedidos'
   ClientWidth = 1039
   ExplicitWidth = 1045
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
     Width = 1029
+    ExplicitWidth = 1029
     inherited labelTitulo: TLabel
       Visible = False
     end
@@ -30,7 +31,6 @@ inherited frmViewPedido: TfrmViewPedido
       ParentCtl3D = False
       ShowCaption = False
       TabOrder = 1
-      ExplicitHeight = 442
       DesignSize = (
         1013
         527)
@@ -575,7 +575,6 @@ inherited frmViewPedido: TfrmViewPedido
         ParentCtl3D = False
         ShowCaption = False
         TabOrder = 0
-        ExplicitWidth = 614
         DesignSize = (
           1003
           50)
@@ -689,8 +688,10 @@ inherited frmViewPedido: TfrmViewPedido
   end
   inherited boxBotoes: TPanel
     Width = 1033
+    ExplicitWidth = 1033
     inherited btnFechar: TSpeedButton
       Left = 928
+      ExplicitLeft = 928
     end
     inherited btnSalvar: TSpeedButton
       Caption = 'Concluir'

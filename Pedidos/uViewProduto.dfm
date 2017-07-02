@@ -1,5 +1,5 @@
 inherited frmBasePadrao1: TfrmBasePadrao1
-  Caption = 'frmBasePadrao1'
+  Caption = 'Pizza do Nono - Pedidos'
   ClientHeight = 517
   ClientWidth = 918
   FormStyle = fsMDIChild

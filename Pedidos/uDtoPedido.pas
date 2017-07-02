@@ -8,36 +8,23 @@ uses
 type
   TDtoPedido = class
   private
-    FNome: string;
-    FSenha: string;
-    FidUsuario: integer;
-    procedure SetNome(const Value: string);
-    procedure SetSenha(const Value: string);
-    procedure SetidUsuario(const Value: integer);
+
+    FIdPedido: integer;
+
+    procedure SetIdPedido(const Value: integer);
 
   public
-    property idUsuario: integer read FidUsuario write SetidUsuario;
-    property Nome: string read FNome write SetNome;
-    property Senha : string read FSenha write SetSenha;
+    property IdPedido: integer read FIdPedido write SetIdPedido;
+
   end;
 
 implementation
 
 { TDtoPedido }
 
-procedure TDtoPedido.SetidUsuario(const Value: integer);
+procedure TDtoPedido.SetIdPedido(const Value: integer);
 begin
-  FidUsuario := Value;
-end;
-
-procedure TDtoPedido.SetNome(const Value: string);
-begin
-  FNome := Value;
-end;
-
-procedure TDtoPedido.SetSenha(const Value: string);
-begin
-  FSenha := Value;
+  FIdPedido := Value;
 end;
 
 end.

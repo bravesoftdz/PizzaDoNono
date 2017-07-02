@@ -1,7 +1,6 @@
-inherited frmListagemBase1: TfrmListagemBase1
-  Caption = 'frmListagemBase1'
+inherited frmListagemPedido: TfrmListagemPedido
+  Caption = 'Pizza do Nono - Pedidos'
   ClientWidth = 501
-  ExplicitTop = -29
   ExplicitWidth = 507
   PixelsPerInch = 96
   TextHeight = 15

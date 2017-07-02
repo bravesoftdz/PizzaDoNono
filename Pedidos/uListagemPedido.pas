@@ -8,7 +8,7 @@ uses
   Vcl.StdCtrls, Vcl.WinXCtrls, Vcl.Buttons, Vcl.ExtCtrls;
 
 type
-  TfrmListagemBase1 = class(TfrmListagemBase)
+  TfrmListagemPedido = class(TfrmListagemBase)
   private
     { Private declarations }
   public
@@ -16,7 +16,7 @@ type
   end;
 
 var
-  frmListagemBase1: TfrmListagemBase1;
+  frmListagemPedido: TfrmListagemPedido;
 
 implementation
 
