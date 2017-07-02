@@ -28,12 +28,12 @@ type
     btnSair: TSpeedButton;
     btnUsuarios: TSpeedButton;
     btnTamanho: TSpeedButton;
-    Image1: TImage;
     panelRodape: TPanel;
     labelNomeUsuario: TLabel;
     labelUsuario: TLabel;
     labelCodigoUsuario: TLabel;
     Label1: TLabel;
+    Image1: TImage;
     procedure btnTamanhoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
