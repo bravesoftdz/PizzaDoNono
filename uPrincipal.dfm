@@ -3,16 +3,14 @@
   VertScrollBar.Tracking = True
   Caption = 'Pizza do Nono Delivery'
   ClientHeight = 529
-  ClientWidth = 1289
+  ClientWidth = 1257
   FormStyle = fsMDIForm
   Position = poDefault
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitLeft = -229
-  ExplicitTop = 6
-  ExplicitWidth = 1295
+  ExplicitWidth = 1263
   ExplicitHeight = 558
   PixelsPerInch = 96
   TextHeight = 15
@@ -639,16 +637,16 @@
   object panelBoxBotoes: TPanel
     Left = 0
     Top = 0
-    Width = 1289
+    Width = 1257
     Height = 85
     Align = alTop
     BevelOuter = bvNone
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 1340
+    ExplicitWidth = 1289
     DesignSize = (
-      1289
+      1257
       85)
     object bntBairros: TSpeedButton
       Left = 531
@@ -1276,6 +1274,7 @@
         5425500D0D0D0D0D0D0D4B542B0606060606205959595959595959595959594E
         5454545454545454545454542E595959595959595959}
       Layout = blGlyphTop
+      OnClick = btnPedidosClick
     end
     object btnProdutos: TSpeedButton
       Left = 107
@@ -1609,7 +1608,7 @@
       OnClick = btnSaboresClick
     end
     object btnSair: TSpeedButton
-      Left = 1189
+      Left = 1157
       Top = 1
       Width = 90
       Height = 80
@@ -1985,7 +1984,7 @@
     AlignWithMargins = True
     Left = 0
     Top = 512
-    Width = 1284
+    Width = 1252
     Height = 17
     Margins.Left = 0
     Margins.Top = 0
@@ -1998,9 +1997,9 @@
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 1289
+    ExplicitWidth = 1284
     object labelNomeUsuario: TLabel
-      Left = 1263
+      Left = 1231
       Top = 0
       Width = 21
       Height = 17
@@ -2009,11 +2008,11 @@
       Caption = '       '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1268
+      ExplicitLeft = 1263
       ExplicitHeight = 15
     end
     object labelUsuario: TLabel
-      Left = 1182
+      Left = 1150
       Top = 0
       Width = 50
       Height = 17
@@ -2022,11 +2021,11 @@
       Caption = 'Usu'#225'rio: '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1187
+      ExplicitLeft = 1182
       ExplicitHeight = 15
     end
     object labelCodigoUsuario: TLabel
-      Left = 1232
+      Left = 1200
       Top = 0
       Width = 21
       Height = 17
@@ -2035,11 +2034,11 @@
       Caption = '       '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1183
+      ExplicitLeft = 1232
       ExplicitHeight = 15
     end
     object Label1: TLabel
-      Left = 1253
+      Left = 1221
       Top = 0
       Width = 10
       Height = 17
@@ -2048,7 +2047,7 @@
       Caption = ' - '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1258
+      ExplicitLeft = 1253
       ExplicitHeight = 15
     end
   end

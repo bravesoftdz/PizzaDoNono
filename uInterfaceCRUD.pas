@@ -3,8 +3,7 @@ unit uInterfaceCRUD;
 interface
 
 uses
-  System.Classes, Vcl.Forms,
-  uDtoUsuario;
+  System.Classes, Vcl.Forms;
 
 type
   ICrud = interface

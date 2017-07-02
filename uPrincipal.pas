@@ -8,9 +8,10 @@ uses
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Imaging.pngimage,
   uClassDBConnectionSingleton, uFrmBasePadrao, uControllerUsuario,
-  uViewCadastroUsuario, System.ImageList, Vcl.ImgList, uControllerIngrediente,
+  uViewCadastroUsuario, uControllerIngrediente,
   uControllerEstado, uControllerMunicipio, uControllerBairro, uControllerCliente,
-  uControllerTamanho, uControllerSabor, uControllerProduto, uSingletonLogin, uDtoLogin;
+  uControllerTamanho, uControllerSabor, uControllerProduto, uSingletonLogin, uDtoLogin,
+  uControllerPedido;
 
 type
   TfrmPrincipal = class(TfrmBasePadrao)
@@ -44,6 +45,7 @@ type
     procedure btnUsuariosClick(Sender: TObject);
     procedure btnSaboresClick(Sender: TObject);
     procedure btnProdutosClick(Sender: TObject);
+    procedure btnPedidosClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -98,13 +100,20 @@ begin
   oControllerMunicipio.CriarFormCadastro(Self);
 end;
 
+procedure TfrmPrincipal.btnPedidosClick(Sender: TObject);
+begin
+  inherited;
+  if not(assigned(oControllerPedido)) then
+    oControllerPedido := TControllerPedido.Create;
+  oControllerPedido.CriarFormPedido(Self);
+end;
+
 procedure TfrmPrincipal.btnProdutosClick(Sender: TObject);
 begin
   inherited;
   if not(assigned(oControllerProduto)) then
     oControllerProduto := TControllerProduto.Create;
   oControllerProduto.CriarFormCadastro(Self);
-
 end;
 
 procedure TfrmPrincipal.btnSaboresClick(Sender: TObject);
@@ -113,12 +122,13 @@ begin
   if not(assigned(oControllerSabor)) then
     oControllerSabor := TControllerSabor.Create;
   oControllerSabor.CriarFormCadastro(Self);
-
 end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
 begin
   inherited;
+//  if assigned(oControllerPedido) then
+//    FreeAndNil(oControllerPedido);
   Close;
 end;
 

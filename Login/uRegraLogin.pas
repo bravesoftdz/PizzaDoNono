@@ -29,7 +29,7 @@ begin
     exit;
   end;
   // testa se o campo senha foi informado
-  if ADtoLogin.Nome = EmptyStr then
+  if ADtoLogin.Senha = EmptyStr then
   begin
     // se for vazio
     Result := resultSenha;

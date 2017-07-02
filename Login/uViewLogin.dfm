@@ -687,7 +687,7 @@ inherited frmViewLogin: TfrmViewLogin
       TabStop = False
     end
     object edtNome: TLabeledEdit
-      Left = 53
+      Left = 52
       Top = 80
       Width = 241
       Height = 26
@@ -708,6 +708,7 @@ inherited frmViewLogin: TfrmViewLogin
       LabelSpacing = 5
       ParentFont = False
       TabOrder = 1
+      Text = 'Ricardo Back'
     end
     object edtSenha: TEdit
       Left = 53
@@ -722,6 +723,7 @@ inherited frmViewLogin: TfrmViewLogin
       ParentFont = False
       PasswordChar = '*'
       TabOrder = 2
+      Text = 'pizzadonono'
     end
     object btnEntrar: TBitBtn
       Left = 173

@@ -28,7 +28,6 @@ inherited frmListagemBase: TfrmListagemBase
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 474
     DesignSize = (
       468
       85)
@@ -159,8 +158,8 @@ inherited frmListagemBase: TfrmListagemBase
       ExplicitLeft = 751
     end
     object SearchBoxListagem: TSearchBox
-      Left = 16
-      Top = 52
+      Left = 20
+      Top = 53
       Width = 337
       Height = 23
       TabOrder = 0
@@ -184,8 +183,6 @@ inherited frmListagemBase: TfrmListagemBase
     ParentBackground = False
     ShowCaption = False
     TabOrder = 1
-    ExplicitTop = 32
-    ExplicitWidth = 470
     object dbGridListagem: TDBGrid
       Left = 1
       Top = 1

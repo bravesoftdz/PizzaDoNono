@@ -97,14 +97,23 @@ uses
   uListaSabor in 'Sabores\uListaSabor.pas',
   uEnumeradorTemSabor in 'Produto\uEnumeradorTemSabor.pas',
   uListaSaboresDisponiveis in 'Sabores\uListaSaboresDisponiveis.pas',
-  uViewPedido in 'Pedidos\uViewPedido.pas' {frmViewPedido},
   uViewLogin in 'Login\uViewLogin.pas' {frmViewLogin},
   uControllerLogin in 'Login\uControllerLogin.pas',
   uDtoLogin in 'Login\uDtoLogin.pas',
   uModelLogin in 'Login\uModelLogin.pas',
   uRegraLogin in 'Login\uRegraLogin.pas',
   uEnumeradorCamposLogin in 'Login\uEnumeradorCamposLogin.pas',
-  uSingletonLogin in 'Login\uSingletonLogin.pas';
+  uSingletonLogin in 'Login\uSingletonLogin.pas',
+  uControllerPedido in 'Pedidos\uControllerPedido.pas',
+  uDtoPedido in 'Pedidos\uDtoPedido.pas',
+  uEnumeradorCamposPedido in 'Pedidos\uEnumeradorCamposPedido.pas',
+  uModelPedido in 'Pedidos\uModelPedido.pas',
+  uRegraPedido in 'Pedidos\uRegraPedido.pas',
+  uViewProduto in 'Pedidos\uViewProduto.pas' {frmBasePadrao1},
+  uViewPedido in 'Pedidos\uViewPedido.pas' {frmViewPedido},
+  uViewQuantidade in 'Pedidos\uViewQuantidade.pas' {frmQuantidade},
+  uViewFinal in 'Pedidos\uViewFinal.pas' {frmFinal},
+  uListagemPedido in 'Pedidos\uListagemPedido.pas' {frmListagemBase1};
 
 {$R *.res}
 
@@ -123,6 +132,11 @@ begin
     FreeAndNil(oControllerLogin); // Libera o form de Login da memória
 
     Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmBasePadrao1, frmBasePadrao1);
+  Application.CreateForm(TfrmViewPedido, frmViewPedido);
+  Application.CreateForm(TfrmQuantidade, frmQuantidade);
+  Application.CreateForm(TfrmFinal, frmFinal);
+  Application.CreateForm(TfrmListagemBase1, frmListagemBase1);
   // Cria o mainform
 
     Application.Run; // Roda a aplicação
@@ -131,6 +145,6 @@ begin
 
   else // Caso o retorno da tela de Login seja mrCancel então
 
-    Application.Terminate; // Encerra a aplicaçã
+    Application.Terminate; // Encerra a aplicaçã0
 
 end.
