@@ -5,7 +5,7 @@ inherited frmViewProduto: TfrmViewProduto
   ClientHeight = 517
   ClientWidth = 918
   FormStyle = fsMDIChild
-  Position = poDesigned
+  Position = poDefault
   Visible = True
   ExplicitWidth = 924
   ExplicitHeight = 546
@@ -252,6 +252,7 @@ inherited frmViewProduto: TfrmViewProduto
       Top = 85
       Width = 101
       Height = 23
+      NumbersOnly = True
       TabOrder = 0
     end
     object SearchBoxNome: TSearchBox

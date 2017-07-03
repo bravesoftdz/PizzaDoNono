@@ -16,7 +16,7 @@
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitTop = -41
+  ExplicitLeft = -143
   ExplicitWidth = 1263
   ExplicitHeight = 558
   PixelsPerInch = 96
@@ -1491,7 +1491,7 @@
       OnClick = btnSaboresClick
     end
     object btnSair: TSpeedButton
-      Left = 1147
+      Left = 1152
       Top = 1
       Width = 90
       Height = 80
@@ -1600,7 +1600,6 @@
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFEAEEFF4369FFD2DBFFFFFFFF}
       Layout = blGlyphTop
       OnClick = btnSairClick
-      ExplicitLeft = 1240
     end
     object btnUsuarios: TSpeedButton
       Left = 955

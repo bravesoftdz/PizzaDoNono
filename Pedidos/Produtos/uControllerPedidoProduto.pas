@@ -5,7 +5,8 @@ interface
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, Winapi.Windows,
   Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
-  uControllerCRUD, uRegraPedidoProduto, uDtoPedidoProduto, uViewProduto, uModelPedidoProduto;
+  uControllerCRUD, uRegraPedidoProduto, uDtoPedidoProduto, uViewProduto, uModelPedidoProduto,
+  uViewPedido;
 
 type
   TControllerPedidoProduto = class(TControllerCRUD)
@@ -16,7 +17,9 @@ type
     procedure PreencherDTO;
     procedure LimparDto;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
-
+    procedure AdicionarProduto(Sender: TObject);
+    procedure FiltrarPorCodigo(Sender: TObject);
+    procedure FiltrarPorNome(Sender: TObject);
   public
 
     oDtoPedidoProduto: TDtoPedidoProduto;
@@ -26,7 +29,6 @@ type
 
     procedure CriarFormCadastro(aOwner: TComponent); override;
     procedure FecharFormCadastro(ASender: TObject); override;
-
   end;
 
 var
@@ -35,6 +37,11 @@ var
 implementation
 
 { TControllerPedidoProduto }
+
+procedure TControllerPedidoProduto.AdicionarProduto(Sender: TObject);
+begin
+  showMessage('Ola mundo');
+end;
 
 procedure TControllerPedidoProduto.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
 begin
@@ -64,6 +71,10 @@ begin
 
   oFormularioCadastro.iInterfaceCrud := oControllerPedidoProduto;
 
+  TfrmViewProduto(oFormularioCadastro).dbGridListagem.OnDblClick := AdicionarProduto;
+  TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.OnChange := FiltrarPorCodigo;
+  TfrmViewProduto(oFormularioCadastro).SearchBoxNome.OnChange := FiltrarPorNome;
+
   if oModelPedidoProduto.Listar then
   begin
     oDataSource.DataSet := oModelPedidoProduto.oQuery;
@@ -91,6 +102,33 @@ procedure TControllerPedidoProduto.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
   oControllerPedidoProduto := nil;
+end;
+
+procedure TControllerPedidoProduto.FiltrarPorCodigo(Sender: TObject);
+begin
+  TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := False;
+  TfrmViewProduto(oFormularioCadastro).SearchBoxNome.Text := EmptyStr;
+  if TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.Text <> EmptyStr then
+  begin
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filter :=
+      'idproduto LIKE ' + QuotedStr(TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.Text);
+
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := True;
+  end;
+end;
+
+procedure TControllerPedidoProduto.FiltrarPorNome(Sender: TObject);
+begin
+  TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := False;
+  TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.Text := EmptyStr;
+  if TfrmViewProduto(oFormularioCadastro).SearchBoxNome.Text <> EmptyStr then
+  begin
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filter :=
+      'UPPER(nome) Like ' + UpperCase(QuotedStr('%' + TfrmViewProduto(oFormularioCadastro)
+      .SearchBoxNome.Text + '%'));
+
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := True;
+  end;
 end;
 
 procedure TControllerPedidoProduto.LimparDto;

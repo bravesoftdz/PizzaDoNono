@@ -7,6 +7,7 @@ inherited frmQuantidade: TfrmQuantidade
   FormStyle = fsMDIChild
   Position = poDesigned
   Visible = True
+  ExplicitTop = -20
   ExplicitWidth = 1186
   ExplicitHeight = 575
   PixelsPerInch = 96
@@ -56,7 +57,7 @@ inherited frmQuantidade: TfrmQuantidade
       ParentFont = False
     end
     object labelValorTotalPedido: TLabel
-      Left = 889
+      Left = 885
       Top = 26
       Width = 139
       Height = 31
@@ -178,7 +179,7 @@ inherited frmQuantidade: TfrmQuantidade
       TabOrder = 1
     end
     object edtValorTotalPedido: TEdit
-      Left = 1033
+      Left = 1029
       Top = 22
       Width = 121
       Height = 41
@@ -245,7 +246,7 @@ inherited frmQuantidade: TfrmQuantidade
       Left = 15
       Top = 168
       Width = 346
-      Height = 249
+      Height = 257
       Ctl3D = True
       ParentCtl3D = False
       TabOrder = 6

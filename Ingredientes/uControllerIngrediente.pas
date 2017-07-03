@@ -121,9 +121,8 @@ begin
   oDtoIngrediente.idIngrediente := StrToInt(TfrmCadastroIngrediente(oFormularioCadastro)
     .edtIdCodigo.Text);
 
-  if MessageDlg('Deseja realmente excluir?', mtConfirmation, mbYesNo, 0) = mrYes then
-  // If MessageBox(0, 'Deseja realmente excluir?' + #13 + 'Este processo não pode ser revertido.',
-  // 'ATENÇÃO!', MB_YESNO + MB_TASKMODAL + MB_ICONWARNING + MB_DEFBUTTON1) = ID_YES Then
+  If MessageBox(0, 'Deseja realmente excluir?' + #13 + 'Este processo não pode ser revertido.',
+    'ATENÇÃO!', MB_YESNO + MB_TASKMODAL + MB_ICONWARNING + MB_DEFBUTTON1) = ID_YES Then
   begin
     if oRegraIngrediente.Excluir(oModelIngrediente, oDtoIngrediente) then
     begin

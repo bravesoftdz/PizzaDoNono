@@ -81,6 +81,7 @@ begin
   oFormularioCadastro.iInterfaceCrud := oControllerPedido;
 
   TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.OnClick := IncluirProduto;
+  TfrmViewPedido(oFormularioCadastro).OnClick := OnActivateForm;
   inherited;
 end;
 
@@ -95,6 +96,8 @@ begin
   if Assigned(oModelPedido) then
     FreeAndNil(oModelPedido);
 
+  if Assigned(oControllerPedidoProduto) then
+    oControllerPedidoProduto.FecharFormCadastro(nil);
   inherited;
 end;
 
@@ -134,6 +137,7 @@ end;
 procedure TControllerPedido.FecharFormCadastro(ASender: TObject);
 begin
   inherited;
+
   oControllerPedido := nil;
 end;
 
@@ -148,6 +152,7 @@ begin
   if not(Assigned(oControllerPedidoProduto)) then
     oControllerPedidoProduto := TControllerPedidoProduto.Create;
   oControllerPedidoProduto.CriarFormCadastro(nil);
+
 end;
 
 procedure TControllerPedido.LimparDto(var ADtoPedido: TDtoPedido);
