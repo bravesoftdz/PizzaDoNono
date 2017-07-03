@@ -127,9 +127,9 @@ end;
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
 begin
   inherited;
-//  if assigned(oControllerPedido) then
-//    FreeAndNil(oControllerPedido);
-  Close;
+  If MessageBox(0, 'Deseja realmente sair?',
+    'Pizza do Nono - Confirmação de Saída', MB_YESNO + MB_TASKMODAL + MB_ICONQUESTION + MB_DEFBUTTON1) = ID_YES Then
+    Close;
 end;
 
 procedure TfrmPrincipal.btnTamanhoClick(Sender: TObject);
