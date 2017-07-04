@@ -18,8 +18,7 @@ type
     function Excluir(const ADtoPedido: TDtoPedido): Boolean;
     function CountRegistros: integer;
      // listar os Pedidos do chek lista dos sabores
-
-    constructor Create;
+     constructor Create;
     destructor Destroy; override;
   end;
 

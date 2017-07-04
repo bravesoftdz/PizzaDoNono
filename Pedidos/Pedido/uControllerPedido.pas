@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, Winapi.Windows,
+  FireDAC.Comp.Client,
   Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
   uControllerCRUD, uRegraPedido, uDtoPedido, uViewPedido, uModelPedido, uListagemPedido,
   uControllerPedidoProduto;
@@ -14,7 +15,7 @@ type
     oRegraPedido: TRegraPedido;
     oDtoPedido: TDtoPedido;
     oModelPedido: TModelPedido;
-
+    oMemTable: TFDMemTable;
     procedure PreencherDTO;
     procedure LimparDto(var ADtoPedido: TDtoPedido);
     procedure PreencherGrid(var DbGrid: TDBGrid);
@@ -71,10 +72,13 @@ begin
   if not(Assigned(oModelPedido)) then
     oModelPedido := TModelPedido.Create;
 
+  if not(Assigned(oMemTable)) then
+    oMemTable := TFDMemTable.Create(nil);
 end;
 
 procedure TControllerPedido.CriarFormCadastro(aOwner: TComponent);
 begin
+
   if not(Assigned(oFormularioCadastro)) then
     oFormularioCadastro := TfrmViewPedido.Create(aOwner);
 
@@ -82,6 +86,34 @@ begin
 
   TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.OnClick := IncluirProduto;
   TfrmViewPedido(oFormularioCadastro).OnClick := OnActivateForm;
+  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource := oMemTable.DataSource;
+
+  // oMemTable.Active := true;
+  // oMemTable.open;
+  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource := oMemTable.DataSource;
+  // oMemTable.FieldDefs.Add('sequenciaitem', ftString);
+  // oMemTable.FieldDefs.Add('idproduto', ftString);
+  // oMemTable.FieldDefs.Add('nome', ftString);
+  // oMemTable.FieldDefs.Add('quantidade', ftString);
+  // oMemTable.FieldDefs.Add('valorunitario', ftString);
+  // oMemTable.FieldDefs.Add('subtotal', ftString);
+  //
+  //
+  // oMemTable.Insert;
+  // oMemTable.FieldByName('sequenciaitem').AsString := '1';
+  // oMemTable.FieldByName('idproduto').AsString := '2';
+  // oMemTable.FieldByName('nome').AsString := 'coca cola 2l';
+  // oMemTable.FieldByName('quantidade').AsString := '3';
+  // oMemTable.FieldByName('valorunitario').AsString := '5';
+  // oMemTable.FieldByName('subtotal').AsString := '15';
+  // oMemTable.Post;
+
+  // oMemTable.CreateDataSet;
+  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.open;
+  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.Insert;
+  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.FieldByName('idproduto')
+  // .AsInteger := 2;
+  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.Post;
   inherited;
 end;
 
@@ -95,6 +127,9 @@ begin
 
   if Assigned(oModelPedido) then
     FreeAndNil(oModelPedido);
+
+  if Assigned(oMemTable) then
+    FreeAndNil(oMemTable);
 
   if Assigned(oControllerPedidoProduto) then
     oControllerPedidoProduto.FecharFormCadastro(nil);
@@ -151,7 +186,8 @@ procedure TControllerPedido.IncluirProduto(Sender: TObject);
 begin
   if not(Assigned(oControllerPedidoProduto)) then
     oControllerPedidoProduto := TControllerPedidoProduto.Create;
-  oControllerPedidoProduto.CriarFormCadastro(nil);
+  oControllerPedidoProduto.CriarFormCadastro(nil, TfrmViewPedido(oFormularioCadastro)
+    .dbGridListagem, oDtoPedido);
 
 end;
 
@@ -231,7 +267,7 @@ begin
 
   if oModelPedido.Listar then
   begin
-    oDataSource.DataSet := oModelPedido.oQuery;
+    oDataSource.dataSet := oModelPedido.oQuery;
     TfrmListagemPedido(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
   end;
 

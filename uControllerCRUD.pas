@@ -122,6 +122,7 @@ destructor TControllerCRUD.Destroy;
 begin
   if Assigned(oDataSource) then
     FreeAndNil(oDataSource);
+
   inherited;
 end;
 

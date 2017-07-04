@@ -4,30 +4,25 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFrmBasePadrao, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.CheckLst,
-  Vcl.Buttons, Vcl.CategoryButtons, Vcl.WinXCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.StdCtrls, Vcl.CheckLst, Vcl.ExtCtrls,
+  Vcl.Buttons;
 
 type
-  TfrmQuantidade = class(TfrmBasePadrao)
-    panelSeparador: TPanel;
-    labelTitulo: TLabel;
+  TfrmViewQuantidade = class(TfrmCadastroBase)
     labelTamanho: TLabel;
-    GroupBox1: TGroupBox;
-    edtValor: TLabeledEdit;
-    Label1: TLabel;
-    ListBox1: TListBox;
-    panelFormulario: TPanel;
-    boxBotoes: TPanel;
-    btnCancelar: TSpeedButton;
     labelValorTotalPedido: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    edtValor: TLabeledEdit;
+    ListBox1: TListBox;
     edtValorTotalPedido: TEdit;
     cmbTamanho: TComboBox;
     edtQuantidade: TLabeledEdit;
     CheckListBoxSabores: TCheckListBox;
     Memo1: TMemo;
-    Label2: TLabel;
-    Label3: TLabel;
-    btnConcluir: TSpeedButton;
+    BtnConfirmar: TSpeedButton;
   private
     { Private declarations }
   public
@@ -35,7 +30,7 @@ type
   end;
 
 var
-  frmQuantidade: TfrmQuantidade;
+  frmViewQuantidade: TfrmViewQuantidade;
 
 implementation
 

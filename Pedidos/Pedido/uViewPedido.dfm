@@ -5,7 +5,6 @@ inherited frmViewPedido: TfrmViewPedido
   ClientWidth = 1039
   Constraints.MaxHeight = 653
   Position = poDesigned
-  ExplicitLeft = -258
   ExplicitWidth = 1045
   ExplicitHeight = 584
   PixelsPerInch = 96
@@ -671,36 +670,42 @@ inherited frmViewPedido: TfrmViewPedido
         Columns = <
           item
             Expanded = False
+            FieldName = 'sequenciaitem'
             Title.Caption = 'Seq. Item'
             Width = 92
             Visible = True
           end
           item
             Expanded = False
+            FieldName = 'idproduto'
             Title.Caption = 'ID'
             Width = 80
             Visible = True
           end
           item
             Expanded = False
+            FieldName = 'nome'
             Title.Caption = 'Descri'#231#227'o'
             Width = 505
             Visible = True
           end
           item
             Expanded = False
+            FieldName = 'quantidade'
             Title.Caption = 'Quantidade'
             Width = 100
             Visible = True
           end
           item
             Expanded = False
+            FieldName = 'valorunitario'
             Title.Caption = 'Valor Unit'#225'rio'
             Width = 95
             Visible = True
           end
           item
             Expanded = False
+            FieldName = 'subtotal'
             Title.Caption = 'Subtotal'
             Width = 100
             Visible = True

@@ -1033,12 +1033,13 @@ inherited frmFinal: TfrmFinal
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
+    ExplicitLeft = 3
     DesignSize = (
       275
       306)
     object labelValorTotalPedido: TLabel
-      Left = 37
-      Top = 247
+      Left = 33
+      Top = 254
       Width = 101
       Height = 37
       Alignment = taRightJustify
@@ -1055,7 +1056,7 @@ inherited frmFinal: TfrmFinal
     end
     object edtValorTotalPedido: TEdit
       Left = 140
-      Top = 246
+      Top = 253
       Width = 121
       Height = 41
       TabStop = False

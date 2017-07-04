@@ -4,16 +4,18 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, Winapi.Windows,
+  Vcl.Graphics,
   Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
   uControllerCRUD, uRegraPedidoProduto, uDtoPedidoProduto, uViewProduto, uModelPedidoProduto,
-  uViewPedido;
+  uViewPedido, uControllerPedidoQuantidade, uDtoPedido;
 
 type
   TControllerPedidoProduto = class(TControllerCRUD)
   private
     oRegraPedidoProduto: TRegraPedidoProduto;
     oModelPedidoProduto: TModelPedidoProduto;
-
+    oDtoPedido: TDtoPedido;
+    oGridPedido: TDBGrid;
     procedure PreencherDTO;
     procedure LimparDto;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
@@ -21,13 +23,13 @@ type
     procedure FiltrarPorCodigo(Sender: TObject);
     procedure FiltrarPorNome(Sender: TObject);
   public
-
     oDtoPedidoProduto: TDtoPedidoProduto;
 
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure CriarFormCadastro(aOwner: TComponent); override;
+    procedure CriarFormCadastro(aOwner: TComponent; var dbGridPedido: TDBGrid;
+      var oDtoPedido: TDtoPedido);
     procedure FecharFormCadastro(ASender: TObject); override;
   end;
 
@@ -40,7 +42,20 @@ implementation
 
 procedure TControllerPedidoProduto.AdicionarProduto(Sender: TObject);
 begin
-  showMessage('Ola mundo');
+
+//  oGridPedido.DataSource.DataSet.Insert;
+//  oGridPedido.DataSource.DataSet.FieldByName('sequenciaitem').AsInteger := 1;
+//  oGridPedido.DataSource.DataSet.FieldByName('idproduto').AsInteger := 1;
+//  oGridPedido.DataSource.DataSet.FieldByName('nome').AsString := 'pizza';
+//  oGridPedido.DataSource.DataSet.FieldByName('quantidade').AsInteger := 3;
+//  oGridPedido.DataSource.DataSet.FieldByName('valorunitario').AsCurrency := 22.50;
+//  oGridPedido.DataSource.DataSet.FieldByName('subtotal').AsCurrency := 70.00;
+//
+//  oGridPedido.DataSource.DataSet.Post;
+  PreencherDTO;
+  if not(Assigned(oControllerPedidoQuantidade)) then
+    oControllerPedidoQuantidade := TControllerPedidoQuantidade.Create;
+  oControllerPedidoQuantidade.CriarFormCadastro(nil);
 end;
 
 procedure TControllerPedidoProduto.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
@@ -64,13 +79,14 @@ begin
 
 end;
 
-procedure TControllerPedidoProduto.CriarFormCadastro(aOwner: TComponent);
+procedure TControllerPedidoProduto.CriarFormCadastro(aOwner: TComponent; var dbGridPedido: TDBGrid;
+  var oDtoPedido: TDtoPedido);
 begin
   if not(Assigned(oFormularioCadastro)) then
     TfrmViewProduto(oFormularioCadastro) := TfrmViewProduto.Create(aOwner);
 
   oFormularioCadastro.iInterfaceCrud := oControllerPedidoProduto;
-
+  oGridPedido := dbGridPedido;
   TfrmViewProduto(oFormularioCadastro).dbGridListagem.OnDblClick := AdicionarProduto;
   TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.OnChange := FiltrarPorCodigo;
   TfrmViewProduto(oFormularioCadastro).SearchBoxNome.OnChange := FiltrarPorNome;
@@ -80,8 +96,7 @@ begin
     oDataSource.DataSet := oModelPedidoProduto.oQuery;
     TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource := oDataSource;
   end;
-
-  inherited;
+  TfrmViewProduto(oFormularioCadastro).Show;
 end;
 
 destructor TControllerPedidoProduto.Destroy;

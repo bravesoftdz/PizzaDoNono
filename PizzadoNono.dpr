@@ -112,14 +112,18 @@ uses
   uRegraPedido in 'Pedidos\Pedido\uRegraPedido.pas',
   uViewPedido in 'Pedidos\Pedido\uViewPedido.pas' {frmViewPedido},
   uViewFinal in 'Pedidos\Final\uViewFinal.pas' {frmFinal},
-  uViewQuantidade in 'Pedidos\Quantidade\uViewQuantidade.pas' {frmQuantidade},
   uControllerPedidoProduto in 'Pedidos\Produtos\uControllerPedidoProduto.pas',
   uDtoPedidoProduto in 'Pedidos\Produtos\uDtoPedidoProduto.pas',
   uInterfaceModelPedidoProduto in 'Pedidos\Produtos\uInterfaceModelPedidoProduto.pas',
   uModelPedidoProduto in 'Pedidos\Produtos\uModelPedidoProduto.pas',
   uRegraPedidoProduto in 'Pedidos\Produtos\uRegraPedidoProduto.pas',
   uViewProduto in 'Pedidos\Produtos\uViewProduto.pas' {frmViewProduto},
-  uControllerProduto in 'Produto\uControllerProduto.pas';
+  uControllerProduto in 'Produto\uControllerProduto.pas',
+  uControllerPedidoQuantidade in 'Pedidos\Quantidade\uControllerPedidoQuantidade.pas',
+  uInterfaceModelPedidoQuantidade in 'Pedidos\Quantidade\uInterfaceModelPedidoQuantidade.pas',
+  uModelPedidoQuantidade in 'Pedidos\Quantidade\uModelPedidoQuantidade.pas',
+  uRegraPedidoQuantidade in 'Pedidos\Quantidade\uRegraPedidoQuantidade.pas',
+  uViewQuantidade in 'Pedidos\Quantidade\uViewQuantidade.pas' {frmViewQuantidade};
 
 {$R *.res}
 

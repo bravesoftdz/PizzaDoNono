@@ -18,7 +18,7 @@ type
 
 implementation
 
-{ TModelPedidoProduto }
+{ TModelPedidoQuantidade }
 
 constructor TModelPedidoQuantidade.Create;
 begin
