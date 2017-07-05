@@ -7,7 +7,7 @@ inherited frmListagemUsuario: TfrmListagemUsuario
   TextHeight = 15
   inherited BoxBotoes: TPanel
     Width = 476
-    ExplicitWidth = 470
+    ExplicitWidth = 476
     inherited btnFechar: TSpeedButton
       Left = 371
       ExplicitLeft = 365

@@ -23,6 +23,8 @@ type
     CheckListBoxSabores: TCheckListBox;
     Memo1: TMemo;
     BtnConfirmar: TSpeedButton;
+
+
   private
     { Private declarations }
   public
@@ -35,5 +37,7 @@ var
 implementation
 
 {$R *.dfm}
+
+
 
 end.

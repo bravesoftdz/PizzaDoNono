@@ -1,13 +1,12 @@
 inherited frmViewProduto: TfrmViewProduto
-  Left = 242
   BorderIcons = []
   Caption = 'Pizza do Nono - Pedidos'
   ClientHeight = 517
-  ClientWidth = 918
+  ClientWidth = 868
   FormStyle = fsMDIChild
-  Position = poDefault
-  Visible = True
-  ExplicitWidth = 924
+  Position = poDesigned
+  ExplicitTop = -18
+  ExplicitWidth = 874
   ExplicitHeight = 546
   PixelsPerInch = 96
   TextHeight = 15
@@ -15,7 +14,7 @@ inherited frmViewProduto: TfrmViewProduto
     AlignWithMargins = True
     Left = 5
     Top = 129
-    Width = 908
+    Width = 858
     Height = 383
     Margins.Left = 5
     Margins.Top = 5
@@ -28,10 +27,11 @@ inherited frmViewProduto: TfrmViewProduto
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitWidth = 814
     object dbGridListagem: TDBGrid
       Left = 1
       Top = 1
-      Width = 902
+      Width = 852
       Height = 377
       Hint = 'Duplo clique no registro para adicionar ao pedido.'
       Align = alClient
@@ -66,7 +66,7 @@ inherited frmViewProduto: TfrmViewProduto
           Expanded = False
           FieldName = 'nome'
           Title.Caption = 'Descri'#231#227'o'
-          Width = 648
+          Width = 602
           Visible = True
         end
         item
@@ -82,7 +82,7 @@ inherited frmViewProduto: TfrmViewProduto
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 912
+    Width = 862
     Height = 118
     Cursor = crHandPoint
     Align = alTop
@@ -93,8 +93,9 @@ inherited frmViewProduto: TfrmViewProduto
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 1
+    ExplicitWidth = 818
     DesignSize = (
-      912
+      862
       118)
     object labelTitulo: TLabel
       Left = 5
@@ -124,7 +125,7 @@ inherited frmViewProduto: TfrmViewProduto
     end
     object btnFechar: TSpeedButton
       AlignWithMargins = True
-      Left = 807
+      Left = 757
       Top = 3
       Width = 100
       Height = 80

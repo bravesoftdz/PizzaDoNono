@@ -6,7 +6,7 @@ inherited frmListagemEstado: TfrmListagemEstado
   TextHeight = 15
   inherited BoxBotoes: TPanel
     Width = 492
-    ExplicitWidth = 498
+    ExplicitWidth = 492
     inherited btnFechar: TSpeedButton
       Left = 387
       ExplicitLeft = 393
@@ -17,7 +17,6 @@ inherited frmListagemEstado: TfrmListagemEstado
     Width = 488
     Height = 490
     ExplicitTop = 86
-    ExplicitWidth = 464
     ExplicitHeight = 490
     inherited dbGridListagem: TDBGrid
       Width = 482

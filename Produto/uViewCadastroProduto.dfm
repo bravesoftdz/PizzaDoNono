@@ -1,5 +1,4 @@
 inherited frmCadastroProduto: TfrmCadastroProduto
-  Left = 413
   Caption = 'Pizza do Nono - Produtos'
   ClientHeight = 554
   ClientWidth = 647

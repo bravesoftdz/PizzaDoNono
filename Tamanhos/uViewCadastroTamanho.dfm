@@ -1,5 +1,4 @@
 inherited frmCadastroTamanho: TfrmCadastroTamanho
-  Left = 390
   Caption = 'Pizza do Nono - Tamanhos'
   ClientHeight = 397
   Position = poDesigned

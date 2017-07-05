@@ -1,5 +1,4 @@
 inherited frmCadastroMunicipio: TfrmCadastroMunicipio
-  Left = 390
   Caption = 'Pizza do Nono - Munic'#237'pios'
   ClientHeight = 391
   Position = poDesigned

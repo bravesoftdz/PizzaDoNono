@@ -1,21 +1,20 @@
 inherited frmViewPedido: TfrmViewPedido
-  Left = 185
   Caption = 'Pizza do Nono - Pedidos'
-  ClientHeight = 555
-  ClientWidth = 1039
+  ClientHeight = 534
+  ClientWidth = 844
   Constraints.MaxHeight = 653
   Position = poDesigned
-  ExplicitWidth = 1045
-  ExplicitHeight = 584
+  ExplicitWidth = 850
+  ExplicitHeight = 563
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Top = 92
-    Width = 1029
-    Height = 458
-    ExplicitTop = 92
+    Top = 89
+    Width = 834
+    Height = 440
+    ExplicitTop = 110
     ExplicitWidth = 1029
-    ExplicitHeight = 458
+    ExplicitHeight = 440
     inherited labelTitulo: TLabel
       Visible = False
     end
@@ -26,8 +25,8 @@ inherited frmViewPedido: TfrmViewPedido
       AlignWithMargins = True
       Left = 6
       Top = 6
-      Width = 1013
-      Height = 442
+      Width = 818
+      Height = 424
       Margins.Left = 5
       Margins.Top = 5
       Margins.Right = 5
@@ -40,9 +39,11 @@ inherited frmViewPedido: TfrmViewPedido
       ParentCtl3D = False
       ShowCaption = False
       TabOrder = 1
+      ExplicitWidth = 1013
+      ExplicitHeight = 442
       DesignSize = (
-        1013
-        442)
+        818
+        424)
       object labelNumeroPedido: TLabel
         Left = 5
         Top = 16
@@ -72,7 +73,7 @@ inherited frmViewPedido: TfrmViewPedido
         ParentFont = False
       end
       object btnIncluirProduto: TSpeedButton
-        Left = 633
+        Left = 438
         Top = 5
         Width = 121
         Height = 41
@@ -239,9 +240,10 @@ inherited frmViewPedido: TfrmViewPedido
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00}
         NumGlyphs = 2
+        ExplicitLeft = 633
       end
       object btnEditarProduto: TSpeedButton
-        Left = 760
+        Left = 565
         Top = 5
         Width = 121
         Height = 41
@@ -408,9 +410,10 @@ inherited frmViewPedido: TfrmViewPedido
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00}
         NumGlyphs = 2
+        ExplicitLeft = 760
       end
       object btnExcluirProduto: TSpeedButton
-        Left = 887
+        Left = 692
         Top = 5
         Width = 121
         Height = 41
@@ -577,12 +580,13 @@ inherited frmViewPedido: TfrmViewPedido
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00}
         NumGlyphs = 2
+        ExplicitLeft = 887
       end
       object panelRodape: TPanel
         AlignWithMargins = True
         Left = 5
-        Top = 387
-        Width = 1003
+        Top = 369
+        Width = 808
         Height = 50
         Margins.Left = 5
         Margins.Top = 5
@@ -596,11 +600,13 @@ inherited frmViewPedido: TfrmViewPedido
         ParentCtl3D = False
         ShowCaption = False
         TabOrder = 0
+        ExplicitTop = 387
+        ExplicitWidth = 1003
         DesignSize = (
-          1003
+          808
           50)
         object labelValorTotalPedido: TLabel
-          Left = 772
+          Left = 577
           Top = 7
           Width = 101
           Height = 37
@@ -615,9 +621,10 @@ inherited frmViewPedido: TfrmViewPedido
           Font.Style = [fsBold]
           ParentFont = False
           Layout = tlCenter
+          ExplicitLeft = 772
         end
         object edtValorTotalPedido: TEdit
-          Left = 879
+          Left = 684
           Top = 6
           Width = 121
           Height = 41
@@ -633,14 +640,15 @@ inherited frmViewPedido: TfrmViewPedido
           ReadOnly = True
           TabOrder = 0
           Text = '00.00'
+          ExplicitLeft = 879
         end
       end
       object dbGridListagem: TDBGrid
         AlignWithMargins = True
         Left = 5
         Top = 57
-        Width = 1003
-        Height = 320
+        Width = 808
+        Height = 302
         Hint = 'Duplo clique no registro para editar.'
         Margins.Left = 5
         Margins.Top = 5
@@ -714,10 +722,10 @@ inherited frmViewPedido: TfrmViewPedido
     end
   end
   inherited boxBotoes: TPanel
-    Width = 1033
+    Width = 838
     ExplicitWidth = 1033
     inherited btnFechar: TSpeedButton
-      Left = 928
+      Left = 733
       ExplicitLeft = 928
     end
     inherited btnSalvar: TSpeedButton

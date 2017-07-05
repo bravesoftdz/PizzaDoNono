@@ -1,17 +1,19 @@
 inherited frmViewQuantidade: TfrmViewQuantidade
   Caption = 'frmViewQuantidade'
-  ClientHeight = 551
-  ClientWidth = 1180
-  ExplicitWidth = 1186
-  ExplicitHeight = 580
+  ClientHeight = 553
+  ClientWidth = 884
+  Position = poDesigned
+  ExplicitTop = -72
+  ExplicitWidth = 890
+  ExplicitHeight = 582
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Top = 99
-    Width = 1170
+    Top = 101
+    Width = 874
     Height = 447
-    ExplicitTop = 98
-    ExplicitWidth = 1170
+    ExplicitTop = 77
+    ExplicitWidth = 874
     ExplicitHeight = 447
     object labelTamanho: TLabel [1]
       Left = 168
@@ -27,7 +29,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       ParentFont = False
     end
     object labelValorTotalPedido: TLabel [2]
-      Left = 881
+      Left = 573
       Top = 26
       Width = 139
       Height = 31
@@ -71,9 +73,9 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       ParentFont = False
     end
     object GroupBox1: TGroupBox
-      Left = 797
-      Top = 90
-      Width = 361
+      Left = 632
+      Top = 88
+      Width = 241
       Height = 335
       Align = alCustom
       Caption = 'Informa'#231#245'es do Sabor'
@@ -85,8 +87,8 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       ParentFont = False
       TabOrder = 1
       object Label1: TLabel
-        Left = 21
-        Top = 91
+        Left = 13
+        Top = 107
         Width = 73
         Height = 15
         Caption = 'Ingredientes:'
@@ -98,8 +100,8 @@ inherited frmViewQuantidade: TfrmViewQuantidade
         ParentFont = False
       end
       object edtValor: TLabeledEdit
-        Left = 21
-        Top = 53
+        Left = 13
+        Top = 55
         Width = 105
         Height = 24
         TabStop = False
@@ -124,9 +126,9 @@ inherited frmViewQuantidade: TfrmViewQuantidade
         TabOrder = 0
       end
       object ListBox1: TListBox
-        Left = 21
-        Top = 112
-        Width = 324
+        Left = 13
+        Top = 128
+        Width = 212
         Height = 201
         TabStop = False
         Font.Charset = ANSI_CHARSET
@@ -140,7 +142,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       end
     end
     object edtValorTotalPedido: TEdit
-      Left = 1025
+      Left = 717
       Top = 22
       Width = 121
       Height = 41
@@ -196,7 +198,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
     object CheckListBoxSabores: TCheckListBox
       Left = 384
       Top = 109
-      Width = 391
+      Width = 242
       Height = 316
       Color = clWhite
       Columns = 2
@@ -214,7 +216,8 @@ inherited frmViewQuantidade: TfrmViewQuantidade
     end
   end
   inherited boxBotoes: TPanel
-    Width = 1174
+    Width = 878
+    ExplicitWidth = 878
     inherited btnCancelar: TSpeedButton
       Left = 108
       Top = 8
@@ -222,9 +225,10 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       ExplicitTop = 8
     end
     inherited btnFechar: TSpeedButton
-      Left = 1069
+      Left = 773
       Flat = False
       Visible = False
+      ExplicitLeft = 1069
     end
     inherited btnNovo: TSpeedButton
       Left = 318

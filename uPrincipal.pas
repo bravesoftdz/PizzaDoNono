@@ -34,6 +34,9 @@ type
     labelCodigoUsuario: TLabel;
     Label1: TLabel;
     Image1: TImage;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     procedure btnTamanhoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);

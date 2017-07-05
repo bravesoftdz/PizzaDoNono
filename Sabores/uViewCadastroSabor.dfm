@@ -1,11 +1,20 @@
 inherited frmCadastroSabor: TfrmCadastroSabor
   Caption = 'Pizza do Nono - Sabores'
+  ClientHeight = 558
   ClientWidth = 907
+  Position = poDesigned
+  ExplicitTop = -38
   ExplicitWidth = 913
+  ExplicitHeight = 587
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
+    Top = 97
     Width = 897
+    Height = 456
+    ExplicitTop = 160
+    ExplicitWidth = 897
+    ExplicitHeight = 456
     inherited labelTitulo: TLabel
       Width = 123
       Caption = 'Sabores'
@@ -119,7 +128,6 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       Font.Name = 'Tahoma'
       Font.Style = []
       MaxLength = 45
-      NumbersOnly = True
       ParentFont = False
       TabOrder = 4
     end
@@ -145,6 +153,7 @@ inherited frmCadastroSabor: TfrmCadastroSabor
   end
   inherited boxBotoes: TPanel
     Width = 901
+    ExplicitWidth = 901
     inherited btnNovo: TSpeedButton [1]
     end
     inherited btnSalvar: TSpeedButton [2]

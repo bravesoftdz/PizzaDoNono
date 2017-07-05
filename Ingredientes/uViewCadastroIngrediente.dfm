@@ -1,5 +1,4 @@
 inherited frmCadastroIngrediente: TfrmCadastroIngrediente
-  Left = 390
   Caption = 'Pizza do Nono - Ingredientes'
   ClientHeight = 328
   Position = poDesigned

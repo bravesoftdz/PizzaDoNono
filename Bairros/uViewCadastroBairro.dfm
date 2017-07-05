@@ -1,10 +1,8 @@
 inherited frmCadastroBairro: TfrmCadastroBairro
-  Left = 390
   Caption = 'Pizza do Nono - Bairros'
   ClientHeight = 444
   Constraints.MaxWidth = 656
   Position = poDesigned
-  ExplicitTop = -17
   ExplicitHeight = 473
   PixelsPerInch = 96
   TextHeight = 15

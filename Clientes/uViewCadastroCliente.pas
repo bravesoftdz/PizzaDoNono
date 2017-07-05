@@ -31,6 +31,7 @@ type
     edtCelular: TMaskEdit;
     edtCpfCnpj: TMaskEdit;
     edtDataNascimento: TMaskEdit;
+
   private
     { Private declarations }
   public
@@ -43,5 +44,4 @@ var
 implementation
 
 {$R *.dfm}
-
 end.

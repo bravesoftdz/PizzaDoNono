@@ -1,22 +1,21 @@
 inherited frmCadastroCliente: TfrmCadastroCliente
-  Left = 390
   ActiveControl = edtNome
   Caption = 'Pizza do Nono - Clientes'
-  ClientHeight = 580
+  ClientHeight = 557
   ClientWidth = 647
   Position = poDesigned
-  ExplicitTop = -28
+  ExplicitTop = -152
   ExplicitWidth = 653
-  ExplicitHeight = 609
+  ExplicitHeight = 586
   PixelsPerInch = 96
   TextHeight = 15
   inherited panelFormulario: TPanel
-    Top = 95
+    Top = 94
     Width = 637
-    Height = 480
-    ExplicitTop = 95
+    Height = 458
+    ExplicitTop = 128
     ExplicitWidth = 637
-    ExplicitHeight = 480
+    ExplicitHeight = 458
     inherited labelTitulo: TLabel
       Left = 26
       Top = 4
@@ -189,7 +188,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
     end
     object GroupBoxEndereco: TGroupBox
-      Left = 27
+      Left = 26
       Top = 259
       Width = 577
       Height = 194
@@ -211,7 +210,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       end
       object labelEstado: TLabel
         Left = 289
-        Top = 76
+        Top = 74
         Width = 40
         Height = 15
         Caption = 'Estado:'
@@ -224,7 +223,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         ParentFont = False
       end
       object labelBairro: TLabel
-        Left = 291
+        Left = 289
         Top = 132
         Width = 37
         Height = 15
@@ -314,8 +313,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         TabOrder = 2
       end
       object cmbEstado: TComboBox
-        Left = 290
-        Top = 97
+        Left = 289
+        Top = 95
         Width = 268
         Height = 23
         AutoDropDown = True
@@ -338,7 +337,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         TabOrder = 4
       end
       object cmbBairro: TComboBox
-        Left = 290
+        Left = 289
         Top = 153
         Width = 268
         Height = 23
