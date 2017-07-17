@@ -9,14 +9,14 @@
   BorderStyle = bsSizeable
   Caption = 'Pizza do Nono Delivery'
   ClientHeight = 499
-  ClientWidth = 757
+  ClientWidth = 940
   FormStyle = fsMDIForm
   Position = poDesigned
   ScreenSnap = True
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitWidth = 773
+  ExplicitWidth = 956
   ExplicitHeight = 538
   PixelsPerInch = 96
   TextHeight = 15
@@ -24,7 +24,7 @@
     AlignWithMargins = True
     Left = 3
     Top = 116
-    Width = 751
+    Width = 934
     Height = 363
     Align = alClient
     Center = True
@@ -526,18 +526,19 @@
   object panelBoxBotoes: TPanel
     Left = 0
     Top = 0
-    Width = 757
+    Width = 940
     Height = 113
     Align = alTop
     BevelOuter = bvNone
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
+    ExplicitWidth = 757
     DesignSize = (
-      757
+      940
       113)
     object btnSair: TSpeedButton
-      Left = 662
+      Left = 845
       Top = 26
       Width = 90
       Height = 80
@@ -653,7 +654,7 @@
     AlignWithMargins = True
     Left = 0
     Top = 482
-    Width = 752
+    Width = 935
     Height = 17
     Margins.Left = 0
     Margins.Top = 0
@@ -666,8 +667,9 @@
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 752
     object labelNomeUsuario: TLabel
-      Left = 731
+      Left = 914
       Top = 0
       Width = 21
       Height = 17
@@ -676,10 +678,11 @@
       Caption = '       '
       Color = clWhite
       ParentColor = False
+      ExplicitLeft = 731
       ExplicitHeight = 15
     end
     object labelUsuario: TLabel
-      Left = 650
+      Left = 833
       Top = 0
       Width = 50
       Height = 17
@@ -688,10 +691,11 @@
       Caption = 'Usu'#225'rio: '
       Color = clWhite
       ParentColor = False
+      ExplicitLeft = 650
       ExplicitHeight = 15
     end
     object labelCodigoUsuario: TLabel
-      Left = 700
+      Left = 883
       Top = 0
       Width = 21
       Height = 17
@@ -700,10 +704,11 @@
       Caption = '       '
       Color = clWhite
       ParentColor = False
+      ExplicitLeft = 700
       ExplicitHeight = 15
     end
     object Label1: TLabel
-      Left = 721
+      Left = 904
       Top = 0
       Width = 10
       Height = 17
@@ -712,6 +717,7 @@
       Caption = ' - '
       Color = clWhite
       ParentColor = False
+      ExplicitLeft = 721
       ExplicitHeight = 15
     end
   end
@@ -1617,10 +1623,6 @@
     object TabSheet2: TTabSheet
       Caption = 'Endere'#231'o'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object bntBairros: TSpeedButton
         Left = 3
         Top = 0
