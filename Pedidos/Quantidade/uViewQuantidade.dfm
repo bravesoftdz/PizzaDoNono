@@ -1,9 +1,8 @@
 inherited frmViewQuantidade: TfrmViewQuantidade
-  Caption = 'frmViewQuantidade'
+  Caption = 'Pizza Nono - Produto/Entrega'
   ClientHeight = 553
   ClientWidth = 884
   Position = poDesigned
-  ExplicitTop = -72
   ExplicitWidth = 890
   ExplicitHeight = 582
   PixelsPerInch = 96
@@ -12,7 +11,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
     Top = 101
     Width = 874
     Height = 447
-    ExplicitTop = 77
+    ExplicitTop = 101
     ExplicitWidth = 874
     ExplicitHeight = 447
     object labelTamanho: TLabel [1]
@@ -29,7 +28,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       ParentFont = False
     end
     object labelValorTotalPedido: TLabel [2]
-      Left = 573
+      Left = 565
       Top = 26
       Width = 139
       Height = 31
@@ -142,7 +141,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       end
     end
     object edtValorTotalPedido: TEdit
-      Left = 717
+      Left = 705
       Top = 22
       Width = 121
       Height = 41
@@ -158,6 +157,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       ReadOnly = True
       TabOrder = 2
       Text = '00.00'
+      ExplicitLeft = 709
     end
     object cmbTamanho: TComboBox
       Left = 167
@@ -205,7 +205,7 @@ inherited frmViewQuantidade: TfrmViewQuantidade
       ItemHeight = 15
       TabOrder = 5
     end
-    object Memo1: TMemo
+    object MemoObservacoes: TMemo
       Left = 15
       Top = 168
       Width = 346

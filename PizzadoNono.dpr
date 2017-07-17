@@ -104,7 +104,6 @@ uses
   uEnumeradorCamposLogin in 'Login\uEnumeradorCamposLogin.pas',
   uSingletonLogin in 'Login\uSingletonLogin.pas',
   uControllerPedido in 'Pedidos\Pedido\uControllerPedido.pas',
-  uDtoPedido in 'Pedidos\Pedido\uDtoPedido.pas',
   uEnumeradorCamposPedido in 'Pedidos\Pedido\uEnumeradorCamposPedido.pas',
   uInterfaceModelPedido in 'Pedidos\Pedido\uInterfaceModelPedido.pas',
   uListagemPedido in 'Pedidos\Pedido\uListagemPedido.pas' {frmListagemPedido},
@@ -113,17 +112,20 @@ uses
   uViewPedido in 'Pedidos\Pedido\uViewPedido.pas' {frmViewPedido},
   uViewFinal in 'Pedidos\Final\uViewFinal.pas' {frmFinal},
   uControllerPedidoProduto in 'Pedidos\Produtos\uControllerPedidoProduto.pas',
-  uDtoPedidoProduto in 'Pedidos\Produtos\uDtoPedidoProduto.pas',
   uInterfaceModelPedidoProduto in 'Pedidos\Produtos\uInterfaceModelPedidoProduto.pas',
   uModelPedidoProduto in 'Pedidos\Produtos\uModelPedidoProduto.pas',
   uRegraPedidoProduto in 'Pedidos\Produtos\uRegraPedidoProduto.pas',
   uViewProduto in 'Pedidos\Produtos\uViewProduto.pas' {frmViewProduto},
   uControllerProduto in 'Produto\uControllerProduto.pas',
-  uControllerPedidoQuantidade in 'Pedidos\Quantidade\uControllerPedidoQuantidade.pas',
   uInterfaceModelPedidoQuantidade in 'Pedidos\Quantidade\uInterfaceModelPedidoQuantidade.pas',
   uModelPedidoQuantidade in 'Pedidos\Quantidade\uModelPedidoQuantidade.pas',
   uRegraPedidoQuantidade in 'Pedidos\Quantidade\uRegraPedidoQuantidade.pas',
-  uViewQuantidade in 'Pedidos\Quantidade\uViewQuantidade.pas' {frmViewQuantidade};
+  uControllerPedidoQuantidade in 'Pedidos\Quantidade\uControllerPedidoQuantidade.pas',
+  uViewQuantidade in 'Pedidos\Quantidade\uViewQuantidade.pas' {frmViewQuantidade},
+  uDtoPedido in 'Pedidos\uDtoPedido.pas',
+  uDtoPedidoProduto in 'Pedidos\uDtoPedidoProduto.pas',
+  uListaItensPedido in 'Pedidos\uListaItensPedido.pas',
+  uListaSaboresItem in 'Pedidos\uListaSaboresItem.pas';
 
 {$R *.res}
 
@@ -135,7 +137,8 @@ begin
   Application.Initialize;
   oControllerLogin := TControllerLogin.Create;
   // Cria o form de login
-  if oControllerLogin.oFormLogin.ShowModal = mrOk then // Caso o retorno da tela seja Ok
+  if oControllerLogin.oFormLogin.ShowModal = mrOk then
+  // Caso o retorno da tela seja Ok
 
   begin
 

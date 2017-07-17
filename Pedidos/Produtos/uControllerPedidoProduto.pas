@@ -3,10 +3,13 @@ unit uControllerPedidoProduto;
 interface
 
 uses
-  System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, Winapi.Windows,
+  System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
+  Winapi.Windows,
   Vcl.Graphics,
-  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
-  uControllerCRUD, uRegraPedidoProduto, uDtoPedidoProduto, uViewProduto, uModelPedidoProduto,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections,
+  System.UITypes,
+  uControllerCRUD, uRegraPedidoProduto, uDtoPedidoProduto, uViewProduto,
+  uModelPedidoProduto,
   uViewPedido, uControllerPedidoQuantidade, uDtoPedido;
 
 type
@@ -22,6 +25,7 @@ type
     procedure AdicionarProduto(Sender: TObject);
     procedure FiltrarPorCodigo(Sender: TObject);
     procedure FiltrarPorNome(Sender: TObject);
+
   public
     oDtoPedidoProduto: TDtoPedidoProduto;
 
@@ -40,25 +44,19 @@ implementation
 
 { TControllerPedidoProduto }
 
+uses uViewFinal;
+
 procedure TControllerPedidoProduto.AdicionarProduto(Sender: TObject);
 begin
-
-//  oGridPedido.DataSource.DataSet.Insert;
-//  oGridPedido.DataSource.DataSet.FieldByName('sequenciaitem').AsInteger := 1;
-//  oGridPedido.DataSource.DataSet.FieldByName('idproduto').AsInteger := 1;
-//  oGridPedido.DataSource.DataSet.FieldByName('nome').AsString := 'pizza';
-//  oGridPedido.DataSource.DataSet.FieldByName('quantidade').AsInteger := 3;
-//  oGridPedido.DataSource.DataSet.FieldByName('valorunitario').AsCurrency := 22.50;
-//  oGridPedido.DataSource.DataSet.FieldByName('subtotal').AsCurrency := 70.00;
-//
-//  oGridPedido.DataSource.DataSet.Post;
   PreencherDTO;
   if not(Assigned(oControllerPedidoQuantidade)) then
-    oControllerPedidoQuantidade := TControllerPedidoQuantidade.Create;
+    oControllerPedidoQuantidade := TControllerPedidoQuantidade.NewCreate
+      (oGridPedido, oDtoPedidoProduto);
   oControllerPedidoQuantidade.CriarFormCadastro(nil);
 end;
 
-procedure TControllerPedidoProduto.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+procedure TControllerPedidoProduto.AjustarModoInsercao(AStatusBtnSalvar
+  : Boolean);
 begin
   //
 
@@ -79,22 +77,25 @@ begin
 
 end;
 
-procedure TControllerPedidoProduto.CriarFormCadastro(aOwner: TComponent; var dbGridPedido: TDBGrid;
-  var oDtoPedido: TDtoPedido);
+procedure TControllerPedidoProduto.CriarFormCadastro(aOwner: TComponent;
+  var dbGridPedido: TDBGrid; var oDtoPedido: TDtoPedido);
 begin
   if not(Assigned(oFormularioCadastro)) then
     TfrmViewProduto(oFormularioCadastro) := TfrmViewProduto.Create(aOwner);
 
   oFormularioCadastro.iInterfaceCrud := oControllerPedidoProduto;
   oGridPedido := dbGridPedido;
-  TfrmViewProduto(oFormularioCadastro).dbGridListagem.OnDblClick := AdicionarProduto;
-  TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.OnChange := FiltrarPorCodigo;
+  TfrmViewProduto(oFormularioCadastro).dbGridListagem.OnDblClick :=
+    AdicionarProduto;
+  TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.OnChange :=
+    FiltrarPorCodigo;
   TfrmViewProduto(oFormularioCadastro).SearchBoxNome.OnChange := FiltrarPorNome;
 
   if oModelPedidoProduto.Listar then
   begin
     oDataSource.DataSet := oModelPedidoProduto.oQuery;
-    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource := oDataSource;
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource :=
+      oDataSource;
   end;
   TfrmViewProduto(oFormularioCadastro).Show;
 end;
@@ -121,28 +122,34 @@ end;
 
 procedure TControllerPedidoProduto.FiltrarPorCodigo(Sender: TObject);
 begin
-  TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := False;
+  TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.
+    Filtered := False;
   TfrmViewProduto(oFormularioCadastro).SearchBoxNome.Text := EmptyStr;
   if TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.Text <> EmptyStr then
   begin
-    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filter :=
-      'idproduto LIKE ' + QuotedStr(TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.Text);
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.
+      Filter := 'idproduto LIKE ' +
+      QuotedStr(TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.Text);
 
-    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := True;
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.
+      Filtered := True;
   end;
 end;
 
 procedure TControllerPedidoProduto.FiltrarPorNome(Sender: TObject);
 begin
-  TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := False;
+  TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.
+    Filtered := False;
   TfrmViewProduto(oFormularioCadastro).SearchBoxCodigo.Text := EmptyStr;
   if TfrmViewProduto(oFormularioCadastro).SearchBoxNome.Text <> EmptyStr then
   begin
-    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filter :=
-      'UPPER(nome) Like ' + UpperCase(QuotedStr('%' + TfrmViewProduto(oFormularioCadastro)
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.
+      Filter := 'UPPER(nome) Like ' +
+      UpperCase(QuotedStr('%' + TfrmViewProduto(oFormularioCadastro)
       .SearchBoxNome.Text + '%'));
 
-    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.Filtered := True;
+    TfrmViewProduto(oFormularioCadastro).dbGridListagem.DataSource.DataSet.
+      Filtered := True;
   end;
 end;
 
@@ -162,6 +169,10 @@ begin
     .dbGridListagem.SelectedField.DataSet.FieldByName('idproduto').AsInteger;
   oDtoPedidoProduto.Nome := TfrmViewProduto(oFormularioCadastro)
     .dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
+  oDtoPedidoProduto.temSabor := TfrmViewProduto(oFormularioCadastro)
+    .dbGridListagem.SelectedField.DataSet.FieldByName('temSabor').AsBoolean;
+  oDtoPedidoProduto.ValorUnitario := TfrmViewProduto(oFormularioCadastro)
+    .dbGridListagem.SelectedField.DataSet.FieldByName('valor').AsString;
 
 end;
 

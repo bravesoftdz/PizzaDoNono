@@ -16,7 +16,6 @@ type
     cmbTamanho: TComboBox;
     edtValor: TLabeledEdit;
     CheckListBoxIngredientes: TCheckListBox;
-    MaskEdit1: TMaskEdit;
   private
     { Private declarations }
   public

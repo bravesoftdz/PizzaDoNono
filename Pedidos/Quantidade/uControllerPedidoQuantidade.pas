@@ -3,10 +3,13 @@ unit uControllerPedidoQuantidade;
 interface
 
 uses
-  System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, Winapi.Windows,
-  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
+  System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
+  Winapi.Windows,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections,
+  System.UITypes,
   uControllerCRUD, uRegraPedidoQuantidade, uDtoPedidoProduto, uViewQuantidade,
-  uModelPedidoQuantidade, uModelSabor, uDtoSabor, uListaSabor, uEnumeradorTemSabor,
+  uModelPedidoQuantidade, uModelSabor, uDtoSabor, uListaSabor,
+  uEnumeradorTemSabor,
   uListaSaboresDisponiveis, uListaTamanho, uModelTamanho, uDtoTamanho;
 
 type
@@ -14,18 +17,23 @@ type
   private
     oRegraPedidoQuantidade: TRegraPedidoQuantidade;
     oModelPedidoQuantidade: TModelPedidoQuantidade;
+    oGridItens: TDBGrid;
 
     procedure PreencherDTO;
     procedure AjustarModoInsercao(AStatusBtnSalvar: Boolean); override;
-    procedure ListarSabores;
+    procedure ListarSabores(Sender: TObject);
     procedure ListarTamanhos;
     procedure ConfirmarProduto(Sender: TObject);
     procedure Cancelar(ASender: TObject); override;
+    procedure OnSelectSabor(Sender: TObject);
+    Procedure OnCheckSabor(Sender: TObject);
+    procedure CalcularSubTotal(Sender: TObject);
   public
 
     oDtoPedidoProduto: TDtoPedidoProduto;
 
-    constructor Create; override;
+    constructor NewCreate(AGrid: TDBGrid;
+      var ADtoPedidoProduto: TDtoPedidoProduto);
     destructor Destroy; override;
 
     procedure CriarFormCadastro(aOwner: TComponent); override;
@@ -40,34 +48,49 @@ implementation
 
 { TControllerPedidoQuantidade }
 
-procedure TControllerPedidoQuantidade.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
+uses uListaSaboresItem;
+
+procedure TControllerPedidoQuantidade.AjustarModoInsercao(AStatusBtnSalvar
+  : Boolean);
 begin
   //
 
 end;
 
+procedure TControllerPedidoQuantidade.CalcularSubTotal(Sender: TObject);
+var
+  Quantidade: Currency;
+  SubTotal: Currency;
+
+begin
+
+  SubTotal := Quantidade * StrToCurr(oDtoPedidoProduto.ValorUnitario);
+  TfrmViewQuantidade(oFormularioCadastro).edtValorTotalPedido.Text :=
+    CurrToStr(SubTotal);
+end;
+
 procedure TControllerPedidoQuantidade.Cancelar(ASender: TObject);
 begin
-  If MessageBox(0, 'Deseja realmente cancelar?', 'ATENÇÃO!', MB_YESNO + MB_TASKMODAL +
-    MB_ICONEXCLAMATION + MB_DEFBUTTON1) = ID_YES Then
+  If MessageBox(0, 'Deseja realmente cancelar?', 'ATENÇÃO!',
+    MB_YESNO + MB_TASKMODAL + MB_ICONEXCLAMATION + MB_DEFBUTTON1) = ID_YES Then
     FecharFormCadastro(nil);
 end;
 
 procedure TControllerPedidoQuantidade.ConfirmarProduto(Sender: TObject);
 begin
-  //
-end;
+  PreencherDTO;
 
-constructor TControllerPedidoQuantidade.Create;
-begin
-  inherited;
+  oGridItens.DataSource.DataSet.Insert;
+  oGridItens.DataSource.DataSet.FieldByName('sequenciaitem').AsInteger := 1;
+  oGridItens.DataSource.DataSet.FieldByName('idproduto').AsInteger :=
+    oDtoPedidoProduto.IdProduto;
+  oGridItens.DataSource.DataSet.FieldByName('nome').AsString :=
+    oDtoPedidoProduto.Nome;
+  oGridItens.DataSource.DataSet.FieldByName('quantidade').AsInteger := 3;
+  oGridItens.DataSource.DataSet.FieldByName('valor').AsCurrency := 22.50;
+  oGridItens.DataSource.DataSet.FieldByName('subtotal').AsCurrency := 70.00;
 
-  if not(Assigned(oRegraPedidoQuantidade)) then
-    oRegraPedidoQuantidade := TRegraPedidoQuantidade.Create;
-
-  if not(Assigned(oModelPedidoQuantidade)) then
-    oModelPedidoQuantidade := TModelPedidoQuantidade.Create;
-
+  oGridItens.DataSource.DataSet.Post;
 end;
 
 procedure TControllerPedidoQuantidade.CriarFormCadastro(aOwner: TComponent);
@@ -76,9 +99,29 @@ begin
     oFormularioCadastro := TfrmViewQuantidade.Create(aOwner);
 
   oFormularioCadastro.iInterfaceCrud := oControllerPedidoQuantidade;
-  TfrmViewQuantidade(oFormularioCadastro).BtnConfirmar.OnClick := ConfirmarProduto;
+  TfrmViewQuantidade(oFormularioCadastro).cmbTamanho.OnClick := ListarSabores;
+  TfrmViewQuantidade(oFormularioCadastro).BtnConfirmar.OnClick :=
+    ConfirmarProduto;
+  TfrmViewQuantidade(oFormularioCadastro).CheckListBoxSabores.OnClick :=
+    OnSelectSabor;
 
-  ListarSabores;
+  TfrmViewQuantidade(oFormularioCadastro).labelTitulo.Caption :=
+    oDtoPedidoProduto.Nome;
+  if oDtoPedidoProduto.temSabor = false then
+  begin
+    TfrmViewQuantidade(oFormularioCadastro).CheckListBoxSabores.Enabled
+      := false;
+    TfrmViewQuantidade(oFormularioCadastro).edtValor.Enabled := false;
+    TfrmViewQuantidade(oFormularioCadastro).ListBox1.Enabled := false;
+    TfrmViewQuantidade(oFormularioCadastro).cmbTamanho.Enabled := false;
+
+  end;
+
+  TfrmViewQuantidade(oFormularioCadastro).edtQuantidade.OnChange :=
+    CalcularSubTotal;
+  TfrmViewQuantidade(oFormularioCadastro).CheckListBoxSabores.OnClickCheck :=
+    OnCheckSabor;
+
   ListarTamanhos;
   inherited;
 end;
@@ -101,30 +144,38 @@ begin
   oControllerPedidoQuantidade := nil;
 end;
 
-procedure TControllerPedidoQuantidade.ListarSabores;
+procedure TControllerPedidoQuantidade.ListarSabores(Sender: TObject);
 var
   oListaSabor: TListaSabor;
   oModelSabor: TModelSabor;
   oDtoSabor: TDtoSabor;
+  iIdTamanho: Integer;
 begin
+  TfrmViewQuantidade(oFormularioCadastro).CheckListBoxSabores.Clear;
+  if TfrmViewQuantidade(oFormularioCadastro).cmbTamanho.ItemIndex > -1 then
+  begin
+    iIdTamanho := Integer(TfrmViewQuantidade(oFormularioCadastro)
+      .cmbTamanho.Items.Objects[TfrmViewQuantidade(oFormularioCadastro)
+      .cmbTamanho.ItemIndex]);
 
-  oModelSabor := TModelSabor.Create;
-  try
-    oListaSabor := TListaSabor.Create([doOwnsValues]);
-    if oModelSabor.BuscarSabores(oListaSabor) then
-    begin
-      for oDtoSabor in oListaSabor.Values do
-        TfrmViewQuantidade(oFormularioCadastro).CheckListBoxSabores.Items.AddObject(oDtoSabor.Nome,
-          TObject(oDtoSabor.idSabor));
+    oModelSabor := TModelSabor.Create;
+    try
+      oListaSabor := TListaSabor.Create([doOwnsValues]);
+      if oModelSabor.BuscarSaboresPorTamanho(oListaSabor, iIdTamanho) then
+      begin
+        for oDtoSabor in oListaSabor.Values do
+          TfrmViewQuantidade(oFormularioCadastro)
+            .CheckListBoxSabores.Items.AddObject(oDtoSabor.Nome,
+            TObject(oDtoSabor.idSabor));
+      end;
+    finally
+      if Assigned(oModelSabor) then
+        FreeAndNil(oModelSabor);
+
+      if Assigned(oListaSabor) then
+        FreeAndNil(oListaSabor);
     end;
-  finally
-    if Assigned(oModelSabor) then
-      FreeAndNil(oModelSabor);
-
-    if Assigned(oListaSabor) then
-      FreeAndNil(oListaSabor);
   end;
-
 end;
 
 procedure TControllerPedidoQuantidade.ListarTamanhos;
@@ -142,8 +193,8 @@ begin
     if oModelTamanho.ListarTamanhos(oListaTamanho) then
     begin
       for oDtoTamanho in oListaTamanho.Values do
-        TfrmViewQuantidade(oFormularioCadastro).cmbTamanho.Items.AddObject(oDtoTamanho.Nome,
-          TObject(oDtoTamanho.IdTamanho));
+        TfrmViewQuantidade(oFormularioCadastro).cmbTamanho.Items.AddObject
+          (oDtoTamanho.Nome, TObject(oDtoTamanho.IdTamanho));
     end;
   finally
     if Assigned(oModelTamanho) then
@@ -155,13 +206,113 @@ begin
 
 end;
 
-procedure TControllerPedidoQuantidade.PreencherDTO;
+constructor TControllerPedidoQuantidade.NewCreate(AGrid: TDBGrid;
+  var ADtoPedidoProduto: TDtoPedidoProduto);
 begin
-  // oDtoPedidoProduto.IdProduto := TfrmViewProduto(oFormularioCadastro)
-  // .dbGridListagem.SelectedField.DataSet.FieldByName('idproduto').AsInteger;
-  // DtoPedidoProduto.Nome := TfrmViewProduto(oFormularioCadastro)
-  // .dbGridListagem.SelectedField.DataSet.FieldByName('nome').AsString;
+  inherited Create;
+  oDtoPedidoProduto := ADtoPedidoProduto;
 
+  oGridItens := AGrid;
+
+  if not(Assigned(oRegraPedidoQuantidade)) then
+    oRegraPedidoQuantidade := TRegraPedidoQuantidade.Create;
+
+  if not(Assigned(oModelPedidoQuantidade)) then
+    oModelPedidoQuantidade := TModelPedidoQuantidade.Create;
+
+end;
+
+procedure TControllerPedidoQuantidade.OnCheckSabor(Sender: TObject);
+var
+  SubTotal, valor, maiorValor: Currency;
+  idSabor: Integer;
+  oModelSabor: TModelSabor;
+begin
+  try
+    maiorValor := 0;
+    if not(Assigned(oModelSabor)) then
+      oModelSabor := TModelSabor.Create;
+    PreencherDTO;
+    for idSabor in oDtoPedidoProduto.Sabor.Keys do
+    begin
+      valor := StrToCurr(oModelSabor.BuscarValor(idSabor));
+      if valor > maiorValor then
+        maiorValor := valor;
+    end;
+  finally
+    FreeAndNil(oModelSabor);
+    oDtoPedidoProduto.ValorUnitario := CurrToStr(maiorValor);
+    CalcularSubTotal(nil);
+  end;
+
+end;
+
+procedure TControllerPedidoQuantidade.OnSelectSabor(Sender: TObject);
+var
+  oModelSabor: TModelSabor;
+  idSabor, i: Integer;
+begin
+  try
+    if not(Assigned(oModelSabor)) then
+      oModelSabor := TModelSabor.Create;
+
+    for i := 0 to TfrmViewQuantidade(oFormularioCadastro)
+      .CheckListBoxSabores.Items.Count - 1 do
+    begin
+      if TfrmViewQuantidade(oFormularioCadastro).CheckListBoxSabores.Checked[i]
+      then
+      begin
+        idSabor := Integer(TfrmViewQuantidade(oFormularioCadastro)
+          .CheckListBoxSabores.Items.Objects[i]);
+      end;
+    end;
+
+    TfrmViewQuantidade(oFormularioCadastro).edtValor.Text :=
+      oModelSabor.BuscarValor(TfrmViewQuantidade(oFormularioCadastro)
+      .CheckListBoxSabores.ItemIndex);
+  finally
+    FreeAndNil(oModelSabor);
+
+  end;
+
+end;
+
+procedure TControllerPedidoQuantidade.PreencherDTO;
+var
+  i: Integer;
+  newListaSaboresItem: TListaSaboresItem;
+begin
+  oDtoPedidoProduto.Quantidade :=
+    StrToInt(TfrmViewQuantidade(oFormularioCadastro).edtQuantidade.Text);
+
+  if TfrmViewQuantidade(oFormularioCadastro).cmbTamanho.ItemIndex > -1 then
+    oDtoPedidoProduto.Tamanho := TfrmViewQuantidade(oFormularioCadastro)
+      .cmbTamanho.ItemIndex;
+
+  try
+    if not(Assigned(oDtoPedidoProduto.Sabor)) then
+    begin
+      oDtoPedidoProduto.Sabor := TListaSaboresItem.Create(nil);
+    end;
+    for i := 0 to TfrmViewQuantidade(oFormularioCadastro)
+      .CheckListBoxSabores.Items.Count - 1 do
+    begin
+      if TfrmViewQuantidade(oFormularioCadastro).CheckListBoxSabores.Checked[i]
+      then
+      begin
+
+        oDtoPedidoProduto.Sabor.Add(Integer(TfrmViewQuantidade(oFormularioCadastro)
+          .CheckListBoxSabores.Items.Objects[i]), '');
+      end;
+    end;
+  finally
+//    oDtoPedidoProduto.Sabor := newListaSaboresItem;
+  end;
+
+  oDtoPedidoProduto.Observacoes := TfrmViewQuantidade(oFormularioCadastro)
+    .MemoObservacoes.Text;
+
+  // oDtoPedidoProduto.Subtotal:
 end;
 
 end.

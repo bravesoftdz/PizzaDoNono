@@ -3,7 +3,7 @@ inherited frmCadastroSabor: TfrmCadastroSabor
   ClientHeight = 558
   ClientWidth = 907
   Position = poDesigned
-  ExplicitTop = -38
+  ExplicitTop = -135
   ExplicitWidth = 913
   ExplicitHeight = 587
   PixelsPerInch = 96
@@ -12,7 +12,7 @@ inherited frmCadastroSabor: TfrmCadastroSabor
     Top = 97
     Width = 897
     Height = 456
-    ExplicitTop = 160
+    ExplicitTop = 97
     ExplicitWidth = 897
     ExplicitHeight = 456
     inherited labelTitulo: TLabel
@@ -139,16 +139,6 @@ inherited frmCadastroSabor: TfrmCadastroSabor
       Columns = 2
       ItemHeight = 15
       TabOrder = 5
-    end
-    object MaskEdit1: TMaskEdit
-      Left = 56
-      Top = 344
-      Width = 118
-      Height = 23
-      EditMask = '#0.00;1;_'
-      MaxLength = 5
-      TabOrder = 6
-      Text = '  .  '
     end
   end
   inherited boxBotoes: TPanel

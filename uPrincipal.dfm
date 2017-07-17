@@ -16,7 +16,6 @@
   Visible = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  ExplicitTop = -110
   ExplicitWidth = 773
   ExplicitHeight = 538
   PixelsPerInch = 96
@@ -534,7 +533,6 @@
     Caption = 'panelMenu'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 1247
     DesignSize = (
       757
       113)
@@ -668,8 +666,6 @@
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 502
-    ExplicitWidth = 1242
     object labelNomeUsuario: TLabel
       Left = 731
       Top = 0
@@ -680,11 +676,10 @@
       Caption = '       '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1221
       ExplicitHeight = 15
     end
     object labelUsuario: TLabel
-      Left = 604
+      Left = 650
       Top = 0
       Width = 50
       Height = 17
@@ -693,11 +688,10 @@
       Caption = 'Usu'#225'rio: '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1140
       ExplicitHeight = 15
     end
     object labelCodigoUsuario: TLabel
-      Left = 654
+      Left = 700
       Top = 0
       Width = 21
       Height = 17
@@ -706,20 +700,18 @@
       Caption = '       '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1190
       ExplicitHeight = 15
     end
     object Label1: TLabel
-      Left = 675
+      Left = 721
       Top = 0
-      Width = 56
+      Width = 10
       Height = 17
       Align = alRight
       Alignment = taRightJustify
-      Caption = 'Cadastros'
+      Caption = ' - '
       Color = clWhite
       ParentColor = False
-      ExplicitLeft = 1165
       ExplicitHeight = 15
     end
   end
@@ -732,7 +724,6 @@
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Principal'
-      ExplicitWidth = 1142
       object btnClientes: TSpeedButton
         Left = 535
         Top = 1
@@ -1626,7 +1617,10 @@
     object TabSheet2: TTabSheet
       Caption = 'Endere'#231'o'
       ImageIndex = 1
-      ExplicitWidth = 1142
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bntBairros: TSpeedButton
         Left = 3
         Top = 0

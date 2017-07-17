@@ -3,10 +3,13 @@ unit uControllerPedido;
 interface
 
 uses
-  System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, Winapi.Windows,
+  System.Classes, System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
+  Winapi.Windows,
   FireDAC.Comp.Client,
-  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections, System.UITypes,
-  uControllerCRUD, uRegraPedido, uDtoPedido, uViewPedido, uModelPedido, uListagemPedido,
+  Vcl.Forms, Vcl.Buttons, Vcl.DBGrids, Data.DB, System.Generics.Collections,
+  System.UITypes,
+  uControllerCRUD, uRegraPedido, uDtoPedido, uViewPedido, uModelPedido,
+  uListagemPedido,
   uControllerPedidoProduto;
 
 type
@@ -15,7 +18,7 @@ type
     oRegraPedido: TRegraPedido;
     oDtoPedido: TDtoPedido;
     oModelPedido: TModelPedido;
-    oMemTable: TFDMemTable;
+
     procedure PreencherDTO;
     procedure LimparDto(var ADtoPedido: TDtoPedido);
     procedure PreencherGrid(var DbGrid: TDBGrid);
@@ -47,11 +50,16 @@ procedure TControllerPedido.AjustarModoInsercao(AStatusBtnSalvar: Boolean);
 begin
   inherited;
   if AStatusBtnSalvar then
-    TfrmViewPedido(oFormularioCadastro).dbGridListagem.Enabled := AStatusBtnSalvar;
-  TfrmViewPedido(oFormularioCadastro).btnEditarProduto.Enabled := AStatusBtnSalvar;
-  TfrmViewPedido(oFormularioCadastro).btnExcluirProduto.Enabled := AStatusBtnSalvar;
-  TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.Enabled := AStatusBtnSalvar;
-  TfrmViewPedido(oFormularioCadastro).edtValorTotalPedido.Enabled := AStatusBtnSalvar;
+    TfrmViewPedido(oFormularioCadastro).dbGridListagem.Enabled :=
+      AStatusBtnSalvar;
+  TfrmViewPedido(oFormularioCadastro).btnEditarProduto.Enabled :=
+    AStatusBtnSalvar;
+  TfrmViewPedido(oFormularioCadastro).btnExcluirProduto.Enabled :=
+    AStatusBtnSalvar;
+  TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.Enabled :=
+    AStatusBtnSalvar;
+  TfrmViewPedido(oFormularioCadastro).edtValorTotalPedido.Enabled :=
+    AStatusBtnSalvar;
 end;
 
 procedure TControllerPedido.Cancelar;
@@ -71,9 +79,6 @@ begin
 
   if not(Assigned(oModelPedido)) then
     oModelPedido := TModelPedido.Create;
-
-  if not(Assigned(oMemTable)) then
-    oMemTable := TFDMemTable.Create(nil);
 end;
 
 procedure TControllerPedido.CriarFormCadastro(aOwner: TComponent);
@@ -84,36 +89,18 @@ begin
 
   oFormularioCadastro.iInterfaceCrud := oControllerPedido;
 
-  TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.OnClick := IncluirProduto;
+  // if TfrmViewPedido(oFormularioCadastro).DataSource1.DataSet.Active then
+  // TfrmViewPedido(oFormularioCadastro).DataSource1.DataSet.Close;
+
+  TFDMemTable(TfrmViewPedido(oFormularioCadastro).DataSource1.DataSet)
+    .CreateDataSet;
+  TfrmViewPedido(oFormularioCadastro).DataSource1.DataSet.Open;
+
+  TfrmViewPedido(oFormularioCadastro).btnIncluirProduto.OnClick :=
+    IncluirProduto;
   TfrmViewPedido(oFormularioCadastro).OnClick := OnActivateForm;
-  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource := oMemTable.DataSource;
-
-  // oMemTable.Active := true;
-  // oMemTable.open;
-  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource := oMemTable.DataSource;
-  // oMemTable.FieldDefs.Add('sequenciaitem', ftString);
-  // oMemTable.FieldDefs.Add('idproduto', ftString);
-  // oMemTable.FieldDefs.Add('nome', ftString);
-  // oMemTable.FieldDefs.Add('quantidade', ftString);
-  // oMemTable.FieldDefs.Add('valorunitario', ftString);
-  // oMemTable.FieldDefs.Add('subtotal', ftString);
-  //
-  //
-  // oMemTable.Insert;
-  // oMemTable.FieldByName('sequenciaitem').AsString := '1';
-  // oMemTable.FieldByName('idproduto').AsString := '2';
-  // oMemTable.FieldByName('nome').AsString := 'coca cola 2l';
-  // oMemTable.FieldByName('quantidade').AsString := '3';
-  // oMemTable.FieldByName('valorunitario').AsString := '5';
-  // oMemTable.FieldByName('subtotal').AsString := '15';
-  // oMemTable.Post;
-
-  // oMemTable.CreateDataSet;
-  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.open;
-  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.Insert;
-  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.FieldByName('idproduto')
-  // .AsInteger := 2;
-  // TfrmViewPedido(oFormularioCadastro).dbGridListagem.DataSource.dataSet.Post;
+  TfrmViewPedido(oFormularioCadastro).btnFechar.OnClick :=
+    FecharFormCadastro;
   inherited;
 end;
 
@@ -128,8 +115,8 @@ begin
   if Assigned(oModelPedido) then
     FreeAndNil(oModelPedido);
 
-  if Assigned(oMemTable) then
-    FreeAndNil(oMemTable);
+  if TfrmViewPedido(oFormularioCadastro).DataSource1.DataSet.Active then
+    TfrmViewPedido(oFormularioCadastro).DataSource1.DataSet.Close;
 
   if Assigned(oControllerPedidoProduto) then
     oControllerPedidoProduto.FecharFormCadastro(nil);
@@ -154,8 +141,9 @@ end;
 
 procedure TControllerPedido.Excluir;
 begin
-  If MessageBox(0, 'Deseja realmente excluir?' + #13 + 'Este processo não pode ser revertido.',
-    'ATENÇÃO!', MB_YESNO + MB_TASKMODAL + MB_ICONWARNING + MB_DEFBUTTON1) = ID_YES Then
+  If MessageBox(0, 'Deseja realmente excluir?' + #13 +
+    'Este processo não pode ser revertido.', 'ATENÇÃO!', MB_YESNO + MB_TASKMODAL
+    + MB_ICONWARNING + MB_DEFBUTTON1) = ID_YES Then
   begin
     if oModelPedido.Excluir(oDtoPedido) then
     begin
@@ -186,8 +174,8 @@ procedure TControllerPedido.IncluirProduto(Sender: TObject);
 begin
   if not(Assigned(oControllerPedidoProduto)) then
     oControllerPedidoProduto := TControllerPedidoProduto.Create;
-  oControllerPedidoProduto.CriarFormCadastro(nil, TfrmViewPedido(oFormularioCadastro)
-    .dbGridListagem, oDtoPedido);
+  oControllerPedidoProduto.CriarFormCadastro(nil,
+    TfrmViewPedido(oFormularioCadastro).dbGridListagem, oDtoPedido);
 
 end;
 
@@ -200,7 +188,8 @@ end;
 procedure TControllerPedido.Localizar;
 begin
   if not(Assigned(TfrmListagemPedido(oFormularioListagem))) then
-    TfrmListagemPedido(oFormularioListagem) := TfrmListagemPedido.Create(aOwner);
+    TfrmListagemPedido(oFormularioListagem) :=
+      TfrmListagemPedido.Create(aOwner);
 
   TfrmListagemPedido(oFormularioListagem).iInterfaceCrud := oControllerPedido;
 
@@ -212,6 +201,8 @@ procedure TControllerPedido.Novo;
 begin
   inherited;
   oDtoPedido.idPedido := 0;
+
+  IncluirProduto(nil);
 end;
 
 procedure TControllerPedido.Salvar;
@@ -222,8 +213,8 @@ begin
   begin
     // ShowMessage('Não é possível salvar um pedido vazio. Selecione ao menos um produto.');
     MessageBox(0, 'Não é possível salvar um pedido vazio. ' + #13 +
-      'Selecione ao menos um produto.', 'ATENÇÃO!', MB_OK + MB_TASKMODAL + MB_ICONINFORMATION +
-      MB_DEFBUTTON1);
+      'Selecione ao menos um produto.', 'ATENÇÃO!', MB_OK + MB_TASKMODAL +
+      MB_ICONINFORMATION + MB_DEFBUTTON1);
   end
   else
   begin
@@ -258,7 +249,8 @@ end;
 procedure TControllerPedido.PreencherDTO;
 begin
 
-  oDtoPedido.QuantidadeItens := TfrmViewPedido(oFormularioCadastro).dbGridListagem.FieldCount;
+  oDtoPedido.QuantidadeItens := TfrmViewPedido(oFormularioCadastro)
+    .dbGridListagem.FieldCount;
 
 end;
 
@@ -267,8 +259,9 @@ begin
 
   if oModelPedido.Listar then
   begin
-    oDataSource.dataSet := oModelPedido.oQuery;
-    TfrmListagemPedido(oFormularioListagem).dbGridListagem.DataSource := oDataSource;
+    oDataSource.DataSet := oModelPedido.oQuery;
+    TfrmListagemPedido(oFormularioListagem).dbGridListagem.DataSource :=
+      oDataSource;
   end;
 
 end;

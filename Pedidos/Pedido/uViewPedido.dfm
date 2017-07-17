@@ -12,8 +12,8 @@ inherited frmViewPedido: TfrmViewPedido
     Top = 89
     Width = 834
     Height = 440
-    ExplicitTop = 110
-    ExplicitWidth = 1029
+    ExplicitTop = 89
+    ExplicitWidth = 834
     ExplicitHeight = 440
     inherited labelTitulo: TLabel
       Visible = False
@@ -39,39 +39,9 @@ inherited frmViewPedido: TfrmViewPedido
       ParentCtl3D = False
       ShowCaption = False
       TabOrder = 1
-      ExplicitWidth = 1013
-      ExplicitHeight = 442
       DesignSize = (
         818
         424)
-      object labelNumeroPedido: TLabel
-        Left = 5
-        Top = 16
-        Width = 56
-        Height = 33
-        Alignment = taRightJustify
-        AutoSize = False
-        Caption = '0000'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -27
-        Font.Name = 'Calibri'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object labelPedido: TLabel
-        Left = 5
-        Top = 8
-        Width = 42
-        Height = 15
-        Caption = 'Pedido:'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Calibri'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
       object btnIncluirProduto: TSpeedButton
         Left = 438
         Top = 5
@@ -600,8 +570,6 @@ inherited frmViewPedido: TfrmViewPedido
         ParentCtl3D = False
         ShowCaption = False
         TabOrder = 0
-        ExplicitTop = 387
-        ExplicitWidth = 1003
         DesignSize = (
           808
           50)
@@ -640,7 +608,6 @@ inherited frmViewPedido: TfrmViewPedido
           ReadOnly = True
           TabOrder = 0
           Text = '00.00'
-          ExplicitLeft = 879
         end
       end
       object dbGridListagem: TDBGrid
@@ -658,6 +625,7 @@ inherited frmViewPedido: TfrmViewPedido
         Anchors = [akLeft, akTop, akRight, akBottom]
         BorderStyle = bsNone
         Ctl3D = True
+        DataSource = DataSource1
         DrawingStyle = gdsGradient
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -723,13 +691,48 @@ inherited frmViewPedido: TfrmViewPedido
   end
   inherited boxBotoes: TPanel
     Width = 838
-    ExplicitWidth = 1033
+    ExplicitWidth = 838
     inherited btnFechar: TSpeedButton
       Left = 733
       ExplicitLeft = 928
     end
     inherited btnSalvar: TSpeedButton
       Caption = 'Concluir'
+    end
+  end
+  object DataSource1: TDataSource
+    DataSet = FDMemTable1
+    Left = 205
+    Top = 257
+  end
+  object FDMemTable1: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 315
+    Top = 263
+    object FDMemTable1sequenciaitem: TIntegerField
+      FieldName = 'sequenciaitem'
+    end
+    object FDMemTable1idproduto: TIntegerField
+      FieldName = 'idproduto'
+    end
+    object FDMemTable1nome: TStringField
+      FieldName = 'nome'
+      Size = 45
+    end
+    object FDMemTable1quantidade: TCurrencyField
+      FieldName = 'quantidade'
+    end
+    object FDMemTable1valorunitario: TCurrencyField
+      FieldName = 'valorunitario'
+    end
+    object FDMemTable1subtotal: TCurrencyField
+      FieldName = 'subtotal'
     end
   end
 end

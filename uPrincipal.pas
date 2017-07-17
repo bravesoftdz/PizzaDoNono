@@ -156,7 +156,7 @@ var
   oDtoLogin: TDtoLogin;
 begin
   inherited;
-  ReportMemoryLeaksOnShutdown := True;
+  ReportMemoryLeaksOnShutdown := False;
   oDtoLogin := TSingletonLogin.getInstancia;
   labelCodigoUsuario.Caption := IntToStr(oDtoLogin.idUsuario);
   labelNomeUsuario.Caption := oDtoLogin.Nome;

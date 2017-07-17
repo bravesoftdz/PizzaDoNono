@@ -5,7 +5,7 @@ inherited frmViewProduto: TfrmViewProduto
   ClientWidth = 868
   FormStyle = fsMDIChild
   Position = poDesigned
-  ExplicitTop = -18
+  Visible = True
   ExplicitWidth = 874
   ExplicitHeight = 546
   PixelsPerInch = 96
@@ -27,7 +27,6 @@ inherited frmViewProduto: TfrmViewProduto
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 814
     object dbGridListagem: TDBGrid
       Left = 1
       Top = 1
@@ -66,14 +65,14 @@ inherited frmViewProduto: TfrmViewProduto
           Expanded = False
           FieldName = 'nome'
           Title.Caption = 'Descri'#231#227'o'
-          Width = 602
+          Width = 218
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'valor'
           Title.Caption = 'Valor Unit'#225'rio'
-          Width = 124
+          Width = 367
           Visible = True
         end>
     end
@@ -93,7 +92,6 @@ inherited frmViewProduto: TfrmViewProduto
     ParentCtl3D = False
     ShowCaption = False
     TabOrder = 1
-    ExplicitWidth = 818
     DesignSize = (
       862
       118)

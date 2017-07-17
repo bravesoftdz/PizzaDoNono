@@ -21,7 +21,7 @@ type
     cmbTamanho: TComboBox;
     edtQuantidade: TLabeledEdit;
     CheckListBoxSabores: TCheckListBox;
-    Memo1: TMemo;
+    MemoObservacoes: TMemo;
     BtnConfirmar: TSpeedButton;
 
 
